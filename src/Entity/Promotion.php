@@ -34,11 +34,6 @@ class Promotion
      */
     private $option_i;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=OptionI::class, inversedBy="promotion")
-     */
-    private $option_i;
-
     public function __construct()
     {
         $this->etudiants = new ArrayCollection();

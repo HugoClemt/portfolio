@@ -21,16 +21,7 @@ class Stage
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=true)
-      /**
      * @ORM\Column(type="string", length=20, nullable=true)
-     * @Assert\Length(
-     *      min = 2,
-     *      max = 50,
-     *      minMessage = "Le nom doit comporter au moins 2 caractères",
-     *      maxMessage = "Le nom doit comporter au plus 50 caractères"
-     *    )
-     * @Assert\NotBlank()
      */
     private $nomtut;
 
@@ -56,26 +47,12 @@ class Stage
 
       /**
      * @ORM\Column(type="string", length=2, nullable=true)
-     * @Assert\Length(
-     *      min = 1,
-     *      max = 10,
-     *     
-     *      
-         *    )
-     * @Assert\NotBlank()
      */
          private $nomentreprise;
 
       /**
 
      * @ORM\Column(type="string", length=255, nullable=true )
-     * @Assert\Length(
-     *      min = 2,
-     *      max = 50,
-     *      minMessage = "Le nom doit comporter au moins 2 caractères",
-     *      maxMessage = "Le nom doit comporter au plus 50 caractères"
-     *    )
-     * @Assert\NotBlank()
      */
     private $ville;
 
@@ -92,41 +69,17 @@ class Stage
     private $copos;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $ville;
-
-    /**
-     * @ORM\Column(type="string", length=6)
-     */
-    private $copos;
-
-    /**
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $directeur;
 
       /**
      * @ORM\Column(type="string", length=20, nullable=true)
-     * @Assert\Length(
-     *      min = 2,
-     *      max = 50,
-     *      minMessage = "Le nom doit comporter au moins 2 caractères",
-     *      maxMessage = "Le nom doit comporter au plus 50 caractères"
-     *    )
-     * @Assert\NotBlank()
      */
     private $codenaf;
 
       /**
      * @ORM\Column(type="string", length=20, nullable=true)
-     * @Assert\Length(
-     *      min = 2,
-     *      max = 50,
-     *      minMessage = "Le nom doit comporter au moins 2 caractères",
-     *      maxMessage = "Le nom doit comporter au plus 50 caractères"
-     *    )
-     * @Assert\NotBlank()
      */
     private $siret;
 
@@ -152,13 +105,6 @@ class Stage
 
        /**
      * @ORM\Column(type="string", length=20, nullable=true)
-     * @Assert\Length(
-     *      min = 2,
-     *      max = 50,
-     *      minMessage = "Le nom doit comporter au moins 2 caractères",
-     *      maxMessage = "Le nom doit comporter au plus 50 caractères"
-     *    )
-     * @Assert\NotBlank()
      */
     private $sujet;
 
@@ -201,13 +147,9 @@ class Stage
      */
     private $enseignant;
 
-   
-
     /**
      * @ORM\OneToMany(targetEntity=SemaineStage::class, mappedBy="stage")
      */
-    
-   
     private $semaineStages;
 
     /**
@@ -523,31 +465,6 @@ class Stage
     public function setEnseignant(?Enseignant $enseignant): self
     {
         $this->enseignant = $enseignant;
-
-        return $this;
-    }
-
-
-    public function getVille(): ?string
-    {
-        return $this->ville;
-    }
-
-    public function setVille(?string $ville): self
-    {
-        $this->ville = $ville;
-
-        return $this;
-    }
-
-    public function getCopos(): ?string
-    {
-        return $this->copos;
-    }
-
-    public function setCopos(?string $copos): self
-    {
-        $this->copos = $copos;
 
         return $this;
     }
