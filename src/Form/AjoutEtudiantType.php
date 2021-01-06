@@ -27,15 +27,14 @@ class AjoutEtudiantType extends AbstractType
                                                           'required' => true,
                                                           'label' =>'date de naissance',
                                                           'placeholder' => 'jj/mm/aaaa'))
-            ->add('photo', TextType::class)
             ->add('sexe', TextType::class)
             ->add('adrperso', TextType::class)
             ->add('ville', TextType::class)
             ->add('copos', TextType::class)
             ->add('statut', TextType::class)
             ->add('promotion', EntityType::class, array('class' => 'App\Entity\Promotion','choice_label' => 'Nom' ))
+            ->add('enregistrer', SubmitType::class, array('label' => 'Nouvel Etudiant'))
 
-            ->add('enregistrer', SubmitType::class, array('label' => 'Nouvelle étudiant'))
         ;
     }
 

@@ -70,6 +70,7 @@ class Etudiant
     private $copos;
 
     /**
+     * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="etudiants")
      * @ORM\Column(type="string", length=150)
      */
     private $statut;

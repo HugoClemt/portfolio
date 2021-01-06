@@ -96,9 +96,8 @@ class EtudiantController extends AbstractController
                     return $this->render('etudiant/consulter.html.twig', ['pEtudiant' => $etudiant,]);
                 }
                 else
-                    {
-                        echo("form invalide");
-                        return $this->render('enseignant/ajouterEtudiant.html.twig', array('form' => $form->createView(),));
+                    {                       
+                        return $this->render('etudiant/ajouter.html.twig', array('form' => $form->createView(),));
                 }
 
 }

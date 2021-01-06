@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Form;
-
 use App\Entity\Specialite;
 use App\Entity\Promotion;
 use Symfony\Component\Form\AbstractType;
@@ -15,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class PromotionType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $specialites)
     {
         $builder
