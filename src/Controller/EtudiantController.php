@@ -96,8 +96,7 @@ class EtudiantController extends AbstractController
                     return $this->render('etudiant/consulter.html.twig', ['pEtudiant' => $etudiant,]);
                 }
                 else
-                    {
-                       
+                    {                       
                         return $this->render('etudiant/ajouter.html.twig', array('form' => $form->createView(),));
                 }
 

@@ -1,0 +1,80 @@
+{# templates/enseignant/ajouterEtudiant.html.twig #}
+{% extends "entete.html.twig" %}
+{% block content %}
+
+
+<div class="container">
+    <center><h1>Ajouter etudiant</h1></center>
+       
+       <hr class="featurette-divider p-1">
+{{ form_start(form) }}
+  <div class="form-row">
+            <div class="col-md-6 mb-3">
+				<label>Nom</label>
+					{{ form_widget(form.nom)}}
+			</div>
+
+            <div class="col-md-6 mb-3">
+				<label>Prenom</label>
+					{{ form_widget(form.prenom)}}
+			</div>
+  </div>
+  			<div class="form-row">
+				<div class="col-md-6 mb-3">
+					<label>Mail</label>
+						{{ form_widget(form.mail)}}
+				</div>
+				<div class="col-md-6 mb-3">
+					<label>Mobile</label>
+						{{ form_widget(form.mobile)}}
+				</div>
+			</div>
+
+			<div class="form-row">
+				<div class="col-md-6 mb-3">
+					<label>Date de Naissance</label>
+						{{ form_widget(form.datenaiss)}}
+				</div>
+				<div class="col-md-6 mb-3">
+					<label>Photo</label>
+						{{ form_widget(form.photo)}}
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="col-md-6 mb-3">
+					<label>Sexe</label>
+						{{ form_widget(form.sexe)}}
+				</div>
+				<div class="col-md-6 mb-3">
+					<label>Adresse personnelle</label>
+						{{ form_widget(form.adrperso)}}
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="col-md-6 mb-3">
+					<label>Ville</label>
+						{{ form_widget(form.ville)}}
+				</div>
+				<div class="col-md-6 mb-3">
+					<label>Code postal</label>
+						{{ form_widget(form.copos)}}
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="col-md-6 mb-3">
+					<label>Statut</label>
+						{{ form_widget(form.statut)}}
+				</div>
+				<div class="col-md-6 mb-3">
+					<label>Promotion</label>
+						{{ form_widget(form.promotion)}}
+				</div>
+			</div>
+
+</div>
+<center><div class="col-12">
+					{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
+				</div></center>
+			
+{{ form_end(form) }}
+{% endblock %}

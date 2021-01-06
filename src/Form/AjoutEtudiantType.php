@@ -33,8 +33,8 @@ class AjoutEtudiantType extends AbstractType
             ->add('copos', TextType::class)
             ->add('statut', TextType::class)
             ->add('promotion', EntityType::class, array('class' => 'App\Entity\Promotion','choice_label' => 'Nom' ))
-
             ->add('enregistrer', SubmitType::class, array('label' => 'Nouvel Etudiant'))
+
         ;
     }
 

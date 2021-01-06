@@ -52,14 +52,14 @@ class DomaineTaches
     }
 
 
-    public function getOptions(): ?OptionI
+    public function getSpecialites(): ?Specialite
     {
-        return $this->options;
+        return $this->specialites;
     }
 
-    public function setOptions(?OptionI $options): self
+    public function setSpecialite(?Specialite $specialites): self
     {
-        $this->options = $options;
+        $this->specialites = $specialites;
 
         return $this;
     }
