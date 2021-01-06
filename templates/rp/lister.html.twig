@@ -1,0 +1,80 @@
+{% extends "entete.html.twig" %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Réalisations professionnelles</title>
+	<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+<div class="container"><br>
+	<center><h1>Réalisations professionnelles</h1><br></center>
+
+				<table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
+				  <thead>
+				    <tr>
+				      <th scope="col" data-sortable="true">Libellé</th>
+				      <th scope="col" data-sortable="true">Nombre d'activités</th>
+				      <th scope="col" data-sortable="true">Statut</th>
+				      <th scope="col" data-sortable="true">Date</th>
+				      <th></th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	
+
+					{% for RP in pRP %}
+					
+					
+				    <tr>
+				      <td><a class="text" href="{{ path('rpConsulter', { 'rp_id': RP.id }) }}">{{ RP.libcourt }}</a></td>
+				      <td>{{ RP.activites.count }}</td> 
+
+				       <td>{{ RP.statut.libelle }}</td>		   
+					 
+				      <td>{{ RP.dateDebut|date("d/m/Y") }}</td>
+
+				      <td><a href="supprimer.html.twig"><img src="https://img.icons8.com/flat_round/64/000000/delete-sign.png" width="20px" title="Cliquez pour supprimer"></a>
+				      </td>
+				    </tr>
+				    
+				    {% endfor %}
+				    
+				   
+				  </tbody>
+				</table>
+				<br>
+
+
+
+				<!-- <div class="alert alert-warning" role="alert">
+	  			Vous n'avez pas encore inséré de <a href="..." class="alert-link">réalisation professionnelle</a> pour le moment.
+				</div>  -->
+
+
+		<br><br>
+			<a href="{{ path('rpAjouter')}}"><input type="button" value="Ajouter une nouvelle réalisation professionnelle" class="btn btn-secondary btn-lg btn-block"></a><br><br><br>
+				
+
+
+<div class="accordion" id="accordionExample">
+<div class="card">
+    <div class="card-header" id="headingTwo">
+      <h2 class="mb-0">
+        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Aide
+        </button>
+      </h2>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div class="card-body">
+        Cette page permet d'éditer une réalisation professionnelle en cliquant sur le libellé de la réalisation, afin de l'éditer. Vous pouvez prendre connaissance du nombre d'activité, son statut et vous pouvez supprimer une réalisation en appuyant sur la croix rouge ❌ 
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+{% endblock %}

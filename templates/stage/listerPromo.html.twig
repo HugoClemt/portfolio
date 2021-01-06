@@ -1,0 +1,111 @@
+{% extends "entete.html.twig" %}
+{% block content %}
+
+<!DOCTYPE html>
+
+<body>
+<div class="container">
+  <br>
+  <h1>Tableau de suivi de stage par promotion</h1><br>
+
+
+      <h4 align="left"><u>Suivi de stage {{pStages1[0].etudiant.promotion.nom}} 1ère année</u></h4>
+        <table class="table table-dark" id="table" data-toggle="BootstrapTable" data-height="460">
+          <thead>
+            <tr>
+            <th scope="col">Etudiant</th>
+            <th scope="col">Option</th>
+          <th scope="col">Entreprise</th>
+          <th scope="col">Tuteur</th>
+          <th scope="col">Professeur</th>
+          <th scope="col">Option</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for stage in pStages1 %}
+              
+              <tr>
+                
+                <td>{{stage.etudiant.nom}} {{stage.etudiant.prenom}}</td>
+                <td>{{stage.etudiant.optionI.sigle}}</td>
+                <td>{{stage.lieu}}</td>
+                <td>{{stage.nomtut}}</td>
+                {% if stage.enseignant == NULL %}
+                  <td>
+                  <select name="enseignant">
+                  {% for enseignant in pEnseignants %}
+                    <option value={{enseignant.id}}>{{enseignant.nom}} {{enseignant.prenom}}</option>
+                  {% endfor %}
+                  </select>
+                  </td>
+                  <td><a href="/portfolio/public/etudiant/stage/consulter/{{stage.id}}">Valider</a></td>
+                {% else %}
+                  <td>{{stage.enseignant.nom}} {{stage.enseignant.prenom}}</td>
+                  <td></td>
+                {% endif %}
+                </a>
+              </tr>
+            {% else %}
+              <tr>
+              <td>Aucun stage n'a été trouvé.</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <br>
+        <br>
+
+        <h4 align="left"><u>Suivi de stage {{pStages2[0].etudiant.promotion.nom}} 2ème année</u></h4>
+        <table class="table table-dark" id="table" data-toggle="BootstrapTable" data-height="460">
+          <thead>
+            <tr>
+            <th scope="col">Etudiant</th>
+            <th scope="col">Option</th>
+          <th scope="col">Entreprise</th>
+          <th scope="col">Tuteur</th>
+          <th scope="col">Professeur</th>
+          <th scope="col">Option</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for stage in pStages2 %}
+              
+              <tr>
+                
+                <td>{{stage.etudiant.nom}} {{stage.etudiant.prenom}}</td>
+                <td>{{stage.etudiant.optionI.sigle}}</td>
+                <td>{{stage.lieu}}</td>
+                <td>{{stage.nomtut}}</td>
+                {% if stage.enseignant == NULL %}
+                  <td>
+
+                  <select name="enseignant">
+                  {% for enseignant in pEnseignants %}
+                    <option value={{enseignant.id}}>{{enseignant.nom}} {{enseignant.prenom}}</option>
+                  {% endfor %}
+                  </select>
+                  </td>
+                  <td><a href="/portfolio/public/etudiant/stage/consulter/{{stage.id}}">Valider</a></td>
+                {% else %}
+                  <td>{{stage.enseignant.nom}} {{stage.enseignant.prenom}}</td>
+                  <td></td>
+                {% endif %}
+                </a>
+              </tr>
+            {% else %}
+              <tr>
+              <td>Aucun stage n'a été trouvé.</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+
+
+
+</body>
+
+</html>
+
+{% endblock %}

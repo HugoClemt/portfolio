@@ -1,0 +1,67 @@
+{# templates/etudiant/modifier.html.twig #}
+{% extends "entete.html.twig" %}
+{% block content %}
+
+<div class="container">
+    <center><h1>Paramètres personnels</h1></center>
+       
+       <hr class="featurette-divider p-1">
+
+{{ form_start(form) }}
+  <div class="form-row">
+            <div class="col-md-6 mb-3">
+				<label>Nom</label>
+					{{ form_widget(form.nom, {'attr': {'class': 'form-control'}})}}
+			</div>
+
+            <div class="col-md-6 mb-3">
+				<label>Prenom</label>
+					{{ form_widget(form.prenom, {'attr': {'class': 'form-control'}})}}
+			</div>
+
+  </div>
+  			<div class="form-row">
+			<div class="col-md-6 mb-3">
+				<label>Sexe</label>
+					{{ form_widget(form.sexe, {'attr': {'class': 'form-control'}})}}
+</div>
+<div class="col-md-6 mb-3">
+				<label>Date de naissance </label>
+					{{ form_widget(form.datenaiss, {'attr': {'class': 'form-control'}})}}
+</div>
+
+</div>
+
+
+
+
+
+
+					<center> <h2>Coordonnées</h2></center>
+          				<hr class="featurette-divider p-2">
+
+          
+			<div class="form-row">
+            <div class="col-md-6 mb-3">
+				<label>Adresse personnelle</label>
+					{{ form_widget(form.adrperso, {'attr': {'class': 'form-control'}})}}
+				</div>
+				<div class="col-md-6 mb-3">
+				<label>Mobile</label>
+					{{ form_widget(form.mobile, {'attr': {'class': 'form-control'}})}}
+				</div>
+				
+				<div class="col-md-6 mb-3">
+				<label>Mail</label>
+					{{ form_widget(form.mail, {'attr': {'class': 'form-control'}})}}
+				</div></div>
+</div>
+		
+
+				<center><div class="col-12">
+					{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
+				</div></center>
+			
+
+{{ form_end(form) }}
+{% endblock %}

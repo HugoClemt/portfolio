@@ -1,0 +1,74 @@
+{% extends "entete.html.twig" %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Réalisations professionnelles</title>
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+  <br><center><h1 class="display-4">Commentaire</h1></center><br> 
+       
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #DDDDDD;">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="#"> Description </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"> Activités </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"> Reformulation </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"> Production </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="#"> Commentaire </a>
+      </li>
+    </ul>
+  </div>
+</nav><bR>
+
+
+{% for commentaire in rp.commentaire %}
+<div class="alert alert-dark" role="alert">
+  
+  <h4><span class="badge bg-secondary">{{ commentaire.dateCommentaire|date("d/m/Y") }}</span> {{ commentaire.enseignant.nom }} </h4>
+       
+    <div class="alert alert-light" role="alert">
+      {{ commentaire.commentaire }}
+    </div>
+</div>
+{% endfor %}
+
+
+<br>
+<center>
+  <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+    <option selected>Notifier un professeur</option>   
+    <option value="ANNOUCHE">ANNOUCHE</option>
+    <option value="GUERINET">GUERINET</option>
+    <option value="MAILHE">MAILHE</option>     
+    <option value="NGO">NGO</option> 
+    <option value="VIGOT">VIGOT</option>       
+  </select>
+  <a href=""><button type="button" class="btn btn-secondary btn-sm">Notifier</button></a>
+</center>
+
+
+
+
+<br>
+</div>
+</body>
+</html>
+{% endblock %}
