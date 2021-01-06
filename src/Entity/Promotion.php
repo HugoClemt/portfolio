@@ -29,10 +29,7 @@ class Promotion
      */
     private $etudiants;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=OptionI::class, inversedBy="promotion")
-     */
-    private $option_i;
+    
 
     public function __construct()
     {
@@ -64,18 +61,6 @@ class Promotion
     public function setAnnee(?int $annee): self
     {
         $this->annee = $annee;
-
-        return $this;
-    }
-
-    public function getOptioni(): ?Optioni
-    {
-        return $this->option_i;
-    }
-
-    public function setOptioni(?OptionI $option_i): self
-    {
-        $this->option_i = $option_i;
 
         return $this;
     }

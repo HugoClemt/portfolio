@@ -45,13 +45,12 @@ class Stage
      */
     private $nbsemaine;
 
-      /**
-     * @ORM\Column(type="string", length=2, nullable=true)
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-         private $nomentreprise;
+    private $nomentreprise;
 
-      /**
-
+    /**
      * @ORM\Column(type="string", length=255, nullable=true )
      */
     private $ville;
@@ -103,12 +102,14 @@ class Stage
      */
     private $dateFin;
 
-       /**
+    /**
      * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $sujet;
 
-   
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
     private $horLun;
 
     /**

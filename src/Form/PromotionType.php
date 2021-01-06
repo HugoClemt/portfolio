@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\OptionI;
+use App\Entity\Specialite;
 use App\Entity\Promotion;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,11 +15,11 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class PromotionType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $specialites)
     {
         $builder
             ->add('nom', TextType::class)
-            ->add('OptionI', EntityType::class, array('class' => 'App\Entity\OptionI','choice_label' => 'Libelle' ))
+            ->add('Specialite', EntityType::class, array('class' => 'App\Entity\Specialite','choice_label' => 'Libelle' ))
             ->add('enregistrer', SubmitType::class, array('label' => 'Nouvelle promotion'))
         ;
     }

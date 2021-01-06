@@ -70,10 +70,6 @@ class Etudiant
     private $copos;
 
     /**
-<<<<<<< HEAD
-=======
-     * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="etudiants")
->>>>>>> c67ea8a06dd2abff530519ce09b985226b19efad
      * @ORM\Column(type="string", length=150)
      */
     private $statut;
@@ -93,6 +89,11 @@ class Etudiant
      * @ORM\OneToMany(targetEntity=Stage::class, mappedBy="etudiants")
      */
     private $stages;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Specialite::class, inversedBy="promotion")
+     */
+    private $specialite;
 
     public function __construct()
     {
@@ -245,6 +246,18 @@ class Etudiant
     public function setPromotion(?Promotion $promotion): self
     {
         $this->promotion = $promotion;
+
+        return $this;
+    }
+
+    public function getSpecialite(): ?Specialite
+    {
+        return $this->specialite;
+    }
+
+    public function setSpecialite(?Specialite $specialite): self
+    {
+        $this->specialite = $specialite;
 
         return $this;
     }

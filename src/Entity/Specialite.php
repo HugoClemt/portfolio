@@ -2,16 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\OptionIRepository;
+use App\Repository\SpecialiteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=OptionIRepository::class)
- * @ORM\Table(name="`option_I`")
+ * @ORM\Entity(repositoryClass=SpecialiteRepository::class)
+ * @ORM\Table(name="`Specialite`")
  */
-class OptionI
+class Specialite
 {
     /**
      * @ORM\Id
@@ -31,12 +31,12 @@ class OptionI
     private $libelle;
 
     /**
-     * @ORM\OneToMany(targetEntity=DomaineTaches::class, mappedBy="options")
+     * @ORM\OneToMany(targetEntity=DomaineTaches::class, mappedBy="specialites")
      */
     private $domaineTaches;
 
     /**
-     * @ORM\OneToMany(targetEntity=Promotion::class, mappedBy="optioni")
+     * @ORM\OneToMany(targetEntity=Promotion::class, mappedBy="specialite")
      */
     private $promotion;
 
@@ -88,7 +88,7 @@ class OptionI
     {
         if (!$this->domaineTaches->contains($domaineTach)) {
             $this->domaineTaches[] = $domaineTach;
-            $domaineTach->setOptions($this);
+            $domaineTach->setSpecialite($this);
         }
 
         return $this;
@@ -98,8 +98,8 @@ class OptionI
     {
         if ($this->domaineTaches->removeElement($domaineTach)) {
             // set the owning side to null (unless already changed)
-            if ($domaineTach->getOptions() === $this) {
-                $domaineTach->setOptions(null);
+            if ($domaineTach->getSpecialite() === $this) {
+                $domaineTach->setSpecialite(null);
             }
         }
 
@@ -118,7 +118,7 @@ class OptionI
     {
         if (!$this->promotion->contains($promotion)) {
             $this->promotion[] = $promotion;
-            $promotion->setOptioni($this);
+            $promotion->setSpecialite($this);
         }
 
         return $this;
@@ -128,8 +128,8 @@ class OptionI
     {
         if ($this->promotion->removeElement($promotion)) {
             // set the owning side to null (unless already changed)
-            if ($promotion->getOptioni() === $this) {
-                $promotion->setOptioni(null);
+            if ($promotion->getSpecialite() === $this) {
+                $promotion->setSpecialite(null);
             }
         }
 
