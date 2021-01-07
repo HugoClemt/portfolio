@@ -14,6 +14,7 @@
 	<table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
 				<thead>
 					<tr>
+						<th scope="col" data-sortable="true">Etudiant</th>
 						<th scope="col" data-sortable="true">Libellé</th>
 						<th scope="col" data-sortable="true">Nombre d'activités</th>
 						<th scope="col" data-sortable="true">Statut</th>
@@ -24,6 +25,7 @@
 			<tbody>
 			{% for RP in pRP %}
 			<tr>
+				<td>{{ RP.etudiant.nom }} {{RP.etudiant.prenom}}</a></td>
 				<td><a class="text" href="{{ path('rpConsulter', { 'rp_id': RP.id }) }}">{{ RP.libcourt }}</a></td>
 				<td>{{ RP.activites.count }}</td> 
 				<td>{{ RP.statut.libelle }}</td>		    
@@ -42,6 +44,7 @@
           <thead>
             <tr>
             <th scope="col">Etudiant</th>
+			<th scope="col">Sujet</th>
           <th scope="col">Entreprise</th>
           <th scope="col">Tuteur</th>
             </tr>
@@ -50,8 +53,8 @@
                 {% for stage in pStages %}
             <tr>
             <td><a class="text" href="{{ path('StageConsulter', { 'stage_id': stage.id }) }}">{{stage.etudiant.nom}} {{stage.etudiant.prenom}}</a></td>
-            
-            <td>{{stage.lieu}}</td>
+            <td>{{stage.sujet}}</td>
+            <td>{{stage.nomentreprise}}</td>
             <td>{{stage.nomtut}}</td>
             <td><a href="../../etudiant/stage/consulter/{{stage.id}}">Détail</a></td>
             <td><a href="../../etudiant/activite/consulterSemaine/{{stage.id}}">Activités</a></td>

@@ -29,7 +29,10 @@ class Promotion
      */
     private $etudiants;
 
-    
+    /**
+     * @ORM\ManyToOne(targetEntity=Specialite::class, inversedBy="promotion")
+     */
+    private $specialite;
 
     public function __construct()
     {
@@ -61,6 +64,18 @@ class Promotion
     public function setAnnee(?int $annee): self
     {
         $this->annee = $annee;
+
+        return $this;
+    }
+
+    public function getSpecialite(): ?Specialite
+    {
+        return $this->specialite;
+    }
+
+    public function setSpecialite(?Specialite $specialite): self
+    {
+        $this->specialite = $specialite;
 
         return $this;
     }
