@@ -10,11 +10,11 @@
         <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
 
           <thead>
-            <tr>
-            <th scope="col">Référent</th>
+          <tr>
+          <th scope="col">Référent</th>
           <th scope="col">Entreprise</th>
           <th scope="col">Tuteur</th>
-            </tr>
+          </tr>
 
           {% for stage in pStages %}
           <thead>
@@ -23,7 +23,6 @@
           <tbody>
                 
             <tr>
-            
             <td>{{stage.enseignant.nom}}</td>
             <td>{{stage.nomentreprise}}</td>
             <td>{{stage.nomtut}}</td>

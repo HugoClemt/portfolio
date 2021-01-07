@@ -5,7 +5,7 @@ etudiantAjouter:
     path: /etudiant/ajouter
     controller: App\Controller\EtudiantController::ajouterEtudiant
 stageAjouter:
-    path: /stage/ajouter/{idEtudiant}
+    path: /stage/ajouter/{etudiant_id}
     controller: App\Controller\StageController::ajouterStage
 
 enseignantAjouter:

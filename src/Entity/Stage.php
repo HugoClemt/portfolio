@@ -26,7 +26,7 @@ class Stage
     private $nomtut;
 
     /**
-     * @ORM\Column(type="string", length=15, nullable=true)
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $teltut;
 
@@ -63,7 +63,7 @@ class Stage
     private $adrentreprise;
 
      /**
-     * @ORM\Column(type="string", length=6)
+     * @ORM\Column(type="string", length=5, nullable=true)
      */
     private $copos;
 
@@ -73,17 +73,17 @@ class Stage
     private $directeur;
 
       /**
-     * @ORM\Column(type="string", length=20, nullable=true)
+     * @ORM\Column(type="string", length=5, nullable=true)
      */
     private $codenaf;
 
       /**
-     * @ORM\Column(type="string", length=20, nullable=true)
+     * @ORM\Column(type="string", length=14, nullable=true)
      */
     private $siret;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=true)
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $telentreprise;
 
