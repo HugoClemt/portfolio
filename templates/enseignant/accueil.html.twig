@@ -1,13 +1,5 @@
 {% extends "entete.html.twig" %}
 {% block content %}
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>Accueil</title>
-	<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-</head>
 <body>
 <div class="container"><br>
 	<center><h1>Réalisations à commenter</h1></center><br>
@@ -44,6 +36,7 @@
           <thead>
             <tr>
             <th scope="col">Etudiant</th>
+			<th scope="col">Option</th>
 			<th scope="col">Sujet</th>
           <th scope="col">Entreprise</th>
           <th scope="col">Tuteur</th>
@@ -53,6 +46,7 @@
                 {% for stage in pStages %}
             <tr>
             <td><a class="text" href="{{ path('StageConsulter', { 'stage_id': stage.id }) }}">{{stage.etudiant.nom}} {{stage.etudiant.prenom}}</a></td>
+			<td>{{stage.etudiant.promotion.nom}}
             <td>{{stage.sujet}}</td>
             <td>{{stage.nomentreprise}}</td>
             <td>{{stage.nomtut}}</td>
