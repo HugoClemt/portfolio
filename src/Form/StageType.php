@@ -17,7 +17,6 @@ class StageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('etudiant',EntityType::class, array('class'=> 'App\Entity\Etudiant', 'choice_label' => 'nom'))
             ->add('nomtut')
             ->add('teltut')
             ->add('mailtut')
@@ -29,7 +28,6 @@ class StageType extends AbstractType
             ->add('codenaf')
             ->add('siret')
             ->add('telentreprise')
-           // ->add('faxentreprise')
             ->add('mailentreprise')
             ->add('dateDebut', DateType::class, array('input' => 'datetime',
                                                           'widget' => 'single_text',
@@ -52,7 +50,6 @@ class StageType extends AbstractType
              ->add('copos');
 
             
-            //->add('enseignant' ,EntityType::class, array('class'=>'App\Entity\Enseignant','choice_label' =>'id' ))
 
         }
     

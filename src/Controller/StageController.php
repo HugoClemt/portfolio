@@ -186,10 +186,20 @@ var_dump($stage);
 
 
 
-public function ajouterStage(Request $request){
+public function ajouterStage($etudiant_id, Request $request){
         $stage = new Stage();
         $form = $this->createForm(StageType::class, $stage);
         $form->handleRequest($request);
+        $etudiant = $this->getDoctrine()
+        ->getRepository(Etudiant::class)
+        ->find($etudiant_id);
+        $stage->setEtudiant($etudiant);
+        $enseignant = $this->getDoctrine()
+        ->getRepository(Enseignant::class)
+        ->find(999);
+        $stage->setEnseignant($enseignant);
+
+
  
         if ($form->isSubmitted() && $form->isValid()) {
  
