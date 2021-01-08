@@ -47,7 +47,8 @@ class StageType extends AbstractType
             ->add('horVen')
             ->add('horSam')
             ->add('ville')
-             ->add('copos');
+             ->add('copos')
+             ->add('enregistrer', SubmitType::class, array('label' => 'Valider'));
 
             
 

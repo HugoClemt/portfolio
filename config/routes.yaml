@@ -110,7 +110,7 @@ stagePromo:
 
 #Ajouter une RP
 rpAjouter:
-    path: etudiant/etudiant/rp/ajouter
+    path: etudiant/etudiant/rp/ajouter/{etudiant_id}
     controller: App\Controller\RPController::ajouterRp
 
 #Lister les anciens stage

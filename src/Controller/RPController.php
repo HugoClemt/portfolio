@@ -119,6 +119,40 @@ class RPController extends AbstractController
         return $this->render('rp/consulterCommentaire.html.twig', ['pRP' => $rp]);
     }
 
+
+    public function ajouterRp($etudiant_id, Request $request){
+        $rp = new RP();
+        $form = $this->createForm(RPType::class, $rp);
+        $form->handleRequest($request);
+        $etudiant = $this->getDoctrine()
+        ->getRepository(Etudiant::class)
+        ->find($etudiant_id);
+        $rp->setEtudiant($etudiant);
+        $statut = $this->getDoctrine()
+        ->getRepository(Statut::class)
+        ->find(1);
+        $rp->setStatut($statut);
+        
+        
+
+
+ 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $rp = $form->getData();
+
+ 
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($rp);
+            $entityManager->flush();
+                        return $this->render('rp/consulter.html.twig', ['pRP' => $rp,]);
+        }
+        else
+        {
+            return $this->render('rp/ajouter.html.twig', array('form' => $form->createView(),));
+        }
+
+    }
+
     public function consulterActiviteRPEtudiant($rp_id){
         $rp = $this->getDoctrine()->getRepository(RP::class)->find($rp_id);
         $rpActivite = $this->getDoctrine()->getRepository(RPActivite::class)->findByRp($rp);

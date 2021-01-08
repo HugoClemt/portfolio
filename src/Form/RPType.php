@@ -20,25 +20,25 @@ class RPType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('etudiant', EntityType::class, array('class' => 'App\Entity\Etudiant','choice_label' => 'Id' ))
             ->add('libcourt', TextType::class)
             ->add('descriptif', TextareaType::class)
             ->add('contexte', TextareaType::class)
             ->add('dateDebut', DateType::class, array('input' => 'datetime',
-                                                          'widget' => 'single_text',  
+                                                          'widget' => 'single_text',
                                                           'required' => true,
-                                                          'label' =>'Date de début',
-                                                          'placeholder' => 'JJ/MM/AAAA'))
-            ->add('dateFin', DateType::class, array('input' => 'datetime',
-                                                          'widget' => 'single_text', 
+                                                          'label' =>'date de naissance',
+                                                          'placeholder' => 'jj/mm/aaaa'))
+             ->add('dateFin', DateType::class, array('input' => 'datetime',
+                                                          'widget' => 'single_text',
                                                           'required' => true,
-                                                          'label' =>'Date de fin',
-                                                          'placeholder' => 'JJ/MM/AAAA'))
+                                                          'label' =>'date de naissance',
+                                                          'placeholder' => 'jj/mm/aaaa'))
             ->add('environnement', TextType::class)
             ->add('moyen', TextType::class)
             ->add('localisation', EntityType::class, array('class' => 'App\Entity\Localisation','choice_label' => 'Libelle' ))  
             ->add('source', EntityType::class, array('class' => 'App\Entity\Source','choice_label' => 'Libelle' ))
             ->add('cadre', EntityType::class, array('class' => 'App\Entity\Cadre','choice_label' => 'Libelle' ))
+            ->add('enregistrer', SubmitType::class, array('label' => 'Valider'))
 
         ;
     }
