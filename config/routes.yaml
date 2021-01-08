@@ -38,6 +38,11 @@ etudiantListerLesRP:
     path: /etudiant/rp/listerMesRP/{etudiant_id}
     controller: App\Controller\RPController::listerLesRP
 
+#Ajouter une RP
+rpAjouter:
+    path: etudiant/etudiant/rp/ajouter/{etudiant_id}
+    controller: App\Controller\RPController::ajouterRp
+
 #consulter une RP d'un étudiant
 rpConsulter:
     path: /etudiant/rp/consulter/{rp_id}
@@ -52,6 +57,16 @@ rpConsulterCommentaire:
 rpConsulterActivite:
     path: /etudiant/rp/consulterActivite/{rp_id}
     controller : App\Controller\RPController::consulterActiviteRPEtudiant
+
+#consulter les production d'une RP
+rpConsulterProduction:
+    path: /etudiant/rp/consulterProduction/{rp_id}
+    controller : App\Controller\RPController::consulterProductionRPEtudiant
+
+#ajouter une production d'une RP
+rpAjouterProduction:
+    path: /etudiant/rp/AjouterProduction/{rp_id}
+    controller : App\Controller\RPController::ajouterProductionRPEtudiant
 
 #lister les RP à commenter (prof)
 enseignantLesRPaCommenter:
@@ -107,11 +122,6 @@ etudiantModifier:
 stagePromo:
   path: /enseignant/stage/listerStagePromo/{promotion_id}
   controller: App\Controller\StageController::ListerStagesPromo
-
-#Ajouter une RP
-rpAjouter:
-    path: etudiant/etudiant/rp/ajouter/{etudiant_id}
-    controller: App\Controller\RPController::ajouterRp
 
 #Lister les anciens stage
 ListerAncienStages:
