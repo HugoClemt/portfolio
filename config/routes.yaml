@@ -51,7 +51,7 @@ rpConsulterCommentaire:
 #consulter les activité d'une RP
 rpConsulterActivite:
     path: /etudiant/rp/consulterActivite/{rp_id}
-    controller : App\Controller\RPCOntroller::consulterActiviteRPEtudiant
+    controller : App\Controller\RPController::consulterActiviteRPEtudiant
 
 #lister les RP à commenter (prof)
 enseignantLesRPaCommenter:

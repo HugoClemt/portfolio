@@ -115,13 +115,18 @@ class RPController extends AbstractController
 
 
     public function consulterCommentaireRPEtudiant($rp_id){
-        $rp = $this->getDoctrine()->getRepository(Rp::class)->find($rp_id);
+        $rp = $this->getDoctrine()->getRepository(RP::class)->find($rp_id);
         return $this->render('rp/consulterCommentaire.html.twig', ['pRP' => $rp]);
     }
 
     public function consulterActiviteRPEtudiant($rp_id){
-        $rp = $this->getDoctrine()->getRepository(Rp::class)->find($rp_id);
-        return $this->render('rp/consulterActivite.html.twig', ['pRP' => $rp]);
+        $rp = $this->getDoctrine()->getRepository(RP::class)->find($rp_id);
+        $rpActivite = $this->getDoctrine()->getRepository(RPActivite::class)->findByRp($rp);
+
+        /*foreach ($rpActivite as $RP){
+            echo("test");
+        } */
+        return $this->render('rp/consulterActivite.html.twig', ['pRPActivite' => $rpActivite, 'pRP' => $rp]);
     }
 }
 
