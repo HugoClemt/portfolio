@@ -9,34 +9,34 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	</head>
 	<body>
-		<div class="container"><br>
+		<div class="container">
+		
+		<br>
+		<br>
 			<center><h1>Réalisations commentées</h1></center><br>
-	<table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
-				<thead>
-					<tr>
-						<th scope="col" data-sortable="true">Libellé</th>
-						<th scope="col" data-sortable="true">Nombre d'activités</th>
-						<th scope="col" data-sortable="true">Statut</th>
-						<th scope="col" data-sortable="true">Date</th>
-						<th></th>
-					</tr>
-				</thead>
-			<tbody>
-			{% for RP in pRP %}
-			<tr>
-				<td><a class="text" href="{{ path('rpConsulter', { 'rp_id': RP.id }) }}">{{ RP.libcourt }}</a></td>
-				<td>{{ RP.activites.count }}</td> 
-				<td>{{ RP.statut.libelle }}</td>		    
-				<td>{{ RP.dateDebut|date("d/m/Y") }}</td>
-				<td><a href="supprimer.html.twig">❌</a>
-				</td>
-			</tr>
-						    
-			{% endfor %}
-						    
-			</tbody>
-	</table>
-	<br><br>
+				<table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
+					<thead>
+						<tr>
+							<th scope="col" data-sortable="true">Libellé</th>
+							<th scope="col" data-sortable="true">Nombre d'activités</th>
+							<th scope="col" data-sortable="true">Statut</th>
+							<th scope="col" data-sortable="true">Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for RP in pRP %}
+						<tr>
+							<td><a class="text" href="{{ path('rpConsulter', { 'rp_id': RP.id }) }}">{{ RP.libcourt }}</a></td>
+							<td>{{ RP.activites.count }}</td> 
+							<td>{{ RP.statut.libelle }}</td>		    
+							<td>{{ RP.dateDebut|date("d/m/Y") }}</td>
+							<td><a href="supprimer.html.twig">❌</a></td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			<br>
+			<br>
 	<center><h1>Suivi de stage</h1></center><br><br>
         <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
           <thead>

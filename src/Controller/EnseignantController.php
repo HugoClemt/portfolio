@@ -9,6 +9,7 @@ use App\Entity\RP;
 use App\Entity\Enseignant;
 use App\Entity\activite;
 use App\Entity\Stage;
+use App\Entity\Promotion;
 use Symfony\Component\HttpFoundation\Request;
 
 class EnseignantController extends AbstractController

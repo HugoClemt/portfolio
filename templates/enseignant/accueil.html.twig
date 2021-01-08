@@ -1,19 +1,12 @@
 {% extends "entete.html.twig" %}
 {% block content %}
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>Accueil</title>
-	<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-</head>
 <body>
 <div class="container"><br>
 	<center><h1>Réalisations à commenter</h1></center><br>
 	<table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
 				<thead>
 					<tr>
+						<th scope="col" data-sortable="true">Etudiant</th>
 						<th scope="col" data-sortable="true">Libellé</th>
 						<th scope="col" data-sortable="true">Nombre d'activités</th>
 						<th scope="col" data-sortable="true">Statut</th>
@@ -24,6 +17,7 @@
 			<tbody>
 			{% for RP in pRP %}
 			<tr>
+				<td>{{ RP.etudiant.nom }} {{RP.etudiant.prenom}}</a></td>
 				<td><a class="text" href="{{ path('rpConsulter', { 'rp_id': RP.id }) }}">{{ RP.libcourt }}</a></td>
 				<td>{{ RP.activites.count }}</td> 
 				<td>{{ RP.statut.libelle }}</td>		    
@@ -42,6 +36,8 @@
           <thead>
             <tr>
             <th scope="col">Etudiant</th>
+			<th scope="col">Option</th>
+			<th scope="col">Sujet</th>
           <th scope="col">Entreprise</th>
           <th scope="col">Tuteur</th>
             </tr>
@@ -50,8 +46,9 @@
                 {% for stage in pStages %}
             <tr>
             <td><a class="text" href="{{ path('StageConsulter', { 'stage_id': stage.id }) }}">{{stage.etudiant.nom}} {{stage.etudiant.prenom}}</a></td>
-            
-            <td>{{stage.lieu}}</td>
+			<td>{{stage.etudiant.promotion.nom}}
+            <td>{{stage.sujet}}</td>
+            <td>{{stage.nomentreprise}}</td>
             <td>{{stage.nomtut}}</td>
             <td><a href="../../etudiant/stage/consulter/{{stage.id}}">Détail</a></td>
             <td><a href="../../etudiant/activite/consulterSemaine/{{stage.id}}">Activités</a></td>

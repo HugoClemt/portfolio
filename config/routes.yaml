@@ -45,8 +45,13 @@ rpConsulter:
 
 #consulter un commentaire d'une RP
 rpConsulterCommentaire:
-    path: /etudiant/rp/consulter_commentaire/{rp_id}
+    path: /etudiant/rp/consulterCommentaire/{rp_id}
     controller: App\Controller\RPController::consulterCommentaireRPEtudiant
+
+#consulter les activité d'une RP
+rpConsulterActivite:
+    path: /etudiant/rp/consulterActivite/{rp_id}
+    controller : App\Controller\RPCOntroller::consulterActiviteRPEtudiant
 
 #lister les RP à commenter (prof)
 enseignantLesRPaCommenter:
@@ -122,3 +127,5 @@ ConsulterSemaine:
 ListerSemaine:
     path: /etudiant/stage/listerLesSemaines/{stage_id}
     controller: App\Controller\ActiviteController::listerLesSemaines
+
+

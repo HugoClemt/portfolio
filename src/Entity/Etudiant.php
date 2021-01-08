@@ -35,7 +35,7 @@ class Etudiant
     private $mail;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=10)
      */
     private $mobile;
 
@@ -91,11 +91,6 @@ class Etudiant
      */
     private $stages;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Specialite::class, inversedBy="promotion")
-     */
-    private $specialite;
-
     public function __construct()
     {
         $this->RPs = new ArrayCollection();
@@ -143,12 +138,12 @@ class Etudiant
         return $this;
     }
 
-    public function getMobile(): ?int
+    public function getMobile(): ?string
     {
         return $this->mobile;
     }
 
-    public function setMobile(int $mobile): self
+    public function setMobile(string $mobile): self
     {
         $this->mobile = $mobile;
 
@@ -247,18 +242,6 @@ class Etudiant
     public function setPromotion(?Promotion $promotion): self
     {
         $this->promotion = $promotion;
-
-        return $this;
-    }
-
-    public function getSpecialite(): ?Specialite
-    {
-        return $this->specialite;
-    }
-
-    public function setSpecialite(?Specialite $specialite): self
-    {
-        $this->specialite = $specialite;
 
         return $this;
     }

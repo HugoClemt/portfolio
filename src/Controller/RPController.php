@@ -84,19 +84,17 @@ class RPController extends AbstractController
             $entityManager->persist($rp);
             $entityManager->flush();
  
-        //$etudiant = $rp->getEtudiant();
+            //$etudiant = $rp->getEtudiant();
 
-        //var_dump($rp->getStatut());
-        return $this->render('rp/consulter.html.twig', [ 'consulter' => $rp,]);
+            //var_dump($rp->getStatut());
+            return $this->render('rp/consulter.html.twig', [ 'pRP' => $rp,]);
+        }
+        else
+            {
+                //var_dump($rp);
+                return $this->render('rp/ajouter_Description.html.twig', array('form' => $form->createView(),));
+            }
     }
-    else
-        {
-            //var_dump($rp);
-            return $this->render('rp/ajouter_Description.html.twig', array('form' => $form->createView(),));
-    }
-}
-
-
 
     public function listerLesRP($etudiant_id){
             
@@ -118,7 +116,7 @@ class RPController extends AbstractController
 
     public function consulterCommentaireRPEtudiant($rp_id){
         $rp = $this->getDoctrine()->getRepository(Rp::class)->find($rp_id);
-        return $this->render('rp/consulter_Commentaire.html.twig', ['rp' => $rp]);
+        return $this->render('rp/consulterCommentaire.html.twig', ['pRP' => $rp]);
     }
 
 
@@ -130,12 +128,16 @@ class RPController extends AbstractController
         ->getRepository(Etudiant::class)
         ->find($etudiant_id);
         $rp->setEtudiant($etudiant);
+        $statut = $this->getDoctrine()
+        ->getRepository(Statut::class)
+        ->find(1);
+        $rp->setStatut($statut);
+        
         
 
 
  
         if ($form->isSubmitted() && $form->isValid()) {
-                echo("form valide");
             $rp = $form->getData();
 
  
@@ -146,13 +148,15 @@ class RPController extends AbstractController
         }
         else
         {
-            echo("form non valide");
             return $this->render('rp/ajouter.html.twig', array('form' => $form->createView(),));
         }
 
     }
 
-
+    public function consulterActiviteRPEtudiant($rp_id){
+        $rp = $this->getDoctrine()->getRepository(Rp::class)->find($rp_id);
+        return $this->render('rp/consulterActivite.html.twig', ['pRP' => $rp]);
+    }
 }
 
 

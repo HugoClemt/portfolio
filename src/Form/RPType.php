@@ -20,7 +20,6 @@ class RPType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('etudiant', EntityType::class, array('class' => 'App\Entity\Etudiant','choice_label' => 'Id' ))
             ->add('libcourt', TextType::class)
             ->add('descriptif', TextareaType::class)
             ->add('contexte', TextareaType::class)

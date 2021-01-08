@@ -19,77 +19,66 @@
       <div class="container">
         <form>
           <div class="form-row">
-            <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Nom de l'entreprise</label>
-              <input type="text" id="disabledTextInput" class="form-control" value={{pStage.nomentreprise}} readonly="">
+            <div class="col-md-4 mb-3">
+              <label for="disabledTextInput"><b>Nom de l'entreprise</b> : {{pStage.nomentreprise}}</label>
+            </div>
+            <div>
+              <label for="disabledTextInput">SIRET : {{pStage.siret}}</label>
+            </div>
+            <div>
+              <label for="disabledTextInput">Code NAF : {{pStage.codenaf}}</label>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-2 mb-3">
+              <label for="disabledTextInput">Directeur : {{pStage.directeur}}</label>
             </div>
             <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">SIRET</label>
-              <input type="text" id="disabledTextInput" class="form-control" value={{pStage.siret}} readonly="">
+              <label for="disabledTextInput">Ville : {{pStage.ville}}</label>
+              
+            </div>
+             <div class="col-md-2 mb-3">
+              <label for="disabledTextInput">Code Postal : {{pStage.copos}}</label>
             </div>
           </div>
           <div class="form-row">
             <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Directeur</label>
-              <input type="text" id="disabledTextInput" class="form-control" value={{pStage.directeur}} readonly="">
+              <label for="disabledTextInput">Adresse : {{pStage.adrentreprise}}</label>
             </div>
             <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Ville</label>
-              <input type="text" id="disabledTextInput" class="form-control" value={{pStage.ville}} readonly="">
-            </div>
-             <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Code Postal</label>
-              <input type="text" id="disabledTextInput" class="form-control" value={{pStage.copos}} readonly="">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Adresse</label>
-              <input type="text" id="disabledTextInput" class="form-control" value={{pStage.adrentreprise}} readonly="">
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Téléphone</label>
-              <input type="text" id="disabledTextInput" class="form-control" value={{pStage.telentreprise}} readonly="">
+              <label for="disabledTextInput">Téléphone : {{pStage.telentreprise}}</label>
             </div>
           </div>
           <center><div class="col-md-6 mb-3">
-            <label for="disabledTextInput" >Mail</label>
-            <input type="mail" id="disabledTextInput" class="form-control" value={{pStage.mailentreprise}} readonly="">
+            <label for="disabledTextInput" >Mail : {{pStage.mailentreprise}}</label>
           </div></center>
           <hr class="featurette-divider p-2">
           <div class="form-row">
             <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Nom du tuteur</label>
-              <input type="text" id="disabledTextInput" class="form-control" value={{pStage.nomtut}} readonly="">
+              <label for="disabledTextInput">Nom du tuteur : {{pStage.nomtut}}</label>
             </div>
             <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Téléphone du tuteur</label>
-              <input type="text" id="disabledTextInput" class="form-control" value={{pStage.teltut}} readonly="">
+              <label for="disabledTextInput">Téléphone du tuteur : {{pStage.teltut}}</label>
             </div>
           </div>
           <center><div class="col-md-6 mb-3">
-            <label for="disabledTextInput" >Mail du tuteur</label>
-            <input type="mail" id="disabledTextInput" class="form-control" value={{pStage.mailtut}} readonly="">
+            <label for="disabledTextInput" >Mail du tuteur : {{pStage.mailtut}}</label>
           </div></center>
           <hr class="featurette-divider p-2">
           <div class="form-row">
             <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Date de debut du stage</label>
-              <input type="text" id="disabledTextInput" class="form-control" value="{{pStage.dateDebut|date('Y-m-d')}}" readonly="">
+              <label for="disabledTextInput">Date de debut du stage : {{pStage.dateDebut|date('Y-m-d')}}</label>
             </div>
             <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Date de fin du stage</label>
-              <input type="text" id="disabledTextInput" class="form-control" value="{{pStage.dateFin|date('Y-m-d')}}" readonly="">
+              <label for="disabledTextInput">Date de fin du stage : {{pStage.dateFin|date('Y-m-d')}}</label>
             </div>
           </div>
           <div class="form-row">
             <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Durée</label>
-              <input type="text" id="disabledTextInput" class="form-control" value={{pStage.nbsemaine}} readonly="">
+              <label for="disabledTextInput">Durée : {{pStage.nbsemaine}}</label>
             </div>
             <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Sujet</label>
-              <input type="text" id="disabledTextInput" class="form-control" value={{pStage.sujet}} readonly="">
+              <label for="disabledTextInput">Sujet : {{pStage.sujet}}</label>
             </div>
           </div>
         </form>
