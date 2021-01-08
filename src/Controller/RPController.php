@@ -157,6 +157,10 @@ class RPController extends AbstractController
         $rp = $this->getDoctrine()->getRepository(Rp::class)->find($rp_id);
         return $this->render('rp/consulterActivite.html.twig', ['pRP' => $rp]);
     }
+
+    public function ajouterActivite($rp_id){
+        
+    }
 }
 
 
