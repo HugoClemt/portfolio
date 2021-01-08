@@ -5,25 +5,49 @@
   <br><center><h1>Réalisation professionnelle</h1></center><br><br> 
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #DDDDDD;">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+	<span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="{{ path('rpConsulter', { 'rp_id': pRP.id }) }}"> Description </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"> Activités </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"> Reformulation </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"> Production </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" href="{{ path('rpConsulterCommentaire', { 'rp_id': pRP.id }) }}"> Commentaire </a>
-      </li>
-    </ul>
+	<ul class="navbar-nav">
+	  <li class="nav-item">
+		<a class="nav-link" href="{{ path('rpConsulter', { 'rp_id': pRP.id }) }}"> Description </a>
+	  </li>
+	  <li class="nav-item">
+		<a class="nav-link active" href="{{ path('rpConsulterActivite', { 'rp_id': pRP.id }) }}"> Activités </a>
+	  </li>
+	  <li class="nav-item">
+		<a class="nav-link" href="#"> Reformulation </a>
+	  </li>
+	  <li class="nav-item">
+		<a class="nav-link" href="#"> Production </a>
+	  </li>
+	  <li class="nav-item">
+		<a class="nav-link " href="{{ path('rpConsulterCommentaire', { 'rp_id': pRP.id }) }}"> Commentaire </a>
+	  </li>
+	</ul>
   </div>
 </nav><br>
+
+
+<table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
+				  <thead>
+				    <tr>
+				      <th scope="col" data-sortable="true">Code d'activite</th>
+				      <th scope="col" data-sortable="true">Activite</th>
+				      <th scope="col" data-sortable="true">Reformulation</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+					{% for RPactivite in pRPActivite %}				
+				    <tr>
+				    	<td>{{ RPactivite.activite.code }}</td>
+						<td>{{ RPactivite.activite.libelle }}</td> 
+				    	<td>{{ RPactivite.commentaire }}</td>
+				    </tr>
+				  </tbody>
+				  {% endfor %}
+				</table>
+
+
+</body>
+{% endblock %}
