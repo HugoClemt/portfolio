@@ -13,10 +13,10 @@
 		<a class="nav-link" href="{{ path('rpConsulter', { 'rp_id': pRP.id }) }}"> Description </a>
 	  </li>
 	  <li class="nav-item">
-		<a class="nav-link active" href="{{ path('rpConsulterActivite', { 'rp_id': pRP.id }) }}"> Activités </a>
+		<a class="nav-link " href="{{ path('rpConsulterActivite', { 'rp_id': pRP.id }) }}"> Activités </a>
 	  </li>
 	  <li class="nav-item">
-		<a class="nav-link" href="{{ path('rpConsulterProduction', { 'rp_id': pRP.id }) }}"> Production </a>
+		<a class="nav-link active" href="{{ path('rpConsulterProduction', { 'rp_id': pRP.id }) }}"> Production </a>
 	  </li>
 	  <li class="nav-item">
 		<a class="nav-link " href="{{ path('rpConsulterCommentaire', { 'rp_id': pRP.id }) }}"> Commentaire </a>
@@ -24,35 +24,28 @@
 	</ul>
   </div>
 </nav><br>
-
-
-<a href="{{ path('ajouterActiviteRP', { 'rp_id': pRP.id }) }}"><input type="button" value="Ajouter une nouvelle activité" class="btn btn-secondary btn-lg btn-block"></a>
-
-<br>
+<a href="{{ path('rpAjouterProduction', { 'rp_id': pRP.id }) }}"><input type="button" value="Ajouter une nouvelle production" class="btn btn-secondary btn-lg btn-block"></a>
 
 <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
 				  <thead>
 				    <tr>
-				      <th scope="col" data-sortable="true">Code d'activite</th>
-				      <th scope="col" data-sortable="true">Activite</th>
-				      <th scope="col" data-sortable="true">Reformulation</th>
+				      <th scope="col" data-sortable="true">Designation</th>
+				      <th scope="col" data-sortable="true">URL</th>
 					  <th></th>
 					  <th></th>
 				    </tr>
 				  </thead>
 				  <tbody>
-					{% for RPactivite in pRPActivite %}				
+					{% for RPProduction in pRPProduction %}				
 				    <tr>
-				    	<td>{{ RPactivite.activite.code }}</td>
-						<td>{{ RPactivite.activite.libelle }}</td> 
-				    	<td>{{ RPactivite.commentaire }}</td>
+				    	<td>{{ RPProduction.designation }}</td>
+						<td>{{ RPProduction.url }}</td> 
 						<td><a href="#"><span title="Cliquer pour modifier">📝</span></a>
 						<td><a href="#"><span title="Cliquer pour supprimer">❌</span></a>
 				    </tr>
 				  </tbody>
 				  {% endfor %}
 				</table>
-
 
 </body>
 {% endblock %}

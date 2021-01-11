@@ -16,10 +16,7 @@
         <a class="nav-link" href="{{ path('rpConsulterActivite', { 'rp_id': pRP.id }) }}"> Activités </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#"> Reformulation </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"> Production </a>
+        <a class="nav-link" href="{{ path('rpConsulterProduction', { 'rp_id': pRP.id }) }}"> Production </a>
       </li>
       <li class="nav-item">
         <a class="nav-link active" href="{{ path('rpConsulterCommentaire', { 'rp_id': pRP.id }) }}"> Commentaire </a>

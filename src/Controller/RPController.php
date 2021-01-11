@@ -9,6 +9,7 @@ use App\Entity\RP;
 use App\Entity\Etudiant;
 use App\Entity\RPActivite; 
 use App\Entity\Statut; 
+use App\Entity\Production;
 use App\Form\RPType;
 use App\Form\RPActiviteType;
 use App\Entity\Enseignant;
@@ -159,6 +160,7 @@ class RPController extends AbstractController
         $rp = $this->getDoctrine()->getRepository(RP::class)->find($rp_id);
         $rpActivite = $this->getDoctrine()->getRepository(RPActivite::class)->findByRp($rp);
 
+
         
         return $this->render('rp/consulterActivite.html.twig', ['pRPActivite' => $rpActivite, 'pRP' => $rp]);
     }
@@ -191,6 +193,14 @@ class RPController extends AbstractController
             return $this->render('rp/ajouterActivite.html.twig', array('form' => $form->createView(),));
         }
 
+
+        return $this->render('rp/consulterActivite.html.twig', ['pRPActivite' => $rpActivite, 'pRP' => $rp]);
+    }
+
+    public function consulterProductionRPEtudiant($rp_id){
+        $rp = $this->getDoctrine()->getRepository(RP::class)->find($rp_id);
+        $rpProduction = $this->getDoctrine()->getRepository(Production::class)->findByRp($rp);
+        return $this->render('rp/consulterProduction.html.twig', ['pRPProduction' => $rpProduction, 'pRP' => $rp]);
     }
 }
 
