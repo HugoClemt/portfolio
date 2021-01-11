@@ -25,9 +25,9 @@ class Niveau
     private $libelle;
 
     /**
-     * @ORM\OneToMany(targetEntity=RPActivite::class, mappedBy="niveau")
+     * @ORM\OneToMany(targetEntity=RP::class, mappedBy="niveau")
      */
-    private $activites;
+    private $RPs;
 
     public function __construct()
     {
@@ -52,29 +52,29 @@ class Niveau
     }
 
     /**
-     * @return Collection|RPActivite[]
+     * @return Collection|RP[]
      */
-    public function getActivites(): Collection
+    public function getRPs(): Collection
     {
-        return $this->activites;
+        return $this->rps;
     }
 
-    public function addActivite(RPActivite $activite): self
+    public function addRP(RP $rp): self
     {
-        if (!$this->activites->contains($activite)) {
-            $this->activites[] = $activite;
-            $activite->setNiveau($this);
+        if (!$this->rps->contains($rp)) {
+            $this->rps[] = $rp;
+            $rp->setNiveau($this);
         }
 
         return $this;
     }
 
-    public function removeActivite(RPActivite $activite): self
+    public function removeRP(RP $rp): self
     {
-        if ($this->activites->removeElement($activite)) {
+        if ($this->rps->removeElement($rp)) {
             // set the owning side to null (unless already changed)
-            if ($activite->getNiveau() === $this) {
-                $activite->setNiveau(null);
+            if ($rp->getNiveau() === $this) {
+                $rp->setNiveau(null);
             }
         }
 

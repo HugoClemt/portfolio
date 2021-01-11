@@ -103,6 +103,11 @@ class RP
     private $cadre;
 
     /**
+     * @ORM\ManyToOne(targetEntity=Niveau::class, inversedBy="RPs")
+     */
+    private $niveau;
+
+    /**
      * @ORM\OneToMany(targetEntity=Production::class, mappedBy="rp")
      */
     private $productions;
@@ -344,6 +349,18 @@ class RP
     public function setCadre(?Cadre $cadre): self
     {
         $this->cadre = $cadre;
+
+        return $this;
+    }
+
+    public function getNiveau(): ?Niveau
+    {
+        return $this->niveau;
+    }
+
+    public function setNiveau(?Niveau $niveau): self
+    {
+        $this->niveau = $niveau;
 
         return $this;
     }

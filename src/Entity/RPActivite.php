@@ -22,10 +22,7 @@ class RPActivite
 	 */
 	private $commentaire;
 
-	/**
-	 * @ORM\ManyToOne(targetEntity=Niveau::class, inversedBy="activites")
-	 */
-	private $niveau;
+
 
 	/**
 	 * @ORM\ManyToOne(targetEntity=Activite::class, inversedBy="RPs")
@@ -56,17 +53,7 @@ class RPActivite
 		return $this;
 	}
 
-	public function getNiveau(): ?Niveau
-	{
-		return $this->niveau;
-	}
 
-	public function setNiveau(?Niveau $niveau): self
-	{
-		$this->niveau = $niveau;
-
-		return $this;
-	}
 
 	public function getActivite(): ?Activite
 	{

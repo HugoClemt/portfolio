@@ -10,7 +10,9 @@ use App\Entity\Etudiant;
 use App\Entity\RPActivite; 
 use App\Entity\Statut; 
 use App\Form\RPType;
-use App\Entity\Enseignant; 
+use App\Form\RPActiviteType;
+use App\Entity\Enseignant;
+use App\Entity\Activite; 
 use App\Entity\Commentaire;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -144,7 +146,7 @@ class RPController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($rp);
             $entityManager->flush();
-                        return $this->render('rp/consulter.html.twig', ['pRP' => $rp,]);
+                        return $this->render('rp/consulter.html.twig', ['pRP' => $rp]);
         }
         else
         {
@@ -157,16 +159,41 @@ class RPController extends AbstractController
         $rp = $this->getDoctrine()->getRepository(RP::class)->find($rp_id);
         $rpActivite = $this->getDoctrine()->getRepository(RPActivite::class)->findByRp($rp);
 
-        /*foreach ($rpActivite as $RP){
-            echo("test");
-        } */
+        
         return $this->render('rp/consulterActivite.html.twig', ['pRPActivite' => $rpActivite, 'pRP' => $rp]);
     }
 
-    public function ajouterActivite($rp_id){
+
+    public function ajouterActiviteRP($rp_id, Request $request){
+        $activite = $this->getDoctrine()
+        ->getRepository(Activite::class)
+        ->findAll();
+        $rpactivite = new RPActivite();
+        $form = $this->createForm(RPActiviteType::class, $rpactivite);
+        $form->handleRequest($request);
+        $rp = $this->getDoctrine()
+        ->getRepository(RP::class)
+        ->find($rp_id);
+        $rpactivite->setRP($rp);
         
+ 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $rpactivite = $form->getData();
+
+ 
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($rpactivite);
+            $entityManager->flush();
+                        return $this->render('rp/consulterActivite.html.twig', ['pRPActivite' => $rpactivite, 'pRP' => $rp]);
+        }
+        else
+        {
+            return $this->render('rp/ajouterActivite.html.twig', array('form' => $form->createView(),));
+        }
+
     }
 }
+
 
 
 

@@ -1,0 +1,58 @@
+{% extends "entete.html.twig" %}
+{% block content %}
+<body>
+<div class="container">
+
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+  </button>
+  
+
+
+
+{# templates/rp/ajouterActivite.html.twig #}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Ajouter Activité</title>
+</head>
+<body>
+<div class="container">
+
+    <center><h1>Ajouter une activité</h1></center>
+       <br> 
+       <div class="form-group col-md-12">
+			{{ form_start(form) }}
+            <div class="">
+                <label>
+                {{ form_widget(form.activite)}}
+                </label>    
+            </div><br>
+
+            <div class="form-group col-md-12">
+								<label>Commentaire</label>
+								{{ form_widget(form.commentaire, {'attr': {'class': 'form-control'}})}}
+							</div>
+
+              <center><div class="col-12">
+					{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
+				</div></center>
+				
+			</div>
+
+            
+</div>
+</body>
+</html>
+
+
+
+
+
+</body>
+{% endblock %}
+

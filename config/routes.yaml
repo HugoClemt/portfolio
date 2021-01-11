@@ -128,4 +128,9 @@ ListerSemaine:
     path: /etudiant/stage/listerLesSemaines/{stage_id}
     controller: App\Controller\ActiviteController::listerLesSemaines
 
+#Ajouter des activités à une RP
+ajouterActiviteRP:
+    path: /etudiant/rp/ajouterActivite/{rp_id}
+    controller: App\Controller\RPController::ajouterActiviteRP
+
 

@@ -37,6 +37,7 @@ class RPType extends AbstractType
             ->add('moyen', TextType::class)
             ->add('localisation', EntityType::class, array('class' => 'App\Entity\Localisation','choice_label' => 'Libelle' ))  
             ->add('source', EntityType::class, array('class' => 'App\Entity\Source','choice_label' => 'Libelle' ))
+            ->add('niveau', EntityType::class, array('class' => 'App\Entity\Niveau','choice_label' => 'Libelle' ))
             ->add('cadre', EntityType::class, array('class' => 'App\Entity\Cadre','choice_label' => 'Libelle' ))
             ->add('enregistrer', SubmitType::class, array('label' => 'Valider'))
 

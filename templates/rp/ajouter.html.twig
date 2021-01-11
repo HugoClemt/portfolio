@@ -35,18 +35,23 @@
 
 					<div class="alert alert-light" role="alert">
 						<div class="form-row">
-	    					<div class="form-group col-md-4">
+	    					<div class="form-group col-md-3">
 								<label>Localisation</label>
 								{{ form_widget(form.localisation, {'attr': {'class': 'form-control'}})}}
 							</div>
-							<div class="form-group col-md-4">
+							<div class="form-group col-md-3">
 								<label>Source</label>
 								{{ form_widget(form.source, {'attr': {'class': 'form-control'}})}}
 							</div><br>
-
-							<div class="form-group col-md-4">
+						
+							<div class="form-group col-md-3">
 								<label>Cadre</label>
 								{{ form_widget(form.cadre, {'attr': {'class': 'form-control'}})}}
+							</div>
+
+							<div class="form-group col-md-3">
+								<label>Niveau</label>
+								{{ form_widget(form.niveau, {'attr': {'class': 'form-control'}})}}
 							</div>
 						</div><br>
 							
