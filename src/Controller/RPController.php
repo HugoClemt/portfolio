@@ -12,6 +12,7 @@ use App\Entity\Statut;
 use App\Entity\Production;
 use App\Form\RPType;
 use App\Form\RPActiviteType;
+use App\Form\ProductionType;
 use App\Entity\Enseignant;
 use App\Entity\Activite; 
 use App\Entity\Commentaire;
@@ -192,15 +193,41 @@ class RPController extends AbstractController
         {
             return $this->render('rp/ajouterActivite.html.twig', array('form' => $form->createView(),));
         }
-
-
-        return $this->render('rp/consulterActivite.html.twig', ['pRPActivite' => $rpActivite, 'pRP' => $rp]);
     }
 
     public function consulterProductionRPEtudiant($rp_id){
         $rp = $this->getDoctrine()->getRepository(RP::class)->find($rp_id);
         $rpProduction = $this->getDoctrine()->getRepository(Production::class)->findByRp($rp);
         return $this->render('rp/consulterProduction.html.twig', ['pRPProduction' => $rpProduction, 'pRP' => $rp]);
+    }
+
+    public function ajouterProductionRP($rp_id, Request $request){
+        $production = new Production();
+        $form = $this->createForm(ProductionType::class, $production);
+        $form->handleRequest($request);
+        $rp = $this->getDoctrine()
+        ->getRepository(RP::class)
+        ->find($rp_id);
+        $production->setRP($rp);
+        
+ 
+        if ($form->isSubmitted() && $form->isValid()) {
+            echo("V");
+            $production = $form->getData();
+
+ 
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($production);
+            $entityManager->flush();
+                        return $this->render('rp/consulterProduction.html.twig', ['pRPProduction' => $production, 'pRP' => $rp]);
+        }
+        else
+        {
+            echo('X');
+            return $this->render('rp/ajouterProduction.html.twig', array('form' => $form->createView(),));
+        }
+
+
     }
 }
 

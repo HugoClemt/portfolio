@@ -1,0 +1,57 @@
+{% extends "entete.html.twig" %}
+{% block content %}
+<body>
+<div class="container">
+
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+  </button>
+  
+
+
+
+{# templates/rp/ajouterProduction.html.twig #}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Ajouter Production</title>
+</head>
+<body>
+<div class="container">
+
+    <center><h1>Ajouter une production</h1></center>
+       <br> 
+       <div class="form-group col-md-12">
+			{{ form_start(form) }}
+            <div>
+                <label>Description</label> 
+                {{ form_widget(form.designation, {'attr': {'class': 'form-control'}})}}  
+            </div><br>
+
+            <div class="form-group col-md-12">
+				<label>URL</label>
+				{{ form_widget(form.url, {'attr': {'class': 'form-control'}})}}
+			</div>
+
+              <center><div class="col-12">
+					{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
+				</div></center>
+				
+			</div>
+
+            
+</div>
+</body>
+</html>
+
+
+
+
+
+</body>
+{% endblock %}
+

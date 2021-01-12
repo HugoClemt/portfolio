@@ -196,7 +196,7 @@ public function ajouterStage($etudiant_id, Request $request){
         $stage->setEtudiant($etudiant);
         $enseignant = $this->getDoctrine()
         ->getRepository(Enseignant::class)
-        ->find(999);
+        ->findOneById(999);
         $stage->setEnseignant($enseignant);
 
 

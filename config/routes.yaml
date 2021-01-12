@@ -40,7 +40,7 @@ etudiantListerLesRP:
 
 #Ajouter une RP
 rpAjouter:
-    path: etudiant/etudiant/rp/ajouter/{etudiant_id}
+    path: etudiant/rp/ajouter/{etudiant_id}
     controller: App\Controller\RPController::ajouterRp
 
 #consulter une RP d'un étudiant
@@ -63,10 +63,6 @@ rpConsulterProduction:
     path: /etudiant/rp/consulterProduction/{rp_id}
     controller : App\Controller\RPController::consulterProductionRPEtudiant
 
-#ajouter une production d'une RP
-rpAjouterProduction:
-    path: /etudiant/rp/AjouterProduction/{rp_id}
-    controller : App\Controller\RPController::ajouterProductionRPEtudiant
 
 #lister les RP à commenter (prof)
 enseignantLesRPaCommenter:
@@ -142,5 +138,11 @@ ListerSemaine:
 ajouterActiviteRP:
     path: /etudiant/rp/ajouterActivite/{rp_id}
     controller: App\Controller\RPController::ajouterActiviteRP
+
+#Ajouter des productions à une RP
+ajouterProductionRP:
+    path: /etudiant/rp/ajouterProduction/{rp_id}
+    controller: App\Controller\RPController::ajouterProductionRP
+
 
 
