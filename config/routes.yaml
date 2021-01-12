@@ -56,13 +56,17 @@ rpConsulterCommentaire:
 #consulter les activité d'une RP
 rpConsulterActivite:
     path: /etudiant/rp/consulterActivite/{rp_id}
-    controller : App\Controller\RPController::consulterActiviteRPEtudiant
+    controller: App\Controller\RPController::consulterActiviteRPEtudiant
+
+#supprimer une activite d'une RP
+rpDeleteActivite:
+    path: /etudiant/rp/deleteActivite/{rpActivite_id}
+    controller: App\Controller\RPController::deleteActivite
 
 #consulter les production d'une RP
 rpConsulterProduction:
     path: /etudiant/rp/consulterProduction/{rp_id}
     controller : App\Controller\RPController::consulterProductionRPEtudiant
-
 
 #lister les RP à commenter (prof)
 enseignantLesRPaCommenter:

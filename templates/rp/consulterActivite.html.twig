@@ -47,7 +47,7 @@
 						<td>{{ RPactivite.activite.libelle }}</td> 
 				    	<td>{{ RPactivite.commentaire }}</td>
 						<td><a href="#"><span title="Cliquer pour modifier">📝</span></a>
-						<td><a href="#"><span title="Cliquer pour supprimer">❌</span></a>
+						<td><a href="{{ path('rpDeleteActivite', {'rpActivite_id': RPactivite.id}) }}"><span title="Cliquer pour supprimer">❌</span></a>
 				    </tr>
 				  </tbody>
 				  {% endfor %}
