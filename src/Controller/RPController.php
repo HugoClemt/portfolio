@@ -137,10 +137,6 @@ class RPController extends AbstractController
         ->find(1);
         $rp->setStatut($statut);
         
-        
-
-
- 
         if ($form->isSubmitted() && $form->isValid()) {
             $rp = $form->getData();
 
@@ -161,8 +157,20 @@ class RPController extends AbstractController
         $rp = $this->getDoctrine()->getRepository(RP::class)->find($rp_id);
         $rpActivite = $this->getDoctrine()->getRepository(RPActivite::class)->findByRp($rp);
 
+        return $this->render('rp/consulterActivite.html.twig', ['pRPActivite' => $rpActivite, 'pRP' => $rp]);
+    }
 
-        
+    public function deleteActivite($rpActivite_id){
+        $rpactivite = $this->getDoctrine()
+        ->getRepository(RPActivite::class)
+        ->findOneById($rpActivite_id);
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($rpactivite);
+        $manager->flush();
+
+        $rp = $this->getDoctrine()->getRepository(RP::class)->find($rpactivite->getRP()->getId());
+        $rpActivite = $this->getDoctrine()->getRepository(RPActivite::class)->findByRp($rp);
+
         return $this->render('rp/consulterActivite.html.twig', ['pRPActivite' => $rpActivite, 'pRP' => $rp]);
     }
 
