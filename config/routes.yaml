@@ -46,7 +46,7 @@ rpAjouter:
 #consulter une RP d'un étudiant
 rpConsulter:
     path: /etudiant/rp/consulter/{rp_id}
-    controller: App\Controller\RPController::consulterRpEtudiant
+    controller: App\Controller\RPController::modifierRP
 
 #consulter un commentaire d'une RP
 rpConsulterCommentaire:

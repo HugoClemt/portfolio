@@ -21,8 +21,7 @@ class RPType extends AbstractType
     {
         $builder
             ->add('libcourt', TextType::class)
-            ->add('descriptif', TextareaType::class)
-            ->add('contexte', TextareaType::class)
+            ->add('besoin', TextareaType::class)
             ->add('dateDebut', DateType::class, array('input' => 'datetime',
                                                           'widget' => 'single_text',
                                                           'required' => true,

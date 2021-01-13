@@ -28,12 +28,7 @@ class RP
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $descriptif;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $contexte;
+    private $besoin;
 
     /**
      * @ORM\Column(type="date")
@@ -137,29 +132,18 @@ class RP
         return $this;
     }
 
-    public function getDescriptif(): ?string
+    public function getBesoin(): ?string
     {
-        return $this->descriptif;
+        return $this->besoin;
     }
 
-    public function setDescriptif(?string $descriptif): self
+    public function setBesoin(?string $besoin): self
     {
-        $this->descriptif = $descriptif;
+        $this->besoin = $besoin;
 
         return $this;
     }
 
-    public function getContexte(): ?string
-    {
-        return $this->contexte;
-    }
-
-    public function setContexte(?string $contexte): self
-    {
-        $this->contexte = $contexte;
-
-        return $this;
-    }
 
     public function getDateDebut(): ?\DateTimeInterface
     {

@@ -220,7 +220,7 @@ class RPController extends AbstractController
         
  
         if ($form->isSubmitted() && $form->isValid()) {
-            echo("V");
+            
             $production = $form->getData();
 
  
@@ -231,12 +231,45 @@ class RPController extends AbstractController
         }
         else
         {
-            echo('X');
+            
             return $this->render('rp/ajouterProduction.html.twig', array('form' => $form->createView(),));
         }
 
 
     }
+
+
+    public function modifierRP ($rp_id, Request $request)
+    {
+        $rp = $this->getDoctrine()
+        ->getRepository(RP::class)
+        ->findOneById($rp_id);
+        if(!$rp){
+            echo ("rp non trouvé");
+            throw $this->createNotFoundException('Aucune rp trouvé avec l\'id '.$rp_id);
+        }
+        else
+        {
+            $form = $this->createForm(RPType::class, $rp);
+            $form->handleRequest($request);
+            $rp = $form->getData();
+            //var_dump($rp) ;
+            if($form->isSubmitted() ){
+                $rp = $form->getData();
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($rp);
+                $entityManager->flush();
+                //return $this->render('etudiant/modifier.html.twig', ['pEtudiant' => $etudiant]);
+                return $this->render('rp/consulter.html.twig', array('form' => $form->createView(),'pRP' => $rp));
+            }
+            else{  
+                //return $this->render('etudiant/modifier.html.twig', array('form'=>$form->createView(),'pEtudiant' => $etudiant));
+                return $this->render('rp/consulter.html.twig', array('form' => $form->createView(),'pRP' => $rp));
+            }
+
+        }
+    }
+
 }
 
 

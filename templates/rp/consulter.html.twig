@@ -27,100 +27,75 @@
   </div></center>
 </nav>
 
-<form>
-  <div class="form-group">
-    <table>
-      <tr>
-        <td width="100%">
-          <label for="formGroupExampleInput">Libellé*</label><br>
-          {{pRP.libcourt}}
-        </td>
-      </tr>
-    </table>
-  </div>
+<div class="container">
 
+    
+       <br> 
+       <div class="alert " role="alert">
+			{{ form_start(form) }}
+				<div class="form-row">
+					<label>Libellé</label>
+					{{ form_widget(form.libcourt, {'attr': {'class': 'form-control'}})}}
+				</div><br>
 
-  <div class="form-group">
-    <table>
-      <tr>
-        <td width="100%">
-          <label for="formGroupExampleInput2">Contexte</label>
-          <br>
-          {{pRP.contexte}}
-        </td>
-      </tr>
-    </table>
-  </div>
+				<div class="form-row">
+					<label>Besoin</label>
+					{{ form_widget(form.besoin, {'attr': {'class': 'form-control'}})}}
+				</div><br>
 
+					<div class="alert alert-light" role="alert">
+						<div class="form-row">
+	    					<div class="form-group col-md-3">
+								<label>Localisation</label>
+								{{ form_widget(form.localisation, {'attr': {'class': 'form-control'}})}}
+							</div>
+							<div class="form-group col-md-3">
+								<label>Source</label>
+								{{ form_widget(form.source, {'attr': {'class': 'form-control'}})}}
+							</div><br>
+						
+							<div class="form-group col-md-3">
+								<label>Cadre</label>
+								{{ form_widget(form.cadre, {'attr': {'class': 'form-control'}})}}
+							</div>
 
-  <div class="form-group">
-    <table>
-      <tr>
-        <td width="100%">
-          <label for="formGroupExampleInput3">Définition du besoin</label>
-          <br>
-         {{pRP.descriptif}}
-        </td>
-        
-      </tr>
-    </table>
-  </div>
-</form>
+							<div class="form-group col-md-3">
+								<label>Niveau</label>
+								{{ form_widget(form.niveau, {'attr': {'class': 'form-control'}})}}
+							</div>
+						</div><br>
+							
 
-<br><br>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label>Date de début</label>
+								{{ form_widget(form.dateDebut, {'attr': {'class': 'form-control'}})}}
+							</div><br>
 
+							<div class="form-group col-md-6">
+								<label>Date de fin</label>
+								{{ form_widget(form.dateFin, {'attr': {'class': 'form-control'}})}}
+							</div>
+						</div><br>
+					</div>
 
-<div class="jumbotron jumbotron-fluid">
-  <div class="container">
-  <form>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="localisation">Localisation</label>
-      <br>
-      {{pRP.localisation.libelle}}
-    </div>
-    <div class="form-group col-md-4">
-      <label for="source">Source</label>
-      <br>
-      {{pRP.source.libelle}}
-      </select>
-    </div>
-    <div class="form-group col-md-2">
-      <label for="source">Cadre</label>
-      <br>
-      {{pRP.cadre.libelle}}
-    </div>
-  </div>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="debut">Debut</label>
-      <br>
-      {{pRP.dateDebut|date("d/m/Y")}}
-    </div>
-    <div class="form-group col-md-6">
-      <label for="fin">Fin</label>
-      <br>
-      {{pRP.dateFin|date("d/m/Y")}}
-    </div>
-  </div>
-</form>
-  </div>
-</div>
+				<div class="form-row">
+					<label>Environnement</label>
+					{{ form_widget(form.environnement, {'attr': {'class': 'form-control'}})}}
+				</div><br>
 
-<br>
-
-<form>
-  <div class="form-group">
-    <label for="env_tech">Env.tech</label>
-    <br>
-    {{pRP.environnement}}
-  </div>
-  <div class="form-group">
-    <label for="moyens">Moyens</label>
-    <br>
-    {{pRP.moyen}}
-  </div>
-</form>
+				<div class="form-row">
+					<label>Moyens</label>
+					{{ form_widget(form.moyen, {'attr': {'class': 'form-control'}})}}
+				</div><br>
+				<center><div class="col-12">
+					{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
+				</div></center>
+					{{ form_end(form) }}
+				<div class="col-12">
+				</div>
+			</div>
+		</div>
 
 </div>
 </body>
