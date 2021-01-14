@@ -42,14 +42,16 @@ class User implements UserInterface
     private $username;
 
     /**
-     * @ORM\OneToOne(targetEntity=Etudiant::class, mappedBy="user_id", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Etudiant::class, mappedBy="user", cascade={"persist", "remove"})
      */
     private $etudiant;
 
     /**
-     * @ORM\OneToOne(targetEntity=Enseignant::class, mappedBy="user_id", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Enseignant::class, mappedBy="user", cascade={"persist", "remove"})
      */
     private $enseignant;
+
+    
 
     public function getId(): ?int
     {
@@ -154,12 +156,12 @@ class User implements UserInterface
     {
         // unset the owning side of the relation if necessary
         if ($etudiant === null && $this->etudiant !== null) {
-            $this->etudiant->setUserId(null);
+            $this->etudiant->setUser(null);
         }
 
         // set the owning side of the relation if necessary
-        if ($etudiant !== null && $etudiant->getUserId() !== $this) {
-            $etudiant->setUserId($this);
+        if ($etudiant !== null && $etudiant->getUser() !== $this) {
+            $etudiant->setUser($this);
         }
 
         $this->etudiant = $etudiant;
@@ -176,16 +178,18 @@ class User implements UserInterface
     {
         // unset the owning side of the relation if necessary
         if ($enseignant === null && $this->enseignant !== null) {
-            $this->enseignant->setUserId(null);
+            $this->enseignant->setUser(null);
         }
 
         // set the owning side of the relation if necessary
-        if ($enseignant !== null && $enseignant->getUserId() !== $this) {
-            $enseignant->setUserId($this);
+        if ($enseignant !== null && $enseignant->getUser() !== $this) {
+            $enseignant->setUser($this);
         }
 
         $this->enseignant = $enseignant;
 
         return $this;
     }
+
+    
 }
