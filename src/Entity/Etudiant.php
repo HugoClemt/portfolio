@@ -40,11 +40,6 @@ class Etudiant
     private $mobile;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=true)
-     */
-    private $photo;
-
-    /**
      * @ORM\Column(type="date")
      */
     private $datenaiss;
@@ -155,18 +150,6 @@ class Etudiant
     public function setMobile(string $mobile): self
     {
         $this->mobile = $mobile;
-
-        return $this;
-    }
-
-    public function getPhoto(): ?string
-    {
-        return $this->photo;
-    }
-
-    public function setPhoto(?string $photo): self
-    {
-        $this->photo = $photo;
 
         return $this;
     }

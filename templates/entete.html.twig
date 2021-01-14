@@ -39,7 +39,9 @@
           Accueil
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        {% if is_granted('ROLE_ETUDIANT') %}
           <a class="dropdown-item" href="{{ path('etudiantAccueil', { 'etudiant_id': 100 }) }}">Accueil (etudiant)</a>
+        {% endif %}
           <a class="dropdown-item" href="{{ path('enseignantAccueil', { 'enseignant_id': 3 }) }}">Accueil (enseignant)</a>
         </div>
       </li>
