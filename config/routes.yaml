@@ -148,5 +148,9 @@ ajouterProductionRP:
     path: /etudiant/rp/ajouterProduction/{rp_id}
     controller: App\Controller\RPController::ajouterProductionRP
 
+admin:
+    path: /admin
+    controller: App\Controller\AdminController::admin
+
 
 

@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Promotion;
 use App\Form\PromotionType;
+use App\Entity\User;
 
 class AdminController extends AbstractController
 {
@@ -44,4 +45,10 @@ class AdminController extends AbstractController
         }
     }
 
+    public function admin(){
+        $users = $this->getDoctrine()->getRepository(User::class)->findAll();
+
+        return $this->render('admin/index.html.twig', ['users' => $users]);
+
+    }
 }
