@@ -188,9 +188,9 @@ class RPController extends AbstractController
         $rpactivite->setRP($rp);
         
  
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             $rpactivite = $form->getData();
-
+            echo("V");
  
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($rpactivite);
@@ -199,6 +199,7 @@ class RPController extends AbstractController
         }
         else
         {
+            echo("X");
             return $this->render('rp/ajouterActivite.html.twig', array('form' => $form->createView(),));
         }
     }
@@ -219,7 +220,7 @@ class RPController extends AbstractController
         $production->setRP($rp);
         
  
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             
             $production = $form->getData();
 
@@ -269,6 +270,37 @@ class RPController extends AbstractController
 
         }
     }
+
+
+    /*public function soumettreRPEnseignant ($rp_id, Request $request)
+    {
+        $rp = $this->getDoctrine()
+        ->getRepository(RP::class)
+        ->findOneById($rp_id);
+        if(!$rp){
+            echo ("rp non trouvé");
+            throw $this->createNotFoundException('Aucune rp trouvé avec l\'id '.$rp_id);
+        }
+        else
+        {
+            $form = $this->createForm(RPType::class, $rp);
+            $form->handleRequest($request);
+            $rp = $form->getData();
+            if($form->isSubmitted() ){
+                $rp = $form->getData();
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($rp);
+                $entityManager->flush();
+                //return $this->render('etudiant/modifier.html.twig', ['pEtudiant' => $etudiant]);
+                return $this->render('rp/consulter.html.twig', array('form' => $form->createView(),'pRP' => $rp));
+            }
+            else{  
+                //return $this->render('etudiant/modifier.html.twig', array('form'=>$form->createView(),'pEtudiant' => $etudiant));
+                return $this->render('rp/consulter.html.twig', array('form' => $form->createView(),'pRP' => $rp));
+            }
+
+        }
+    }*/
 
 }
 

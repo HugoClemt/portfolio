@@ -39,10 +39,7 @@ class Etudiant
      */
     private $mobile;
 
-    /**
-     * @ORM\Column(type="string", length=50, nullable=true)
-     */
-    private $photo;
+
 
     /**
      * @ORM\Column(type="date")
@@ -159,17 +156,6 @@ class Etudiant
         return $this;
     }
 
-    public function getPhoto(): ?string
-    {
-        return $this->photo;
-    }
-
-    public function setPhoto(?string $photo): self
-    {
-        $this->photo = $photo;
-
-        return $this;
-    }
 
     public function getDatenaiss(): ?\DateTimeInterface
     {
