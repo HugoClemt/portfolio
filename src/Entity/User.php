@@ -21,7 +21,7 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=180, nullable=true)
      */
     private $email;
 
@@ -37,9 +37,19 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $username;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Etudiant::class, mappedBy="user_id", cascade={"persist", "remove"})
+     */
+    private $etudiant;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Enseignant::class, mappedBy="user_id", cascade={"persist", "remove"})
+     */
+    private $enseignant;
 
     public function getId(): ?int
     {
@@ -131,6 +141,50 @@ class User implements UserInterface
         if (!in_array($roles, $this->roles)) {
             $this->roles[] = $roles;
         }
+
+        return $this;
+    }
+
+    public function getEtudiant(): ?Etudiant
+    {
+        return $this->etudiant;
+    }
+
+    public function setEtudiant(?Etudiant $etudiant): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($etudiant === null && $this->etudiant !== null) {
+            $this->etudiant->setUserId(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($etudiant !== null && $etudiant->getUserId() !== $this) {
+            $etudiant->setUserId($this);
+        }
+
+        $this->etudiant = $etudiant;
+
+        return $this;
+    }
+
+    public function getEnseignant(): ?Enseignant
+    {
+        return $this->enseignant;
+    }
+
+    public function setEnseignant(?Enseignant $enseignant): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($enseignant === null && $this->enseignant !== null) {
+            $this->enseignant->setUserId(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($enseignant !== null && $enseignant->getUserId() !== $this) {
+            $enseignant->setUserId($this);
+        }
+
+        $this->enseignant = $enseignant;
 
         return $this;
     }

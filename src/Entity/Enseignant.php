@@ -65,6 +65,11 @@ class Enseignant
      */
     private $stages;
 
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="enseignant", cascade={"persist", "remove"})
+     */
+    private $user_id;
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
@@ -238,6 +243,18 @@ class Enseignant
 
         return $this;
 
+    }
+
+    public function getUserId(): ?User
+    {
+        return $this->user_id;
+    }
+
+    public function setUserId(?User $user_id): self
+    {
+        $this->user_id = $user_id;
+
+        return $this;
     }
 
 

@@ -144,7 +144,7 @@ class RPController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($rp);
             $entityManager->flush();
-                        return $this->render('rp/consulter.html.twig', ['pRP' => $rp]);
+                        return $this->render('rp/consulter.html.twig', array('form' => $form->createView(),'pRP' => $rp));
         }
         else
         {
