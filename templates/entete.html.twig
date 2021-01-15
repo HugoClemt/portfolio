@@ -1,5 +1,3 @@
-
-
 <!doctype html>
 <html lang="fr">
   <head>
@@ -15,23 +13,18 @@
 
           <div class="row">
             <div class="col-md-2">
-            {% if app.user %}
-        <div class="mb-3" color="white">
-        
-            You are logged in as {{ app.user.username }}</a>
-        </div>
-    {% endif %}
             </div>
             <div class="col-md-8">
               <h1 class="display-2 text-center">SuiviSIO</h1>
                 <p class="lead text-center">Suivi individuel des compétences BTS SIO</p>
             </div>
             <div class="col-md-2">
-
+            {% if is_granted('ROLE_ENSEIGNANT') %}
+                {{app.user.enseignant.nom}} {{app.user.enseignant.prenom}}
+            {% else %}
+                {{app.user.etudiant.nom}} {{app.user.etudiant.prenom}}
+            {% endif %}
             </div>
-
-
-
       </div>
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -39,10 +32,11 @@
           Accueil
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        {% if is_granted('ROLE_ETUDIANT') %}
-          <a class="dropdown-item" href="{{ path('etudiantAccueil', { 'etudiant_id': 100 }) }}">Accueil (etudiant)</a>
+        {% if is_granted('ROLE_ENSEIGNANT') %}
+          <a class="dropdown-item" href="{{ path('enseignantAccueil', { 'enseignant_id': 3 }) }}">Accueil</a>
+        {% else %}
+          <a class="dropdown-item" href="{{ path('etudiantAccueil', { 'etudiant_id': app.user.etudiant.id }) }}">Accueil</a>
         {% endif %}
-          <a class="dropdown-item" href="{{ path('enseignantAccueil', { 'enseignant_id': 3 }) }}">Accueil (enseignant)</a>
         </div>
       </li>
 
@@ -54,8 +48,11 @@
           Réalisation professionnelle
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{{ path('etudiantListerLesRP', { 'etudiant_id': 100 }) }}">Lister mes réalisations (etudiant)</a>
-          <a class="dropdown-item" href="{{ path('enseignantLesRPaCommenter', { 'enseignant_id': 3 }) }}">Lister les réalisations à commenter (prof)</a>
+        {% if is_granted('ROLE_ENSEIGNANT') %}
+          <a class="dropdown-item" href="{{ path('enseignantLesRPaCommenter', { 'enseignant_id': 3 }) }}">Lister les réalisations à commenter</a>
+        {% else %}
+          <a class="dropdown-item" href="{{ path('etudiantListerLesRP', { 'etudiant_id': app.user.etudiant.id }) }}">Lister mes réalisations</a>
+        {% endif %} 
         </div>
       </li>
 
@@ -75,9 +72,13 @@
           Stages
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{{ path('EtudiantListerStage', { 'etudiant_id': 100 }) }}">Carnet de bord</a>
+          
           <a class="dropdown-item" href="{{ path('ListerAncienStages') }}">Infos anciens stages</a>
-          <a class="dropdown-item" href="{{ path('ListerStagesAffect', { 'enseignant_id': 3 }) }}">Lister Stage affectés (prof)</a>
+        {% if is_granted('ROLE_ENSEIGNANT') %}
+          <a class="dropdown-item" href="{{ path('ListerStagesAffect', { 'enseignant_id': 3 }) }}">Lister Stage affectés</a>
+        {% else %}
+          <a class="dropdown-item" href="{{ path('EtudiantListerStage', { 'etudiant_id': app.user.etudiant.id }) }}">Carnet de bord</a>
+        {% endif %}
         </div>
       </li>
 
@@ -87,7 +88,10 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">Sauvegarde</a>
-          <a class="dropdown-item" href="{{ path('etudiantConsulter', { 'etudiant_id': 50 }) }}">Profil</a>
+          {% if is_granted('ROLE_ENSEIGNANT') %}
+          {% else %}
+          <a class="dropdown-item" href="{{ path('etudiantConsulter', { 'etudiant_id': app.user.etudiant.id }) }}">Profil</a>
+          {% endif %}
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="mailto:btsinfo.rostand@laposte.net?subject=[portfolio]">Contact admin</a>
         </div>
