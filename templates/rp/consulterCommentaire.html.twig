@@ -40,15 +40,17 @@
 
 <br>
 <center>
-  <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-    <option selected>Notifier un professeur</option>   
-    <option value="ANNOUCHE">ANNOUCHE</option>
-    <option value="GUERINET">GUERINET</option>
-    <option value="MAILHE">MAILHE</option>     
-    <option value="NGO">NGO</option> 
-    <option value="VIGOT">VIGOT</option>       
-  </select>
-  <a href=""><button type="button" class="btn btn-secondary btn-sm">Notifier</button></a>
+  <div class="alert " role="alert">
+			{{ form_start(form) }}
+				<div class="form-row">
+					<label>Soummetre à un enseignant</label>
+					{{ form_widget(form.enseignant, {'attr': {'class': 'form-control'}})}}
+				</div><br>
+				<center><div class="col-12">
+					{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
+				</div></center>
+					{{ form_end(form) }}
+				<div class="col-12">
 </center>
 
 

@@ -3,7 +3,7 @@
 
 namespace App\Form;
 
-use App\Entity\RP;
+use App\Entity\Commentaire;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,13 +15,12 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
-class SoumettreRPEnseignantType extends AbstractType
+class CommentaireType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            
-            ->add('enseignant', EntityType::class, array('class' => 'App\Entity\Enseignant','choice_label' => 'Nom' ))
+            ->add('commentaire', TextareaType::class)
             
             ->add('enregistrer', SubmitType::class, array('label' => 'Valider'))
 
@@ -31,7 +30,7 @@ class SoumettreRPEnseignantType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => RP::class,
+            'data_class' => Commentaire::class,
         ]);
     }
 }

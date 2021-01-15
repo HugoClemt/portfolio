@@ -1,0 +1,52 @@
+{% extends "entete.html.twig" %}
+{% block content %}
+<body>
+<div class="container">
+
+
+
+  
+
+
+
+{# templates/rp/ajouterProduction.html.twig #}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Ajouter PCommentaire</title>
+</head>
+<body>
+<div class="container">
+
+    <center><h1>Ajouter un commentaire</h1></center>
+       <br> 
+       <div class="form-group col-md-12">
+			{{ form_start(form) }}
+            <div>
+                <label>Commentaire</label> 
+                {{ form_widget(form.commentaire, {'attr': {'class': 'form-control'}})}}  
+            </div><br>
+
+            
+
+              <center><div class="col-12">
+					{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
+				</div></center>
+				
+			</div>
+
+            
+</div>
+</body>
+</html>
+
+
+
+
+
+</body>
+{% endblock %}
+
