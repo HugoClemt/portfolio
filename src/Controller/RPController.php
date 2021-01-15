@@ -32,9 +32,6 @@ class RPController extends AbstractController
         return $this->render('rp/consulter.html.twig', ['pRP' => $rp,]);
     }
 
-    
-
-
     public function listerLesRPaCommenter($enseignant_id)
     {
 
@@ -105,13 +102,6 @@ class RPController extends AbstractController
             $MesRp = $this->getDoctrine()
             ->getRepository(RP::class)
             ->findByEtudiant($etudiant_id);
-
-
-            if (!$MesRp) {
-                throw $this->createNotFoundException(
-                'Aucun étudiant trouvé avec le numéro '.$etudiant_id
-                );
-            }
             
             return $this->render('rp/lister.html.twig', [ 'pRP' => $MesRp,]);
 

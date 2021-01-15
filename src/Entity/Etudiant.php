@@ -39,8 +39,6 @@ class Etudiant
      */
     private $mobile;
 
-
-
     /**
      * @ORM\Column(type="date")
      */
@@ -155,7 +153,6 @@ class Etudiant
 
         return $this;
     }
-
 
     public function getDatenaiss(): ?\DateTimeInterface
     {

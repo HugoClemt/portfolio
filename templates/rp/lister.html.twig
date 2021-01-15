@@ -11,7 +11,7 @@
 <body>
 <div class="container"><br>
 	<center><h1>Réalisations professionnelles</h1><br></center>
-		<a href="{{ path('rpAjouter', { 'etudiant_id': 100 }) }}"><input type="button" value="Ajouter une nouvelle réalisation professionnelle" class="btn btn-secondary btn-lg btn-block"></a>
+		<a href="{{ path('rpAjouter', { 'etudiant_id': app.user.etudiant.id }) }}"><input type="button" value="Ajouter une nouvelle réalisation professionnelle" class="btn btn-secondary btn-lg btn-block"></a>
 				<table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
 				  <thead>
 				    <tr>
@@ -55,23 +55,6 @@
 
 
 		<br><br>
-
-<div class="accordion" id="accordionExample">
-<div class="card">
-    <div class="card-header" id="headingTwo">
-      <h2 class="mb-0">
-        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Aide
-        </button>
-      </h2>
-    </div>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-      <div class="card-body">
-        Cette page permet d'éditer une réalisation professionnelle en cliquant sur le libellé de la réalisation, afin de l'éditer. Vous pouvez prendre connaissance du nombre d'activité, son statut et vous pouvez supprimer une réalisation en appuyant sur la croix rouge ❌ 
-      </div>
-    </div>
-  </div>
-</div>
 </body>
 </html>
 {% endblock %}
