@@ -29,22 +29,10 @@ class RPActiviteType extends AbstractType
                     'size' => 18,
                     )
             ))
-
-
             ->add('commentaire', TextareaType::class,)
-
-            
-
-
-
-
             ->add('enregistrer', SubmitType::class, array('label' => 'Valider'));
-
-            
-
         }
     
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

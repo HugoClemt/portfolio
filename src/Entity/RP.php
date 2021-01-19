@@ -107,6 +107,11 @@ class RP
      */
     private $productions;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $archivage;
+
     public function __construct()
     {
         $this->activites = new ArrayCollection();
@@ -375,6 +380,18 @@ class RP
                 $production->setRp(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getArchivage(): ?bool
+    {
+        return $this->archivage;
+    }
+
+    public function setArchivage(?bool $archivage): self
+    {
+        $this->archivage = $archivage;
 
         return $this;
     }

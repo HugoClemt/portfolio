@@ -1,0 +1,37 @@
+{% extends "entete.html.twig" %}
+{% block content %}
+<body>
+<div class="container"><br>
+	<center><h1>Réalisations professionnelles archivées</h1><br></center>
+				<table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
+				  <thead>
+				    <tr>
+                      <th scope="col" data-sortable="true">Source</th>
+				      <th scope="col" data-sortable="true">Libellé</th>
+				      <th scope="col" data-sortable="true">Nombre d'activités</th>
+				      <th scope="col" data-sortable="true">Statut</th>
+				      <th scope="col" data-sortable="true">Date</th>
+				      <th></th>
+				    </tr>
+				  </thead>
+				  <tbody>
+					{% for RP in pRP %}
+				    <tr>
+                    <td>{{ RP.source.libelle }}</td> 
+				      <td><a class="text" href="{{ path('rpConsulter', { 'rp_id': RP.id }) }}">{{ RP.libcourt }}</a></td>
+				      <td>{{ RP.activites.count }}</td> 
+
+				       <td>{{ RP.statut.libelle }}</td>		   
+					 
+				      <td>{{ RP.dateDebut|date("d/m/Y") }}</td>
+
+				      <td><a href="{{ path('rpDelete', {'rp_id': RP.id}) }}"><span title="Cliquer pour supprimer">❌</span></a></td>
+				    </tr>
+				    {% endfor %}
+				  </tbody>
+				</table>
+				<br>
+		<br><br>
+</body>
+</html>
+{% endblock %}

@@ -11,7 +11,9 @@
 <body>
 <div class="container"><br>
 	<center><h1>Réalisations professionnelles</h1><br></center>
-		<a href="{{ path('rpAjouter', { 'etudiant_id': app.user.etudiant.id }) }}"><input type="button" value="Ajouter une nouvelle réalisation professionnelle" class="btn btn-secondary btn-lg btn-block"></a>
+	{% if is_granted('ROLE_ETUDIANT') %}
+		<a href="{{ path('rpAjouter', { 'etudiant_id': app.user.etudiant.id }) }}"><input type="button" value="Ajouter une nouvelle réalisation professionnelle" class="btn btn-secondary btn-sl btn-block"></a>
+		{% endif %}
 				<table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
 				  <thead>
 				    <tr>
@@ -39,7 +41,7 @@
 					 
 				      <td>{{ RP.dateDebut|date("d/m/Y") }}</td>
 
-				      <td><a href="supprimer.html.twig"><span title="Cliquer pour archiver">📁</span></a>
+				      <td><a href="{{ path('rpArchivage', { 'rp_id': RP.id }) }}"><span title="Cliquer pour archiver">📁</span></a>
 				      </td>
 				    </tr>
 				    
