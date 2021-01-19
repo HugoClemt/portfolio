@@ -21,7 +21,7 @@ class SoumettreRPEnseignantType extends AbstractType
     {
         $builder
             
-            ->add('enseignant', EntityType::class, array('class' => 'App\Entity\Enseignant','choice_label' => 'Nom' ))
+            ->add('enseignant', EntityType::class, array('class' => 'App\Entity\Enseignant','choice_label' => 'nom' ))
             
             ->add('enregistrer', SubmitType::class, array('label' => 'Valider'))
 

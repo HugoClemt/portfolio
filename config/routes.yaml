@@ -1,6 +1,6 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+index:
+    path: /
+    controller: App\Controller\AdminController::index
 
 logout:
     path: /logout
@@ -48,6 +48,21 @@ etudiantListerLesRP:
 rpAjouter:
     path: etudiant/rp/ajouter/{etudiant_id}
     controller: App\Controller\RPController::ajouterRp
+
+#ArchiverRP
+rpArchivage:
+    path: etudiant/rp/archivage/{rp_id}
+    controller: App\Controller\RPController::archiveRP
+
+#Lister RP archiver
+rpListerArchiver:
+    path: etudiant/rp/ListerArchivage/{etudiant_id}
+    controller: App\Controller\RPController::listerRPArchiver
+
+#supprimer d'une RP
+rpDelete:
+    path: /etudiant/rp/deleteRp/{rp_id}
+    controller: App\Controller\RPController::deleteRp
 
 #consulter une RP d'un étudiant
 rpConsulter:

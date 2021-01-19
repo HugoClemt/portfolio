@@ -34,7 +34,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         {% if is_granted('ROLE_ENSEIGNANT') %}
-          <a class="dropdown-item" href="{{ path('enseignantAccueil', { 'enseignant_id': 3 }) }}">Accueil</a>
+          <a class="dropdown-item" href="{{ path('enseignantAccueil', { 'enseignant_id': app.user.enseignant.id }) }}">Accueil</a>
         {% else %}
           <a class="dropdown-item" href="{{ path('etudiantAccueil', { 'etudiant_id': app.user.etudiant.id }) }}">Accueil</a>
         {% endif %}
@@ -50,13 +50,16 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         {% if is_granted('ROLE_ENSEIGNANT') %}
-          <a class="dropdown-item" href="{{ path('enseignantLesRPaCommenter', { 'enseignant_id': 3 }) }}">Lister les réalisations à commenter</a>
+          <a class="dropdown-item" href="{{ path('enseignantLesRPaCommenter', { 'enseignant_id': app.user.enseignant.id }) }}">Lister les réalisations à commenter</a>
         {% else %}
+          <a class="dropdown-item" href="{{ path('rpAjouter', { 'etudiant_id': app.user.etudiant.id }) }}">Nouvelle réalisation professionnelle</a>
           <a class="dropdown-item" href="{{ path('etudiantListerLesRP', { 'etudiant_id': app.user.etudiant.id }) }}">Lister mes réalisations</a>
+          <a class="dropdown-item" href="{{ path('rpListerArchiver', { 'etudiant_id': app.user.etudiant.id }) }}">Lister mes réalisations archivées</a>
         {% endif %} 
         </div>
       </li>
-
+      {% if is_granted('ROLE_ENSEIGNANT') %}
+      {% else %}
       <li class="nav-item dropdown">
         <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Synthèse
@@ -67,7 +70,7 @@
           <a class="dropdown-item" href="#">Tableur Excel</a>
         </div>
       </li>
-
+      {% endif %}
       <li class="nav-item dropdown">
         <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Stages

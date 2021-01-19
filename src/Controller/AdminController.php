@@ -9,16 +9,22 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Promotion;
 use App\Form\PromotionType;
 use App\Entity\User;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+
 
 class AdminController extends AbstractController
 {
     /**
      * @Route("/admin", name="admin")
      */
-     public function index(): Response
+     public function index(AuthenticationUtils $authenticationUtils): Response
     {
-        return $this->render('admin/index.html.twig', [
-            'controller_name' => 'AdminController',
+
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+
+        return $this->redirectToRoute('app_login', [
         ]);
 
     }
