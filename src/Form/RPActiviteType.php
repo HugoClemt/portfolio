@@ -24,10 +24,6 @@ class RPActiviteType extends AbstractType
                 'choice_label' => function (Activite $activite) {
                     return $activite->getCode() . ' - ' . $activite->getLibelle();
                 },
-                'attr' => array(
-                    'class' => 'form',
-                    'size' => 18,
-                    )
             ))
             ->add('commentaire', TextareaType::class,)
             ->add('enregistrer', SubmitType::class, array('label' => 'Valider'));
