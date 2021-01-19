@@ -89,6 +89,11 @@ rpDeleteActivite:
     path: /etudiant/rp/deleteActivite/{rpActivite_id}
     controller: App\Controller\RPController::deleteActivite
 
+#supprimer une activite d'une RP
+rpModifierActivite:
+    path: /etudiant/rp/modifierActivite/{rpActivite_id}
+    controller: App\Controller\RPController::modifierRPActivite
+
 #consulter les production d'une RP
 rpConsulterProduction:
     path: /etudiant/rp/consulterProduction/{rp_id}

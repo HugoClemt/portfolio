@@ -12,7 +12,7 @@
 <div class="container"><br>
 	<center><h1>Réalisations professionnelles</h1><br></center>
 	{% if is_granted('ROLE_ETUDIANT') %}
-		<a href="{{ path('rpAjouter', { 'etudiant_id': app.user.etudiant.id }) }}"><input type="button" value="Ajouter une nouvelle réalisation professionnelle" class="btn btn-secondary btn-lg btn-block"></a>
+		<a href="{{ path('rpAjouter', { 'etudiant_id': app.user.etudiant.id }) }}"><input type="button" value="Ajouter une nouvelle réalisation professionnelle" class="btn btn-secondary btn-sl btn-block"></a>
 		{% endif %}
 				<table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
 				  <thead>

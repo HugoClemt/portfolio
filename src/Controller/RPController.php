@@ -184,7 +184,7 @@ class RPController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($rpactivite);
             $entityManager->flush();
-                        return $this->render('rp/consulterActivite.html.twig', ['pRPActivite' => $rpactivite, 'pRP' => $rp]);
+            return $this->render('rp/consulterActivite.html.twig', ['pRPActivite' => $rpactivite, 'pRP' => $rp]);
         }
         else
         {
@@ -212,7 +212,7 @@ class RPController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($production);
             $entityManager->flush();
-                        return $this->render('rp/consulterProduction.html.twig', ['pRPProduction' => $production, 'pRP' => $rp]);
+            return $this->render('rp/consulterProduction.html.twig', ['pRPProduction' => $production, 'pRP' => $rp]);
         }
         else
         {
@@ -361,6 +361,33 @@ class RPController extends AbstractController
         $manager->flush();
 
         return $this->render('rp/archive.html.twig', ['pRP' => $rp]);
+    }
+
+    public function modifierRPActivite ($rpActivite_id, Request $request)
+    {
+        $rpActivite = $this->getDoctrine()
+        ->getRepository(RPActivite::class)
+        ->findOneById($rpActivite_id);
+
+        $rp_id = $rpActivite->getRp()->getId();
+        $rp = $this->getDoctrine()
+        ->getRepository(RP::class)
+        ->findOneById($rp_id);
+    
+        $form = $this->createForm(RPActiviteType::class, $rpActivite);
+        $form->handleRequest($request);
+
+            //var_dump($rp) ;
+        if($form->isSubmitted()){
+            $rpActivite = $form->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($rpActivite);
+            $entityManager->flush();
+            return $this->render('rp/consulterActivite.html.twig', array('form' => $form->createView(),'pRPActivite' => $rpActivite, 'pRP' => $rp));
+        }
+        else{  
+            return $this->render('rp/modifActivite.html.twig', array('form' => $form->createView(),'pRPActivite' => $rpActivite, 'pRP' => $rp));
+        }
     }
 
 }
