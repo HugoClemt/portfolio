@@ -1,8 +1,15 @@
 {% extends 'base.html.twig' %}
 
+
+
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
+
+<center>
+<img src= {{ asset('images/logo.png') }} height=200>
+</center>
+
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -10,7 +17,7 @@
 
     {% if app.user %}
         <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('logout') }}">Logout</a>
+            
         </div>
     {% endif %}
 

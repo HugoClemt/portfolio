@@ -125,6 +125,7 @@ class RPController extends AbstractController
         ->getRepository(Statut::class)
         ->find(1);
         $rp->setStatut($statut);
+        $rp->setDateModif(new \DateTime('now'));
         $rp->setArchivage(0);
         
         if ($form->isSubmitted() && $form->isValid()) {
@@ -234,6 +235,7 @@ class RPController extends AbstractController
         {
             $form = $this->createForm(RPType::class, $rp);
             $form->handleRequest($request);
+            $rp->setDateModif(new \DateTime('now'));
 
             //var_dump($rp) ;
             if($form->isSubmitted()){
