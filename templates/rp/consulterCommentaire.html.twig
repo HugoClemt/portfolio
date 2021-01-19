@@ -29,7 +29,7 @@
 {% for commentaire in pRP.commentaire %}
 <div class="alert alert-dark" role="alert">
   
-  <h4><span class="badge bg-secondary">{{ commentaire.dateCommentaire|date("d/m/Y") }}</span> {{ commentaire.enseignant.nom }} </h4>
+  <h4><span >{{ commentaire.dateCommentaire|date("d/m/Y") }}</span> | {{ commentaire.enseignant.prenom }}  {{ commentaire.enseignant.nom }} </h4>
        
     <div class="alert" role="alert">
       {{ commentaire.commentaire }}
@@ -38,12 +38,17 @@
 {% endfor %}
 
 
+
+
+
+
+
 <br>
 <center>
   <div class="alert " role="alert">
 			{{ form_start(form) }}
 				<div class="form-row">
-					<label>Soummetre à un enseignant</label>
+					<label>Informer un enseignant</label>
 					{{ form_widget(form.enseignant, {'attr': {'class': 'form-control'}})}}
 				</div><br>
 				<center><div class="col-12">

@@ -7,9 +7,11 @@
 				<thead>
 					<tr>
 						<th scope="col" data-sortable="true">Etudiant</th>
+						<th scope="col" data-sortable="true">Source</th>
 						<th scope="col" data-sortable="true">Libellé</th>
-						<th scope="col" data-sortable="true">Nombre d'activités</th>
-						<th scope="col" data-sortable="true">Statut</th>
+						
+						<th scope="col" data-sortable="true">Activités</th>
+						
 						<th scope="col" data-sortable="true">Date</th>
 					</tr>
 				</thead>
@@ -17,9 +19,12 @@
 			{% for RP in pRP %}
 			<tr>
 				<td>{{ RP.etudiant.nom }} {{RP.etudiant.prenom}}</a></td>
+				<td>{{ RP.source.libelle}}</a></td>
 				<td><a class="text" href="{{ path('rpConsulter', { 'rp_id': RP.id }) }}">{{ RP.libcourt }}</a></td>
+				
 				<td>{{ RP.activites.count }}</td> 
-				<td>{{ RP.statut.libelle }}</td>		    
+				
+						    
 				<td>{{ RP.dateDebut|date("d/m/Y") }}</td>
 				</td>
 			</tr>

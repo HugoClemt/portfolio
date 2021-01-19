@@ -21,9 +21,9 @@
             </div>
             <div class="col-md-2">
             {% if is_granted('ROLE_ENSEIGNANT') %}
-                {{app.user.enseignant.nom}} {{app.user.enseignant.prenom}}
+                {{app.user.enseignant.prenom}} {{app.user.enseignant.nom}}
             {% else %}
-                {{app.user.etudiant.nom}} {{app.user.etudiant.prenom}}
+                {{app.user.etudiant.prenom}} {{app.user.etudiant.nom}}
             {% endif %}
             </div>
       </div>
