@@ -130,7 +130,7 @@ class RPController extends AbstractController
 
     }
 
-    public function consulterActiviteRPEtudiant($rp_id){
+    public function consulterActiviteRPEtudiant($rp_id, Request $request){
         $rp = $this->getDoctrine()->getRepository(RP::class)->find($rp_id);
         $rpActivite = $this->getDoctrine()->getRepository(RPActivite::class)->findByRp($rp);
 
@@ -423,6 +423,24 @@ class RPController extends AbstractController
         else{  
             return $this->render('rp/modifActivite.html.twig', array('form' => $form->createView(),'pRPActivite' => $rpActivite, 'pRP' => $rp));
         }
+    }
+
+    public function ValiderRP($rp_id, Request $request){
+
+        $rp = $this->getDoctrine()
+        ->getRepository(RP::class)
+        ->findOneById($rp_id);
+
+        $statut = $this->getDoctrine()
+        ->getRepository(Statut::class)
+        ->findOneById(4);
+
+        $rp->setStatut($statut);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($rp);
+        $entityManager->flush();
+        return $this->redirectToRoute('enseignantLesRPaCommenter', array( 'enseignant_id' => $rp->getEnseignant()->getId()));
+        
     }
 
 }

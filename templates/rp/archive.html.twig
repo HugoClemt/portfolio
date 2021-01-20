@@ -24,8 +24,8 @@
 				       <td>{{ RP.statut.libelle }}</td>		   
 					 
 				      <td>{{ RP.dateDebut|date("d/m/Y") }}</td>
-					  <td><a href="{{ path('rpRestore', {'rp_id': RP.id}) }}"><span title="Cliquer pour restorer">📎</span></a></td>
-					<td><a data-toggle="modal" data-target="#ModalDelete"><span title="Cliquer pour supprimer">❌</span></a></td>
+					  <td></td>
+					<td><a data-toggle="modal" data-target="#ModalDelete">⚙️</a></td>
 				    </tr>
 					<div class="modal fade" id="ModalDelete" tabindex="-1" role="dialog" aria-labelledby="ModalDeleteLabel" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered" role="document">
@@ -36,14 +36,15 @@
 							<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
+						<center>
 						<div class="modal-body">
-							Etes-vous sûr de vouloir supprimer votre RP ?
+							Que voulez-vous faire ?
 						</div>
+						</center>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
-							<button type="button" class="btn btn-primary" href="{{ path('rpDelete', {'rp_id': RP.id}) }}">Oui</button>
-
-						</div>
+							<a type="button" class="btn btn-success" href="{{ path('rpRestore', {'rp_id': RP.id}) }}">Restorer</a>
+							<a type="button" class="btn btn-danger text-white" href="{{ path('rpDelete', {'rp_id': RP.id}) }}">Supprimer</a>
+						</div>						
 						</div>
 					</div>
 					</div>
