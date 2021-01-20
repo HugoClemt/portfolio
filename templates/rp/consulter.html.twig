@@ -3,14 +3,13 @@
 <body>
 <div class="container">
   <br>
-    <center><h1>Réalisation professionnelle</h1><br></center>
-       <br>        
+    <center><h1>Réalisation professionnelle</h1><br></center>        
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #DDDDDD;">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-   <center><div class="collapse navbar-collapse" id="navbarNav">
-   <ul class="navbar-nav">
+   <center><div class="navbar-collapse text-right" id="navbarNav">
+   <ul class="navbar-nav text-left">
       <li class="nav-item">
         <a class="nav-link active" href="#"> Description </a>
       </li>
@@ -21,14 +20,12 @@
         <a class="nav-link" href="{{ path('rpConsulterProduction', { 'rp_id': pRP.id }) }}"> Production </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ path('rpConsulterCommentaire', { 'rp_id': pRP.id }) }}"> Commentaire </a>
+        <a class="nav-link" href="{{ path('rpConsulterCommentaire', { 'rp_id': pRP.id }) }}"> Commentaire</a>
       </li>
+	</ul>
 	  {% if is_granted('ROLE_ENSEIGNANT') %}
-	  <li class="nav-item">
-        <a class="nav-link" data-toggle="modal" data-target="#ModalVisee">Visée la RP </a>
-      </li>
+        <a class="nav-link text-right text-info" data-toggle="modal" data-target="#ModalVisee">Viser la RP </a>
 	  {% endif %}
-    </ul>
   </div></center>
 </nav>
 
@@ -47,7 +44,7 @@
 						</div>
 						</center>
 						<div class="modal-footer">
-							<a type="button" class="btn btn-secondary" href="#">Non</a>
+							<a type="button" class="btn btn-secondary" data-dismiss="modal">Non</a>
 							<a type="button" class="btn btn-success text-white" href="{{ path('viseRP', { 'rp_id': pRP.id })  }}">Oui</a>
 						</div>						
 						</div>

@@ -12,12 +12,8 @@
     <div class="text-white" style="background-color: #2980b9;">
 
           <div class="row">
-            <div class="col-md-2">
-            </div>
-            <div class="col-md-8">
-            <center>
-               <img src= {{ asset('images/logo.png') }} height=200>
-               </center>
+            <div class="col-md-4">
+               <img src= {{ asset('images/logo.png') }} height=100>        
             </div>
             <div class="col-md-2">
             {% if is_granted('ROLE_ENSEIGNANT') %}
@@ -29,16 +25,15 @@
       </div>
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      {% if is_granted('ROLE_ENSEIGNANT') %}
+        <a class="navbar-brand" href="{{ path('enseignantAccueil', { 'enseignant_id': app.user.enseignant.id }) }}" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
           Accueil
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        {% if is_granted('ROLE_ENSEIGNANT') %}
-          <a class="dropdown-item" href="{{ path('enseignantAccueil', { 'enseignant_id': app.user.enseignant.id }) }}">Accueil</a>
-        {% else %}
-          <a class="dropdown-item" href="{{ path('etudiantAccueil', { 'etudiant_id': app.user.etudiant.id }) }}">Accueil</a>
+      {% else %}
+      <a class="navbar-brand" href="{{ path('etudiantAccueil', { 'etudiant_id': app.user.etudiant.id }) }}" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          Accueil
+        </a>      
         {% endif %}
-        </div>
       </li>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -101,7 +96,12 @@
         </div>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
+    <form class="form-inline my-2 my-lg-0" >
+        {% if is_granted('ROLE_ENSEIGNANT') %}
+            {{app.user.enseignant.prenom}} {{app.user.enseignant.nom}}
+        {% else %}
+            {{app.user.etudiant.prenom}} {{app.user.etudiant.nom}}
+        {% endif %}
       <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Déconnexion</button>
     </form>
   </div>
