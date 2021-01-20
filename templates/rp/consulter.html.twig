@@ -23,9 +23,36 @@
       <li class="nav-item">
         <a class="nav-link" href="{{ path('rpConsulterCommentaire', { 'rp_id': pRP.id }) }}"> Commentaire </a>
       </li>
+	  {% if is_granted('ROLE_ENSEIGNANT') %}
+	  <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#ModalVisee">Visée la RP </a>
+      </li>
+	  {% endif %}
     </ul>
   </div></center>
 </nav>
+
+<div class="modal fade" id="ModalVisee" tabindex="-1" role="dialog" aria-labelledby="ModalViseeLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="ModalViseeLabel">Confirmation</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<center>
+						<div class="modal-body">
+							Etes-vous sur de visée la RP ?
+						</div>
+						</center>
+						<div class="modal-footer">
+							<a type="button" class="btn btn-secondary" href="#">Non</a>
+							<a type="button" class="btn btn-success text-white" href="{{ path('viseRP', { 'rp_id': pRP.id })  }}">Oui</a>
+						</div>						
+						</div>
+					</div>
+					</div>
 
 <div class="container">
        <br> 
@@ -86,11 +113,13 @@
 					<label>Moyens</label>
 					{{ form_widget(form.moyen, {'attr': {'class': 'form-control'}})}}
 				</div><br>
+				{% if is_granted('ROLE_ENSEIGNANT') %}
+				{% else %}
 				<center><div class="col-12">
-					{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
+					{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}				
 				</div></center>
 					{{ form_end(form) }}
-				<div class="col-12">
+				<div class="col-12">{% endif %}
 				</div>
 			</div>
 		</div>

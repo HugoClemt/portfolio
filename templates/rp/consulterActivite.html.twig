@@ -21,6 +21,11 @@
 	  <li class="nav-item">
 		<a class="nav-link " href="{{ path('rpConsulterCommentaire', { 'rp_id': pRP.id }) }}"> Commentaire </a>
 	  </li>
+	  {% if is_granted('ROLE_ENSEIGNANT') %}
+	  <li class="nav-item">
+        <a class="nav-link" href="{{ path('viseRP', {'rp_id': pRP.id}) }}"> Visée la RP </a>
+      </li>
+	  {% endif %}
 	</ul>
   </div>
 </nav><br>

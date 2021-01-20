@@ -21,10 +21,15 @@
 	  <li class="nav-item">
 		<a class="nav-link " href="{{ path('rpConsulterCommentaire', { 'rp_id': pRP.id }) }}"> Commentaire </a>
 	  </li>
+	  {% if is_granted('ROLE_ENSEIGNANT') %}
+	  <li class="nav-item">
+        <a class="nav-link" href="{{ path('viseRP', {'rp_id': pRP.id}) }}"> Visée la RP </a>
+      </li>
+	  {% endif %}
 	</ul>
   </div>
 </nav><br>
-<center><a href="{{ path('ajouterProductionRP', { 'rp_id': pRP.id }) }}"><input type="button" value="Ajouter une nouvelle production" class="btn btn-secondary btn-sl"></a></center>
+<center><a href="{{ path('ajouterProductionRP', { 'rp_id': pRP.id }) }}"><input type="button" value="Ajouter une nouvelle production" class="btn btn-secondary btn-sl"></a></center><br>
 
 <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
 				  <thead>
