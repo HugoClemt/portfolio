@@ -24,8 +24,20 @@
     </ul>
   </div>
 </nav><br>
-
-
+{% if is_granted('ROLE_ENSEIGNANT') %}
+<div class="container">
+{% if pRP.enseignant.id == app.user.enseignant.id %}
+  <div class="form-group col-md-12">
+			{{ form_start(formAjouter) }}
+            <div>
+                <label>Commentaire</label> 
+                {{ form_widget(formAjouter.commentaire, {'attr': {'class': 'form-control'}})}}  
+            </div><br>
+            <center><div class="col-12">
+					{{ form_widget(formAjouter.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
+				</div></center>
+			</div>    
+</div>{% endif %}{% endif %}
 {% for commentaire in pRP.commentaire %}
 <div class="alert alert-dark" role="alert">
   
@@ -36,26 +48,21 @@
     </div>
 </div>
 {% endfor %}
-
-
-
-
-
-
-
 <br>
+{% if is_granted('ROLE_ENSEIGNANT') %}
+{% else %}
 <center>
   <div class="alert " role="alert">
-			{{ form_start(form) }}
+			{{ form_start(formSoumettre) }}
 				<div class="form-row">
 					<label>Informer un enseignant</label>
-					{{ form_widget(form.enseignant, {'attr': {'class': 'form-control'}})}}
+					{{ form_widget(formSoumettre.enseignant, {'attr': {'class': 'form-control'}})}}
 				</div><br>
 				<center><div class="col-12">
-					{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
+					{{ form_widget(formSoumettre.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
 				</div></center>
-					{{ form_end(form) }}
-				<div class="col-12">
+					{{ form_end(formSoumettre) }}
+				<div class="col-12">{% endif %}
 </center>
 
 

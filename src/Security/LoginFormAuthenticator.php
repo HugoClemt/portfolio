@@ -98,10 +98,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         }
         #return new RedirectResponse($this->urlGenerator->generate('etudiantAccueil', array('etudiant_id' => 100)));
         if (is_granted('ROLE_ENSEIGNANT')){
-        return $this->redirectToRoute('enseignantAccueil', [ ]);
+        return $this->redirectToRoute('enseignantAccueil', array('ensaignant_id' => $user->getUser()->getEnseignant()->getId()));
         }
         else{
-        return $this->redirectToRoute('etudiantAccueil', [ ]);
+        return $this->redirectToRoute('etudiantAccueil', array('etudiant_id' => $user->getUser()->getEtudiant()->getId()));
         }
     }
 

@@ -64,6 +64,11 @@ rpDelete:
     path: /etudiant/rp/deleteRp/{rp_id}
     controller: App\Controller\RPController::deleteRp
 
+#restorer d'une RP
+rpRestore:
+    path: /etudiant/rp/restoreRp/{rp_id}
+    controller: App\Controller\RPController::restoreRp
+
 #consulter une RP d'un étudiant
 rpConsulter:
     path: /etudiant/rp/consulter/{rp_id}
@@ -73,11 +78,6 @@ rpConsulter:
 rpConsulterCommentaire:
     path: /etudiant/rp/consulterCommentaire/{rp_id}
     controller: App\Controller\RPController::consulterCommentaireRPEtudiant
-
-#Ajouter un commentaire
-rpAjouterCommentaire:
-    path: /enseignant/rp/ajouterCommentaire/{rp_id}
-    controller: App\Controller\RPController::ajouterCommentaireRP
 
 #consulter les activité d'une RP
 rpConsulterActivite:
@@ -89,7 +89,7 @@ rpDeleteActivite:
     path: /etudiant/rp/deleteActivite/{rpActivite_id}
     controller: App\Controller\RPController::deleteActivite
 
-#supprimer une activite d'une RP
+#Modif une activite d'une RP
 rpModifierActivite:
     path: /etudiant/rp/modifierActivite/{rpActivite_id}
     controller: App\Controller\RPController::modifierRPActivite
@@ -98,6 +98,16 @@ rpModifierActivite:
 rpConsulterProduction:
     path: /etudiant/rp/consulterProduction/{rp_id}
     controller : App\Controller\RPController::consulterProductionRPEtudiant
+
+#supprimer une production d'une RP
+rpDeleteProduction:
+    path: /etudiant/rp/deleteProduction/{production_id}
+    controller: App\Controller\RPController::deleteProduction
+
+#Modif une production d'une RP
+rpModifierProduction:
+    path: /etudiant/rp/modifierProduction/{production_id}
+    controller: App\Controller\RPController::modifierProduction
 
 #lister les RP à commenter (prof)
 enseignantLesRPaCommenter:

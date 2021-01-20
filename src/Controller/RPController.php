@@ -23,14 +23,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class RPController extends AbstractController
 {
-    /**
-     * @Route("/rp", name="rp")
-     */
-    public function consulterRpEtudiant($rp_id){
-        $rp = $this->getDoctrine()->getRepository(RP::class)->find($rp_id);
-
-        return $this->render('rp/consulter.html.twig', ['pRP' => $rp,]);
-    }
 
     public function listerLesRPaCommenter($enseignant_id)
     {
@@ -39,7 +31,7 @@ class RPController extends AbstractController
         $RPaCommenter = $repository->findBy(
             ['enseignant' => $enseignant_id, 'statut' => 2],array('libcourt'=>'asc'));
         
-        return $this->render('rp/lister.html.twig', ['pRP' => $RPaCommenter]);
+        return $this->render('rp/listerEnseignant.html.twig', ['pRP' => $RPaCommenter]);
     }
 
     public function listerLesRPaModifier($etudiant_id)
@@ -53,16 +45,6 @@ class RPController extends AbstractController
 
         return $this->render('rp/lister.html.twig', ['pRP' => $RPaModifier]);
     }
-
-
-    // public function ajouterRp_Description(){
- 
-    //     $rp = new RP();
-    //     $form = $this->createForm(RPType::class, $rp);
-    //             return $this->render('rp/ajouter_Description.html.twig', array(
-    //             'form' => $form->createView(), ));
-    // }
-
 
     public function ajouterRp_Description(Request $request){
         $rp = new RP();
@@ -127,6 +109,10 @@ class RPController extends AbstractController
         $rp->setStatut($statut);
         $rp->setDateModif(new \DateTime('now'));
         $rp->setArchivage(0);
+        $enseignant = $this->getDoctrine()
+        ->getRepository(Enseignant::class)
+        ->find(999);
+        $rp->setEnseignant($enseignant);
         
         if ($form->isSubmitted() && $form->isValid()) {
             $rp = $form->getData();
@@ -135,7 +121,7 @@ class RPController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($rp);
             $entityManager->flush();
-                        return $this->render('rp/consulter.html.twig', array('form' => $form->createView(),'pRP' => $rp));
+            return $this->render('rp/consulter.html.twig', array('form' => $form->createView(),'pRP' => $rp));
         }
         else
         {
@@ -165,7 +151,6 @@ class RPController extends AbstractController
         return $this->render('rp/consulterActivite.html.twig', ['pRPActivite' => $rpActivite, 'pRP' => $rp]);
     }
 
-
     public function ajouterActiviteRP($rp_id, Request $request){
         $activite = $this->getDoctrine()
         ->getRepository(Activite::class)
@@ -185,7 +170,7 @@ class RPController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($rpactivite);
             $entityManager->flush();
-            return $this->render('rp/consulterActivite.html.twig', ['pRPActivite' => $rpactivite, 'pRP' => $rp]);
+            return $this->redirectToRoute('rpConsulterActivite', array( 'rp_id' => $rp->getId()));
         }
         else
         {
@@ -213,11 +198,52 @@ class RPController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($production);
             $entityManager->flush();
-            return $this->render('rp/consulterProduction.html.twig', ['pRPProduction' => $production, 'pRP' => $rp]);
+            return $this->redirectToRoute('rpConsulterProduction', array( 'rp_id' => $rp->getId()));
         }
         else
         {
             return $this->render('rp/ajouterProduction.html.twig', array('form' => $form->createView(),));
+        }
+    }
+
+    public function deleteProduction($production_id){
+        $production = $this->getDoctrine()
+        ->getRepository(Production::class)
+        ->findOneById($production_id);
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($production);
+        $manager->flush();
+
+        $rp = $this->getDoctrine()->getRepository(RP::class)->find($production->getRP()->getId());
+        $production = $this->getDoctrine()->getRepository(Production::class)->findByRp($rp);
+
+        return $this->render('rp/consulterProduction.html.twig', ['pRPProduction' => $production, 'pRP' => $rp]);
+    }
+
+    public function modifierProduction ($production_id, Request $request)
+    {
+        $production = $this->getDoctrine()
+        ->getRepository(Production::class)
+        ->findOneById($production_id);
+
+        $rp_id = $production->getRp()->getId();
+        $rp = $this->getDoctrine()
+        ->getRepository(RP::class)
+        ->findOneById($rp_id);
+    
+        $form = $this->createForm(ProductionType::class, $production);
+        $form->handleRequest($request);
+
+            //var_dump($rp) ;
+        if($form->isSubmitted()){
+            $rpActivite = $form->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($production);
+            $entityManager->flush();
+            return $this->render('rp/consulterProduction.html.twig', array('form' => $form->createView(),'pRPProduction' => $production, 'pRP' => $rp));
+        }
+        else{  
+            return $this->render('rp/modifProduction.html.twig', array('form' => $form->createView(),'pRPProduction' => $production, 'pRP' => $rp));
         }
     }
 
@@ -255,47 +281,17 @@ class RPController extends AbstractController
 
     public function consulterCommentaireRPEtudiant ($rp_id, Request $request)
     {
-        $rp = $this->getDoctrine()
-        ->getRepository(RP::class)
-        ->findOneById($rp_id);
-        
-        if(!$rp){
-            echo ("rp non trouvé");
-            throw $this->createNotFoundException('Aucune rp trouvé avec l\'id '.$rp_id);
-        }
-        else
-        {
-            $form = $this->createForm(SoumettreRPEnseignantType::class, $rp);
-            $form->handleRequest($request);
-            $statut = $this->getDoctrine()
-            ->getRepository(Statut::class)
-            ->findOneById(2);
-            $rp->setStatut($statut);
-
-            if($form->isSubmitted()){
-                $rp = $form->getData();
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($rp);
-                $entityManager->flush();
-                return $this->render('rp/consulterCommentaire.html.twig', array('form' => $form->createView(),'pRP' => $rp));
-            }
-            else{  
-                return $this->render('rp/consulterCommentaire.html.twig', array('form' => $form->createView(),'pRP' => $rp));
-            }
-
-        }
-    }
-
-    public function ajouterCommentaireRP($rp_id, Request $request){
         $commentaire = new Commentaire();
-        $form = $this->createForm(CommentaireType::class, $commentaire);
-        $form->handleRequest($request);
-
+        $formAjouter = $this->createForm(CommentaireType::class, $commentaire);
+        $formAjouter->handleRequest($request);
+        
         $rp = $this->getDoctrine()
         ->getRepository(RP::class)
         ->findOneById($rp_id);
         $commentaire->setRP($rp);
 
+        $formSoumettre = $this->createForm(SoumettreRPEnseignantType::class, $rp);
+        $formSoumettre->handleRequest($request);
         
         $commentaire->setDateCommentaire(new \DateTime('now'));
 
@@ -303,8 +299,6 @@ class RPController extends AbstractController
         ->getRepository(Enseignant::class)
         ->findOneById($rp->getEnseignant()->getId());
         $commentaire->setEnseignant($enseignant);
-
-
 
         $repository = $this->getDoctrine()->getRepository(RP::class);
         $RPaCommenter = $repository->findBy(
@@ -317,25 +311,49 @@ class RPController extends AbstractController
 
         $statut = $this->getDoctrine()
         ->getRepository(Statut::class)
-        ->findOneById(3);
+        ->findOneById(2);
 
         $enseignant = $this->getDoctrine()
         ->getRepository(Enseignant::class)
-        ->findOneById(999);
+        ->findOneById($rp->getEnseignant()->getId());
 
         $rp->setStatut($statut);
         $rp->setEnseignant($enseignant);
- 
-        if ($form->isSubmitted()) {
-            $commentaire = $form->getData();
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($commentaire);
-            $entityManager->flush();
-                        return $this->render('enseignant/accueil.html.twig', ['pRP' => $RPaCommenter, 'pStages' => $stages]);
+        if($this->isGranted('ROLE_ENSEIGNANT')) {  
+            if ($formAjouter->isSubmitted()) {
+                $statut = $this->getDoctrine()
+                ->getRepository(Statut::class)
+                ->findOneById(3);
+
+                $enseignant = $this->getDoctrine()
+                ->getRepository(Enseignant::class)
+                ->findOneById(999);
+
+                $rp->setStatut($statut);
+                $rp->setEnseignant($enseignant);;
+                $commentaire = $formAjouter->getData();
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($commentaire);
+                $entityManager->flush();
+                return $this->render('rp/consulterCommentaire.html.twig', ['pRPaCommenter' => $RPaCommenter, 'pRP' => $rp, 'formAjouter' => $formAjouter->createView()]);
+            }
+            else
+            {
+                return $this->render('rp/consulterCommentaire.html.twig', array('pRPaCommenter' => $RPaCommenter, 'pRP' => $rp, 'formAjouter' => $formAjouter->createView()));
+            }
         }
-        else
-        {
-            return $this->render('rp/ajouterCommentaire.html.twig', array('form' => $form->createView(),));
+        else{
+            if ($formSoumettre->isSubmitted()) {
+                $commentaire = $formSoumettre->getData();
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($commentaire);
+                $entityManager->flush();
+                return $this->render('rp/consulterCommentaire.html.twig', ['pRPaCommenter' => $RPaCommenter, 'pRP' => $rp,'formSoumettre' => $formSoumettre->createView()]);
+            }
+            else
+            {
+                return $this->render('rp/consulterCommentaire.html.twig', array('pRPaCommenter' => $RPaCommenter, 'pRP' => $rp, 'formSoumettre' => $formSoumettre->createView()));
+            }
         }
     }
 
@@ -363,6 +381,21 @@ class RPController extends AbstractController
         $manager->flush();
 
         return $this->render('rp/archive.html.twig', ['pRP' => $rp]);
+    }
+
+    public function restoreRP($rp_id, Request $request){
+
+        $rp = $this->getDoctrine()
+        ->getRepository(RP::class)
+        ->findOneById($rp_id);
+
+        $rp->setArchivage(0);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($rp);
+        $entityManager->flush();
+ 
+        return $this->render('rp/lister.html.twig', ['pRP' => $rp]);
     }
 
     public function modifierRPActivite ($rpActivite_id, Request $request)
