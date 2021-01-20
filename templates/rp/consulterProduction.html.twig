@@ -40,8 +40,8 @@
 				    <tr>
 				    	<td>{{ RPProduction.designation }}</td>
 						<td>{{ RPProduction.url }}</td> 
-						<td><a href="#"><span title="Cliquer pour modifier">📝</span></a>
-						<td><a href="#"><span title="Cliquer pour supprimer">❌</span></a>
+						<td><a href="{{ path('rpModifierProduction', {'production_id': RPProduction.id}) }}"><span title="Cliquer pour modifier">📝</span></a>
+						<td><a href="{{ path('rpDeleteProduction', {'production_id': RPProduction.id}) }}"><span title="Cliquer pour supprimer">❌</span></a>
 				    </tr>
 				  </tbody>
 				  {% endfor %}

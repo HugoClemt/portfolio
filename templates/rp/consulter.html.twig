@@ -23,18 +23,11 @@
       <li class="nav-item">
         <a class="nav-link" href="{{ path('rpConsulterCommentaire', { 'rp_id': pRP.id }) }}"> Commentaire </a>
       </li>
-	  {% if is_granted('ROLE_ENSEIGNANT') %}
-	  <li class="nav-item">
-        <a class="nav-link" href="{{ path('rpAjouterCommentaire', { 'rp_id': pRP.id }) }}"> Ajouter un commentaire </a>
-      </li>
-	  {% endif %}
     </ul>
   </div></center>
 </nav>
 
 <div class="container">
-
-    
        <br> 
        <div class="alert " role="alert">
 			{{ form_start(form) }}
