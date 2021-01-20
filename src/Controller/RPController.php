@@ -425,6 +425,12 @@ class RPController extends AbstractController
         }
     }
 
+    function testajax($name){
+        echo 'J\'adore Ajax';
+    }
+
+
+
 }
 
 
