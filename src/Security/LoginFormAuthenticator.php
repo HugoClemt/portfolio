@@ -93,16 +93,20 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey)
     {
+        $user = $token->getUser();
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
-        return new RedirectResponse($this->urlGenerator->generate('etudiantAccueil', array('etudiant_id' => 100)));
-        /*if (is_granted('ROLE_ENSEIGNANT')){
-        return $this->redirectToRoute('enseignantAccueil', array('ensaignant_id' => $user->getUser()->getEnseignant()->getId()));
+        #var_dump($user);
+        #return new RedirectResponse($this->urlGenerator->generate('etudiantAccueil', array('etudiant_id' => 100)));
+        if (!$user->getEtudiant()){
+        #return $this->redirectToRoute('enseignantAccueil', array('ensaignant_id' => $user->getUser()->getEnseignant()->getId()));
+        return new RedirectResponse($this->urlGenerator->generate('enseignantAccueil', array('enseignant_id' => $user->getEnseignant()->getId())));
         }
-        else{
-        return $this->redirectToRoute('etudiantAccueil', array('etudiant_id' => $user->getUser()->getEtudiant()->getId()));
-        }*/
+        elseif (!$user->getEnseignant()){
+        #return $this->redirectToRoute('etudiantAccueil', array('etudiant_id' => $user->getUser()->getEtudiant()->getId()));
+        return new RedirectResponse($this->urlGenerator->generate('etudiantAccueil', array('etudiant_id' => $user->getEtudiant()->getId())));
+        }
     }
 
     protected function getLoginUrl()

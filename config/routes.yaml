@@ -47,6 +47,7 @@ enseignantAccueil:
 etudiantListerLesRP:
     path: /etudiant/rp/listerMesRP/{etudiant_id}
     controller: App\Controller\RPController::listerLesRP
+    methods:    POST
 
 #Ajouter une RP
 rpAjouter:
