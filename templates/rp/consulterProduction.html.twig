@@ -2,7 +2,7 @@
 {% block content %}
 <body>
 <div class="container">
-  <br><center><h1>Réalisation professionnelle</h1></center><br><br> 
+  <br><center><h1>Réalisation professionnelle</h1></center><br>
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #DDDDDD;">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 	<span class="navbar-toggler-icon"></span>
@@ -19,18 +19,40 @@
 		<a class="nav-link active" href="{{ path('rpConsulterProduction', { 'rp_id': pRP.id }) }}"> Production </a>
 	  </li>
 	  <li class="nav-item">
-		<a class="nav-link " href="{{ path('rpConsulterCommentaire', { 'rp_id': pRP.id }) }}"> Commentaire </a>
-	  </li>
-	  {% if is_granted('ROLE_ENSEIGNANT') %}
-	  <li class="nav-item">
-        <a class="nav-link" href="{{ path('viseRP', {'rp_id': pRP.id}) }}"> Viser la RP </a>
+        <a class="nav-link" href="{{ path('rpConsulterCommentaire', { 'rp_id': pRP.id }) }}"> Commentaire</a>
       </li>
-	  {% endif %}
 	</ul>
-  </div>
-</nav><br>
-<center><a href="{{ path('ajouterProductionRP', { 'rp_id': pRP.id }) }}"><input type="button" value="Ajouter une nouvelle production" class="btn btn-secondary btn-sl"></a></center><br>
+	  {% if is_granted('ROLE_ENSEIGNANT') %}
+        <a class="nav-link text-right text-info" data-toggle="modal" data-target="#ModalVisee">Viser la réalisation </a>
+	  {% endif %}
+  </div></center>
+</nav>
 
+<div class="modal fade" id="ModalVisee" tabindex="-1" role="dialog" aria-labelledby="ModalViseeLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="ModalViseeLabel">Confirmation</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<center>
+						<div class="modal-body">
+							Etes-vous sur de visée la RP ?
+						</div>
+						</center>
+						<div class="modal-footer">
+							<a type="button" class="btn btn-secondary" data-dismiss="modal">Non</a>
+							<a type="button" class="btn btn-success text-white" href="{{ path('viseRP', { 'rp_id': pRP.id })  }}">Oui</a>
+						</div>						
+						</div>
+					</div>
+					</div>
+					{% if is_granted('ROLE_ENSEIGNANT') %}
+					{% else %}
+<center><br><a href="{{ path('ajouterProductionRP', { 'rp_id': pRP.id }) }}"><input type="button" value="Ajouter une nouvelle production" class="btn btn-secondary btn-sl"></a></center><br>
+{% endif %}
 <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
 				  <thead>
 				    <tr>
@@ -45,9 +67,12 @@
 				    <tr>
 				    	<td>{{ RPProduction.designation }}</td>
 						<td>{{ RPProduction.url }}</td> 
+						{% if is_granted('ROLE_ENSEIGNANT') %}
+					{% else %}
 						<td><a href="{{ path('rpModifierProduction', {'production_id': RPProduction.id}) }}"><span title="Cliquer pour modifier">📝</span></a>
 						<td><a href="{{ path('rpDeleteProduction', {'production_id': RPProduction.id}) }}"><span title="Cliquer pour supprimer">❌</span></a>
-				    </tr>
+				    	{% endif %}
+					</tr>
 				  </tbody>
 				  {% endfor %}
 				</table>

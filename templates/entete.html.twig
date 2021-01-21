@@ -97,12 +97,13 @@
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0" >
-        {% if is_granted('ROLE_ENSEIGNANT') %}
-            {{app.user.enseignant.prenom}} {{app.user.enseignant.nom}}
-        {% else %}
-            {{app.user.etudiant.prenom}} {{app.user.etudiant.nom}}
+      {% if is_granted('ROLE_ENSEIGNANT') %}
+        <a class="navbar-brand" href="{{ path('app_logout', { 'enseignant_id': app.user.enseignant.id }) }}" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">Deconnexion
+        </a>
+      {% else %}
+      <a class="navbar-brand" href="{{ path('app_logout', { 'etudiant_id': app.user.etudiant.id }) }}" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">Deconnexion
+        </a>      
         {% endif %}
-      <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Déconnexion</button>
     </form>
   </div>
 </nav>

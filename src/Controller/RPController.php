@@ -369,7 +369,8 @@ class RPController extends AbstractController
         $entityManager->persist($rp);
         $entityManager->flush();
  
-        return $this->render('rp/archive.html.twig', ['pRP' => $rp]);
+        #return $this->render('rp/archive.html.twig', ['pRP' => $rp]);
+        return $this->redirectToRoute('rpListerArchiver', array( 'etudiant_id' => $rp->getEtudiant()->getId()));
     }
 
     public function deleteRp($rp_id){
@@ -380,7 +381,8 @@ class RPController extends AbstractController
         $manager->remove($rp);
         $manager->flush();
 
-        return $this->render('rp/archive.html.twig', ['pRP' => $rp]);
+        #return $this->render('rp/archive.html.twig', ['pRP' => $rp]);
+        return $this->redirectToRoute('rpListerArchiver', array( 'etudiant_id' => $rp->getEtudiant()->getId()));
     }
 
     public function restoreRP($rp_id, Request $request){
@@ -395,7 +397,8 @@ class RPController extends AbstractController
         $entityManager->persist($rp);
         $entityManager->flush();
  
-        return $this->render('rp/lister.html.twig', ['pRP' => $rp]);
+        #return $this->render('rp/lister.html.twig', ['pRP' => $rp]);
+        return $this->redirectToRoute('etudiantListerLesRP', array( 'etudiant_id' => $rp->getEtudiant()->getId()));
     }
 
     public function modifierRPActivite ($rpActivite_id, Request $request)

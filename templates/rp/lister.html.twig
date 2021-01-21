@@ -21,6 +21,7 @@
 					<th scope="col" data-sortable="true">Source</th>
 				      <th scope="col" data-sortable="true">Libellé</th>
 				      <th scope="col" data-sortable="true">Nombre d'activités</th>
+					  <th scope="col" data-sortable="true">Statut</th> 
 				      <th scope="col" data-sortable="true">Date</th>
 				      <th></th>
 				    </tr>
@@ -34,7 +35,8 @@
 				    <tr>
 					  <td>{{ RP.source.libelle }}</td>
 				      <td><a class="text" href="{{ path('rpConsulter', { 'rp_id': RP.id }) }}">{{ RP.libcourt }}</a></td>
-				      <td>{{ RP.activites.count }}</td> 
+				      <td>{{ RP.activites.count }}</td>
+					  <td>{{ RP.statut.libelle }}</td>
 				      <td>{{ RP.dateDebut|date("d/m/Y") }}</td>
 				      <td><a href="{{ path('rpArchivage', { 'rp_id': RP.id }) }}"><span title="Cliquer pour archiver">📁</span></a>
 				      </td>

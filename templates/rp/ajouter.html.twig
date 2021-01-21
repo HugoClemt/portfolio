@@ -17,13 +17,13 @@
        <br> 
        <div class="alert " role="alert">
 			{{ form_start(form) }}
-				<div class="form-row">
-					<label>Libellé</label>
+					<div class="form-row">
+					<label data-toggle="modal" data-target="#ModalLibelle">Libellé</label><img data-toggle="modal" data-target="#ModalLibelle" src={{ asset("images/info-8X.png") }} height=12>
 					{{ form_widget(form.libcourt, {'attr': {'class': 'form-control'}})}}
 				</div><br>
 
 				<div class="form-row">
-					<label>Besoin</label>
+					<label data-toggle="modal" data-target="#ModalBesoin">Besoin</label><img data-toggle="modal" data-target="#ModalBesoin" src={{ asset("images/info-8X.png") }} height=12>
 					{{ form_widget(form.besoin, {'attr': {'class': 'form-control'}})}}
 				</div><br>
 
@@ -64,13 +64,14 @@
 					</div>
 
 				<div class="form-row">
-					<label>Environnement</label>
+					<div class="form-group col-md-6">
+					<label data-toggle="modal" data-target="#ModalEnv">Environnement technologique</label><img data-toggle="modal" data-target="#ModalEnv" src={{ asset("images/info-8X.png") }} height=12>
 					{{ form_widget(form.environnement, {'attr': {'class': 'form-control'}})}}
-				</div><br>
-
-				<div class="form-row">
-					<label>Moyens </label>
+					</div>
+					<div class="form-group col-md-6">
+					<label data-toggle="modal" data-target="#ModalMoyen">Moyens</label><img data-toggle="modal" data-target="#ModalMoyen" src={{ asset("images/info-8X.png") }} height=12>
 					{{ form_widget(form.moyen, {'attr': {'class': 'form-control'}})}}
+					</div>
 				</div><br>
 				<center><div class="col-12">
 					{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
@@ -79,6 +80,89 @@
 				<div class="col-12">
 				</div>
 			</div>
+			<div class="modal fade" id="ModalBesoin" tabindex="-1" role="dialog" aria-labelledby="ModalBesoinLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="ModalBesoinLabel">Besoin</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<center>
+				<div class="modal-body">
+					Dire ce que l'entreprise veut changer à son activité et comment repondre à leurs attentes 
+				</div>
+			</center>
+			<div class="modal-footer">
+				<a type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</a>
+			</div>						
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="ModalLibelle" tabindex="-1" role="dialog" aria-labelledby="ModalLibelleLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="ModalLibelleLabel">Libelle</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<center>
+				<div class="modal-body">
+					Intitulé court décrivant votre travail
+				</div>
+			</center>
+			<div class="modal-footer">
+				<a type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</a>
+			</div>						
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="ModalEnv" tabindex="-1" role="dialog" aria-labelledby="ModalEnvLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="ModalEnvLabel">Environnement technologique</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<center>
+				<div class="modal-body">
+					Logiciels et outils utilisés pour réaliser votre travail
+				</div>
+			</center>
+			<div class="modal-footer">
+				<a type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</a>
+			</div>						
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="ModalMoyen" tabindex="-1" role="dialog" aria-labelledby="ModalMoyenLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="ModalMoyenLabel">Moyen</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<center>
+				<div class="modal-body">
+					Ressources et documentations mis à votre disposition   
+				</div>
+			</center>
+			<div class="modal-footer">
+				<a type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</a>
+			</div>						
+		</div>
+	</div>
+</div>
 		</div>
 	</body>
 </html>
