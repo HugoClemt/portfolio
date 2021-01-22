@@ -1,5 +1,19 @@
-{% extends "entete.html.twig" %}
-{% block content %}
+
+
+<!DOCTYPE html> 
+  
+<html> 
+  
+<head> 
+    <title>JavaScript variables in jQuery slectors</title> 
+  
+    
+</head> 
+
+
+
+
+
 <body>
 <div class="container">
 {# templates/rp/ajouterActivite.html.twig #}
@@ -7,23 +21,66 @@
        <br> 
        <div class="form-group col-md-12">
 			{{ form_start(form) }}
-            <div class="">
-                <label>
+            <div >
+                <label id="activites" name="activites">
                 {{ form_widget(form.activite)}}
                 </label>    
-            </div><br>
+            </div>
+            
+        
+        </div> 
+        <br>
+        <div id="competences" name="competences">
 
-            <div class="form-group col-md-12">
+            ça marche po
+
+        </div>
+
+
+{% block javascripts %}
+<script src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity= "sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" 
+            crossorigin="anonymous"> 
+</script>     
+            <script>
+            $( "#activites" )
+            .change(function() {
+                var act = "";
+                $( "select option:selected" ).each(function() {
+                act = $( this ).text();
+                
+                });
+                numeroption = [$(this).find(':selected').attr('value')];
+                $( "#competences" ).text(numeroption);
+                
+                {% for Competence in pCompetences %}
+                {% if Competence.activite.id == 1 %}
+                    <ul>
+                        <li>{{ Competence.libelle|json_encode() }}</li>
+                    </ul>
+                {% endif %}
+                {% endfor %}
+
+            })
+            .trigger( "change" );
+            </script>
+{% endblock %}
+
+
+            <br>
+              <div class="form-group col-md-12">
 								<label>Commentaire</label>
 								{{ form_widget(form.commentaire, {'attr': {'class': 'form-control'}})}}
 							</div>
 
-              <center><div class="col-12">
-					{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
-				</div></center>
+            <center>
+            <div class="col-12">
+					    {{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
+			      </div>
+            </center>
 			</div>    
 </div>
+
 </body>
 </html>
-{% endblock %}
 

@@ -16,7 +16,8 @@ use App\Form\ProductionType;
 use App\Form\SoumettreRPEnseignantType;
 use App\Form\CommentaireType;
 use App\Entity\Enseignant;
-use App\Entity\Activite; 
+use App\Entity\Activite;
+use App\Entity\Competence;  
 use App\Entity\Commentaire;
 use App\Entity\Stage;
 use Symfony\Component\HttpFoundation\Request;
@@ -130,7 +131,7 @@ class RPController extends AbstractController
 
     }
 
-    public function consulterActiviteRPEtudiant($rp_id, Request $request){
+    public function consulterActiviteRPEtudiant($rp_id){
         $rp = $this->getDoctrine()->getRepository(RP::class)->find($rp_id);
         $rpActivite = $this->getDoctrine()->getRepository(RPActivite::class)->findByRp($rp);
 
@@ -162,6 +163,9 @@ class RPController extends AbstractController
         ->getRepository(RP::class)
         ->find($rp_id);
         $rpactivite->setRP($rp);
+        $competences = $this->getDoctrine()
+        ->getRepository(Competence::class)
+        ->findAll();
         
  
         if ($form->isSubmitted()) {
@@ -174,7 +178,7 @@ class RPController extends AbstractController
         }
         else
         {
-            return $this->render('rp/ajouterActivite.html.twig', array('form' => $form->createView(),));
+            return $this->render('rp/ajouterActivite.html.twig', array('form' => $form->createView(), 'pRP' => $rp, 'pCompetences' => $competences, 'pActivites' => $activite));
         }
     }
 
@@ -425,23 +429,9 @@ class RPController extends AbstractController
         }
     }
 
-    public function ValiderRP($rp_id, Request $request){
 
-        $rp = $this->getDoctrine()
-        ->getRepository(RP::class)
-        ->findOneById($rp_id);
 
-        $statut = $this->getDoctrine()
-        ->getRepository(Statut::class)
-        ->findOneById(4);
-
-        $rp->setStatut($statut);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($rp);
-        $entityManager->flush();
-        return $this->redirectToRoute('enseignantLesRPaCommenter', array( 'enseignant_id' => $rp->getEnseignant()->getId()));
-        
-    }
+    
 
 }
 
