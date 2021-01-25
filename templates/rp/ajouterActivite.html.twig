@@ -36,36 +36,46 @@
 
         </div>
 
+        <p id="demo"></p>
+
+
+
 
 {% block javascripts %}
 <script src="https://code.jquery.com/jquery-3.4.1.js"
             integrity= "sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" 
             crossorigin="anonymous"> 
 </script>     
-            <script>
+<script>
             $( "#activites" )
             .change(function() {
-                var act = "";
                 $( "select option:selected" ).each(function() {
-                act = $( this ).text();
-                
                 });
-                numeroption = [$(this).find(':selected').attr('value')];
-                $( "#competences" ).text(numeroption);
+                var numeroption = $(this).find(':selected').attr('value');
                 
-                {% for Competence in pCompetences %}
-                {% if Competence.activite.id == 1 %}
-                    <ul>
-                        <li>{{ Competence.libelle|json_encode() }}</li>
-                    </ul>
-                {% endif %}
-                {% endfor %}
+                $( "#competences" ).text('{% for Competence in pCompetences %}');
+                $( "#competences" ).append('{% if Competence.activite.id == ' 4 ' %}');
+                $( "#competences" ).append("<ul> <li>" + '{{ Competence.libelle}}' + "</li> </ul>");
+                $( "#competences" ).append('{% endif %}');
+                $( "#competences" ).append('{% endfor %}');
 
+            
+                $( "#competences" ).text(numeroption);
             })
             .trigger( "change" );
-            </script>
+</script>  
+
 {% endblock %}
 
+liste de test :
+
+{% for Competence in pCompetences %}
+                {% if Competence.activite.id == 9 %}
+                    <ul>
+                        <li>{{ Competence.libelle}}</li>
+                    </ul>
+                {% endif %}
+{% endfor %}
 
             <br>
               <div class="form-group col-md-12">

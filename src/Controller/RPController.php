@@ -166,6 +166,7 @@ class RPController extends AbstractController
         $competences = $this->getDoctrine()
         ->getRepository(Competence::class)
         ->findAll();
+        $test = "super cool ça marche";
         
  
         if ($form->isSubmitted()) {
@@ -178,7 +179,7 @@ class RPController extends AbstractController
         }
         else
         {
-            return $this->render('rp/ajouterActivite.html.twig', array('form' => $form->createView(), 'pRP' => $rp, 'pCompetences' => $competences, 'pActivites' => $activite));
+            return $this->render('rp/ajouterActivite.html.twig', array('form' => $form->createView(), 'pRP' => $rp, 'pCompetences' => $competences, 'pActivites' => $activite, 'pTest' => $test));
         }
     }
 
@@ -329,12 +330,9 @@ class RPController extends AbstractController
                 ->getRepository(Statut::class)
                 ->findOneById(3);
 
-                $enseignant = $this->getDoctrine()
-                ->getRepository(Enseignant::class)
-                ->findOneById(999);
+                
 
                 $rp->setStatut($statut);
-                $rp->setEnseignant($enseignant);;
                 $commentaire = $formAjouter->getData();
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($commentaire);
