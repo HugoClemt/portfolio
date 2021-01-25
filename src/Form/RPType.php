@@ -32,8 +32,8 @@ class RPType extends AbstractType
                                                           'required' => true,
                                                           'label' =>'date de naissance',
                                                           'placeholder' => 'jj/mm/aaaa'))
-            ->add('environnement', TextType::class)
-            ->add('moyen', TextType::class)
+            ->add('environnement', TextType::class, array('required' => false))
+            ->add('moyen', TextType::class, array('required' => false))
             ->add('localisation', EntityType::class, array('class' => 'App\Entity\Localisation','choice_label' => 'Libelle' ))  
             ->add('source', EntityType::class, array('class' => 'App\Entity\Source','choice_label' => 'Libelle' ))
             ->add('niveau', EntityType::class, array('class' => 'App\Entity\Niveau','choice_label' => 'Libelle' ))

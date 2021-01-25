@@ -28,6 +28,7 @@ class SoumettreRPEnseignantType extends AbstractType
                                                          
                                                          'query_builder' => function (EnseignantRepository $er) {
                                                             return $er->createQueryBuilder('enseignant')
+                                                            ->AddOrderBy('enseignant.nom', 'asc')
                                                             ->where('enseignant.matiere IN (:numero)')
                                                             ->setParameter('numero','1');
                                                             },))

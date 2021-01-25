@@ -22,7 +22,7 @@ class EnseignantController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(RP::class);
         $RPaCommenter = $repository->findBy(
-            ['enseignant' => $enseignant_id, 'statut' => 2],array('libcourt'=>'asc'));
+            ['enseignant' => $enseignant_id, 'statut' => 2], array('dateModif'=>'desc'));
 
         $stages = $this->getDoctrine()
         ->getRepository(Stage::class)

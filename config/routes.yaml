@@ -36,6 +36,7 @@ etudiantLister:
 etudiantAccueil:
     path: /etudiant/accueil/{etudiant_id}
     controller: App\Controller\EtudiantController::accueilEtudiant
+    
 
 #accueil des enseignants
 enseignantAccueil:
@@ -47,6 +48,7 @@ enseignantAccueil:
 etudiantListerLesRP:
     path: /etudiant/rp/listerMesRP/{etudiant_id}
     controller: App\Controller\RPController::listerLesRP
+
 
 #Ajouter une RP
 rpAjouter:

@@ -31,7 +31,7 @@ class RPController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(RP::class);
         $RPaCommenter = $repository->findBy(
-            ['enseignant' => $enseignant_id, 'statut' => 2],array('libcourt'=>'asc'));
+            ['enseignant' => $enseignant_id, 'statut' => 2], array('dateModif'=>'desc'));
         
         return $this->render('rp/listerEnseignant.html.twig', ['pRP' => $RPaCommenter]);
     }
@@ -42,7 +42,7 @@ class RPController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(RP::class);
         $RPaModifier = $repository->findBy(
 
-            ['etudiant' => $etudiant_id, 'statut' => 3],array('libcourt'=>'asc'));
+            ['etudiant' => $etudiant_id, 'statut' => 3], array('dateModif'=>'desc'));
 
 
         return $this->render('rp/listerEtudiant.html.twig', ['pRP' => $RPaModifier]);
@@ -54,7 +54,7 @@ class RPController extends AbstractController
         $form = $this->createForm(PromotionType::class, $promotion);
         $form->handleRequest($request);
         $repository = $this->getDoctrine()->getRepository(RP::class);
-        $RPs = $repository->findAll();
+        $RPs = $repository->findAll(array('dateModif'=>'desc'));
         
         return $this->render('rp/listerRP.html.twig', array('form' => $form->createView(),'pRP' => $RPs));
     }
@@ -94,7 +94,7 @@ class RPController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(RP::class);
         $MesRp = $repository->findBy(
-            ['etudiant' => $etudiant_id, 'archivage' => 0],array('libcourt'=>'asc'));
+            ['etudiant' => $etudiant_id, 'archivage' => 0], array('dateModif'=>'desc'));
             
             return $this->render('rp/listerEtudiant.html.twig', [ 'pRP' => $MesRp]);
     }
@@ -103,7 +103,7 @@ class RPController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(RP::class);
         $MesRp = $repository->findBy(
-            ['etudiant' => $etudiant_id, 'archivage' => 1],array('libcourt'=>'asc'));
+            ['etudiant' => $etudiant_id, 'archivage' => 1], array('dateModif'=>'desc'));
             
             return $this->render('rp/archive.html.twig', [ 'pRP' => $MesRp]);
     }
@@ -310,7 +310,7 @@ class RPController extends AbstractController
 
         $enseignant = $this->getDoctrine()
         ->getRepository(Enseignant::class)
-        ->findOneById($rp->getEnseignant()->getId());
+        ->findOneById($rp->getEnseignant()->getId(), array('nom' => 'asc'));
         $commentaire->setEnseignant($enseignant);
 
         $repository = $this->getDoctrine()->getRepository(RP::class);
@@ -331,7 +331,6 @@ class RPController extends AbstractController
         ->findOneById($rp->getEnseignant()->getId());
 
         $rp->setStatut($statut);
-        $rp->setEnseignant($enseignant);
         if($this->isGranted('ROLE_ENSEIGNANT')) {  
             if ($formAjouter->isSubmitted()) {
                 $statut = $this->getDoctrine()
@@ -383,7 +382,7 @@ class RPController extends AbstractController
         $entityManager->flush();
  
         #return $this->render('rp/archive.html.twig', ['pRP' => $rp]);
-        return $this->redirectToRoute('rpListerArchiver', array( 'etudiant_id' => $rp->getEtudiant()->getId()));
+        return $this->redirectToRoute('etudiantListerLesRP', array( 'etudiant_id' => $rp->getEtudiant()->getId()));
     }
 
     public function deleteRp($rp_id){
@@ -411,7 +410,7 @@ class RPController extends AbstractController
         $entityManager->flush();
  
         #return $this->render('rp/listerEtudiant.html.twig', ['pRP' => $rp]);
-        return $this->redirectToRoute('etudiantListerLesRP', array( 'etudiant_id' => $rp->getEtudiant()->getId()));
+        return $this->redirectToRoute('rpListerArchiver', array( 'etudiant_id' => $rp->getEtudiant()->getId()));
     }
 
     public function modifierRPActivite ($rpActivite_id, Request $request)
@@ -434,7 +433,7 @@ class RPController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($rpActivite);
             $entityManager->flush();
-            return $this->render('rp/consulterActivite.html.twig', array('form' => $form->createView(),'pRPActivite' => $rpActivite, 'pRP' => $rp));
+            return $this->redirectToRoute('rpConsulterActivite', array( 'rp_id' => $rp->getId()));
         }
         else{  
             return $this->render('rp/modifActivite.html.twig', array('form' => $form->createView(),'pRPActivite' => $rpActivite, 'pRP' => $rp));
