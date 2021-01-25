@@ -1,0 +1,47 @@
+{% extends "entete.html.twig" %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Réalisations professionnelles</title>
+	<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+<div class="container"><br>
+	<center><h1>Réalisations professionnelles</h1><br></center>
+				{{ form_start(form) }}
+            <div class="">
+                <label>
+                {{ form_widget(form.nom)}}
+                </label> 
+                {{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}   
+            </div><br>
+                <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
+				  <thead>
+				    <tr>
+					<th scope="col" data-sortable="true">Etudiant</th>
+					  <th scope="col" data-sortable="true">Source</th>
+				      <th scope="col" data-sortable="true">Libellé</th>
+				      <th scope="col" data-sortable="true">Nombre d'activités</th>
+				      <th scope="col" data-sortable="true">Date</th>
+					</tr>
+				  </thead>
+				  <tbody>
+					{% for RP in pRP %}
+				    <tr>
+					<td>{{ RP.etudiant.nom }} {{RP.etudiant.prenom}}</a></td>
+					  <td>{{ RP.source.libelle }}</td>
+				      <td><a class="text" href="{{ path('rpConsulter', { 'rp_id': RP.id }) }}">{{ RP.libcourt }}</a></td>
+				      <td>{{ RP.activites.count }}</td> 
+				      <td>{{ RP.dateDebut|date("d/m/Y") }}</td>
+				    </tr>
+				    {% endfor %}
+				  </tbody>
+				</table>
+				<br>
+		<br><br>
+</body>
+</html>
+{% endblock %}

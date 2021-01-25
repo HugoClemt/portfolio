@@ -10,9 +10,11 @@ use App\Entity\Etudiant;
 use App\Entity\RPActivite; 
 use App\Entity\Statut; 
 use App\Entity\Production;
+use App\Entity\Promotion;
 use App\Form\RPType;
 use App\Form\RPActiviteType;
 use App\Form\ProductionType;
+use App\Form\PromotionType;
 use App\Form\SoumettreRPEnseignantType;
 use App\Form\CommentaireType;
 use App\Entity\Enseignant;
@@ -36,14 +38,25 @@ class RPController extends AbstractController
 
     public function listerLesRPaModifier($etudiant_id)
     {
-
+        
         $repository = $this->getDoctrine()->getRepository(RP::class);
         $RPaModifier = $repository->findBy(
 
             ['etudiant' => $etudiant_id, 'statut' => 3],array('libcourt'=>'asc'));
 
 
-        return $this->render('rp/lister.html.twig', ['pRP' => $RPaModifier]);
+        return $this->render('rp/listerEtudiant.html.twig', ['pRP' => $RPaModifier]);
+    }
+
+    public function listerLesRPEns($enseignant_id, Request $request)
+    {
+        $promotion = new Promotion();
+        $form = $this->createForm(PromotionType::class, $promotion);
+        $form->handleRequest($request);
+        $repository = $this->getDoctrine()->getRepository(RP::class);
+        $RPs = $repository->findAll();
+        
+        return $this->render('rp/listerRP.html.twig', array('form' => $form->createView(),'pRP' => $RPs));
     }
 
     public function ajouterRp_Description(Request $request){
@@ -73,7 +86,7 @@ class RPController extends AbstractController
         else
             {
                 //var_dump($rp);
-                return $this->render('rp/ajouter_Description.html.twig', array('form' => $form->createView(),));
+                return $this->render('rp/ajouter_Description.html.twig', array('form' => $form->createView()));
             }
     }
 
@@ -83,7 +96,7 @@ class RPController extends AbstractController
         $MesRp = $repository->findBy(
             ['etudiant' => $etudiant_id, 'archivage' => 0],array('libcourt'=>'asc'));
             
-            return $this->render('rp/lister.html.twig', [ 'pRP' => $MesRp]);
+            return $this->render('rp/listerEtudiant.html.twig', [ 'pRP' => $MesRp]);
     }
 
     public function listerRPArchiver($etudiant_id){
@@ -217,7 +230,7 @@ class RPController extends AbstractController
         $rp = $this->getDoctrine()->getRepository(RP::class)->find($production->getRP()->getId());
         $production = $this->getDoctrine()->getRepository(Production::class)->findByRp($rp);
 
-        return $this->render('rp/consulterProduction.html.twig', ['pRPProduction' => $production, 'pRP' => $rp]);
+        return $this->redirectToRoute('rpConsulterProduction', array( 'rp_id' => $rp->getId()));
     }
 
     public function modifierProduction ($production_id, Request $request)
@@ -240,7 +253,7 @@ class RPController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($production);
             $entityManager->flush();
-            return $this->render('rp/consulterProduction.html.twig', array('form' => $form->createView(),'pRPProduction' => $production, 'pRP' => $rp));
+            return $this->redirectToRoute('rpConsulterProduction', array( 'rp_id' => $rp->getId()));
         }
         else{  
             return $this->render('rp/modifProduction.html.twig', array('form' => $form->createView(),'pRPProduction' => $production, 'pRP' => $rp));
@@ -397,7 +410,7 @@ class RPController extends AbstractController
         $entityManager->persist($rp);
         $entityManager->flush();
  
-        #return $this->render('rp/lister.html.twig', ['pRP' => $rp]);
+        #return $this->render('rp/listerEtudiant.html.twig', ['pRP' => $rp]);
         return $this->redirectToRoute('etudiantListerLesRP', array( 'etudiant_id' => $rp->getEtudiant()->getId()));
     }
 

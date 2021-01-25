@@ -34,9 +34,15 @@ class Promotion
      */
     private $specialite;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Enseignant::class, mappedBy="promotion")
+     */
+    private $enseignants;
+
     public function __construct()
     {
         $this->etudiants = new ArrayCollection();
+        $this->enseignants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -105,6 +111,33 @@ class Promotion
             if ($etudiant->getPromotion() === $this) {
                 $etudiant->setPromotion(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Enseignant[]
+     */
+    public function getEnseignants(): Collection
+    {
+        return $this->enseignants;
+    }
+
+    public function addEnseignant(Enseignant $enseignant): self
+    {
+        if (!$this->enseignants->contains($enseignant)) {
+            $this->enseignants[] = $enseignant;
+            $enseignant->addPromotion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEnseignant(Enseignant $enseignant): self
+    {
+        if ($this->enseignants->removeElement($enseignant)) {
+            $enseignant->removePromotion($this);
         }
 
         return $this;

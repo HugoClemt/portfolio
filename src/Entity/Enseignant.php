@@ -70,6 +70,11 @@ class Enseignant
      */
     private $user;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Promotion::class, inversedBy="enseignants")
+     */
+    private $promotion;
+
     
 
     public function __construct()
@@ -77,6 +82,7 @@ class Enseignant
         $this->commentaires = new ArrayCollection();
         $this->RPs = new ArrayCollection();
         $this->stages = new ArrayCollection();
+        $this->promotion = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -255,6 +261,30 @@ class Enseignant
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Promotion[]
+     */
+    public function getPromotion(): Collection
+    {
+        return $this->promotion;
+    }
+
+    public function addPromotion(Promotion $promotion): self
+    {
+        if (!$this->promotion->contains($promotion)) {
+            $this->promotion[] = $promotion;
+        }
+
+        return $this;
+    }
+
+    public function removePromotion(Promotion $promotion): self
+    {
+        $this->promotion->removeElement($promotion);
 
         return $this;
     }
