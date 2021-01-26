@@ -443,6 +443,21 @@ class RPController extends AbstractController
         }
     }
 
+    public function ValiderRP($rp_id, Request $request){
+        $rp = $this->getDoctrine()
+        ->getRepository(RP::class)
+        ->findOneById($rp_id);
+        $statut = $this->getDoctrine()
+        ->getRepository(Statut::class)
+        ->findOneById(4);
+        $rp->setStatut($statut);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($rp);
+        $entityManager->flush();
+        return $this->redirectToRoute('enseignantLesRPaCommenter', array( 'enseignant_id' => $rp->getEnseignant()->getId()));
+        
+    }
+
 /**
      * @Route(name="test2",path="/test2")
      * @param Request $request
