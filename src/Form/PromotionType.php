@@ -15,12 +15,11 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 class PromotionType extends AbstractType
 {
 
-    public function buildForm(FormBuilderInterface $builder, array $specialites)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', TextType::class)
-            ->add('Specialite', EntityType::class, array('class' => 'App\Entity\Specialite','choice_label' => 'Libelle' ))
-            ->add('enregistrer', SubmitType::class, array('label' => 'Nouvelle promotion'))
+            ->add('nom', EntityType::class, array('class' => 'App\Entity\Promotion','choice_label' => 'nom' ))
+            ->add('enregistrer', SubmitType::class, array('label' => 'Valider'))
         ;
     }
 

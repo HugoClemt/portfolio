@@ -2,14 +2,18 @@ index:
     path: /
     controller: App\Controller\AdminController::index
 
-logout:
+app_logout:
     path: /logout
-    controller: App\Controller\SecurityController::logout
 
+
+app_login:
+    path: /login
+    controller: App\Controller\SecurityController::login
 
 etudiantAjouter:
     path: /etudiant/ajouter
     controller: App\Controller\EtudiantController::ajouterEtudiant
+    
 stageAjouter:
     path: /stage/ajouter/{etudiant_id}
     controller: App\Controller\StageController::ajouterStage
@@ -113,6 +117,11 @@ rpModifierProduction:
 enseignantLesRPaCommenter:
     path: /enseignant/rp/listerLesRPaCommenter/{enseignant_id}
     controller: App\Controller\RPController::listerLesRPaCommenter
+
+#lister les RP (prof)
+enseignantLesRPEns:
+    path: /enseignant/rp/listerLesRPEns/{enseignant_id}
+    controller: App\Controller\RPController::listerLesRPEns
 
 #lister les RP à modifier (etudiant)
 etudiantLesRPaModifier:

@@ -1,4 +1,5 @@
-
+{% extends "entete.html.twig" %}
+{% block content %}
 
 <!DOCTYPE html> 
   
@@ -32,7 +33,6 @@
         <br>
         <div id="competences" name="competences">
 
-            ça marche po
 
         </div>
 
@@ -45,37 +45,61 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"
             integrity= "sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" 
             crossorigin="anonymous"> 
-</script>     
-<script>
-            $( "#activites" )
-            .change(function() {
-                $( "select option:selected" ).each(function() {
-                });
-                var numeroption = $(this).find(':selected').attr('value');
-                
-                $( "#competences" ).text('{% for Competence in pCompetences %}');
-                $( "#competences" ).append('{% if Competence.activite.id == ' 4 ' %}');
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>     
+
+                                                            
+                {# $( "#competences" ).text('{% for Competence in pCompetences %}');
+                $( "#competences" ).append('{% if Competence.activite.id ==  '1'  %}');
                 $( "#competences" ).append("<ul> <li>" + '{{ Competence.libelle}}' + "</li> </ul>");
                 $( "#competences" ).append('{% endif %}');
                 $( "#competences" ).append('{% endfor %}');
-
+ 
             
-                $( "#competences" ).text(numeroption);
-            })
-            .trigger( "change" );
-</script>  
+                //$( "#competences" ).append(numeroption); #}
+
+
+
+<script>
+    jQuery( document ).ready(function( $ ) {
+        $("#activites").change(function () {
+            $( "select option:selected" ).each(function() {
+                });
+                var numeroption = $(this).find(':selected').attr('value');
+                $('#competences').text("");
+
+            $.ajax({
+                type: "post",
+                url: '{{ path('test2') }}',
+                data: { numeroption : numeroption },
+                dataType: "json",
+                
+                success: function (json) {
+
+                console.log(json);
+                $.each(json, function (index, value) {
+
+                    //console.log(value);
+                    $('#competences').append("<ul> <li>"+value);
+                });
+            },
+                error: function(jxh,textmsg,errorThrown){
+                    console.log(textmsg);
+                    console.log(errorThrown);
+                }
+            });
+        });
+    });
+ 
+ 
+</script>
 
 {% endblock %}
 
-liste de test :
 
-{% for Competence in pCompetences %}
-                {% if Competence.activite.id == 9 %}
-                    <ul>
-                        <li>{{ Competence.libelle}}</li>
-                    </ul>
-                {% endif %}
-{% endfor %}
+
+
+
 
             <br>
               <div class="form-group col-md-12">
@@ -94,3 +118,4 @@ liste de test :
 </body>
 </html>
 
+{% endblock %}

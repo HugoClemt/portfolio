@@ -1,0 +1,62 @@
+{% extends "entete.html.twig" %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Réalisations professionnelles</title>
+	<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+<div class="container"><br>
+	<center><h1>Réalisations professionnelles</h1><br></center>
+	{% if is_granted('ROLE_ENSEIGNANT') %}
+	{% else %}
+		<center><a href="{{ path('rpAjouter', { 'etudiant_id': app.user.etudiant.id }) }}"><input type="button" value="Ajouter une nouvelle réalisation professionnelle" class="btn btn-secondary btn-sl"></a></center><br>
+		{% endif %}
+				<table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
+				  <thead>
+				    <tr>
+					<th scope="col" data-sortable="true">Source</th>
+				      <th scope="col" data-sortable="true">Libellé</th>
+				      <th scope="col" data-sortable="true">Nombre d'activités</th>
+					  <th scope="col" data-sortable="true">Statut</th> 
+				      <th scope="col" data-sortable="true">Date</th>
+				      <th></th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	
+
+					{% for RP in pRP %}
+					
+					
+				    <tr>
+					  <td>{{ RP.source.libelle }}</td>
+				      <td><a class="text" href="{{ path('rpConsulter', { 'rp_id': RP.id }) }}">{{ RP.libcourt }}</a></td>
+				      <td>{{ RP.activites.count }}</td>
+					  <td>{{ RP.statut.libelle }}</td>
+				      <td>{{ RP.dateDebut|date("d/m/Y") }}</td>
+				      <td><a href="{{ path('rpArchivage', { 'rp_id': RP.id }) }}"><span title="Cliquer pour archiver">📁</span></a>
+				      </td>
+				    </tr>
+				    
+				    {% endfor %}
+				    
+				   
+				  </tbody>
+				</table>
+				<br>
+
+
+
+				<!-- <div class="alert alert-warning" role="alert">
+	  			Vous n'avez pas encore inséré de <a href="..." class="alert-link">réalisation professionnelle</a> pour le moment.
+				</div>  -->
+
+
+		<br><br>
+</body>
+</html>
+{% endblock %}

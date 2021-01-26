@@ -24,30 +24,9 @@
 				       <td>{{ RP.statut.libelle }}</td>		   
 					 
 				      <td>{{ RP.dateDebut|date("d/m/Y") }}</td>
-					  <td></td>
-					<td><a data-toggle="modal" data-target="#ModalDelete">⚙️</a></td>
+						<td><a href="{{ path('rpRestore', {'rp_id': RP.id}) }}">Restaurer</a></td>
+						<td><a href="{{ path('rpDelete', {'rp_id': RP.id}) }}">Supprimer</a></td>
 				    </tr>
-					<div class="modal fade" id="ModalDelete" tabindex="-1" role="dialog" aria-labelledby="ModalDeleteLabel" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered" role="document">
-						<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="ModalDeleteLabel">Confirmation</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<center>
-						<div class="modal-body">
-							Que voulez-vous faire ?
-						</div>
-						</center>
-						<div class="modal-footer">
-							<a type="button" class="btn btn-success" href="{{ path('rpRestore', {'rp_id': RP.id}) }}">Restorer</a>
-							<a type="button" class="btn btn-danger text-white" href="{{ path('rpDelete', {'rp_id': RP.id}) }}">Supprimer</a>
-						</div>						
-						</div>
-					</div>
-					</div>
 				    {% endfor %}
 				  </tbody>
 				</table>
