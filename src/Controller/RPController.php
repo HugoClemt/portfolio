@@ -18,10 +18,12 @@ use App\Form\PromotionType;
 use App\Form\SoumettreRPEnseignantType;
 use App\Form\CommentaireType;
 use App\Entity\Enseignant;
-use App\Entity\Activite; 
+use App\Entity\Activite;
+use App\Entity\Competence;  
 use App\Entity\Commentaire;
 use App\Entity\Stage;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class RPController extends AbstractController
 {
@@ -143,7 +145,7 @@ class RPController extends AbstractController
 
     }
 
-    public function consulterActiviteRPEtudiant($rp_id, Request $request){
+    public function consulterActiviteRPEtudiant($rp_id){
         $rp = $this->getDoctrine()->getRepository(RP::class)->find($rp_id);
         $rpActivite = $this->getDoctrine()->getRepository(RPActivite::class)->findByRp($rp);
 
@@ -175,6 +177,8 @@ class RPController extends AbstractController
         ->getRepository(RP::class)
         ->find($rp_id);
         $rpactivite->setRP($rp);
+        $competences = $this->getDoctrine()
+        ->getRepository(Competence::class);
         
  
         if ($form->isSubmitted()) {
@@ -187,7 +191,7 @@ class RPController extends AbstractController
         }
         else
         {
-            return $this->render('rp/ajouterActivite.html.twig', array('form' => $form->createView(),));
+            return $this->render('rp/ajouterActivite.html.twig', array('form' => $form->createView(), 'pRP' => $rp, 'pCompetences' => $competences, 'pActivites' => $activite));
         }
     }
 
@@ -330,6 +334,8 @@ class RPController extends AbstractController
         ->getRepository(Enseignant::class)
         ->findOneById($rp->getEnseignant()->getId());
 
+        
+
         $rp->setStatut($statut);
         if($this->isGranted('ROLE_ENSEIGNANT')) {  
             if ($formAjouter->isSubmitted()) {
@@ -337,12 +343,9 @@ class RPController extends AbstractController
                 ->getRepository(Statut::class)
                 ->findOneById(3);
 
-                $enseignant = $this->getDoctrine()
-                ->getRepository(Enseignant::class)
-                ->findOneById(999);
+                
 
                 $rp->setStatut($statut);
-                $rp->setEnseignant($enseignant);;
                 $commentaire = $formAjouter->getData();
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($commentaire);
@@ -440,23 +443,45 @@ class RPController extends AbstractController
         }
     }
 
-    public function ValiderRP($rp_id, Request $request){
+/**
+     * @Route(name="test2",path="/test2")
+     * @param Request $request
+     * @return Response
+     */
+    public function test2Action(Request $request)
+    {
+        $numeroption=$_POST["numeroption"];
 
-        $rp = $this->getDoctrine()
-        ->getRepository(RP::class)
-        ->findOneById($rp_id);
+        $activite = $this->getDoctrine()
+        ->getRepository(Competence::class)
+        ->findOneById($numeroption);
 
-        $statut = $this->getDoctrine()
-        ->getRepository(Statut::class)
-        ->findOneById(4);
+        $competences = $this->getDoctrine()
+        ->getRepository(Competence::class)
+        ->findByActivite($activite);
 
-        $rp->setStatut($statut);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($rp);
-        $entityManager->flush();
-        return $this->redirectToRoute('enseignantLesRPaCommenter', array( 'enseignant_id' => $rp->getEnseignant()->getId()));
-        
+        $output=array();
+        if ($request->isXmlHttpRequest()) {
+        foreach ($competences as $competence){
+
+            $output[]=array($competence->getLibelle());
+        }
+     /*   var_dump($themes);
+        $json = json_encode($themes);
+
+        $response = new Response();*/
+        //            return $response->setContent($json);
+        return new JsonResponse($output);
+
     }
+    return new JsonResponse('no results found', Response::HTTP_NOT_FOUND);
+}
+
+
+
+
+
+    
 
 }
 

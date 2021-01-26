@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 
 class RPActiviteType extends AbstractType
 {
@@ -26,6 +27,7 @@ class RPActiviteType extends AbstractType
                 },
             ))
             ->add('commentaire', TextareaType::class,)
+            
             ->add('enregistrer', SubmitType::class, array('label' => 'Valider'));
         }
     
