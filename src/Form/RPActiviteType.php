@@ -21,6 +21,7 @@ class RPActiviteType extends AbstractType
     {
         $builder
             ->add('activite', EntityType::class, array(
+                'placeholder' => 'Choisissez votre activité',
                 'class' => 'App\Entity\Activite',
                 'choice_label' => function (Activite $activite) {
                     return $activite->getCode() . ' - ' . $activite->getLibelle();

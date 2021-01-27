@@ -78,7 +78,7 @@ rpRestore:
 #consulter une RP d'un étudiant
 rpConsulter:
     path: /etudiant/rp/consulter/{rp_id}
-    controller: App\Controller\RPController::modifierRP
+    controller: App\Controller\RPController::consultoModifierRP
 
 #consulter un commentaire d'une RP
 rpConsulterCommentaire:
@@ -158,17 +158,14 @@ ListerStagesAffect:
 #Consulter les informations d'un étudiant
 etudiantConsulter:
     path: /etudiant/etudiant/consulter/{etudiant_id}
-    controller: App\Controller\EtudiantController::consulterEtudiant
+    controller: App\Controller\EtudiantController::consultoModifierEtudiant
 
 #Ajouter les promotions par l'admin
 ajouterPromotion:
     path: /admin/ajouterPromotion/
     controller:  App\Controller\AdminController::ajouterPromotion
 
-#Modifier les information de l'etudiant
-etudiantModifier:
-    path: /etudiant/etudiant/modifier/{etudiant_id}
-    controller: App\Controller\EtudiantController::modifierEtudiant
+
 
 #Lister les stages des étudiants d'une promotion sélectionnée
 stagePromo:

@@ -1,73 +1,71 @@
 {% extends "entete.html.twig" %}
 {% block content %}
+{% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
 
-<!DOCTYPE html>
+{{ form_start(form) }}
 
-  </head>
-  <html>
+  
+  <div class="form-row">
+            <div class="col-md-6 mb-3">
+				<label>Nom</label>
+					{{ form_widget(form.nom, {'attr': {'class': 'form-control'}})}}
+			</div>
 
-    <body>
-      <br>
-      <center>
-      <h1>Paramètres personnels</h1>
-      </center>
-      <hr class="featurette-divider p-1">
-      <div class="container">
-        <form>
-          <div class="form-row">
             <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Nom</label>
-              <input type="text" id="disabledTextInput" class="form-control" value="{{pEtudiant.nom}}">
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Prenom</label>
-              <input type="text" id="disabledTextInput" class="form-control" value="{{pEtudiant.prenom}}">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="col-md-6 mb-3">
-              
-              <label for="disabledTextInput">Date de Naissance</label>
-              <input type="date" id="disabledTextInput" class="form-control" value="{{pEtudiant.datenaiss|date('Y-m-d')}}">
-              
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Sexe</label>
-              <input type="text" id="disabledTextInput" class="form-control" value="{{pEtudiant.sexe}}"  maxlength="2">
-            </div>
-          </div>
-          <div class="form-row">
+				<label>Prenom</label>
+					{{ form_widget(form.prenom, {'attr': {'class': 'form-control'}})}}
+			</div>
+
+  </div>
+  			<div class="form-row">
+			<div class="col-md-6 mb-3">
+				<label>Sexe</label>
+					{{ form_widget(form.sexe, {'attr': {'class': 'form-control'}})}}
+</div>
+<div class="col-md-6 mb-3">
+				<label>Date de naissance </label>
+					{{ form_widget(form.datenaiss, {'attr': {'class': 'form-control'}})}}
+</div>
 
 </div>
 
-<center> <h2>Coordonnées</h2></center>
-          <hr class="featurette-divider p-2">
-    
 
 
-            <div class="form-row">
-            <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Adresse Personnelle</label>
-              <input type="text" id="disabledTextInput" class="form-control" value="{{pEtudiant.adrperso}}">
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Mobile</label>
-              <input type="text" id="disabledTextInput" class="form-control" value="{{pEtudiant.mobile}}">
-            </div>    
-            <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Mail</label>
-              <input type="mail" id="disabledTextInput" class="form-control" value="{{pEtudiant.mail}}">
-            </div>
-              </div>
 
-          </div>
-        </form>
-      </div>
-        <center>
-    <a href="../../../../../portfolio/public/etudiant/etudiant/modifier/{{pEtudiant.id}}"><input type="submit" value="modifier mes informations" 
-      class="btn btn-secondary"></a>
-  </center>
-    </body>
-</html>
+
+
+					<center> <h2>Coordonnées</h2></center>
+          				<hr class="featurette-divider p-2">
+
+          
+			<div class="form-row">
+            <div class="col-md-6 mb-3">
+				<label>Adresse personnelle</label>
+					{{ form_widget(form.adrperso, {'attr': {'class': 'form-control'}})}}
+				</div>
+				<div class="col-md-6 mb-3">
+				<label>Mobile</label>
+					{{ form_widget(form.mobile, {'attr': {'class': 'form-control'}})}}
+				</div>
+				
+				<div class="col-md-6 mb-3">
+				<label>Mail</label>
+					{{ form_widget(form.mail, {'attr': {'class': 'form-control'}})}}
+				</div></div>
+</div>
+		
+
+				<center><div class="col-12">
+					{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
+				</div></center>
+
+        
+			
+
+{{ form_end(form) }}
 
 {% endblock %}

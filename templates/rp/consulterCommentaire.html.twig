@@ -1,5 +1,10 @@
 {% extends "entete.html.twig" %}
 {% block content %}
+{% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
 <body>
 <div class="container">
  <p></p><center><h1>Réalisation professionnelle</h1></center><p></p>

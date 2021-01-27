@@ -32,6 +32,7 @@
         <br>
         <div id="competences" name="competences">
 
+        
 
         </div>
 
@@ -69,7 +70,7 @@
 
             $.ajax({
                 type: "post",
-                url: '{{ path('test2') }}',
+                url: '{{ path('afficherCompetences') }}',
                 data: { numeroption : numeroption },
                 dataType: "json",
                 
@@ -81,7 +82,7 @@
                     //console.log(value);
                     $('#competences').append("<ul> <li>"+value);
                 });
-            },
+                },
                 error: function(jxh,textmsg,errorThrown){
                     console.log(textmsg);
                     console.log(errorThrown);

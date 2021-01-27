@@ -180,6 +180,7 @@ class RPController extends AbstractController
         $competences = $this->getDoctrine()
         ->getRepository(Competence::class);
         
+        
  
         if ($form->isSubmitted()) {
             $rpactivite = $form->getData();
@@ -265,7 +266,7 @@ class RPController extends AbstractController
     }
 
 
-    public function modifierRP ($rp_id, Request $request)
+    public function consultoModifierRP ($rp_id, Request $request)
     {
         $rp = $this->getDoctrine()
         ->getRepository(RP::class)
@@ -286,6 +287,7 @@ class RPController extends AbstractController
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($rp);
                 $entityManager->flush();
+                $this->addFlash('success', 'Réalisation modifiée avec succès !');
                 return $this->render('rp/consulter.html.twig', array('form' => $form->createView(),'pRP' => $rp));
             }
             else{  
@@ -363,6 +365,7 @@ class RPController extends AbstractController
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($commentaire);
                 $entityManager->flush();
+                $this->addFlash('success', 'Réalisation soumise avec succès !');
                 return $this->render('rp/consulterCommentaire.html.twig', ['pRPaCommenter' => $RPaCommenter, 'pRP' => $rp,'formSoumettre' => $formSoumettre->createView()]);
             }
             else
@@ -444,11 +447,11 @@ class RPController extends AbstractController
     }
 
 /**
-     * @Route(name="test2",path="/test2")
+     * @Route(name="afficherCompetences",path="/afficherCompetences")
      * @param Request $request
      * @return Response
      */
-    public function test2Action(Request $request)
+    public function afficherCompetences(Request $request)
     {
         $numeroption=$_POST["numeroption"];
 

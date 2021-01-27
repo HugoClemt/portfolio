@@ -20,7 +20,7 @@ class EtudiantController extends AbstractController
      * @Route("/etudiant", name="etudiant")
      */
 
-    public function accueilEtudiant($etudiant_id)
+    public function accueilEtudiant($etudiant_id, Request $request)
     {
 
         $repository = $this->getDoctrine()->getRepository(RP::class);
@@ -38,17 +38,8 @@ class EtudiantController extends AbstractController
         return $this->render('etudiant/accueil.html.twig', ['pRP' => $RPaModifier, 'pStages' => $stages]);
     }
 
-    public function consulterEtudiant($etudiant_id)
+    public function consultoModifierEtudiant($etudiant_id, Request $request)
     {   
-        $etudiant = $this->getDoctrine()
-        ->getRepository(Etudiant::class)
-        ->find($etudiant_id);
-         return $this->render('etudiant/consulter.html.twig', ['pEtudiant' => $etudiant]);
-         }     
-
-
-    public function modifierEtudiant ($etudiant_id, Request $request)
-    {
         $etudiant = $this->getDoctrine()
         ->getRepository(Etudiant::class)
         ->find($etudiant_id);
@@ -60,23 +51,24 @@ class EtudiantController extends AbstractController
         {
             $form = $this->createForm(EtudiantInfoType::class, $etudiant);
             $form->handleRequest($request);
-            $etudiant->setDateNaiss(new \DateTime(date('1980-07-31')));
             //var_dump($etudiant) ;
             if($form->isSubmitted() ){
                 $etudiant = $form->getData();
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($etudiant);
                 $entityManager->flush();
-                //return $this->render('etudiant/modifier.html.twig', ['pEtudiant' => $etudiant]);
-                 return $this->render('etudiant/consulter.html.twig', ['pEtudiant' => $etudiant]);
+                $this->addFlash('success', 'Profil modifié avec succès !');
+                 return $this->render('etudiant/consulter.html.twig', array('form'=>$form->createView(), 'pEtudiant' => $etudiant));
             }
             else{  
-                //return $this->render('etudiant/modifier.html.twig', array('form'=>$form->createView(),'pEtudiant' => $etudiant));
-                return $this->render('etudiant/modifier.html.twig', array('form'=>$form->createView()));
+                return $this->render('etudiant/consulter.html.twig', array('form'=>$form->createView(), 'pEtudiant' => $etudiant));
             }
 
         }
-    }
+    }    
+
+
+    
 
     
         public function ajouterEtudiant(Request $request){
