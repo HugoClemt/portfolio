@@ -208,4 +208,17 @@ viseRP:
 
 
 
+#Modif un commentaire d'une RP
+rpModifierCommentaire:
+    path: /enseignant/rp/modifierCommentaire/{commentaire_id}
+    controller: App\Controller\RPController::modifierCommentaire
+    
+    
+#supprimer un commentaire d'une RP
+rpDeleteCommentaire:
+    path: /enseignant/rp/deleteCommentaire/{commentaire_id}
+    controller: App\Controller\RPController::deleteCommentaire
+
+
+
 

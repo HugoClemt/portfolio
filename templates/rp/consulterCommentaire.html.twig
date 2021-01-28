@@ -52,7 +52,11 @@
 						</div>						
 						</div>
 					</div>
-					</div><br>
+</div><br>
+
+
+
+
 {% if is_granted('ROLE_ENSEIGNANT') %}
 <div class="container">
 {% if pRP.enseignant.id == app.user.enseignant.id %}
@@ -70,7 +74,33 @@
 {% for commentaire in pRP.commentaire %}
 <div class="alert alert-dark" role="alert">
   
-  <h4><span >{{ commentaire.dateCommentaire|date("d/m/Y") }}</span> | {{ commentaire.enseignant.prenom }}  {{ commentaire.enseignant.nom }} </h4>
+  <h4><span >{{ commentaire.dateCommentaire|date("d/m/Y") }}</span> | {{ commentaire.enseignant.prenom }}  {{ commentaire.enseignant.nom }} 
+  {% if is_granted('ROLE_ENSEIGNANT') %}
+  		<td><a href="{{ path('rpModifierCommentaire', {'commentaire_id': commentaire.id}) }}"><span title="Cliquer pour modifier">📝</span></a>
+		<td><a class="nav-link text-right text-info" data-toggle="modal" data-target="#ModalSupprComm"><span title="Cliquer pour supprimer">❌</span></a>
+
+		<div class="modal fade" id="ModalSupprComm" tabindex="-1" role="dialog" aria-labelledby="ModalSupprCommLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="ModalSupprComm">Confirmation</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<center>
+						<div class="modal-body">
+							Voulez-vous supprimer ce commentaire ?
+						</div>
+						</center>
+						<div class="modal-footer">
+							<a type="button" class="btn btn-secondary" data-dismiss="modal">Non</a>
+							<a type="button" class="btn btn-danger text-white" href="{{ path('rpDeleteCommentaire', { 'commentaire_id': commentaire.id })  }}">Oui</a>
+						</div>						
+						</div>
+					</div>
+{% endif %}
+  </h4>
        
     <div class="alert" role="alert">
       {{ commentaire.commentaire }}

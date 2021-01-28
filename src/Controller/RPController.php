@@ -301,6 +301,9 @@ class RPController extends AbstractController
     public function consulterCommentaireRPEtudiant ($rp_id, Request $request)
     {
         $commentaire = new Commentaire();
+
+        
+
         $formAjouter = $this->createForm(CommentaireType::class, $commentaire);
         $formAjouter->handleRequest($request);
         
@@ -352,11 +355,12 @@ class RPController extends AbstractController
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($commentaire);
                 $entityManager->flush();
-                return $this->render('rp/consulterCommentaire.html.twig', ['pRPaCommenter' => $RPaCommenter, 'pRP' => $rp, 'formAjouter' => $formAjouter->createView()]);
+                
+                return $this->render('rp/consulterCommentaire.html.twig', ['pRP' => $rp, 'formAjouter' => $formAjouter->createView()]);
             }
             else
             {
-                return $this->render('rp/consulterCommentaire.html.twig', array('pRPaCommenter' => $RPaCommenter, 'pRP' => $rp, 'formAjouter' => $formAjouter->createView()));
+                return $this->render('rp/consulterCommentaire.html.twig', array('pRP' => $rp, 'formAjouter' => $formAjouter->createView()));
             }
         }
         else{
@@ -366,11 +370,11 @@ class RPController extends AbstractController
                 $entityManager->persist($commentaire);
                 $entityManager->flush();
                 $this->addFlash('success', 'Réalisation soumise avec succès !');
-                return $this->render('rp/consulterCommentaire.html.twig', ['pRPaCommenter' => $RPaCommenter, 'pRP' => $rp,'formSoumettre' => $formSoumettre->createView()]);
+                return $this->render('rp/consulterCommentaire.html.twig', ['pRP' => $rp,'formSoumettre' => $formSoumettre->createView()]);
             }
             else
             {
-                return $this->render('rp/consulterCommentaire.html.twig', array('pRPaCommenter' => $RPaCommenter, 'pRP' => $rp, 'formSoumettre' => $formSoumettre->createView()));
+                return $this->render('rp/consulterCommentaire.html.twig', array('pRP' => $rp, 'formSoumettre' => $formSoumettre->createView()));
             }
         }
     }
@@ -493,7 +497,48 @@ class RPController extends AbstractController
 
     }
     return new JsonResponse('no results found', Response::HTTP_NOT_FOUND);
-}
+    }
+
+
+    public function deleteCommentaire($commentaire_id){
+        $commentaire = $this->getDoctrine()
+        ->getRepository(Commentaire::class)
+        ->findOneById($commentaire_id);
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($commentaire);
+        $manager->flush();
+
+        $rp = $this->getDoctrine()->getRepository(RP::class)->find($commentaire->getRP()->getId());
+
+        return $this->redirectToRoute('rpConsulterCommentaire', array( 'rp_id' => $rp->getId()));
+    }
+
+    public function modifierCommentaire ($commentaire_id, Request $request)
+    {
+        $commentaire = $this->getDoctrine()
+        ->getRepository(Commentaire::class)
+        ->findOneById($commentaire_id);
+
+        $rp_id = $commentaire->getRp()->getId();
+        $rp = $this->getDoctrine()
+        ->getRepository(RP::class)
+        ->findOneById($rp_id);
+    
+        $form = $this->createForm(CommentaireType::class, $commentaire);
+        $form->handleRequest($request);
+
+            //var_dump($rp) ;
+        if($form->isSubmitted()){
+            $commentaire = $form->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($commentaire);
+            $entityManager->flush();
+            return $this->redirectToRoute('rpConsulterCommentaire', array( 'rp_id' => $rp->getId()));
+        }
+        else{  
+            return $this->render('rp/modifCommentaire.html.twig', array('form' => $form->createView(),'pCommentaire' => $commentaire, 'pRP' => $rp));
+        }
+    }
 
 
 
