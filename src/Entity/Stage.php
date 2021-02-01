@@ -21,7 +21,7 @@ class Stage
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=20, nullable=true)
+     * @ORM\Column(type="string", length=20)
      */
     private $nomtut;
 
@@ -41,49 +41,54 @@ class Stage
     private $lieu;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 8,
+     *      notInRangeMessage = "You must be between {{ min }} and {{ max }} tall to enter",
+     * )
      */
     private $nbsemaine;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $nomentreprise;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true )
+     * @ORM\Column(type="string", length=255)
      */
     private $ville;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=true)
+     * @ORM\Column(type="string", length=50)
      */
 
 
     private $adrentreprise;
 
      /**
-     * @ORM\Column(type="string", length=5, nullable=true)
+     * @ORM\Column(type="string", length=5)
      */
     private $copos;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=true)
+     * @ORM\Column(type="string", length=50)
      */
     private $directeur;
 
       /**
-     * @ORM\Column(type="string", length=5, nullable=true)
+     * @ORM\Column(type="string", length=5)
      */
     private $codenaf;
 
       /**
-     * @ORM\Column(type="string", length=14, nullable=true)
+     * @ORM\Column(type="string", length=14)
      */
     private $siret;
 
     /**
-     * @ORM\Column(type="string", length=10, nullable=true)
+     * @ORM\Column(type="string", length=10)
      */
     private $telentreprise;
 
@@ -103,7 +108,7 @@ class Stage
     private $dateFin;
 
     /**
-     * @ORM\Column(type="string", length=20, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $sujet;
 

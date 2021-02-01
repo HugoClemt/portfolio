@@ -1,116 +1,177 @@
 {% extends "entete.html.twig" %}
- {% block content %}
+{% block content %}
+{% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+{% endfor %}
+{% if app.user.etudiant.id == pEtudiant.id %}
+<body>
+<div class="container">
+	<p></p><center><h1>Consultation du stage</h1></center><p></p>       
+	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #DDDDDD;">
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<center><div class="navbar-collapse text-right" id="navbarNav">
+	{# <ul class="navbar-nav text-left">
+		<li class="nav-item">
+			<a class="nav-link active" href="#"> Description </a>
+		</li>   
+		<li class="nav-item">
+			<a class="nav-link" href=""> Activités </a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href=""> Production </a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href=""> Commentaire</a>
+		</li>
+		</ul> #}
+    <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link active" href="{{ path('StageConsulter', { 'stage_id': pStage.id }) }}">Information
+    {% for i in 1..pStage.nbsemaine %}
+      <li><a class="nav-link" href="">Semaine {{ i }} </a></li>
+    {% endfor %}
+</ul>
+	</div></div></center>
+	</nav>
 
-<!DOCTYPE html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-  <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.js"></script>
-  <link href="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.css" rel="stylesheet">
-  </head>
-  <html>
 
-    <body>
-      <br>
-      <center>
-      <h1>Consultation de stage</h1>
-      </center>
-      <hr class="featurette-divider p-1">
-      <div class="container">
-        <form>
-          <div class="form-row">
-            <div class="col-md-4 mb-3">
-              <label for="disabledTextInput"><b>Nom de l'entreprise</b> : {{pStage.nomentreprise}}</label>
-            </div>
-            <div>
-              <label for="disabledTextInput">SIRET : {{pStage.siret}}</label>
-            </div>
-            <div>
-              <label for="disabledTextInput">Code NAF : {{pStage.codenaf}}</label>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="col-md-2 mb-3">
-              <label for="disabledTextInput">Directeur : {{pStage.directeur}}</label>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Ville : {{pStage.ville}}</label>
-              
-            </div>
-             <div class="col-md-2 mb-3">
-              <label for="disabledTextInput">Code Postal : {{pStage.copos}}</label>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Adresse : {{pStage.adrentreprise}}</label>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Téléphone : {{pStage.telentreprise}}</label>
-            </div>
-          </div>
-          <center><div class="col-md-6 mb-3">
-            <label for="disabledTextInput" >Mail : {{pStage.mailentreprise}}</label>
-          </div></center>
-          <hr class="featurette-divider p-2">
-          <div class="form-row">
-            <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Nom du tuteur : {{pStage.nomtut}}</label>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Téléphone du tuteur : {{pStage.teltut}}</label>
-            </div>
-          </div>
-          <center><div class="col-md-6 mb-3">
-            <label for="disabledTextInput" >Mail du tuteur : {{pStage.mailtut}}</label>
-          </div></center>
-          <hr class="featurette-divider p-2">
-          <div class="form-row">
-            <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Date de debut du stage : {{pStage.dateDebut|date('Y-m-d')}}</label>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Date de fin du stage : {{pStage.dateFin|date('Y-m-d')}}</label>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Durée : {{pStage.nbsemaine}}</label>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Sujet : {{pStage.sujet}}</label>
-            </div>
-          </div>
-        </form>
-        <hr class="featurette-divider p-2">
-        <center><h2>Horaires</h2><br></center>
-        <table class="table table-dark" >
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Lundi</th>
-              <th scope="col">Mardi</th>
-              <th scope="col">Mercredi</th>
-              <th scope="col">Jeudi</th>
-              <th scope="col">Vendredi</th>
-              <th scope="col">Samedi</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">Horaires</th>
-              <td></td>
-              <td>{{pStage.horLun}}</td>
-              <td>{{pStage.horMar}}</td>
-              <td>{{pStage.horMer}}</td>
-              <td>{{pStage.horJeu}}</td>
-              <td>{{pStage.horVen}}</td>
-              <td>{{pStage.horSam}}</td>
-            </tr>
-          </tbody>
-        </table>
+<div class="container">
+  <div class="alert " role="alert">
+  {{ form_start(form) }}
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label for="disabledTextInput">Nom de l'entreprise</label>
+			    {{ form_widget(form.nomentreprise, {'attr': {'class': 'form-control'}}) }}
       </div>
-    </body>
-</html>
+      <div class="col-md-4 mb-3">
+      <span title="Ce code est une suite de 14 chiffre propre à l'entreprise">
+        <label for="validationCustom02">SIRET</label><img src={{ asset("images/info-8x.png") }} height=12>
+      </span>
+          {{ form_widget(form.siret, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-2 mb-3">
+      <span title="Ce code est une suite de chiffre et de lettre décrivant l'activté principal de l'entreprise">
+        <label for="validationCustom02">Code NAF</label><img src={{ asset("images/info-8x.png") }} height=12>
+      </span>
+          {{ form_widget(form.codenaf, {'attr': {'class': 'form-control'}}) }}
+      </div> 
+    </div>
 
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label for="validationCustom02">Adresse</label>
+          {{ form_widget(form.adrentreprise, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="disabledTextInput">Ville</label>
+          {{ form_widget(form.ville, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-2 mb-3">
+        <label for="disabledTextInput">Code Postal</label>
+          {{ form_widget(form.copos, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+    
+    <div class="form-row">
+      <div class="col-md-4 mb-3">
+        <label for="disabledTextInput">Nom du tuteur</label>
+          {{ form_widget(form.nomtut, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="validationCustom02">Téléphone du tuteur</label>
+          {{ form_widget(form.teltut, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-5 mb-3">
+        <label for="validationCustom02" >Mail du tuteur</label>
+          {{ form_widget(form.mailtut, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+
+
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label for="disabledTextInput">Directeur</label>
+          {{ form_widget(form.directeur, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="validationCustom02" >Mail</label>
+          {{ form_widget(form.mailentreprise, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="exampleInputEmail">Téléphone</label>
+          {{ form_widget(form.telentreprise, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+    
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+      <span title="Lieux où s'effectura le stage, cela peut etre différent de l'adresse de l'entreprise">
+        <label for="disabledTextInput">Lieu du stage</label><img src={{ asset("images/info-8x.png") }} height=12>
+      </span>
+          {{ form_widget(form.lieu, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="validationCustom02">Sujet</label>
+          {{ form_widget(form.sujet, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+    
+    <hr class="featurette-divider p-2">
+    <div class="form-row">
+      <div class="col-md-3 mb-3">
+        <label for="disabledTextInput">Date de debut du stage</label>
+          {{ form_widget(form.dateDebut, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="validationCustom02">Date de fin du stage</label>
+          {{ form_widget(form.dateFin, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="disabledTextInput">Durée (en semaines)</label>
+          {{ form_widget(form.nbsemaine, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+    
+    <div class="form-row">
+      <div class="col-md-2 mb-3">
+        <label for="validationCustom02" >Horaire Lundi</label>
+          {{ form_widget(form.horLun, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-2 mb-3">
+      <label for="validationCustom02" >Horaire Mardi</label>
+          {{ form_widget(form.horMar, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-2">
+        <label for="validationCustom02" >Horaire Mercredi</label>
+          {{ form_widget(form.horMer, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-2">
+        <label for="validationCustom02" >Horaire Jeudi</label>
+          {{ form_widget(form.horJeu, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-2">
+        <label for="validationCustom02" >Horaire Vendredi</label>
+          {{ form_widget(form.horVen, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-2 mb-3">
+        <label for="validationCustom02" >Horaire Samedi</label>
+          {{ form_widget(form.horSam, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+    <br>
+    <center>
+      <div class="col-12">
+        {{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
+      </div>
+    </center>
+  {{ form_end(form) }}
+</body>
+{% else %}
+<br>
+<center><p>Acces interdit ! <a href="{{ path('EtudiantListerStage', { 'etudiant_id': app.user.etudiant.id }) }}">C'est ici pour toi !</p></center>
+{% endif %}
 {% endblock %}

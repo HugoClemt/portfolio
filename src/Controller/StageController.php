@@ -24,26 +24,8 @@ use App\Entity\SemaineStage;
 
 class StageController extends AbstractController
 {
-    /**
-     * @Route("/stage", name="stage")
-     */
-     public function consulterStage($stage_id)
-     {
-
-         $stage = $this->getDoctrine()
-         ->getRepository(Stage::class)
-         ->find($stage_id);
-
-
-         return $this->render('stage/consulter.html.twig', ['pStage' => $stage]);
-     }
-
-
-
      public function ListerAncienStages()
     {
-
-        
         $stages = $this->getDoctrine()
         ->getRepository(Stage::class)
         ->findAll();
@@ -177,12 +159,47 @@ class StageController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($stage);
             $entityManager->flush();
-            return $this->render('stage/consulter.html.twig', ['pStage' => $stage, 'pEtudiant' => $etudiant]);
+            return $this->render('stage/consulter.html.twig', ['pStage' => $stage, 'pEtudiant' => $etudiant, 'form' => $form->createView(),]);
         }
         else
         {
             return $this->render('stage/ajouter.html.twig', array('form' => $form->createView(), 'pEtudiant' => $etudiant));
         }
+    }
 
+    public function consultoModifierStage ($stage_id, Request $request)
+    {
+        $stage = $this->getDoctrine()
+        ->getRepository(Stage::class)
+        ->findOneById($stage_id);
+        $etudiant = $this->getDoctrine()
+        ->getRepository(Etudiant::class)
+        ->find($stage->getEtudiant()->getId());
+        $enseignant = $this->getDoctrine()
+        ->getRepository(Enseignant::class)
+        ->find($stage->getEnseignant()->getId());
+        if(!$stage){
+            echo ("stage non trouvé");
+            throw $this->createNotFoundException('Aucune stage trouvé avec l\'id '.$stage_id);
+        }
+        else
+        {
+            $form = $this->createForm(StageType::class, $stage);
+            $form->handleRequest($request);
+
+            //var_dump($stage) ;
+            if($form->isSubmitted()){
+                $stage = $form->getData();
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($stage);
+                $entityManager->flush();
+                $this->addFlash('success', 'Stage modifié avec succès !');
+                return $this->render('stage/consulter.html.twig', array('form' => $form->createView(),'pStage' => $stage, 'pEtudiant' => $etudiant, 'pEnseignant' => $enseignant));
+            }
+            else{  
+                return $this->render('stage/consulter.html.twig', array('form' => $form->createView(),'pStage' => $stage, 'pEtudiant' => $etudiant, 'pEnseignant' => $enseignant));
+            }
+
+        }
     }
 }

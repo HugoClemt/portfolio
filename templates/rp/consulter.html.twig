@@ -1,10 +1,10 @@
 {% extends "entete.html.twig" %}
 {% block content %}
- {% for message in app.flashes('success') %}
+{% for message in app.flashes('success') %}
             <div class="alert alert-success">
                 {{ message }}
             </div>
-        {% endfor %}
+{% endfor %}
 {% if is_granted('ROLE_ENSEIGNANT') %}	
 	<body>
 	<div class="container">
@@ -134,7 +134,7 @@
 					</div>
 				</div>
 			</div>
-	</div>
+	</div></div>
 	</body>
 
 {% else %}
@@ -271,7 +271,7 @@
 	</body>
 	{% else %}
 	<br>
-	<center><p>Hop, tu ne peux pas voir les archives de tes collègues ! <a href="{{ path('rpListerArchiver', { 'etudiant_id': app.user.etudiant.id }) }}">Et voilà tes archives sont ici !</p></center>
+	<center><p>Hop, tu ne peux pas voir les réalisation de tes collègues ! <a href="{{ path('etudiantListerLesRP', { 'etudiant_id': app.user.etudiant.id }) }}">Et voilà tes réalisation sont par ici !</p></center>
 	{% endif %}
 {% endif %}
 {% endblock %}

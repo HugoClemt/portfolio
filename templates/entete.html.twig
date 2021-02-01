@@ -74,14 +74,13 @@
         <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Stages
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          
-          <a class="dropdown-item" href="{{ path('ListerAncienStages') }}">Infos anciens stages</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">  
         {% if is_granted('ROLE_ENSEIGNANT') %}
           <a class="dropdown-item" href="{{ path('ListerStagesAffect', { 'enseignant_id': app.user.enseignant.id }) }}">Lister Stage affectés</a>
         {% else %}
           <a class="dropdown-item" href="{{ path('EtudiantListerStage', { 'etudiant_id': app.user.etudiant.id }) }}">Carnet de bord</a>
         {% endif %}
+        <a class="dropdown-item" href="{{ path('ListerAncienStages') }}">Infos anciens stages</a>
         </div>
       </li>
 

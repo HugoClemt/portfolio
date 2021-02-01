@@ -143,7 +143,7 @@ EtudiantListerStage:
 #consulter les infos de stage d'un étudiant
 StageConsulter:
     path: /etudiant/stage/consulter/{stage_id}
-    controller: App\Controller\StageController::consulterStage
+    controller: App\Controller\StageController::consultoModifierStage
 
 #consulter l'activité quotidienne d'un stage d'un eleve
 StageActQuoti:
