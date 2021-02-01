@@ -1,5 +1,6 @@
 {% extends "entete.html.twig" %}
 {% block content %}
+{% if app.user.etudiant.id == pEtudiant.id %}
 <body>
 <div class="container"><br>
 	<p></p><center><h1>Réalisation professionnelle</h1></center><p></p>
@@ -33,6 +34,9 @@
 				<br>
 		<br><br>
 </body>
-</html>
+{% else %}
+<br>
+<center><p>Hop, tu ne peux pas voir les archives de tes collègues ! <a href="{{ path('rpListerArchiver', { 'etudiant_id': app.user.etudiant.id }) }}">Et voilà tes archives sont ici !</p></center>
+{% endif %}
 {% endblock %}
 

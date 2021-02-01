@@ -1,7 +1,8 @@
 {% extends "entete.html.twig" %}
 {% block content %}
 
-
+<div class="container">
+<br>
 {{ form_start(form) }}
             <div>
                 <label>Commentaire</label> 
@@ -11,5 +12,6 @@
 					{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
 				</div></center>
 			</div>
+</div>
 
 {% endblock %}

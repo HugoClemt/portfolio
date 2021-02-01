@@ -1,5 +1,6 @@
 {% extends "entete.html.twig" %}
 {% block content %}
+{% if app.user.etudiant.id == pEtudiant.id %}
 <body>
 <div class="container">
 	<p></p><center><h1>Nouvelle réalisation professionnelle</h1></center><p></p>
@@ -78,5 +79,8 @@
 			</div>
 		</div>
 	</body>
-</html>
+{% else %}
+<br>
+<center><p>Attention, tu allais ajouter une réalisation professionnelle sur le compte d'une autre personne ! <a href="{{ path('rpAjouter', { 'etudiant_id': app.user.etudiant.id }) }}">C'est ici pour toi !</p></center>
+{% endif %}
 {% endblock %}

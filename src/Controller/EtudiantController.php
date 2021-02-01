@@ -35,7 +35,7 @@ class EtudiantController extends AbstractController
         ->getRepository(Stage::class)
         ->findByEtudiant($etudiant);
         
-        return $this->render('etudiant/accueil.html.twig', ['pRP' => $RPaModifier, 'pStages' => $stages]);
+        return $this->render('etudiant/accueil.html.twig', ['pRP' => $RPaModifier, 'pStages' => $stages, 'pEtudiant' => $etudiant]);
     }
 
     public function consultoModifierEtudiant($etudiant_id, Request $request)

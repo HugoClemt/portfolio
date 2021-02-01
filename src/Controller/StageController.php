@@ -75,7 +75,7 @@ class StageController extends AbstractController
 
 
         return $this->render('stage/lister.html.twig', [
-            'pStages' => $stages,]);
+            'pStages' => $stages, 'pEtudiant' => $etudiant]);
     }
 
 
@@ -113,8 +113,6 @@ class StageController extends AbstractController
             }
         }    
 
-
-
         $enseignants1 = $this->getDoctrine() //Admin
         ->getRepository(Enseignant::class)
         ->findByNiveau('0');
@@ -124,9 +122,6 @@ class StageController extends AbstractController
         ->findByNiveau('1');
 
         $enseignants = $enseignants1 + $enseignants2;
-
-
-
 
         return $this->render('stage/listerPromo.html.twig', [
             'pStages1' => $stage1annee,'pStages2' => $stage2annee, 'pEnseignants' => $enseignants]);
@@ -144,16 +139,8 @@ class StageController extends AbstractController
             'pStages1' => $stage1annee,'pStages2' => $stage2annee, 'pEnseignants' => $enseignants]);
     }
 
-
-
-
-
-
-
- public function listerSemaine($idStage){
+    public function listerSemaine($idStage){
        
-                    
-
            // var_dump($semaineStage);
 
        $stage = $this->getDoctrine()->getRepository(Stage::class)->find($idStage);
@@ -167,26 +154,9 @@ class StageController extends AbstractController
 
         return $this->render('stage/listerSemaine.html.twig', ['stage' => $stage]);
      } 
-            
-        
-    //}   
 
+    public function ajouterStage($etudiant_id, Request $request){
 
-/*public function listerSemaine($stage_id)
-     {
-        $stage = $this->getDoctrine()->getRepository(Stage::class)->find($stage_id);
-var_dump($stage);
-
-
-         return $this->render('stage/listerSemaine.html.twig', ['stage' => $stage]);
-     }*/
-
-
-
-
-
-
-public function ajouterStage($etudiant_id, Request $request){
         $stage = new Stage();
         $form = $this->createForm(StageType::class, $stage);
         $form->handleRequest($request);
@@ -199,8 +169,6 @@ public function ajouterStage($etudiant_id, Request $request){
         ->findOneById(999);
         $stage->setEnseignant($enseignant);
 
-
- 
         if ($form->isSubmitted() && $form->isValid()) {
  
             $stage = $form->getData();
@@ -209,11 +177,11 @@ public function ajouterStage($etudiant_id, Request $request){
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($stage);
             $entityManager->flush();
-                        return $this->render('stage/consulter.html.twig', ['pStage' => $stage,]);
+            return $this->render('stage/consulter.html.twig', ['pStage' => $stage, 'pEtudiant' => $etudiant]);
         }
         else
         {
-            return $this->render('stage/ajouter.html.twig', array('form' => $form->createView(),));
+            return $this->render('stage/ajouter.html.twig', array('form' => $form->createView(), 'pEtudiant' => $etudiant));
         }
 
     }
