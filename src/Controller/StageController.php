@@ -10,16 +10,15 @@ use App\Entity\Etudiant;
 use App\Entity\Stage;
 use App\Controller\StageController;
 use App\Entity\TacheSemaine;
+use App\Entity\SemaineStage;
 use App\Entity\RPActivite;
 use App\Entity\Enseignant;
 use App\Form\StageType;
+use App\Form\SemaineType;
 use App\Entity\Promotion;
-
 use Symfony\Component\HttpFoundation\Request;
-
-
 use App\Entity\Matiere;
-use App\Entity\SemaineStage;
+
 
 
 class StageController extends AbstractController
@@ -154,11 +153,20 @@ class StageController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
  
             $stage = $form->getData();
-
- 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($stage);
             $entityManager->flush();
+
+            for($i = 1; $i <= $stage->getNbsemaine(); $i++){
+                $semaine = new SemaineStage();
+                $formSemaine = $this->createForm(SemaineType::class, $semaine);
+                $formSemaine->handleRequest($request);
+                $semaine->setNumSemaine($i);
+                $semaine->setStage($stage);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($semaine);
+                $entityManager->flush();
+            }
             return $this->render('stage/consulter.html.twig', ['pStage' => $stage, 'pEtudiant' => $etudiant, 'form' => $form->createView(),]);
         }
         else
