@@ -121,7 +121,7 @@ enseignantLesRPaCommenter:
     controller: App\Controller\RPController::listerLesRPaCommenter
 
 #lister les RP (prof)
-enseignantLesRPEns:
+listerRPPromo:
     path: /enseignant/rp/listerLesRPEns/{enseignant_id}
     controller: App\Controller\RPController::listerLesRPEns
 

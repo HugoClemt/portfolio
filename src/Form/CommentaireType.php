@@ -25,7 +25,7 @@ class CommentaireType extends AbstractType
             ->add('commentaire', TextareaType::class)
             
             
-            ->add('enregistrer', SubmitType::class, array('label' => 'Valider'))
+            ->add('enregistrer', SubmitType::class, array('label' => 'Ajouter'))
 
         ;
     }

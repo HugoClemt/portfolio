@@ -61,36 +61,7 @@ class RPController extends AbstractController
         return $this->render('rp/listerRP.html.twig', array('form' => $form->createView(),'pRP' => $RPs));
     }
 
-    public function ajouterRp_Description(Request $request){
-        $rp = new RP();
-
-        $form = $this->createForm(RPType::class, $rp);
-        $form->handleRequest($request);
- 
-    if ($form->isSubmitted() && $form->isValid()) {
- 
-            $rp = $form->getData();
-
-            $statut = $this->getDoctrine()
-            ->getRepository(Statut::class)
-            ->find(1);
-            $rp->setStatut($statut);
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($rp);
-            $entityManager->flush();
- 
-            //$etudiant = $rp->getEtudiant();
-
-            //var_dump($rp->getStatut());
-            return $this->render('rp/consulter.html.twig', [ 'pRP' => $rp,]);
-        }
-        else
-            {
-                //var_dump($rp);
-                return $this->render('rp/ajouter_Description.html.twig', array('form' => $form->createView()));
-            }
-    }
+    
 
     public function listerLesRP($etudiant_id){
 
@@ -541,7 +512,52 @@ class RPController extends AbstractController
     }
 
 
+    /**
+     * @Route(name="afficherRPPromo",path="/afficherRPPromo")
+     * @param Request $request
+     * @return Response
+     */
+    public function afficherRPPromo(Request $request)
+    {
+        $numeroption=$_POST["numeroption"];
 
+        $promotion = $this->getDoctrine()
+        ->getRepository(Promotion::class)
+        ->findOneById($numeroption);
+
+        $etudiants = $this->getDoctrine()
+        ->getRepository(Etudiant::class)
+        ->findByPromotion($promotion);
+
+        $rps = $this->getDoctrine()
+        ->getRepository(RP::class)
+        ->findByEtudiant($etudiants);
+
+        $output=array();
+        if ($request->isXmlHttpRequest()) {
+        foreach ($rps as $rp){
+
+            $output[]=array(
+                'id'=>$rp->getId(),
+                'nom'=>$rp->getEtudiant()->getNom(),
+                'prenom'=>$rp->getEtudiant()->getPrenom(),
+                'source'=>$rp->getSource()->getLibelle(),
+                'libcourt'=>$rp->getLibcourt(),
+                'activites'=>count($rp->getActivites()),
+                'date'=>$rp->getDateDebut()
+        );
+            
+        }
+     /*   var_dump($themes);
+        $json = json_encode($themes);
+
+        $response = new Response();*/
+        //            return $response->setContent($json);
+        return new JsonResponse($output);
+
+    }
+    return new JsonResponse('no results found', Response::HTTP_NOT_FOUND);
+    }
 
 
     
