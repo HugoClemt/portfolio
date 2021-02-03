@@ -252,13 +252,16 @@ class StageController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute('ConsulterSemaineStage', array( 'semaine_id' => $semaine->getId()));
         }
+        elseif ($formSemaine->isSubmitted()){
+            $semaine = $formSemaine->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($semaine);
+            $entityManager->flush();
+            return $this->redirectToRoute('ConsulterSemaineStage', array( 'semaine_id' => $semaine->getId()));
+        }
         else
         {
             return $this->render('stage/semaine.html.twig', array('formSemaine' => $formSemaine->createView(), 'formTache' => $formTache->createView(), 'pStage' => $stage, 'pSemaine' => $semaine, 'pSemaines' => $semaines, 'pTaches' => $allTaches));   
         }
-    }
-
-    public function ajouterTache($semaine_id, Request $request){
-        
     }
 }

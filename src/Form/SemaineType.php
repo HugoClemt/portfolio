@@ -17,7 +17,7 @@ class SemaineType extends AbstractType
             ->add('numSemaine')
             ->add('apprentissage', TextareaType::class, array('required' => false))
             ->add('bilan', TextareaType::class, array('required' => false))
-            ->add('enregistrer', SubmitType::class, array('label' => 'Ajouter'))
+            ->add('enregistrer', SubmitType::class, array('label' => 'Enregister'))
             
         ;
     }

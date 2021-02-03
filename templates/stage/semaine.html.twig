@@ -33,7 +33,7 @@
               <td>{{ form_widget(formTache.jour, {'attr': {'class': 'form-control'}}) }}</td>
               <td>{{ form_widget(formTache.domaine, {'attr': {'class': 'form-control'}}) }}</td>
               <td>{{ form_widget(formTache.description, {'attr': {'class': 'form-control'}}) }}</td>
-              <td>{{ form_widget(formTache.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}</td>
+              <td>{{ form_widget(formTache.ajouter, {'attr': {'class': 'btn btn-secondary'}})}}</td>
             </tr>
         {{ form_end(formTache) }}
         </tbody>
@@ -66,5 +66,13 @@
         <label for="disabledTextInput">Bilan</label>
 			    {{ form_widget(formSemaine.bilan, {'attr': {'class': 'form-control'}}) }}
       </div>
+      <br>
+      <div class="col-md-12 md-3">
+      <center>{{ form_widget(formSemaine.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}</center>
+      </div>
+    </div>
+    {{ form_end(formTache) }}
+  </div>
+</div>
 </body>
 {% endblock %}
