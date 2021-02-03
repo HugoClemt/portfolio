@@ -188,18 +188,19 @@ StageConsulter:
     controller: App\Controller\StageController::consultoModifierStage
 
 #consulter l'activité quotidienne d'un stage d'un eleve
-StageActQuoti:
-    path: /etudiant/stage/consulterActJour/{tachesemaine_id}
-    controller: App\Controller\StageController::consulterActJour
+#StageActQuoti:
+#    path: /etudiant/stage/consulterActJour/{tachesemaine_id}
+#    controller: App\Controller\StageController::consulterActJour
 
 #Ajouter un stage ( etudiant )    
 stageAjouter:
     path: /stage/ajouter/{etudiant_id}
     controller: App\Controller\StageController::ajouterStage
 
-ListerSemaine:
-    path: /etudiant/stage/listerLesSemaines/{stage_id}
-    controller: App\Controller\ActiviteController::listerLesSemaines
+#consulter les semaine d'un stage
+ConsulterSemaineStage:
+    path: /etudiant/stage/consulterSemaine/{semaine_id}
+    controller: App\Controller\StageController::consulterSemaineStage
 
 
         # Route concernant les stages ( prof )

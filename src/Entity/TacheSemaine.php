@@ -18,11 +18,6 @@ class TacheSemaine
     private $id;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $duree;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
@@ -46,18 +41,6 @@ class TacheSemaine
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getDuree(): ?int
-    {
-        return $this->duree;
-    }
-
-    public function setDuree(?int $duree): self
-    {
-        $this->duree = $duree;
-
-        return $this;
     }
 
     public function getDescription(): ?string

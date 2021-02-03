@@ -15,6 +15,7 @@ use App\Entity\RPActivite;
 use App\Entity\Enseignant;
 use App\Form\StageType;
 use App\Form\SemaineType;
+use App\Form\TacheSemaineType;
 use App\Entity\Promotion;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Matiere;
@@ -25,11 +26,12 @@ class StageController extends AbstractController
 {
      public function ListerAncienStages()
     {
+
         $stages = $this->getDoctrine()
         ->getRepository(Stage::class)
         ->findAll();
-         return $this->render('stage/lister.html.twig', [
-            'pStages' => $stages,]);   
+         return $this->render('stage/listerAncien.html.twig', [
+            'pStages' => $stages]);   
     }
 
     public function ListerStagesAffect($enseignant_id){
@@ -167,7 +169,7 @@ class StageController extends AbstractController
                 $entityManager->persist($semaine);
                 $entityManager->flush();
             }
-            return $this->render('stage/consulter.html.twig', ['pStage' => $stage, 'pEtudiant' => $etudiant, 'form' => $form->createView(),]);
+            return $this->redirectToRoute('StageConsulter', array( 'stage_id' => $stage->getId()));
         }
         else
         {
@@ -186,6 +188,9 @@ class StageController extends AbstractController
         $enseignant = $this->getDoctrine()
         ->getRepository(Enseignant::class)
         ->find($stage->getEnseignant()->getId());
+        $semaines = $this->getDoctrine()
+        ->getRepository(SemaineStage::class)
+        ->findByStage($stage->getId());
         if(!$stage){
             echo ("stage non trouvé");
             throw $this->createNotFoundException('Aucune stage trouvé avec l\'id '.$stage_id);
@@ -202,12 +207,58 @@ class StageController extends AbstractController
                 $entityManager->persist($stage);
                 $entityManager->flush();
                 $this->addFlash('success', 'Stage modifié avec succès !');
-                return $this->render('stage/consulter.html.twig', array('form' => $form->createView(),'pStage' => $stage, 'pEtudiant' => $etudiant, 'pEnseignant' => $enseignant));
+                return $this->render('stage/consulter.html.twig', array('form' => $form->createView(), 'pSemaines' => $semaines,'pStage' => $stage, 'pEtudiant' => $etudiant, 'pEnseignant' => $enseignant));
             }
             else{  
-                return $this->render('stage/consulter.html.twig', array('form' => $form->createView(),'pStage' => $stage, 'pEtudiant' => $etudiant, 'pEnseignant' => $enseignant));
+                return $this->render('stage/consulter.html.twig', array('form' => $form->createView(), 'pSemaines' => $semaines,'pStage' => $stage, 'pEtudiant' => $etudiant, 'pEnseignant' => $enseignant));
             }
-
         }
+    }
+
+    public function consulterSemaineStage($semaine_id, Request $request){
+
+        $semaine = $this->getDoctrine()
+        ->getRepository(SemaineStage::class)
+        ->findOneById($semaine_id);
+        
+        $stage = $this->getDoctrine()
+        ->getRepository(Stage::class)
+        ->find($semaine->getStage()->getId());
+
+        $semaines = $this->getDoctrine()
+        ->getRepository(SemaineStage::class)
+        ->findByStage($stage->getId());
+
+        $allTaches = $this->getDoctrine()
+        ->getRepository(TacheSemaine::class)
+        ->findBySemaineStage($semaine_id, array('jour' => "ASC"));
+
+        $formSemaine = $this->createForm(SemaineType::class, $semaine);
+        $formSemaine->handleRequest($request);
+        $semaine = $formSemaine->getData();
+
+        $tache = new TacheSemaine();
+        $formTache = $this->createForm(TacheSemaineType::class, $tache);
+        $formTache->handleRequest($request);
+        $semaine = $this->getDoctrine()
+        ->getRepository(SemaineStage::class)
+        ->findOneById($semaine_id);
+        $tache->setSemaineStage($semaine);
+ 
+        if ($formTache->isSubmitted()) {
+            $tache = $formTache->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($tache);
+            $entityManager->flush();
+            return $this->redirectToRoute('ConsulterSemaineStage', array( 'semaine_id' => $semaine->getId()));
+        }
+        else
+        {
+            return $this->render('stage/semaine.html.twig', array('formSemaine' => $formSemaine->createView(), 'formTache' => $formTache->createView(), 'pStage' => $stage, 'pSemaine' => $semaine, 'pSemaines' => $semaines, 'pTaches' => $allTaches));   
+        }
+    }
+
+    public function ajouterTache($semaine_id, Request $request){
+        
     }
 }
