@@ -23,8 +23,10 @@
 									$( "select option:selected" ).each(function() {
 										});
 										var numeroption = $(this).find(':selected').attr('value');
-										$('#table tbody').empty();
-										$('#test').text("");
+										var etudentifiant = null;
+										$("#table tr").remove();
+										$('#tablAjax').text("");
+
 
 									$.ajax({
 										type: "post",
@@ -37,10 +39,22 @@
 										$.each(json, function (index, value) {
 
 											//console.log(value);
-
 											
-											$('#table').append('<tbody class="table" id="table" data-toggle="BootstrapTable" data-height="460"><tr><td>'+value.nom+' '+value.prenom+'</td><td>'+value.source+'</td><td><a class="text" href="{{ path("rpConsulter", { "rp_id": "value.id" }) }}">'+value.libcourt+'</a></td><td>'+value.activites+'</td><td>'+value.date+'</td></tr></tbody></table>');
-					  
+
+											if (etudentifiant == value.etu_id){
+												etudentifiant = value.etu_id;
+												$('#table').append('<tbody class="table" id="table" data-toggle="BootstrapTable" data-height="460"><tr><td>'+value.nom+' '+value.prenom+'</td><td>'+value.source+'</td><td><a class="text" href="{{ path("rpConsulter", { "rp_id": "value.id" }) }}">'+value.libcourt+'</a></td><td>'+value.activites+'</td><td>'+value.date+'</td></tr></tbody></table>');
+
+											}
+
+											else{
+												etudentifiant = value.etu_id;
+												$('#table').append('<tbody><thead><tr><th scope="col" data-sortable="true">Etudiant</th><th scope="col" data-sortable="true">Source</th><th scope="col" data-sortable="true">Libellé</th><th scope="col" data-sortable="true">Nombre d\'activités</th><th scope="col" data-sortable="true">Date</th></tr></thead><tbody>');
+
+												$('#table').append('<tbody class="table" id="table" data-toggle="BootstrapTable" data-height="460"><tr><td>'+value.nom+' '+value.prenom+'</td><td>'+value.source+'</td><td><a class="text" href="{{ path("rpConsulter", { "rp_id": "value.id" }) }}">'+value.libcourt+'</a></td><td>'+value.activites+'</td><td>'+value.date+'</td></tr></tbody></table>');
+											}
+											
+																  
 
 										});
 										},
@@ -59,41 +73,43 @@
 
 
 
-<div id="test" name="test">
+<div id="tablAjax" name="tablAjax">
 
         
 
         </div>
 
                 <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
-				  <thead>
-				    <tr>
-					<th scope="col" data-sortable="true">Etudiant</th>
-					  <th scope="col" data-sortable="true">Source</th>
-				      <th scope="col" data-sortable="true">Libellé</th>
-				      <th scope="col" data-sortable="true">Nombre d'activités</th>
-				      <th scope="col" data-sortable="true">Date</th>
-					</tr>
-				  </thead>
-				  <tbody>
+
 					
-
-
-
-					{% for RP in pRP %}
-				    <tr>
-					<td id="nomprenom">{{ RP.etudiant.nom }} {{RP.etudiant.prenom}}</a></td>
-					  <td id="source">{{ RP.source.libelle }}</td>
-				      <td id="libelle"><a class="text" href="{{ path('rpConsulter', { 'rp_id': RP.id }) }}">{{ RP.libcourt }}</a></td>
-				      <td id="activites">{{ RP.activites.count }}</td> 
-				      <td id="date">{{ RP.dateDebut|date("d/m/Y") }}</td>
-				    </tr>
+					{% for Etudiant in pEtudiants %}
+						{% if Etudiant.RPs|length > 0 %}
+							<thead>
+								<tr>
+								<th scope="col" data-sortable="true">Etudiant</th>
+								<th scope="col" data-sortable="true">Source</th>
+								<th scope="col" data-sortable="true">Libellé</th>
+								<th scope="col" data-sortable="true">Nombre d'activités</th>
+								<th scope="col" data-sortable="true">Date</th>
+								</tr>
+							</thead>
+							<tbody>
+							{% for RP in Etudiant.RPs %}
+								<tr>
+								<td id="nomprenom">{{ RP.etudiant.nom }} {{RP.etudiant.prenom}}</a></td>
+								<td id="source">{{ RP.source.libelle }}</td>
+								<td id="libelle"><a class="text" href="{{ path('rpConsulter', { 'rp_id': RP.id }) }}">{{ RP.libcourt }}</a></td>
+								<td id="activites">{{ RP.activites.count }}</td> 
+								<td id="date">{{ RP.dateDebut|date("d/m/Y") }}</td>
+								</tr>
+							</tbody>
+							{% endfor %}
+						{% endif %}		
 				    {% endfor %}
 
 
 
 
-				  </tbody>
 				</table>
 				<br>
 		<br><br>

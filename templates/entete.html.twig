@@ -47,7 +47,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         {% if is_granted('ROLE_ENSEIGNANT') %}
           <a class="dropdown-item" href="{{ path('enseignantLesRPaCommenter', { 'enseignant_id': app.user.enseignant.id }) }}">Lister les réalisations à commenter</a>
-          <a class="dropdown-item" href="{{ path('listerRPPromo', { 'enseignant_id': app.user.enseignant.id }) }}">Lister les réalisations</a>
+          <a class="dropdown-item" href="{{ path('listerRPPromo') }}">Lister les réalisations</a>
         {% else %}
           <a class="dropdown-item" href="{{ path('rpAjouter', { 'etudiant_id': app.user.etudiant.id }) }}">Nouvelle réalisation professionnelle</a>
           <a class="dropdown-item" href="{{ path('etudiantListerLesRP', { 'etudiant_id': app.user.etudiant.id }) }}">Lister mes réalisations</a>

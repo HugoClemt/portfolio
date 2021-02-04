@@ -122,18 +122,13 @@ enseignantLesRPaCommenter:
 
 #lister les RP (prof)
 listerRPPromo:
-    path: /enseignant/rp/listerLesRPEns/{enseignant_id}
-    controller: App\Controller\RPController::listerLesRPEns
+    path: /enseignant/rp/listerLesRPPromo
+    controller: App\Controller\RPController::listerLesRPPromo
 
 #lister les RP à modifier (etudiant)
 etudiantLesRPaModifier:
     path: /etudiant/rp/listerLesRPaModifier/{etudiant_id}
     controller: App\Controller\RPController::listerLesRPaModifier
-
-#lister toutes les RP d'une promo
-rpListerPromo:
-    path: /enseignant/rp/listerParPromo/{annee}
-    controller: App\Controller\RPController::listerParPromo
 
 #lister les stages d'un etudiant
 EtudiantListerStage:

@@ -52,15 +52,15 @@ class RPController extends AbstractController
         return $this->render('rp/listerEtudiant.html.twig', ['pRP' => $RPaModifier]);
     }
 
-    public function listerLesRPEns($enseignant_id, Request $request)
+    public function listerLesRPPromo(Request $request)
     {
         $promotion = new Promotion();
         $form = $this->createForm(PromotionType::class, $promotion);
         $form->handleRequest($request);
-        $repository = $this->getDoctrine()->getRepository(RP::class);
-        $RPs = $repository->findAll(array('dateModif'=>'desc'));
+        $repository = $this->getDoctrine()->getRepository(Etudiant::class);
+        $etudiants = $repository->findBy(array(), array('nom' => 'ASC'));
         
-        return $this->render('rp/listerRP.html.twig', array('form' => $form->createView(),'pRP' => $RPs));
+        return $this->render('rp/listerRP.html.twig', array('form' => $form->createView(),'pEtudiants' => $etudiants));
     }
 
     
@@ -529,7 +529,7 @@ class RPController extends AbstractController
 
         $etudiants = $this->getDoctrine()
         ->getRepository(Etudiant::class)
-        ->findByPromotion($promotion);
+        ->findBy(array('promotion' => $promotion), array('nom' => 'ASC'));
 
         $rps = $this->getDoctrine()
         ->getRepository(RP::class)
@@ -540,6 +540,7 @@ class RPController extends AbstractController
         foreach ($rps as $rp){
 
             $output[]=array(
+                'etu_id'=>$rp->getEtudiant()->getId(),
                 'id'=>$rp->getId(),
                 'nom'=>$rp->getEtudiant()->getNom(),
                 'prenom'=>$rp->getEtudiant()->getPrenom(),
