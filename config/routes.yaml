@@ -150,9 +150,9 @@ enseignantLesRPaCommenter:
     controller: App\Controller\RPController::listerLesRPaCommenter
 
 #lister les RP (prof)
-enseignantLesRPEns:
-    path: /enseignant/rp/listerLesRPEns/{enseignant_id}
-    controller: App\Controller\RPController::listerLesRPEns
+listerRPPromo:
+    path: /enseignant/rp/listerLesRPPromo
+    controller: App\Controller\RPController::listerLesRPPromo
 
 #lister toutes les RP d'une promo
 rpListerPromo:
@@ -237,3 +237,16 @@ stagePromo:
 ListerAncienStages:
     path: /etudiant/stage/ListerAncienStages
     controller: App\Controller\StageController::ListerAncienStages
+
+ListerSemaine:
+    path: /etudiant/stage/listerLesSemaines/{stage_id}
+    controller: App\Controller\ActiviteController::listerLesSemaines
+
+#PDF des RP pour le bloc 1
+rpPDFB1:
+    path: /etudiant/rp/pdfB1/{etudiant_id}
+    controller: App\Controller\RPController::pdfB1
+
+
+
+

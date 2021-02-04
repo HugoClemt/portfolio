@@ -24,6 +24,8 @@ use App\Entity\Commentaire;
 use App\Entity\Stage;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class RPController extends AbstractController
 {
@@ -50,47 +52,18 @@ class RPController extends AbstractController
         return $this->render('rp/listerEtudiant.html.twig', ['pRP' => $RPaModifier]);
     }
 
-    public function listerLesRPEns($enseignant_id, Request $request)
+    public function listerLesRPPromo(Request $request)
     {
         $promotion = new Promotion();
         $form = $this->createForm(PromotionType::class, $promotion);
         $form->handleRequest($request);
-        $repository = $this->getDoctrine()->getRepository(RP::class);
-        $RPs = $repository->findAll(array('dateModif'=>'desc'));
+        $repository = $this->getDoctrine()->getRepository(Etudiant::class);
+        $etudiants = $repository->findBy(array(), array('nom' => 'ASC'));
         
-        return $this->render('rp/listerRP.html.twig', array('form' => $form->createView(),'pRP' => $RPs));
+        return $this->render('rp/listerRP.html.twig', array('form' => $form->createView(),'pEtudiants' => $etudiants));
     }
 
-    public function ajouterRp_Description(Request $request){
-        $rp = new RP();
-
-        $form = $this->createForm(RPType::class, $rp);
-        $form->handleRequest($request);
- 
-    if ($form->isSubmitted() && $form->isValid()) {
- 
-            $rp = $form->getData();
-
-            $statut = $this->getDoctrine()
-            ->getRepository(Statut::class)
-            ->find(1);
-            $rp->setStatut($statut);
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($rp);
-            $entityManager->flush();
- 
-            //$etudiant = $rp->getEtudiant();
-
-            //var_dump($rp->getStatut());
-            return $this->render('rp/consulter.html.twig', [ 'pRP' => $rp,]);
-        }
-        else
-            {
-                //var_dump($rp);
-                return $this->render('rp/ajouter_Description.html.twig', array('form' => $form->createView()));
-            }
-    }
+    
 
     public function listerLesRP($etudiant_id){
 
@@ -558,6 +531,108 @@ class RPController extends AbstractController
             return $this->render('rp/modifCommentaire.html.twig', array('form' => $form->createView(),'pCommentaire' => $commentaire, 'pRP' => $rp));
         }
     }
+
+    /**
+     * @Route(name="afficherRPPromo",path="/afficherRPPromo")
+     * @param Request $request
+     * @return Response
+     */
+    public function afficherRPPromo(Request $request)
+    {
+        $numeroption=$_POST["numeroption"];
+
+        $promotion = $this->getDoctrine()
+        ->getRepository(Promotion::class)
+        ->findOneById($numeroption);
+
+        $etudiants = $this->getDoctrine()
+        ->getRepository(Etudiant::class)
+        ->findBy(array('promotion' => $promotion), array('nom' => 'ASC'));
+
+        $rps = $this->getDoctrine()
+        ->getRepository(RP::class)
+        ->findByEtudiant($etudiants);
+
+        $output=array();
+        if ($request->isXmlHttpRequest()) {
+        foreach ($rps as $rp){
+
+            $output[]=array(
+                'etu_id'=>$rp->getEtudiant()->getId(),
+                'id'=>$rp->getId(),
+                'nom'=>$rp->getEtudiant()->getNom(),
+                'prenom'=>$rp->getEtudiant()->getPrenom(),
+                'source'=>$rp->getSource()->getLibelle(),
+                'libcourt'=>$rp->getLibcourt(),
+                'activites'=>count($rp->getActivites()),
+                'date'=>$rp->getDateDebut()
+        );
+            
+        }
+     /*   var_dump($themes);
+        $json = json_encode($themes);
+
+        $response = new Response();*/
+        //            return $response->setContent($json);
+        return new JsonResponse($output);
+
+    }
+    return new JsonResponse('no results found', Response::HTTP_NOT_FOUND);
+    }
+
+
+
+
+    public function pdfB1($etudiant_id)
+    {
+        $etudiant = $this->getDoctrine()
+        ->getRepository(Etudiant::class)
+        ->findOneById($etudiant_id);
+
+        $rps = $this->getDoctrine()
+        ->getRepository(RP::class)
+        ->findByEtudiant($etudiant_id);
+
+        $activites = $this->getDoctrine()
+        ->getRepository(Activite::class)
+        ->findByBloc(1);
+
+        $stages = $this->getDoctrine()
+        ->getRepository(Stage::class)
+        ->findByEtudiant($etudiant);
+
+
+
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+        
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('rp/pdfB1.html.twig', [
+            'title' => "Welcome to our PDF Test", 'pEtudiant' => $etudiant, 'pActivites' => $activites, "pRPs" => $rps, "pStages" => $stages
+        ]);
+        
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+        
+        // (Optional) Setup the paper size and orientation 'portrait' or 'landscape'
+        $dompdf->setPaper('A3', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (inline view)
+        $dompdf->stream("mypdf.pdf", [
+            "Attachment" => false
+        ]);
+    }
+
+
+    
+
 }
 
 

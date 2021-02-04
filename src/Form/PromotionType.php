@@ -18,8 +18,7 @@ class PromotionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('id', EntityType::class, array('class' => 'App\Entity\Promotion','choice_label' => 'nom' ))
-            ->add('enregistrer', SubmitType::class, array('label' => 'Valider'))
+            ->add('id', EntityType::class, array('class' => 'App\Entity\Promotion','choice_label' => 'nom','placeholder' => 'Choissisez la promotion' ))
         ;
     }
 

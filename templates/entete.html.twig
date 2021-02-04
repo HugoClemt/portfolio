@@ -28,6 +28,7 @@
                 {{app.user.etudiant.prenom}} {{app.user.etudiant.nom}}
             {% endif %}
             </div>
+            
       </div>
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -52,7 +53,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         {% if is_granted('ROLE_ENSEIGNANT') %}
           <a class="dropdown-item" href="{{ path('enseignantLesRPaCommenter', { 'enseignant_id': app.user.enseignant.id }) }}">Lister les réalisations à commenter</a>
-          <a class="dropdown-item" href="{{ path('enseignantLesRPEns', { 'enseignant_id': app.user.enseignant.id }) }}">Lister les réalisations</a>
+          <a class="dropdown-item" href="{{ path('listerRPPromo') }}">Lister les réalisations</a>
         {% else %}
           <a class="dropdown-item" href="{{ path('rpAjouter', { 'etudiant_id': app.user.etudiant.id }) }}">Nouvelle réalisation professionnelle</a>
           <a class="dropdown-item" href="{{ path('etudiantListerLesRP', { 'etudiant_id': app.user.etudiant.id }) }}">Lister mes réalisations</a>
@@ -66,8 +67,10 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">Bilan individuel</a>
-          <a class="dropdown-item" href="#">Tableau de synthèse</a>
-          <a class="dropdown-item" href="#">Tableur Excel</a>
+          {% if is_granted('ROLE_ENSEIGNANT') %}
+          {% else %}
+          <a class="dropdown-item" href="{{ path('rpPDFB1', { 'etudiant_id': app.user.etudiant.id }) }}">Tableau de synthèse</a>
+          {% endif %}
         </div>
       </li>
       <li class="nav-item dropdown">

@@ -31,20 +31,7 @@
             integrity= "sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" 
             crossorigin="anonymous"> 
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>     
-
-                                                            
-                {# $( "#competences" ).text('{% for Competence in pCompetences %}');
-                $( "#competences" ).append('{% if Competence.activite.id ==  '1'  %}');
-                $( "#competences" ).append("<ul> <li>" + '{{ Competence.libelle}}' + "</li> </ul>");
-                $( "#competences" ).append('{% endif %}');
-                $( "#competences" ).append('{% endfor %}');
- 
-            
-                //$( "#competences" ).append(numeroption); #}
-
-
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
 <script>
     jQuery( document ).ready(function( $ ) {
         $("#activites").change(function () {
@@ -61,7 +48,7 @@
                 
                 success: function (json) {
 
-                console.log(json);
+                
                 $.each(json, function (index, value) {
 
                     //console.log(value);
