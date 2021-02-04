@@ -202,6 +202,19 @@ ConsulterSemaineStage:
     path: /etudiant/stage/consulterSemaine/{semaine_id}
     controller: App\Controller\StageController::consulterSemaineStage
 
+deleteTacheSemaine:
+    path: /etudiant/stage/deleteTacheSemaine/{tache_id}
+    controller: App\Controller\StageController::deleteTache
+
+#Modif une tache d'une semaine de stage
+ModifierTacheSemaine:
+    path: /etudiant/stage/modifierTache/{tache_id}
+    controller: App\Controller\StageController::modifierTache
+
+#consulter les semaine d'un stage
+PointageStage:
+    path: /etudiant/stage/pointage/{stage_id}
+    controller: App\Controller\StageController::pointageStage
 
         # Route concernant les stages ( prof )
 

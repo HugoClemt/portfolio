@@ -17,7 +17,7 @@ class TacheSemaineType extends AbstractType
             ->add('description')
             ->add('domaine', EntityType::class, array('class' => 'App\Entity\DomaineTaches', 'choice_label' => 'libelle'))
             ->add('jour', EntityType::class, array('class' => 'App\Entity\Jour','choice_label' => 'libelle' ))
-            ->add('ajouter', SubmitType::class, array('label' => 'Ajouter'))
+            ->add('ajouter', SubmitType::class, array('label' => 'Valider'))
         ;
     }
 

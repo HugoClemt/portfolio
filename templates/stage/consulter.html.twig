@@ -10,19 +10,23 @@
 <div class="container">
 	<p></p><center><h1>Consultation du stage</h1></center><p></p>       
 	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #DDDDDD;">
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		  <span class="navbar-toggler-icon"></span>
+	  </button>
 	<center><div class="navbar-collapse text-right" id="navbarNav">
     <ul class="navbar-nav">
-    <li class="nav-item">
-      <a class="nav-link active" href="{{ path('StageConsulter', { 'stage_id': pStage.id }) }}">Information
-    {% for i in 1..pStage.nbsemaine %}
-      <li><a class="nav-link" href="{{ path('ConsulterSemaineStage', { 'semaine_id': (pSemaines[i-1]).id }) }}">Semaine {{ i }} </a></li>
-    {% endfor %}
-</ul>
-	</div></div></center>
-	</nav>
+      <li class="nav-item">
+        <a class="nav-link active" href="{{ path('StageConsulter', { 'stage_id': pStage.id }) }}">Information</a>
+      </li>
+      {% for i in 1..pStage.nbsemaine %}
+      <li class="nav-item"><a class="nav-link" href="{{ path('ConsulterSemaineStage', { 'semaine_id': (pSemaines[i-1]).id }) }}">Semaine {{ i }}</a></li>
+      {% endfor %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('PointageStage', {'stage_id': pStage.id }) }}">Pointage</a>
+      </li>
+    </ul>
+	</div></center>
+	</nav></div>
 
 
 <div class="container">

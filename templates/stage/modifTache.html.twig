@@ -1,0 +1,26 @@
+{% extends "entete.html.twig" %}
+{% block content %}
+<body>
+<p></p>
+<center><h1>Modifier une tâche</h1></center>
+<div class="container">
+    <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
+        <thead>
+            <tr>
+              <th scope="col" data-sortable="true">Jour</th>
+              <th scope="col" datat-sortable="true">Domaine</th>
+              <th scope="col" data-sortable="true">Description</th>
+            </tr>
+        </thead>
+        <tbody class="table" id="table" data-toggle="BootstrapTable" data-height="460">
+        {{ form_start(form) }}				
+            <tr>
+              <td style="width:120px">{{ form_widget(form.jour, {'attr': {'class': 'form-control'}}) }}</td>
+              <td style="width:180px">{{ form_widget(form.domaine, {'attr': {'class': 'form-control'}}) }}</td>
+              <td>{{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}</td>
+              <td>{{ form_widget(form.ajouter, {'attr': {'class': 'btn btn-secondary'}})}}</td>
+            </tr>
+        {{ form_end(form) }}
+        </tbody>
+</body>
+{% endblock %}

@@ -267,7 +267,7 @@ class RPController extends AbstractController
 
             //var_dump($rp) ;
         if($form->isSubmitted()){
-            $rpActivite = $form->getData();
+            $production = $form->getData();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($production);
             $entityManager->flush();

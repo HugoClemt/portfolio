@@ -5,20 +5,23 @@ namespace App\Controller;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Controller\StageController;
+use Symfony\Component\Validator\Constraints\Time;
+use App\Entity\Pointage;
 use App\Entity\Etudiant;
 use App\Entity\Stage;
-use App\Controller\StageController;
 use App\Entity\TacheSemaine;
 use App\Entity\SemaineStage;
 use App\Entity\RPActivite;
 use App\Entity\Enseignant;
+use App\Entity\Promotion;
+use App\Entity\Matiere;
 use App\Form\StageType;
 use App\Form\SemaineType;
 use App\Form\TacheSemaineType;
-use App\Entity\Promotion;
-use Symfony\Component\HttpFoundation\Request;
-use App\Entity\Matiere;
+use App\Form\PointageType;
 
 
 
@@ -262,6 +265,83 @@ class StageController extends AbstractController
         else
         {
             return $this->render('stage/semaine.html.twig', array('formSemaine' => $formSemaine->createView(), 'formTache' => $formTache->createView(), 'pStage' => $stage, 'pSemaine' => $semaine, 'pSemaines' => $semaines, 'pTaches' => $allTaches));   
+        }
+    }
+
+    public function deleteTache($tache_id){
+        $tache = $this->getDoctrine()
+        ->getRepository(TacheSemaine::class)
+        ->findOneById($tache_id);
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($tache);
+        $manager->flush();
+
+        $semaine = $this->getDoctrine()->getRepository(SemaineStage::class)->find($tache->getSemaineStage()->getId());
+        $tache = $this->getDoctrine()->getRepository(TacheSemaine::class)->find($semaine);
+
+        return $this->redirectToRoute('ConsulterSemaineStage', array( 'semaine_id' => $semaine->getId()));
+    }
+
+    public function modifierTache ($tache_id, Request $request)
+    {
+        $tache = $this->getDoctrine()
+        ->getRepository(TacheSemaine::class)
+        ->findOneById($tache_id);
+
+        $semaine_id = $tache->getSemaineStage()->getId();
+        $semaine = $this->getDoctrine()
+        ->getRepository(SemaineStage::class)
+        ->findOneById($semaine_id);
+    
+        $form = $this->createForm(TacheSemaineType::class, $tache);
+        $form->handleRequest($request);
+
+            //var_dump($rp) ;
+        if($form->isSubmitted()){
+            $tache = $form->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($tache);
+            $entityManager->flush();
+            return $this->redirectToRoute('ConsulterSemaineStage', array( 'semaine_id' => $semaine->getId()));
+        }
+        else{  
+            return $this->render('stage/modifTache.html.twig', array('form' => $form->createView()));
+        }
+    }
+
+    public function pointageStage($stage_id, Request $request){
+
+        $stage = $this->getDoctrine()
+        ->getRepository(Stage::class)
+        ->find($stage_id);
+
+        $semaines = $this->getDoctrine()
+        ->getRepository(SemaineStage::class)
+        ->findByStage($stage->getId());
+
+        $pointages = $this->getDoctrine()
+        ->getRepository(Pointage::class)
+        ->findByStage($stage->getId());
+
+        $pointage = new Pointage();
+        $form = $this->createForm(PointageType::class, $pointage);
+        $form->handleRequest($request);
+
+        $pointage->setStage($stage);
+        $pointage->setDatepoint(new \DateTime('now'));
+        $pointage->setHeurepoint(new \DateTime("now"));
+        $ip = $this->container->get('request_stack')->getCurrentRequest()->getClientIp();
+        $pointage->setIp($ip);
+
+        if($form->isSubmitted()){
+            $pointage = $form->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($pointage);
+            $entityManager->flush();
+            return $this->redirectToRoute('PointageStage', array('stage_id' => $stage->getId()));
+        }
+        else{  
+            return $this->render('stage/pointage.html.twig', array('form' => $form->createView(), 'pStage' => $stage, 'pSemaines' => $semaines, 'pPointages' => $pointages, 'pIp' => $ip));
         }
     }
 }
