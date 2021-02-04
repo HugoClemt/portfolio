@@ -1,0 +1,255 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>tableauSynthese_{{pEtudiant.nom}}_{{pEtudiant.prenom}}</title>
+    </head>
+    <style>
+
+
+
+
+table {
+    border-width:1px; 
+    border-style:solid; 
+    border-color:#ccc;
+    border-collapse:collapse;
+    table-layout: fixed;
+    width: 100%;
+}
+th { 
+    border-width:1px;
+    border-style:solid; 
+    border-color:#ccc;
+    
+ }
+td { 
+    border-width:1px;
+    border-style:solid; 
+    border-color:#ccc;
+ }
+
+
+
+
+td.rotate {
+    word-wrap: break-all;
+    white-space: nowrap;
+    overflow: visible;
+    padding-top: 500px;
+    align:center;
+
+}
+
+span.rotate {
+  transform: rotate(270deg);
+}
+
+
+
+
+td.vide {
+    border-width:1px;
+    border-style:solid; 
+    border-color:white;
+}
+
+ td.1 { 
+    background-color: #ff0000;
+    
+ }
+
+ td.2 { 
+    background-color: #ff8000;
+    
+ }
+
+ td.3 { 
+    background-color: #ffff00;
+    
+ }
+
+ td.4 { 
+    background-color: #0099ff;
+    
+ }
+
+ td.5 { 
+    background-color: #33cc33;
+    
+ }
+
+ thead th:nth-child(1) {
+  width: 50%;
+}
+
+thead th:nth-child(2) {
+  width: 20%;
+}
+
+thead th:nth-child(3) {
+  width: 10%;
+}
+
+thead th:nth-child(4) {
+  width: 20%;
+}
+
+
+
+    </style>
+    <body>
+       <table >
+<thead>
+  <tr>
+    <th></th>
+    <th>Réalisation Obligatoires</th>
+    <th></th>
+    <th colspan={{pActivites|length }}>Compétences mises en oeuvre</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td><center>Réalisations Professionnelles</center></td>
+    <td></td>
+    <td><center>Période</center></td>
+    {% for Activite in pActivites %}
+		<td class="rotate"><span class="rotate">[{{ Activite.code }}]{{ Activite.libelle }}</span></td>
+	{% endfor %}
+  </tr>
+  <tr>
+    <td colspan={{pActivites|length +3}}><center>Réalisations vécues en formation</center></td>
+  </tr>
+  {% for RP in pRPs %} 
+    {% if RP.source.id != 5 %}{#regarde si la RP n'est pas associée à STAGE1  (id 5 en bdd)#}
+        {% if RP.source.id != 6 %}{#regarde si la RP n'est pas associée à STAGE2  (id 6 en bdd)#}
+          {% if RP.activites|length > 0 %}
+        <tr>
+            <td>[{{ RP.source.libelle }}] {{ RP.libcourt }}</td>
+            <td></td>
+            <td>{{ RP.dateFin|date("d/m/Y") }}</td>
+            {% for Activite in pActivites %}
+            {% set compterreur = 0 %}
+                  {% for RPact in RP.activites %}
+                    {% if RPact.activite.id == Activite.id %}
+                      <td class={{RP.niveau.id}}></td>
+                    {% else %}
+                      {% set compterreur = compterreur + 1 %}
+                        {% if compterreur >= RP.activites|length %}
+                          <td></td>                        
+                    {% endif %}
+                    {% endif %}
+                  {% endfor %}
+              {% endfor %}
+        </tr>
+          {% else %}
+          <tr>
+            <td>[{{ RP.source.libelle }}] {{ RP.libcourt }}</td>
+            <td></td>
+            <td>{{ RP.dateFin|date("d/m/Y") }}</td>
+                {% for Activite in pActivites %}
+            <td></td>
+              {% endfor %}
+          </tr>
+          {% endif %}
+        {% endif %}
+    {% endif %}  
+  {% endfor %}
+  <tr>
+    <td colspan={{pActivites|length +3}}><center>Stage de première année</center></td>
+  </tr>
+  {% for RP in pRPs %}
+  {% if RP.source.id == 5 %}{#regarde si la RP est associée à STAGE1 (id = 5 en bdd)#}
+  {% if RP.activites|length > 0 %}
+        <tr>
+            <td>{{ RP.libcourt }}</td>
+            <td></td>
+            <td>{{ RP.dateFin|date("d/m/Y") }}</td>
+            {% for Activite in pActivites %}
+            {% set compterreur = 0 %}
+                  {% for RPact in RP.activites %}
+                    {% if RPact.activite.id == Activite.id %}
+                      <td class={{RP.niveau.id}}></td>
+                    {% else %}
+                      {% set compterreur = compterreur + 1 %}
+                        {% if compterreur >= RP.activites|length %}
+                          <td></td>                        
+                    {% endif %}
+                    {% endif %}
+                  {% endfor %}
+              {% endfor %}
+        </tr>
+          {% else %}
+          <tr>
+            <td>{{ RP.libcourt }}</td>
+            <td></td>
+            <td>{{ RP.dateFin|date("d/m/Y") }}</td>
+                {% for Activite in pActivites %}
+            <td></td>
+              {% endfor %}
+          </tr>
+          {% endif %}
+  {% endif %}
+  {% endfor %}
+  <tr>
+    <td colspan={{pActivites|length +3}}><center>Stage de deuxième année</center></td>
+  </tr>
+  {% for RP in pRPs %}
+  {% if RP.source.id == 6 %}{#regarde si la RP est associée à STAGE2 (id = 6 en bdd)#}
+  {% if RP.activites|length > 0 %}
+        <tr>
+            <td>{{ RP.libcourt }}</td>
+            <td></td>
+            <td>{{ RP.dateFin|date("d/m/Y") }}</td>
+            {% for Activite in pActivites %}
+            {% set compterreur = 0 %}
+                  {% for RPact in RP.activites %}
+                    {% if RPact.activite.id == Activite.id %}
+                      <td class={{RP.niveau.id}}></td>
+                    {% else %}
+                      {% set compterreur = compterreur + 1 %}
+                        {% if compterreur >= RP.activites|length %}
+                          <td></td>                        
+                    {% endif %}
+                    {% endif %}
+                  {% endfor %}
+              {% endfor %}
+        </tr>
+          {% else %}
+          <tr>
+            <td>{{ RP.libcourt }}</td>
+            <td></td>
+            <td>{{ RP.dateFin|date("d/m/Y") }}</td>
+                {% for Activite in pActivites %}
+            <td></td>
+              {% endfor %}
+          </tr>
+          {% endif %}
+  {% endif %}
+  {% endfor %}
+  <tr>
+    <td class="vide" colspan={{pActivites|length +3}}><center>&nbsp;</center></td>
+  </tr>
+  <tr>
+  <td class="vide"><center>&nbsp;</center></td>
+    <td class="vide" bgcolor= "#ff0000">1- Observé</td>
+  </tr>
+  <tr>
+  <td class="vide"><center>&nbsp;</center></td>
+    <td class="vide" bgcolor= "#ff8000">2- Mis en oeuvre</td>
+  </tr>
+  <tr>
+  <td class="vide"><center>&nbsp;</center></td>
+    <td class="vide" bgcolor= "#ffff00">3- Pratiqué</td>
+  </tr>
+  <tr>
+  <td class="vide"><center>&nbsp;</center></td>
+    <td class="vide" bgcolor= "#0099ff">4- Maitrisé</td>
+  </tr>
+  <tr>
+  <td class="vide"><center>&nbsp;</center></td>
+    <td class="vide" bgcolor= "#33cc33">5- Expert</td>
+  </tr>
+</tbody>
+</table>
+    </body>
+</html>

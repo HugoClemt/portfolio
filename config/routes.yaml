@@ -219,6 +219,11 @@ rpDeleteCommentaire:
     path: /enseignant/rp/deleteCommentaire/{commentaire_id}
     controller: App\Controller\RPController::deleteCommentaire
 
+#PDF des RP pour le bloc 1
+rpPDFB1:
+    path: /etudiant/rp/pdfB1/{etudiant_id}
+    controller: App\Controller\RPController::pdfB1
+
 
 
 

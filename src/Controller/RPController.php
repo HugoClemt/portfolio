@@ -24,6 +24,8 @@ use App\Entity\Commentaire;
 use App\Entity\Stage;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class RPController extends AbstractController
 {
@@ -557,6 +559,56 @@ class RPController extends AbstractController
 
     }
     return new JsonResponse('no results found', Response::HTTP_NOT_FOUND);
+    }
+
+
+
+
+    public function pdfB1($etudiant_id)
+    {
+        $etudiant = $this->getDoctrine()
+        ->getRepository(Etudiant::class)
+        ->findOneById($etudiant_id);
+
+        $rps = $this->getDoctrine()
+        ->getRepository(RP::class)
+        ->findByEtudiant($etudiant_id);
+
+        $activites = $this->getDoctrine()
+        ->getRepository(Activite::class)
+        ->findByBloc(1);
+
+        $stages = $this->getDoctrine()
+        ->getRepository(Stage::class)
+        ->findByEtudiant($etudiant);
+
+
+
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+        
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('rp/pdfB1.html.twig', [
+            'title' => "Welcome to our PDF Test", 'pEtudiant' => $etudiant, 'pActivites' => $activites, "pRPs" => $rps, "pStages" => $stages
+        ]);
+        
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+        
+        // (Optional) Setup the paper size and orientation 'portrait' or 'landscape'
+        $dompdf->setPaper('A3', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (inline view)
+        $dompdf->stream("mypdf.pdf", [
+            "Attachment" => false
+        ]);
     }
 
 

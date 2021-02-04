@@ -63,8 +63,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">Bilan individuel</a>
-          <a class="dropdown-item" href="#">Tableau de synthèse</a>
-          <a class="dropdown-item" href="#">Tableur Excel</a>
+          <a class="dropdown-item" href="{{ path('rpPDFB1', { 'etudiant_id': app.user.etudiant.id }) }}">Tableau de synthèse</a>
         </div>
       </li>
       {% endif %}
