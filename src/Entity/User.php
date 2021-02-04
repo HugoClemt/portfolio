@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -50,6 +52,16 @@ class User implements UserInterface
      * @ORM\OneToOne(targetEntity=Enseignant::class, mappedBy="user", cascade={"persist", "remove"})
      */
     private $enseignant;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Echange::class, mappedBy="user")
+     */
+    private $echanges;
+
+    public function __construct()
+    {
+        $this->echanges = new ArrayCollection();
+    }
 
     
 
@@ -187,6 +199,36 @@ class User implements UserInterface
         }
 
         $this->enseignant = $enseignant;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Echange[]
+     */
+    public function getEchanges(): Collection
+    {
+        return $this->echanges;
+    }
+
+    public function addEchange(Echange $echange): self
+    {
+        if (!$this->echanges->contains($echange)) {
+            $this->echanges[] = $echange;
+            $echange->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEchange(Echange $echange): self
+    {
+        if ($this->echanges->removeElement($echange)) {
+            // set the owning side to null (unless already changed)
+            if ($echange->getUser() === $this) {
+                $echange->setUser(null);
+            }
+        }
 
         return $this;
     }

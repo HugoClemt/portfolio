@@ -1,6 +1,6 @@
 {% extends "entete.html.twig" %}
 {% block content %}
-{% if app.user.etudiant.id == pEtudiant.id %}
+{% if is_granted('ROLE_ENSEIGNANT') %}
 <body>
 <div class="container">
   <p></p>
@@ -32,7 +32,40 @@
     <br>
 </body>
 {% else %}
-<br>
-<center><p>Cela ne te concerne pas ! <a href="{{ path('EtudiantListerStage', { 'etudiant_id': app.user.etudiant.id }) }}">Ta liste c'est par ici !</p></center>
+  {% if app.user.etudiant.id == pEtudiant.id %}
+  <body>
+  <div class="container">
+    <p></p>
+      <center><h1>Tableau de suivi de stage</h1><p></p></center>
+      {% if is_granted('ROLE_ENSEIGNANT') %}
+      {% else %}
+      <center><a href="{{ path('stageAjouter', { 'etudiant_id': app.user.etudiant.id }) }}"><input type="button" value="Ajouter un nouveau stage" class="btn btn-secondary btn-sl"></a></center><br>
+        {% endif %}
+        <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
+          <thead>
+            <tr>
+              <th scope="col">Référent</th>
+              <th scope="col">Entreprise</th>
+              <th scope="col">Tuteur</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for stage in pStages %}
+              <tr>
+                <td>{{stage.enseignant.nom}}</td>
+                <td>{{stage.nomentreprise}}</td>
+                <td>{{stage.nomtut}}</td>
+                <td><a href="{{ path('StageConsulter', { 'stage_id': stage.id }) }}">Carnet de bord</a></td>
+              <tr>
+            {% endfor %}
+          <tbody>
+        </table>
+      <br>
+  </body>
+  {% else %}
+  <br>
+  <center><p>Cela ne te concerne pas ! <a href="{{ path('EtudiantListerStage', { 'etudiant_id': app.user.etudiant.id }) }}">Ta liste c'est par ici !</p></center>
+  {% endif %}
 {% endif %}
 {% endblock %}

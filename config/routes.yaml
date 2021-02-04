@@ -211,10 +211,15 @@ ModifierTacheSemaine:
     path: /etudiant/stage/modifierTache/{tache_id}
     controller: App\Controller\StageController::modifierTache
 
-#consulter les semaine d'un stage
+#consulter les pointage d'un stage
 PointageStage:
     path: /etudiant/stage/pointage/{stage_id}
     controller: App\Controller\StageController::pointageStage
+
+#consulter les echanges d'un stage
+EchangeStage:
+    path: /etudiant/stage/echange/{stage_id}
+    controller: App\Controller\StageController::echangeStage    
 
         # Route concernant les stages ( prof )
 

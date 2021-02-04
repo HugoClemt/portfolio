@@ -18,7 +18,10 @@ use App\Entity\RPActivite;
 use App\Entity\Enseignant;
 use App\Entity\Promotion;
 use App\Entity\Matiere;
+use App\Entity\User;
+use App\Entity\Echange;
 use App\Form\StageType;
+use App\Form\EchangeType;
 use App\Form\SemaineType;
 use App\Form\TacheSemaineType;
 use App\Form\PointageType;
@@ -343,5 +346,45 @@ class StageController extends AbstractController
         else{  
             return $this->render('stage/pointage.html.twig', array('form' => $form->createView(), 'pStage' => $stage, 'pSemaines' => $semaines, 'pPointages' => $pointages, 'pIp' => $ip));
         }
+    }
+
+    public function echangeStage($stage_id, Request $request){
+
+        $stage = $this->getDoctrine()
+        ->getRepository(Stage::class)
+        ->find($stage_id);
+
+        $semaines = $this->getDoctrine()
+        ->getRepository(SemaineStage::class)
+        ->findByStage($stage->getId());
+
+        $echanges = $this->getDoctrine()
+        ->getRepository(Echange::class)
+        ->findByStage($stage->getId());
+
+        $user = $this->getDoctrine()
+        ->getRepository(User::class)
+        ->find($stage->getEtudiant()->getUser());
+
+        $echange = new Echange();
+        $form = $this->createForm(EchangeType::class, $echange);
+        $form->handleRequest($request);
+        $echange->setStage($stage);
+        $echange->setDateMessage(new \DateTime('now'));
+        $echange->setUser($user);
+        $echange->setLu(0);
+
+        if($form->isSubmitted()){
+            $echange = $form->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($echange);
+            $entityManager->flush();
+            return $this->redirectToRoute('EchangeStage', array('stage_id' => $stage->getId()));
+        }
+        else{  
+            return $this->render('stage/echange.html.twig', array('form' => $form->createView(), 'pStage' => $stage, 'pSemaines' => $semaines, 'pEchange' => $echange));
+        }
+
+        #return $this->render('stage/echange.html.twig', array('pStage' => $stage, 'pSemaines' => $semaines, 'pEchange' => $echange));
     }
 }

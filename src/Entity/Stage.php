@@ -163,10 +163,16 @@ class Stage
      */
     private $pointages;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Echange::class, mappedBy="stage")
+     */
+    private $echanges;
+
     public function __construct()
     {
         $this->semaineStages = new ArrayCollection();
         $this->pointages = new ArrayCollection();
+        $this->echanges = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -577,6 +583,36 @@ class Stage
             // set the owning side to null (unless already changed)
             if ($pointage->getStage() === $this) {
                 $pointage->setStage(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Echange[]
+     */
+    public function getEchanges(): Collection
+    {
+        return $this->echanges;
+    }
+
+    public function addEchange(Echange $echange): self
+    {
+        if (!$this->echanges->contains($echange)) {
+            $this->echanges[] = $echange;
+            $echange->setStage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEchange(Echange $echange): self
+    {
+        if ($this->echanges->removeElement($echange)) {
+            // set the owning side to null (unless already changed)
+            if ($echange->getStage() === $this) {
+                $echange->setStage(null);
             }
         }
 
