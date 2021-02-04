@@ -84,6 +84,15 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.2"
     },
+    "jolicode/gif-exception-bundle": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "b3348dadb52ed0390e71ae1323caff9e86bbe7f1"
+        }
+    },
     "laminas/laminas-code": {
         "version": "3.5.0"
     },

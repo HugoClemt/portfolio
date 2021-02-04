@@ -29,6 +29,7 @@
         "symfony/yaml": "5.1.*"
     },
     "require-dev": {
+        "jolicode/gif-exception-bundle": "^1.6",
         "symfony/maker-bundle": "^1.24",
         "symfony/phpunit-bridge": "^5.2",
         "symfony/stopwatch": "^5.1",
