@@ -40,12 +40,12 @@ class StageType extends AbstractType
                                                           'label' =>'date de naissance',
                                                           'placeholder' => 'jj/mm/aaaa'))
             ->add('sujet')
-            ->add('horLun')
-            ->add('horMar')
-            ->add('horMer')
-            ->add('horJeu')
-            ->add('horVen')
-            ->add('horSam')
+            ->add('horLun', TextType::class, array('data' => '8h - 12h / 14h - 17h'))
+            ->add('horMar', TextType::class, array('data' => '8h - 12h / 14h - 17h'))
+            ->add('horMer', TextType::class, array('data' => '8h - 12h / 14h - 17h'))
+            ->add('horJeu', TextType::class, array('data' => '8h - 12h / 14h - 17h'))
+            ->add('horVen', TextType::class, array('data' => '8h - 12h / 14h - 17h'))
+            ->add('horSam', TextType::class, array('data' => '8h - 12h / 14h - 17h'))
             ->add('ville')
              ->add('copos')
              ->add('enregistrer', SubmitType::class, array('label' => 'Valider'));

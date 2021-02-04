@@ -25,12 +25,12 @@ class SemaineStage
     private $numSemaine;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $apprentissage;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $bilan;
 
@@ -43,11 +43,6 @@ class SemaineStage
      * @ORM\ManyToOne(targetEntity=Stage::class, inversedBy="semaineStages")
      */
     private $stage;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Pointage::class, mappedBy="semaine")
-     */
-    private $pointages;
 
     public function __construct()
     {
@@ -134,36 +129,6 @@ class SemaineStage
     public function setStage(?Stage $stage): self
     {
         $this->stage = $stage;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Pointage[]
-     */
-    public function getPointages(): Collection
-    {
-        return $this->pointages;
-    }
-
-    public function addPointage(Pointage $pointage): self
-    {
-        if (!$this->pointages->contains($pointage)) {
-            $this->pointages[] = $pointage;
-            $pointage->setSemaine($this);
-        }
-
-        return $this;
-    }
-
-    public function removePointage(Pointage $pointage): self
-    {
-        if ($this->pointages->removeElement($pointage)) {
-            // set the owning side to null (unless already changed)
-            if ($pointage->getSemaine() === $this) {
-                $pointage->setSemaine(null);
-            }
-        }
 
         return $this;
     }

@@ -37,10 +37,6 @@ class Pointage
      */
     private $stage;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=SemaineStage::class, inversedBy="pointages")
-     */
-    private $semaine;
 
     public function getId(): ?int
     {
@@ -91,18 +87,6 @@ class Pointage
     public function setStage(?Stage $stage): self
     {
         $this->stage = $stage;
-
-        return $this;
-    }
-
-    public function getSemaine(): ?SemaineStage
-    {
-        return $this->semaine;
-    }
-
-    public function setSemaine(?SemaineStage $semaine): self
-    {
-        $this->semaine = $semaine;
 
         return $this;
     }

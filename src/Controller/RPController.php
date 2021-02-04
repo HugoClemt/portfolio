@@ -67,20 +67,28 @@ class RPController extends AbstractController
 
     public function listerLesRP($etudiant_id){
 
+        $etudiant = $this->getDoctrine()
+        ->getRepository(Etudiant::class)
+        ->find($etudiant_id);
+
         $repository = $this->getDoctrine()->getRepository(RP::class);
         $MesRp = $repository->findBy(
             ['etudiant' => $etudiant_id, 'archivage' => 0], array('dateModif'=>'desc'));
             
-            return $this->render('rp/listerEtudiant.html.twig', [ 'pRP' => $MesRp]);
+            return $this->render('rp/listerEtudiant.html.twig', [ 'pRP' => $MesRp, 'pEtudiant' => $etudiant]);
     }
 
     public function listerRPArchiver($etudiant_id){
+
+        $etudiant = $this->getDoctrine()
+        ->getRepository(Etudiant::class)
+        ->find($etudiant_id);
 
         $repository = $this->getDoctrine()->getRepository(RP::class);
         $MesRp = $repository->findBy(
             ['etudiant' => $etudiant_id, 'archivage' => 1], array('dateModif'=>'desc'));
             
-            return $this->render('rp/archive.html.twig', [ 'pRP' => $MesRp]);
+            return $this->render('rp/archive.html.twig', [ 'pRP' => $MesRp, 'pEtudiant' => $etudiant]);
     }
 
     public function ajouterRp($etudiant_id, Request $request){
@@ -109,18 +117,23 @@ class RPController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($rp);
             $entityManager->flush();
-            return $this->render('rp/consulter.html.twig', array('form' => $form->createView(),'pRP' => $rp));
+            return $this->render('rp/consulter.html.twig', array('form' => $form->createView(),'pRP' => $rp, 'pEtudiant' => $etudiant));
         }
         else
         {
-            return $this->render('rp/ajouter.html.twig', array('form' => $form->createView(),));
+            return $this->render('rp/ajouter.html.twig', array('form' => $form->createView(), 'pEtudiant' => $etudiant));
         }
 
     }
 
     public function consulterActiviteRPEtudiant($rp_id){
-        $rp = $this->getDoctrine()->getRepository(RP::class)->find($rp_id);
-        $rpActivite = $this->getDoctrine()->getRepository(RPActivite::class)->findByRp($rp);
+        $rp = $this->getDoctrine()
+        ->getRepository(RP::class)
+        ->find($rp_id);
+        
+        $rpActivite = $this->getDoctrine()
+        ->getRepository(RPActivite::class)
+        ->findByRp($rp);
 
         return $this->render('rp/consulterActivite.html.twig', ['pRPActivite' => $rpActivite, 'pRP' => $rp]);
     }
@@ -227,7 +240,7 @@ class RPController extends AbstractController
 
             //var_dump($rp) ;
         if($form->isSubmitted()){
-            $rpActivite = $form->getData();
+            $production = $form->getData();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($production);
             $entityManager->flush();
@@ -244,6 +257,12 @@ class RPController extends AbstractController
         $rp = $this->getDoctrine()
         ->getRepository(RP::class)
         ->findOneById($rp_id);
+        $etudiant = $this->getDoctrine()
+        ->getRepository(Etudiant::class)
+        ->find($rp->getEtudiant()->getId());
+        $enseignant = $this->getDoctrine()
+        ->getRepository(Enseignant::class)
+        ->find($rp->getEnseignant()->getId());
         if(!$rp){
             echo ("rp non trouvé");
             throw $this->createNotFoundException('Aucune rp trouvé avec l\'id '.$rp_id);
@@ -261,10 +280,10 @@ class RPController extends AbstractController
                 $entityManager->persist($rp);
                 $entityManager->flush();
                 $this->addFlash('success', 'Réalisation modifiée avec succès !');
-                return $this->render('rp/consulter.html.twig', array('form' => $form->createView(),'pRP' => $rp));
+                return $this->render('rp/consulter.html.twig', array('form' => $form->createView(),'pRP' => $rp, 'pEtudiant' => $etudiant, 'pEnseignant' => $enseignant));
             }
             else{  
-                return $this->render('rp/consulter.html.twig', array('form' => $form->createView(),'pRP' => $rp));
+                return $this->render('rp/consulter.html.twig', array('form' => $form->createView(),'pRP' => $rp, 'pEtudiant' => $etudiant, 'pEnseignant' => $enseignant));
             }
 
         }
@@ -512,7 +531,6 @@ class RPController extends AbstractController
             return $this->render('rp/modifCommentaire.html.twig', array('form' => $form->createView(),'pCommentaire' => $commentaire, 'pRP' => $rp));
         }
     }
-
 
     /**
      * @Route(name="afficherRPPromo",path="/afficherRPPromo")

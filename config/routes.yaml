@@ -5,7 +5,6 @@ index:
 app_logout:
     path: /logout
 
-
 app_login:
     path: /login
     controller: App\Controller\SecurityController::login
@@ -13,10 +12,6 @@ app_login:
 etudiantAjouter:
     path: /etudiant/ajouter
     controller: App\Controller\EtudiantController::ajouterEtudiant
-    
-stageAjouter:
-    path: /stage/ajouter/{etudiant_id}
-    controller: App\Controller\StageController::ajouterStage
 
 enseignantAjouter:
     path: /enseignant/ajouter
@@ -30,40 +25,57 @@ etudiantLister:
     path: /etudiant/lister/{annee}
     controller: App\Controller\EtudiantController::listerEtudiant
 
-
-
 #accueil des etudiants
 etudiantAccueil:
     path: /etudiant/accueil/{etudiant_id}
     controller: App\Controller\EtudiantController::accueilEtudiant
     
-
 #accueil des enseignants
 enseignantAccueil:
     path: /enseignant/accueil/{enseignant_id}
     controller: App\Controller\EnseignantController::accueilEnseignant
 
+#Consulter les informations d'un étudiant
+etudiantConsulter:
+    path: /etudiant/etudiant/consulter/{etudiant_id}
+    controller: App\Controller\EtudiantController::consultoModifierEtudiant
 
-#lister mes RP (etudiant)
-etudiantListerLesRP:
-    path: /etudiant/rp/listerMesRP/{etudiant_id}
-    controller: App\Controller\RPController::listerLesRP
+#Ajouter les promotions par l'admin
+ajouterPromotion:
+    path: /admin/ajouterPromotion/
+    controller:  App\Controller\AdminController::ajouterPromotion
 
+ConsulterSemaine:
+    path: /etudiant/activite/consulterSemaine/{idStage}/{idSemaineStage}
+    controller: App\Controller\ActiviteController::ConsulterSemaine
+    defaults:
+        idSemaineStage: 0
+
+admin:
+    path: /admin
+    controller: App\Controller\AdminController::admin
+
+        # Route concernant RP ( etudiant )
 
 #Ajouter une RP
 rpAjouter:
     path: etudiant/rp/ajouter/{etudiant_id}
     controller: App\Controller\RPController::ajouterRp
+    
+#lister mes RP (etudiant)
+etudiantListerLesRP:
+    path: /etudiant/rp/listerMesRP/{etudiant_id}
+    controller: App\Controller\RPController::listerLesRP
+    
+#Lister RP archiver
+rpListerArchiver:
+    path: etudiant/rp/ListerArchivage/{etudiant_id}
+    controller: App\Controller\RPController::listerRPArchiver    
 
 #ArchiverRP
 rpArchivage:
     path: etudiant/rp/archivage/{rp_id}
     controller: App\Controller\RPController::archiveRP
-
-#Lister RP archiver
-rpListerArchiver:
-    path: etudiant/rp/ListerArchivage/{etudiant_id}
-    controller: App\Controller\RPController::listerRPArchiver
 
 #supprimer d'une RP
 rpDelete:
@@ -115,72 +127,10 @@ rpModifierProduction:
     path: /etudiant/rp/modifierProduction/{production_id}
     controller: App\Controller\RPController::modifierProduction
 
-#lister les RP à commenter (prof)
-enseignantLesRPaCommenter:
-    path: /enseignant/rp/listerLesRPaCommenter/{enseignant_id}
-    controller: App\Controller\RPController::listerLesRPaCommenter
-
-#lister les RP (prof)
-listerRPPromo:
-    path: /enseignant/rp/listerLesRPPromo
-    controller: App\Controller\RPController::listerLesRPPromo
-
 #lister les RP à modifier (etudiant)
 etudiantLesRPaModifier:
     path: /etudiant/rp/listerLesRPaModifier/{etudiant_id}
     controller: App\Controller\RPController::listerLesRPaModifier
-
-#lister les stages d'un etudiant
-EtudiantListerStage:
-    path: /etudiant/stage/listerLesStages/{etudiant_id}
-    controller: App\Controller\StageController::ListerStagesEtudiant
-
-#consulter les infos de stage d'un étudiant
-StageConsulter:
-    path: /etudiant/stage/consulter/{stage_id}
-    controller: App\Controller\StageController::consulterStage
-
-#consulter l'activité quotidienne d'un stage d'un eleve
-StageActQuoti:
-    path: /etudiant/stage/consulterActJour/{tachesemaine_id}
-    controller: App\Controller\StageController::consulterActJour
-
-#Visualiser les stages en cours qui me sont affecté (prof)
-ListerStagesAffect:
-    path: /enseignant/stage/ListerStagesAffect/{enseignant_id}
-    controller: App\Controller\StageController::ListerStagesAffect
-
-#Consulter les informations d'un étudiant
-etudiantConsulter:
-    path: /etudiant/etudiant/consulter/{etudiant_id}
-    controller: App\Controller\EtudiantController::consultoModifierEtudiant
-
-#Ajouter les promotions par l'admin
-ajouterPromotion:
-    path: /admin/ajouterPromotion/
-    controller:  App\Controller\AdminController::ajouterPromotion
-
-
-
-#Lister les stages des étudiants d'une promotion sélectionnée
-stagePromo:
-  path: /enseignant/stage/listerStagePromo/{promotion_id}
-  controller: App\Controller\StageController::ListerStagesPromo
-
-#Lister les anciens stage
-ListerAncienStages:
-    path: /etudiant/stage/ListerAncienStages
-    controller: App\Controller\StageController::ListerAncienStages
-
-ConsulterSemaine:
-    path: /etudiant/activite/consulterSemaine/{idStage}/{idSemaineStage}
-    controller: App\Controller\ActiviteController::ConsulterSemaine
-    defaults:
-        idSemaineStage: 0
-
-ListerSemaine:
-    path: /etudiant/stage/listerLesSemaines/{stage_id}
-    controller: App\Controller\ActiviteController::listerLesSemaines
 
 #Ajouter des activités à une RP
 ajouterActiviteRP:
@@ -192,27 +142,100 @@ ajouterProductionRP:
     path: /etudiant/rp/ajouterProduction/{rp_id}
     controller: App\Controller\RPController::ajouterProductionRP
 
-admin:
-    path: /admin
-    controller: App\Controller\AdminController::admin
+        # Route concernant RP ( prof )
+
+#lister les RP à commenter (prof)
+enseignantLesRPaCommenter:
+    path: /enseignant/rp/listerLesRPaCommenter/{enseignant_id}
+    controller: App\Controller\RPController::listerLesRPaCommenter
+
+#lister les RP (prof)
+listerRPPromo:
+    path: /enseignant/rp/listerLesRPPromo
+    controller: App\Controller\RPController::listerLesRPPromo
+
+#lister toutes les RP d'une promo
+rpListerPromo:
+    path: /enseignant/rp/listerParPromo/{annee}
+    controller: App\Controller\RPController::listerParPromo
 
 #valider une rp (prof)
 viseRP:
     path: /enseignant/rp/visee/{rp_id}
     controller: App\Controller\RPController::ValiderRP
 
-
-
 #Modif un commentaire d'une RP
 rpModifierCommentaire:
     path: /enseignant/rp/modifierCommentaire/{commentaire_id}
     controller: App\Controller\RPController::modifierCommentaire
-    
-    
+      
 #supprimer un commentaire d'une RP
 rpDeleteCommentaire:
     path: /enseignant/rp/deleteCommentaire/{commentaire_id}
     controller: App\Controller\RPController::deleteCommentaire
+
+
+        # Route concernant les stages ( etudiant )
+
+#lister les stages d'un etudiant
+EtudiantListerStage:
+    path: /etudiant/stage/listerLesStages/{etudiant_id}
+    controller: App\Controller\StageController::ListerStagesEtudiant
+
+#consulter les infos de stage d'un étudiant
+StageConsulter:
+    path: /etudiant/stage/consulter/{stage_id}
+    controller: App\Controller\StageController::consultoModifierStage
+
+#consulter l'activité quotidienne d'un stage d'un eleve
+#StageActQuoti:
+#    path: /etudiant/stage/consulterActJour/{tachesemaine_id}
+#    controller: App\Controller\StageController::consulterActJour
+
+#Ajouter un stage ( etudiant )    
+stageAjouter:
+    path: /stage/ajouter/{etudiant_id}
+    controller: App\Controller\StageController::ajouterStage
+
+#consulter les semaine d'un stage
+ConsulterSemaineStage:
+    path: /etudiant/stage/consulterSemaine/{semaine_id}
+    controller: App\Controller\StageController::consulterSemaineStage
+
+deleteTacheSemaine:
+    path: /etudiant/stage/deleteTacheSemaine/{tache_id}
+    controller: App\Controller\StageController::deleteTache
+
+#Modif une tache d'une semaine de stage
+ModifierTacheSemaine:
+    path: /etudiant/stage/modifierTache/{tache_id}
+    controller: App\Controller\StageController::modifierTache
+
+#consulter les semaine d'un stage
+PointageStage:
+    path: /etudiant/stage/pointage/{stage_id}
+    controller: App\Controller\StageController::pointageStage
+
+        # Route concernant les stages ( prof )
+
+#Visualiser les stages en cours qui me sont affecté (prof)
+ListerStagesAffect:
+    path: /enseignant/stage/ListerStagesAffect/{enseignant_id}
+    controller: App\Controller\StageController::ListerStagesAffect
+
+#Lister les stages des étudiants d'une promotion sélectionnée
+stagePromo:
+  path: /enseignant/stage/listerStagePromo/{promotion_id}
+  controller: App\Controller\StageController::ListerStagesPromo
+
+#Lister les anciens stage
+ListerAncienStages:
+    path: /etudiant/stage/ListerAncienStages
+    controller: App\Controller\StageController::ListerAncienStages
+
+ListerSemaine:
+    path: /etudiant/stage/listerLesSemaines/{stage_id}
+    controller: App\Controller\ActiviteController::listerLesSemaines
 
 #PDF des RP pour le bloc 1
 rpPDFB1:

@@ -1,140 +1,277 @@
 {% extends "entete.html.twig" %}
 {% block content %}
- {% for message in app.flashes('success') %}
+{% for message in app.flashes('success') %}
             <div class="alert alert-success">
                 {{ message }}
             </div>
-        {% endfor %}
-<body>
+{% endfor %}
+{% if is_granted('ROLE_ENSEIGNANT') %}	
+	<body>
+	<div class="container">
+	<p></p><center><h1>Réalisation professionnelle</h1></center><p></p>       
+	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #DDDDDD;">
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<center><div class="navbar-collapse text-right" id="navbarNav">
+	<ul class="navbar-nav text-left">
+		<li class="nav-item">
+			<a class="nav-link active" href="#"> Description </a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="{{ path('rpConsulterActivite', { 'rp_id': pRP.id }) }}"> Activités </a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="{{ path('rpConsulterProduction', { 'rp_id': pRP.id }) }}"> Production </a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="{{ path('rpConsulterCommentaire', { 'rp_id': pRP.id }) }}"> Commentaire</a>
+		</li>
+		</ul>
+		{% if is_granted('ROLE_ENSEIGNANT') %}
+			<a class="nav-link text-right text-info" data-toggle="modal" data-target="#ModalVisee">Viser la réalisation </a>
+		{% endif %}
+	</div></center>
+	</nav>
 
-<div class="container">
-  <p></p><center><h1>Réalisation professionnelle</h1></center><p></p>       
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #DDDDDD;">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-   <center><div class="navbar-collapse text-right" id="navbarNav">
-   <ul class="navbar-nav text-left">
-      <li class="nav-item">
-        <a class="nav-link active" href="#"> Description </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ path('rpConsulterActivite', { 'rp_id': pRP.id }) }}"> Activités </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ path('rpConsulterProduction', { 'rp_id': pRP.id }) }}"> Production </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ path('rpConsulterCommentaire', { 'rp_id': pRP.id }) }}"> Commentaire</a>
-      </li>
-	</ul>
-	  {% if is_granted('ROLE_ENSEIGNANT') %}
-        <a class="nav-link text-right text-info" data-toggle="modal" data-target="#ModalVisee">Viser la réalisation </a>
-	  {% endif %}
-  </div></center>
-</nav>
+	<div class="modal fade" id="ModalVisee" tabindex="-1" role="dialog" aria-labelledby="ModalViseeLabel" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="ModalViseeLabel">Confirmation</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<center>
+							<div class="modal-body">
+								Etes-vous sur de viser la RP ?
+							</div>
+							</center>
+							<div class="modal-footer">
+								<a type="button" class="btn btn-secondary" data-dismiss="modal">Non</a>
+								<a type="button" class="btn btn-success text-white" href="{{ path('viseRP', { 'rp_id': pRP.id })  }}">Oui</a>
+							</div>						
+							</div>
+						</div>
+						</div>
 
-<div class="modal fade" id="ModalVisee" tabindex="-1" role="dialog" aria-labelledby="ModalViseeLabel" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered" role="document">
-						<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="ModalViseeLabel">Confirmation</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<center>
-						<div class="modal-body">
-							Etes-vous sur de viser la RP ?
-						</div>
-						</center>
-						<div class="modal-footer">
-							<a type="button" class="btn btn-secondary" data-dismiss="modal">Non</a>
-							<a type="button" class="btn btn-success text-white" href="{{ path('viseRP', { 'rp_id': pRP.id })  }}">Oui</a>
-						</div>						
-						</div>
-					</div>
-					</div>
+	<div class="container">
+		<br> 
+		<div class="alert " role="alert">
+				{{ form_start(form) }}
+					<div class="form-row">
+						<span title="Intitulé court décrivant l'action menée (Installation, Developpement) et l'objet sur lequel elle porte (Service, Application)">
+							<label><b>Libellé</b></label><img src={{ asset("images/info-8x.png") }} height=12>
+						</span>
+						{{ form_widget(form.libcourt, {'attr': {'class': 'form-control'}})}}
+					</div><br>
 
-<div class="container">
-       <br> 
-       <div class="alert " role="alert">
-			{{ form_start(form) }}
-				<div class="form-row">
-					<span title="Intitulé court décrivant l'action menée (Installation, Developpement) et l'objet sur lequel elle porte (Service, Application)">
-						<label><b>Libellé</b></label><img src={{ asset("images/info-8x.png") }} height=12>
+					<div class="form-row">
+					<span title="Dire ce que l'entreprise veut changer à son activité et comment repondre à ses besoins">
+						<label><b>Besoin</b></label><img src={{ asset("images/info-8x.png") }} height=12>
 					</span>
-					{{ form_widget(form.libcourt, {'attr': {'class': 'form-control'}})}}
-				</div><br>
+						{{ form_widget(form.besoin, {'attr': {'class': 'form-control'}})}}
+					</div><br>
 
-				<div class="form-row">
-				<span title="Dire ce que l'entreprise veut changer à son activité et comment repondre à ses besoins">
-					<label><b>Besoin</b></label><img src={{ asset("images/info-8x.png") }} height=12>
-				</span>
-					{{ form_widget(form.besoin, {'attr': {'class': 'form-control'}})}}
-				</div><br>
-
-					<div class="alert alert-light" role="alert">
-						<div class="form-row">
-	    					<div class="form-group col-md-3">
-								<label>Localisation</label>
-								{{ form_widget(form.localisation, {'attr': {'class': 'form-control'}})}}
-							</div>
-							<div class="form-group col-md-3">
-								<label>Source</label>
-								{{ form_widget(form.source, {'attr': {'class': 'form-control'}})}}
-							</div><br>
-						
-							<div class="form-group col-md-3">
-								<label>Cadre</label>
-								{{ form_widget(form.cadre, {'attr': {'class': 'form-control'}})}}
-							</div>
-
-							<div class="form-group col-md-3">
-								<label>Niveau</label>
-								{{ form_widget(form.niveau, {'attr': {'class': 'form-control'}})}}
-							</div>
-						</div><br>
+						<div class="alert alert-light" role="alert">
+							<div class="form-row">
+								<div class="form-group col-md-3">
+									<label>Localisation</label>
+									{{ form_widget(form.localisation, {'attr': {'class': 'form-control'}})}}
+								</div>
+								<div class="form-group col-md-3">
+									<label>Source</label>
+									{{ form_widget(form.source, {'attr': {'class': 'form-control'}})}}
+								</div><br>
 							
+								<div class="form-group col-md-3">
+									<label>Cadre</label>
+									{{ form_widget(form.cadre, {'attr': {'class': 'form-control'}})}}
+								</div>
 
-						<div class="form-row">
-							<div class="form-group col-md-6">
-								<label>Date de début</label>
-								{{ form_widget(form.dateDebut, {'attr': {'class': 'form-control'}})}}
+								<div class="form-group col-md-3">
+									<label>Niveau</label>
+									{{ form_widget(form.niveau, {'attr': {'class': 'form-control'}})}}
+								</div>
 							</div><br>
+								
 
-							<div class="form-group col-md-6">
-								<label>Date de fin</label>
-								{{ form_widget(form.dateFin, {'attr': {'class': 'form-control'}})}}
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label>Date de début</label>
+									{{ form_widget(form.dateDebut, {'attr': {'class': 'form-control'}})}}
+								</div><br>
+
+								<div class="form-group col-md-6">
+									<label>Date de fin</label>
+									{{ form_widget(form.dateFin, {'attr': {'class': 'form-control'}})}}
+								</div>
 							</div>
 						</div>
-					</div>
 
-				<div class="form-row">
-					<div class="form-group col-md-6">
-					<span title="Logiciels et outils utilisés pour réaliser votre travail">
-						<label>Environnement technologique</label><img src={{ asset("images/info-8x.png") }} height=12>
-					</span>
-					{{ form_widget(form.environnement, {'attr': {'class': 'form-control'}})}}
+					<div class="form-row">
+						<div class="form-group col-md-6">
+						<span title="Logiciels et outils utilisés pour réaliser votre travail">
+							<label>Environnement technologique</label><img src={{ asset("images/info-8x.png") }} height=12>
+						</span>
+						{{ form_widget(form.environnement, {'attr': {'class': 'form-control'}})}}
+						</div>
+						<div class="form-group col-md-6">
+						<span title="Ressources et documentations mis à votre disposition">
+							<label>Moyens</label><img src={{ asset("images/info-8x.png") }} height=12>
+						</span>
+						{{ form_widget(form.moyen, {'attr': {'class': 'form-control'}})}}
+						</div>
+					</div><br>
+					{% if is_granted('ROLE_ENSEIGNANT') %}
+					{% else %}
+					<center><div class="col-12">
+						{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}				
+					</div></center>
+						{{ form_end(form) }}
+					<div class="col-12">{% endif %}
 					</div>
-					<div class="form-group col-md-6">
-					<span title="Ressources et documentations mis à votre disposition">
-						<label>Moyens</label><img src={{ asset("images/info-8x.png") }} height=12>
-					</span>
-					{{ form_widget(form.moyen, {'attr': {'class': 'form-control'}})}}
-					</div>
-				</div><br>
-				{% if is_granted('ROLE_ENSEIGNANT') %}
-				{% else %}
-				<center><div class="col-12">
-					{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}				
-				</div></center>
-					{{ form_end(form) }}
-				<div class="col-12">{% endif %}
 				</div>
 			</div>
-		</div>
-</div>
-</body>
-</html>
+	</div></div>
+	</body>
+
+{% else %}
+	{% if app.user.etudiant.id == pEtudiant.id %}		
+	<body>
+	<div class="container">
+	<p></p><center><h1>Réalisation professionnelle</h1></center><p></p>       
+	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #DDDDDD;">
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<center><div class="navbar-collapse text-right" id="navbarNav">
+	<ul class="navbar-nav text-left">
+		<li class="nav-item">
+			<a class="nav-link active" href="#"> Description </a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="{{ path('rpConsulterActivite', { 'rp_id': pRP.id }) }}"> Activités </a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="{{ path('rpConsulterProduction', { 'rp_id': pRP.id }) }}"> Production </a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="{{ path('rpConsulterCommentaire', { 'rp_id': pRP.id }) }}"> Commentaire</a>
+		</li>
+		</ul>
+		{% if is_granted('ROLE_ENSEIGNANT') %}
+			<a class="nav-link text-right text-info" data-toggle="modal" data-target="#ModalVisee">Viser la réalisation </a>
+		{% endif %}
+	</div></center>
+	</nav>
+
+	<div class="modal fade" id="ModalVisee" tabindex="-1" role="dialog" aria-labelledby="ModalViseeLabel" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="ModalViseeLabel">Confirmation</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<center>
+							<div class="modal-body">
+								Etes-vous sur de viser la RP ?
+							</div>
+							</center>
+							<div class="modal-footer">
+								<a type="button" class="btn btn-secondary" data-dismiss="modal">Non</a>
+								<a type="button" class="btn btn-success text-white" href="{{ path('viseRP', { 'rp_id': pRP.id })  }}">Oui</a>
+							</div>						
+							</div>
+						</div>
+						</div>
+
+	<div class="container">
+		<br> 
+		<div class="alert " role="alert">
+				{{ form_start(form) }}
+					<div class="form-row">
+						<span title="Intitulé court décrivant l'action menée (Installation, Developpement) et l'objet sur lequel elle porte (Service, Application)">
+							<label><b>Libellé</b></label><img src={{ asset("images/info-8x.png") }} height=12>
+						</span>
+						{{ form_widget(form.libcourt, {'attr': {'class': 'form-control'}})}}
+					</div><br>
+
+					<div class="form-row">
+					<span title="Dire ce que l'entreprise veut changer à son activité et comment repondre à ses besoins">
+						<label><b>Besoin</b></label><img src={{ asset("images/info-8x.png") }} height=12>
+					</span>
+						{{ form_widget(form.besoin, {'attr': {'class': 'form-control'}})}}
+					</div><br>
+
+						<div class="alert alert-light" role="alert">
+							<div class="form-row">
+								<div class="form-group col-md-3">
+									<label>Localisation</label>
+									{{ form_widget(form.localisation, {'attr': {'class': 'form-control'}})}}
+								</div>
+								<div class="form-group col-md-3">
+									<label>Source</label>
+									{{ form_widget(form.source, {'attr': {'class': 'form-control'}})}}
+								</div><br>
+							
+								<div class="form-group col-md-3">
+									<label>Cadre</label>
+									{{ form_widget(form.cadre, {'attr': {'class': 'form-control'}})}}
+								</div>
+
+								<div class="form-group col-md-3">
+									<label>Niveau</label>
+									{{ form_widget(form.niveau, {'attr': {'class': 'form-control'}})}}
+								</div>
+							</div><br>
+								
+
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label>Date de début</label>
+									{{ form_widget(form.dateDebut, {'attr': {'class': 'form-control'}})}}
+								</div><br>
+
+								<div class="form-group col-md-6">
+									<label>Date de fin</label>
+									{{ form_widget(form.dateFin, {'attr': {'class': 'form-control'}})}}
+								</div>
+							</div>
+						</div>
+
+					<div class="form-row">
+						<div class="form-group col-md-6">
+						<span title="Logiciels et outils utilisés pour réaliser votre travail">
+							<label>Environnement technologique</label><img src={{ asset("images/info-8x.png") }} height=12>
+						</span>
+						{{ form_widget(form.environnement, {'attr': {'class': 'form-control'}})}}
+						</div>
+						<div class="form-group col-md-6">
+						<span title="Ressources et documentations mis à votre disposition">
+							<label>Moyens</label><img src={{ asset("images/info-8x.png") }} height=12>
+						</span>
+						{{ form_widget(form.moyen, {'attr': {'class': 'form-control'}})}}
+						</div>
+					</div><br>
+					{% if is_granted('ROLE_ENSEIGNANT') %}
+					{% else %}
+					<center><div class="col-12">
+						{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}				
+					</div></center>
+						{{ form_end(form) }}
+					<div class="col-12">{% endif %}
+					</div>
+				</div>
+			</div>
+	</div>
+	</body>
+	{% else %}
+	<br>
+	<center><p>Hop, tu ne peux pas voir les réalisation de tes collègues ! <a href="{{ path('etudiantListerLesRP', { 'etudiant_id': app.user.etudiant.id }) }}">Et voilà tes réalisation sont par ici !</p></center>
+	{% endif %}
+{% endif %}
 {% endblock %}

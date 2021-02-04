@@ -1,13 +1,6 @@
 {% extends "entete.html.twig" %}
 {% block content %}
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>Accueil</title>
-		<head>
-	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	</head>
+{% if app.user.etudiant.id == pEtudiant.id %}
 	<body>
 		<div class="container">
 		
@@ -41,7 +34,7 @@
         <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
           <thead>
             <tr>
-            <th scope="col">Etudiant</th>
+            <th scope="col">Réferent</th>
           <th scope="col">Entreprise</th>
           <th scope="col">Tuteur</th>
             </tr>
@@ -49,7 +42,7 @@
           <tbody>
                 {% for stage in pStages %}
             <tr>
-            <td><a class="text" href="{{ path('StageConsulter', { 'stage_id': stage.id }) }}">{{stage.etudiant.nom}} {{stage.etudiant.prenom}}</a></td>
+            <td>{{stage.enseignant.nom}}</a></td>
             
             <td>{{stage.lieu}}</td>
             <td>{{stage.nomtut}}</td>
@@ -64,5 +57,8 @@
           </tbody>
         </table>
 	</body>
-</html>
+{% else %}
+<br>
+<center><p>Ce n'est pas ton tableaux de bord ! <a href="{{ path('etudiantAccueil', { 'etudiant_id': app.user.etudiant.id }) }}">Clique ici</p></center>
+{% endif %}
 {% endblock %}

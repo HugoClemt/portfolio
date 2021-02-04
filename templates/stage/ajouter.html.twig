@@ -1,185 +1,141 @@
- 
 {% extends "entete.html.twig" %}
- {% block content %}
-
-
-{# templates/stage/ajouter.html.twig #}
-
-
-<!DOCTYPE html>
-
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Ajouter Stage</title>
-</head>
- <body>
+{% block content %}
+{% if app.user.etudiant.id == pEtudiant.id %}
+<body>
 <div class="container">
-  <br><center><h1>Ajout stage</h1></center><br>
-{{ form_start(form) }}
+  <p></p><center><h1>Ajout stage</h1></center><p></p>
+  <div class="alert " role="alert">
+  {{ form_start(form) }}
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label for="disabledTextInput">Nom de l'entreprise</label>
+			    {{ form_widget(form.nomentreprise, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-4 mb-3">
+      <span title="Ce code est une suite de 14 chiffre propre à l'entreprise">
+        <label for="validationCustom02">SIRET</label><img src={{ asset("images/info-8x.png") }} height=12>
+      </span>
+          {{ form_widget(form.siret, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-2 mb-3">
+      <span title="Ce code est une suite de chiffre et de lettre décrivant l'activté principal de l'entreprise">
+        <label for="validationCustom02">Code NAF</label><img src={{ asset("images/info-8x.png") }} height=12>
+      </span>
+          {{ form_widget(form.codenaf, {'attr': {'class': 'form-control'}}) }}
+      </div> 
+    </div>
 
     <div class="form-row">
-            
+      <div class="col-md-6 mb-3">
+        <label for="validationCustom02">Adresse</label>
+          {{ form_widget(form.adrentreprise, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="disabledTextInput">Ville</label>
+          {{ form_widget(form.ville, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-2 mb-3">
+        <label for="disabledTextInput">Code Postal</label>
+          {{ form_widget(form.copos, {'attr': {'class': 'form-control'}}) }}
+      </div>
     </div>
-        
-          <div class="form-row">
-            <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Nom de l'entreprise *</label>
-			  {{ form_widget(form.nomentreprise, {'attr': {'class': 'form-control'}}) }}            
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Directeur</label>
-               {{ form_widget(form.directeur, {'attr': {'class': 'form-control'}}) }}
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="col-md-6 mb-3">
-              <label for="validationCustom02">SIRET *</label>
-              {{ form_widget(form.siret, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="validationCustom02">Code NAF *</label>
-              {{ form_widget(form.codenaf, {'attr': {'class': 'form-control'}}) }}
-            </div>
-          </div>  
-          
-          <div class="form-row">
-           
-          
-          </div>
-
-          
-           <div class="form-row">
-            <div class="col-md-6 mb-3">
-              <label for="validationCustom02">Adresse *</label>
-              {{ form_widget(form.adrentreprise, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            
-           <div class="col-md-4 mb-3">
-              <label for="disabledTextInput">Ville *</label>
-             {{ form_widget(form.ville, {'attr': {'class': 'form-control'}}) }}
-            </div>
-
-            <div class="col-md-2 mb-3">
-              <label for="disabledTextInput">Code Postal *</label>
-             {{ form_widget(form.copos, {'attr': {'class': 'form-control'}}) }}
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="col-md-4 mb-3">
-              <label for="disabledTextInput">Lieu</label>
-             {{ form_widget(form.lieu, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            <div class="col-md-2 mb-3">
-              <label for="exampleInputEmail">Téléphone</label>
-                      {{ form_widget(form.telentreprise, {'attr': {'class': 'form-control'}}) }}
-            </div>
-          
-          <div class="col-md-6 mb-3">
-            <label for="validationCustom02" >Mail</label>
-           {{ form_widget(form.mailentreprise, {'attr': {'class': 'form-control'}}) }}
-          </div>
-        </div>
-          <hr class="featurette-divider p-2">
-          <div class="form-row">
-            <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Nom du tuteur *</label>
-                 {{ form_widget(form.nomtut, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="validationCustom02">Téléphone du tuteur</label>
-              {{ form_widget(form.teltut, {'attr': {'class': 'form-control'}}) }}
-            </div>
-          </div>
-          <center><div class="col-md-6 mb-3">
-            <label for="validationCustom02" >Mail du tuteur</label>
-               {{ form_widget(form.mailtut, {'attr': {'class': 'form-control'}}) }}
-          </div></center>
-          <hr class="featurette-divider p-2">
-          <div class="form-row">
-            <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Date de debut du stage</label>
-               {{ form_widget(form.dateDebut, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="validationCustom02">Date de fin du stage</label>
-              {{ form_widget(form.dateFin, {'attr': {'class': 'form-control'}}) }}
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="col-md-6 mb-3">
-              <label for="disabledTextInput">Durée (en semaines) </label>
-            {{ form_widget(form.nbsemaine, {'attr': {'class': 'form-control'}}) }}
-
-            </div>
-           
-            <div class="col-md-6 mb-3">
-              <center><div class="form-row">
-              <label for="validationCustom02">Sujet *</label>
-             {{ form_widget(form.sujet, {'attr': {'class': 'form-control'}}) }}
-            </div>
-          </div>
-
-           <center><div class="col-md-4 mb-3">
-            <label for="validationCustom02" >Horaire Lundi</label>
-           {{ form_widget(form.horLun, {'attr': {'class': 'form-control'}}) }}
-          </div></center>
-
-          <center><div class="col-md-4 mb-3">
-            <label for="validationCustom02" >Horaire Mardi</label>
-           {{ form_widget(form.horMar, {'attr': {'class': 'form-control'}}) }}
-          </div></center>
-
-            <center><div class="col-md-4">
-            <label for="validationCustom02" >Horaire Mercredi</label>
-           {{ form_widget(form.horMer, {'attr': {'class': 'form-control'}}) }}
-          </div></center>
-
-            <center><div class="col-md-4">
-            <label for="validationCustom02" >Horaire Jeudi</label>
-           {{ form_widget(form.horJeu, {'attr': {'class': 'form-control'}}) }}
-          </div></center>
-           
-           <center><div class="col-md-4">
-            <label for="validationCustom02" >Horaire Vendredi</label>
-           {{ form_widget(form.horVen, {'attr': {'class': 'form-control'}}) }}
-          </div></center>
+    
+    <div class="form-row">
+      <div class="col-md-4 mb-3">
+        <label for="disabledTextInput">Nom du tuteur</label>
+          {{ form_widget(form.nomtut, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="validationCustom02">Téléphone du tuteur</label>
+          {{ form_widget(form.teltut, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-5 mb-3">
+        <label for="validationCustom02" >Mail du tuteur</label>
+          {{ form_widget(form.mailtut, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
 
 
-          <center><div class="col-md-4 mb-3">
-            <label for="validationCustom02" >Horaire Samedi</label>
-           {{ form_widget(form.horSam, {'attr': {'class': 'form-control'}}) }}
-          </div></center>
-
-          
-
-          </div>
-          <br>
-          <center><div class="col-12">
-            {{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
-          </div></center>
-
-          <br>
-
-          
-          
-
-        
-
-
-        
-
-
- 
-
-
-
-{{ form_end(form) }}
-          
-          
-
-      </body>
-
-</html>
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label for="disabledTextInput">Directeur</label>
+          {{ form_widget(form.directeur, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="validationCustom02" >Mail</label>
+          {{ form_widget(form.mailentreprise, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="exampleInputEmail">Téléphone</label>
+          {{ form_widget(form.telentreprise, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+    
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+      <span title="Lieux où s'effectura le stage, cela peut etre différent de l'adresse de l'entreprise">
+        <label for="disabledTextInput">Lieu du stage</label><img src={{ asset("images/info-8x.png") }} height=12>
+      </span>
+          {{ form_widget(form.lieu, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="validationCustom02">Sujet</label>
+          {{ form_widget(form.sujet, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+    
+    <hr class="featurette-divider p-2">
+    <div class="form-row">
+      <div class="col-md-3 mb-3">
+        <label for="disabledTextInput">Date de debut du stage</label>
+          {{ form_widget(form.dateDebut, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="validationCustom02">Date de fin du stage</label>
+          {{ form_widget(form.dateFin, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="disabledTextInput">Durée (en semaines)</label>
+          {{ form_widget(form.nbsemaine, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+    
+    <div class="form-row">
+      <div class="col-md-2 mb-3">
+        <label for="validationCustom02" >Horaire Lundi</label>
+          {{ form_widget(form.horLun, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-2 mb-3">
+      <label for="validationCustom02" >Horaire Mardi</label>
+          {{ form_widget(form.horMar, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-2">
+        <label for="validationCustom02" >Horaire Mercredi</label>
+          {{ form_widget(form.horMer, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-2">
+        <label for="validationCustom02" >Horaire Jeudi</label>
+          {{ form_widget(form.horJeu, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-2">
+        <label for="validationCustom02" >Horaire Vendredi</label>
+          {{ form_widget(form.horVen, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-2 mb-3">
+        <label for="validationCustom02" >Horaire Samedi</label>
+          {{ form_widget(form.horSam, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+    <br>
+    <center>
+      <div class="col-12">
+        {{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
+      </div>
+    </center>
+  {{ form_end(form) }}
+</body>
+{% else %}
+<br>
+<center><p>STOP ! Tu allais ajouter un stage sur le compte d'une autre personne ! <a href="{{ path('stageAjouter', { 'etudiant_id': app.user.etudiant.id }) }}">C'est ici pour toi !</p></center>
+{% endif %}
 {% endblock %}

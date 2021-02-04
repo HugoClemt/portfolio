@@ -12,10 +12,16 @@
     <div class="text-white" style="background-color: #2980b9;">
 
           <div class="row">
-            <div class="col-md-4">
-               <img src= {{ asset('images/logo.png') }} height=100>        
+            <div class="col-md-5">
             </div>
-            <div class="col-md-2">
+            <div class="col-md-6">
+            {% if is_granted('ROLE_ENSEIGNANT') %}
+              <a href="{{ path('enseignantAccueil', { 'enseignant_id': app.user.enseignant.id }) }}"><img src= {{ asset('images/logo.png') }} height=100></a>      
+            {% else %}
+              <a href="{{ path('etudiantAccueil', { 'etudiant_id': app.user.etudiant.id }) }}"><img src= {{ asset('images/logo.png') }} height=100></a>
+            {% endif %}
+            </div>
+            <div class="col-md-1">
             {% if is_granted('ROLE_ENSEIGNANT') %}
                 {{app.user.enseignant.prenom}} {{app.user.enseignant.nom}}
             {% else %}
@@ -55,30 +61,29 @@
         {% endif %} 
         </div>
       </li>
-      {% if is_granted('ROLE_ENSEIGNANT') %}
-      {% else %}
       <li class="nav-item dropdown">
         <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Synthèse
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">Bilan individuel</a>
+          {% if is_granted('ROLE_ENSEIGNANT') %}
+          {% else %}
           <a class="dropdown-item" href="{{ path('rpPDFB1', { 'etudiant_id': app.user.etudiant.id }) }}">Tableau de synthèse</a>
+          {% endif %}
         </div>
       </li>
-      {% endif %}
       <li class="nav-item dropdown">
         <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Stages
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          
-          <a class="dropdown-item" href="{{ path('ListerAncienStages') }}">Infos anciens stages</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">  
         {% if is_granted('ROLE_ENSEIGNANT') %}
-          <a class="dropdown-item" href="{{ path('ListerStagesAffect', { 'enseignant_id': 3 }) }}">Lister Stage affectés</a>
+          <a class="dropdown-item" href="{{ path('ListerStagesAffect', { 'enseignant_id': app.user.enseignant.id }) }}">Lister Stage affectés</a>
         {% else %}
           <a class="dropdown-item" href="{{ path('EtudiantListerStage', { 'etudiant_id': app.user.etudiant.id }) }}">Carnet de bord</a>
         {% endif %}
+        <a class="dropdown-item" href="{{ path('ListerAncienStages') }}">Infos anciens stages</a>
         </div>
       </li>
 
