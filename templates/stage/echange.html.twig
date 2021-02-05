@@ -52,8 +52,8 @@
 
 <div class="container">
   {% for echanges in pEchanges %}
-  <div class="right" class="col-md-4 mb-3 alert-dark"  role="alert">
-  <h4><span >{{ echanges.dateMessage|date("d/m/Y") }} | {{ echanges.dateMessage|date("h:m:s") }} (GMT)</span> {# | {{ commentaire.enseignant.prenom }}  {{ commentaire.enseignant.nom }} #}</h4>
+  <div class="col-md-4 mb-3 alert-dark"  role="alert">
+  <h4><span >{{ echanges.dateMessage|date("d/m/Y") }} | {{ echanges.dateMessage|date("h:m:s") }} (GMT)</span> | {{ echanges.user.username }} {# {{ commentaire.enseignant.nom }} #}</h4>
       <div class="alert" role="alert">
         {{ echanges.message }}
       </div>

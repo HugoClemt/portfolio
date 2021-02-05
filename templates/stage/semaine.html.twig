@@ -34,6 +34,9 @@
               <th scope="col" data-sortable="true">Description</th>
             </tr>
         </thead>
+        
+        {% if is_granted('ROLE_ENSEIGNANT') %}
+				{% else %}
         <tbody class="table" id="table" data-toggle="BootstrapTable" data-height="460">
         {{ form_start(formTache) }}				
             <tr>
@@ -44,14 +47,19 @@
             </tr>
         {{ form_end(formTache) }}
         </tbody>
+        {% endif %}
+        
         <tbody>				
             {% for tacheSemaine in pTaches %}
             <tr>
               <td>{{ tacheSemaine.jour.libelle }}</td>
               <td>{{ tacheSemaine.domaine.libelle }}</td>
               <td>{{ tacheSemaine.description }}</td>
+              {% if is_granted('ROLE_ENSEIGNANT') %}
+					{% else %}
               <td><a href="{{ path('ModifierTacheSemaine', {'tache_id': tacheSemaine.id}) }}"><span title="Cliquer pour modifier">📝</span></a>
 						  <td><a href="{{ path('deleteTacheSemaine', {'tache_id': tacheSemaine.id}) }}"><span title="Cliquer pour supprimer">❌</span></a>
+              {% endif %}
             </tr>
             {% endfor %}
         </tbody>
@@ -71,9 +79,12 @@
 			    {{ form_widget(formSemaine.bilan, {'attr': {'class': 'form-control'}}) }}
       </div>
       <br>
+      {% if is_granted('ROLE_ENSEIGNANT') %}
+				{% else %}
       <div class="col-md-12 md-3">
       <center>{{ form_widget(formSemaine.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}</center>
       </div>
+      {% endif %}
     </div>
     {{ form_end(formTache) }}
   </div>
