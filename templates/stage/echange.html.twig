@@ -1,6 +1,25 @@
 {% extends "entete.html.twig" %}
 {% block content %}
 
+<style>
+    .alnright { 
+      text-align: right; 
+      }
+
+    .alnleft { 
+      text-align: left; 
+      }
+
+
+    table {
+      table-layout: fixed;
+      border-collapse:collapse;
+  }
+
+    td {
+      overflow-wrap: break-word;
+    }
+</style>
 <body>
 <div class="container">
 	<p></p><center><h1>Consultation du stage</h1></center><p></p>       
@@ -37,38 +56,58 @@
       </div>
     </div>  
     {{ form_end(form) }}
-</div>
+<br>
 
-{# <div class="container">
-  {% for echanges in pEchanges %}
-  {{ echanges.message }}
-  {{ echanges.dateMessage|date("d/m/Y") }}
-  {% endfor %}
-</div> #}
-<div class="container">
-  <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
-          <thead>
-              <tr>
-              </tr>
-          </thead>
-        <tbody>				
-              {% for echanges in pEchanges %}
-              <tr>
-                <td>{{ echanges.dateMessage|date('d/m/Y') }} | {{ echanges.dateMessage|date('h:i:s') }} {{ echanges.user.username }}
-                  <br>{{ echanges.message }}
-                </td>
-              </tr>
-              {% endfor %}
-          </tbody>
+
+<table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
+        <thead>
+
+        </thead>
+        <tbody>
+{% set dateprecedente = null %}
+{% for echange in pEchanges %}
+
+{% if echange.dateMessage|date("d/m/Y") == dateprecedente %}
+    {% set dateprecedente = echange.dateMessage|date("d/m/Y") %}
+    {% if echange.user.etudiant is null %}
+    <tr>
+              <td>{{ echange.user.enseignant.prenom }} {{ echange.user.enseignant.nom }}
+              <br>
+              {{ echange.dateMessage|date("h:i")}} (GMT)
+              <br>
+              {{ echange.message }}</td>
+  </tr>          
+    {% else %}      
+  <tr>
+              <td>
+              <div class='alnright'>{{ echange.user.etudiant.prenom }} {{ echange.user.etudiant.nom }}</div>
+              <div class='alnright'>{{ echange.dateMessage|date("h:i")}} (GMT)</div>
+              <div class='alnleft'>{{ echange.message }}</div>
+              </td>
+  </tr>   
+    {% endif %}
+{% else %}
+    {% set dateprecedente = echange.dateMessage|date("d/m/Y") %}
+    {% if echange.user.etudiant is null %}
+    <tr>
+              <td>{{ echange.user.enseignant.prenom }} {{ echange.user.enseignant.nom }}
+              <br>
+              {{ echange.dateMessage|date("d/m/Y")}}
+              <br>
+              {{ echange.message }}</td>
+  </tr>         
+    {% else %}      
+  <tr>
+              <td>
+              <div class='alnright'>{{ echange.user.etudiant.prenom }} {{ echange.user.etudiant.nom }}</div>
+              <div class='alnright'>{{ echange.dateMessage|date("d/m/Y")}}</div>
+              <div class='alnleft'>{{ echange.message }}</div>
+              </td>
+  </tr>   
+  {% endif %}
+  {% endif %}
+{% endfor %}
 </div>
-{# <div class="container">
-  {% for echanges in pEchanges %}
-  <div class="col-md-4 mb-3 alert-white"  role="alert">
-  <h4>{{ echanges.dateMessage|date("d/m/Y") }} | {{ echanges.dateMessage|date("h:i:s") }} (GMT)</h4>
-      <div class="alert" role="alert">
-        {{ echanges.message }}
-      </div>
-  </div>
-  {% endfor %}
-</div> #}
+<tbody>
+</table>
 {% endblock %}

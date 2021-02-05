@@ -130,22 +130,6 @@ class StageController extends AbstractController
             'pStages1' => $stage1annee,'pStages2' => $stage2annee, 'pEnseignants' => $enseignants]);
     }
 
-    public function listerSemaine($idStage){
-       
-           // var_dump($semaineStage);
-
-       $stage = $this->getDoctrine()->getRepository(Stage::class)->find($idStage);
-
-       /*foreach  ($stage->getSemaineStages() as $ss ){
-        var_dump ($ss);
-       }*/
-       // var_dump($stage);
-
-            //var_dump($stage);
-
-        return $this->render('stage/listerSemaine.html.twig', ['stage' => $stage]);
-     } 
-
     public function ajouterStage($etudiant_id, Request $request){
 
         $stage = new Stage();
