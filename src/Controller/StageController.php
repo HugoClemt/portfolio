@@ -360,7 +360,7 @@ class StageController extends AbstractController
 
         $echanges = $this->getDoctrine()
         ->getRepository(Echange::class)
-        ->findByStage($stage->getId());
+        ->findByStage($stage->getId(), array('dateMessage' => "DESC"));
 
         $user = $this->getUser();
 
@@ -380,7 +380,7 @@ class StageController extends AbstractController
             return $this->redirectToRoute('EchangeStage', array('stage_id' => $stage->getId()));
         }
         else{  
-            return $this->render('stage/echange.html.twig', array('form' => $form->createView(), 'pStage' => $stage, 'pSemaines' => $semaines, 'pEchange' => $echange));
+            return $this->render('stage/echange.html.twig', array('form' => $form->createView(), 'pStage' => $stage, 'pSemaines' => $semaines, 'pEchange' => $echange, 'pEchanges' => $echanges));
         }
 
         #return $this->render('stage/echange.html.twig', array('pStage' => $stage, 'pSemaines' => $semaines, 'pEchange' => $echange));

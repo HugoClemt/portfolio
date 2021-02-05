@@ -18,7 +18,7 @@ class Echange
     private $id;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      */
     private $message;
 
