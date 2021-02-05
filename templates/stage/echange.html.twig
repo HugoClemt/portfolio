@@ -1,5 +1,6 @@
 {% extends "entete.html.twig" %}
 {% block content %}
+
 <body>
 <div class="container">
 	<p></p><center><h1>Consultation du stage</h1></center><p></p>       
@@ -24,11 +25,39 @@
     </ul>
 	</div></center>
 	</nav></div>
-
+<br>
 <div class="container">
     {{ form_start(form) }}
+    <div class="form-row">
+      <div class="col-md-8 mb-3">
         {{ form_widget(form.message, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-4 mb-3">
         {{ form_widget(form.envoyer, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>  
     {{ form_end(form) }}
+</div>
+
+{# <div class="container">
+  {% for echanges in pEchanges %}
+  {{ echanges.message }}
+  {{ echanges.dateMessage|date("d/m/Y") }}
+  {% endfor %}
+</div> #}
+
+<style>
+
+</style>
+
+<div class="container">
+  {% for echanges in pEchanges %}
+  <div class="right" class="col-md-4 mb-3 alert-dark"  role="alert">
+  <h4><span >{{ echanges.dateMessage|date("d/m/Y") }} | {{ echanges.dateMessage|date("h:m:s") }} (GMT)</span> {# | {{ commentaire.enseignant.prenom }}  {{ commentaire.enseignant.nom }} #}</h4>
+      <div class="alert" role="alert">
+        {{ echanges.message }}
+      </div>
+  </div>
+  {% endfor %}
 </div>
 {% endblock %}

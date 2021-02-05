@@ -7,8 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Controller\StageController;
 use Symfony\Component\Validator\Constraints\Time;
+use Symfony\Component\HttpFoundation\Session\Storage\MetadataBag;
+use App\Controller\StageController;
 use App\Entity\Pointage;
 use App\Entity\Etudiant;
 use App\Entity\Stage;
@@ -362,16 +363,15 @@ class StageController extends AbstractController
         ->getRepository(Echange::class)
         ->findByStage($stage->getId());
 
-        $user = $this->getDoctrine()
+        /* $user = $this->getDoctrine()
         ->getRepository(User::class)
-        ->find($stage->getEtudiant()->getUser());
+        ->find($user->getName()); */
 
         $echange = new Echange();
         $form = $this->createForm(EchangeType::class, $echange);
         $form->handleRequest($request);
         $echange->setStage($stage);
         $echange->setDateMessage(new \DateTime('now'));
-        $echange->setUser($user);
         $echange->setLu(0);
 
         if($form->isSubmitted()){
@@ -382,9 +382,7 @@ class StageController extends AbstractController
             return $this->redirectToRoute('EchangeStage', array('stage_id' => $stage->getId()));
         }
         else{  
-            return $this->render('stage/echange.html.twig', array('form' => $form->createView(), 'pStage' => $stage, 'pSemaines' => $semaines, 'pEchange' => $echange));
+            return $this->render('stage/echange.html.twig', array('form' => $form->createView(), 'pStage' => $stage, 'pSemaines' => $semaines, 'pEchange' => $echange, 'pEchanges' => $echanges ));
         }
-
-        #return $this->render('stage/echange.html.twig', array('pStage' => $stage, 'pSemaines' => $semaines, 'pEchange' => $echange));
     }
 }
