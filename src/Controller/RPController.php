@@ -565,7 +565,7 @@ class RPController extends AbstractController
                 'source'=>$rp->getSource()->getLibelle(),
                 'libcourt'=>$rp->getLibcourt(),
                 'activites'=>count($rp->getActivites()),
-                'date'=>$rp->getDateDebut()
+                'date'=>$rp->getDateDebut()->format('d/m/Y')
         );
             
         }

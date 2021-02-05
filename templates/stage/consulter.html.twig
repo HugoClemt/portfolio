@@ -157,11 +157,15 @@
       </div>
       <br>
       <center>
+      {% if is_granted('ROLE_ENSEIGNANT') %}
+					{% else %}
         <div class="col-12">
           {{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
         </div>
-      </center>
+        </center>
     {{ form_end(form) }}
+    {% endif %}
+      
   </body>
 {% else %}
   {% if app.user.etudiant.id == pEtudiant.id %}

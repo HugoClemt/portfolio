@@ -362,9 +362,7 @@ class StageController extends AbstractController
         ->getRepository(Echange::class)
         ->findByStage($stage->getId());
 
-        $user = $this->getDoctrine()
-        ->getRepository(User::class)
-        ->find($stage->getEtudiant()->getUser());
+        $user = $this->getUser();
 
         $echange = new Echange();
         $form = $this->createForm(EchangeType::class, $echange);
