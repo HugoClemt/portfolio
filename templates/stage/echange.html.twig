@@ -45,19 +45,30 @@
   {{ echanges.dateMessage|date("d/m/Y") }}
   {% endfor %}
 </div> #}
-
-<style>
-
-</style>
-
 <div class="container">
+  <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
+          <thead>
+              <tr>
+              </tr>
+          </thead>
+        <tbody>				
+              {% for echanges in pEchanges %}
+              <tr>
+                <td>{{ echanges.dateMessage|date('d/m/Y') }} | {{ echanges.dateMessage|date('h:i:s') }} {{ echanges.user.username }}
+                  <br>{{ echanges.message }}
+                </td>
+              </tr>
+              {% endfor %}
+          </tbody>
+</div>
+{# <div class="container">
   {% for echanges in pEchanges %}
-  <div class="col-md-4 mb-3 alert-dark"  role="alert">
-  <h4><span >{{ echanges.dateMessage|date("d/m/Y") }} | {{ echanges.dateMessage|date("h:m:s") }} (GMT)</span> | {{ echanges.user.username }} {# {{ commentaire.enseignant.nom }} #}</h4>
+  <div class="col-md-4 mb-3 alert-white"  role="alert">
+  <h4>{{ echanges.dateMessage|date("d/m/Y") }} | {{ echanges.dateMessage|date("h:i:s") }} (GMT)</h4>
       <div class="alert" role="alert">
         {{ echanges.message }}
       </div>
   </div>
   {% endfor %}
-</div>
+</div> #}
 {% endblock %}
