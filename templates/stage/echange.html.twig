@@ -44,12 +44,17 @@
     </ul>
 	</div></center>
 	</nav></div>
-  <br>
-
+<br>
 <div class="container">
     {{ form_start(form) }}
+    <div class="form-row">
+      <div class="col-md-8 mb-3">
         {{ form_widget(form.message, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="col-md-4 mb-3">
         {{ form_widget(form.envoyer, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>  
     {{ form_end(form) }}
 <br>
 
@@ -103,30 +108,6 @@
   {% endif %}
 {% endfor %}
 </div>
-        <tbody>
-      </table>
-
-
-
-{# <div class="container">
-{% for echange in pEchanges %}
-  {% if echange.user.etudiant is null %}
-<div class="col-md-4 mb-3 alert-white" role="alert" >
-            <h4>{{ echange.dateMessage|date("d/m/Y") }} | {{ echange.dateMessage|date("h:i")  }} (GMT)</h4>
-              <div class="alert" role="alert">{{ echange.message }}</div>
-</div>    
-  {% else %}      
-  <div class="col-md-4 mb-3 alert-white" role="alert">
-            <h4>{{ echange.dateMessage|date("d/m/Y") }} | {{ echange.dateMessage|date("h:i")  }} (GMT)</h4>
-              <div class="alert" role="alert">{{ echange.message }}</div>
-</div>   
-{% endif %}
-{% endfor %}
-</div> #}
-
-
-
-
-
-
+<tbody>
+</table>
 {% endblock %}

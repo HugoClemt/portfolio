@@ -146,6 +146,11 @@ ajouterActiviteRP:
 ajouterProductionRP:
     path: /etudiant/rp/ajouterProduction/{rp_id}
     controller: App\Controller\RPController::ajouterProductionRP
+    
+#PDF des RP pour le bloc 1
+rpPDFB1:
+    path: /etudiant/rp/pdfB1/{etudiant_id}
+    controller: App\Controller\RPController::pdfB1
 
         # Route concernant RP ( prof )
 
@@ -191,11 +196,6 @@ EtudiantListerStage:
 StageConsulter:
     path: /etudiant/stage/consulter/{stage_id}
     controller: App\Controller\StageController::consultoModifierStage
-
-#consulter l'activité quotidienne d'un stage d'un eleve
-#StageActQuoti:
-#    path: /etudiant/stage/consulterActJour/{tachesemaine_id}
-#    controller: App\Controller\StageController::consulterActJour
 
 #Ajouter un stage ( etudiant )    
 stageAjouter:
@@ -243,14 +243,11 @@ ListerAncienStages:
     path: /etudiant/stage/ListerAncienStages
     controller: App\Controller\StageController::ListerAncienStages
 
-ListerSemaine:
-    path: /etudiant/stage/listerLesSemaines/{stage_id}
-    controller: App\Controller\ActiviteController::listerLesSemaines
+#Affecter les stages non affecter
+AffecterStage:
+    path: /enseignant/stage/AffecterStage
+    controller: App\Controller\StageController::AffecterStage
 
-#PDF des RP pour le bloc 1
-rpPDFB1:
-    path: /etudiant/rp/pdfB1/{etudiant_id}
-    controller: App\Controller\RPController::pdfB1
 
 
 

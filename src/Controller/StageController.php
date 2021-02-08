@@ -7,8 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Controller\StageController;
 use Symfony\Component\Validator\Constraints\Time;
+use Symfony\Component\HttpFoundation\Session\Storage\MetadataBag;
+use App\Controller\StageController;
 use App\Entity\Pointage;
 use App\Entity\Etudiant;
 use App\Entity\Stage;
@@ -21,6 +22,7 @@ use App\Entity\Matiere;
 use App\Entity\User;
 use App\Entity\Echange;
 use App\Form\StageType;
+use App\Form\AffecterType;
 use App\Form\EchangeType;
 use App\Form\SemaineType;
 use App\Form\TacheSemaineType;
@@ -128,22 +130,6 @@ class StageController extends AbstractController
             'pStages1' => $stage1annee,'pStages2' => $stage2annee, 'pEnseignants' => $enseignants]);
     }
 
-    public function listerSemaine($idStage){
-       
-           // var_dump($semaineStage);
-
-       $stage = $this->getDoctrine()->getRepository(Stage::class)->find($idStage);
-
-       /*foreach  ($stage->getSemaineStages() as $ss ){
-        var_dump ($ss);
-       }*/
-       // var_dump($stage);
-
-            //var_dump($stage);
-
-        return $this->render('stage/listerSemaine.html.twig', ['stage' => $stage]);
-     } 
-
     public function ajouterStage($etudiant_id, Request $request){
 
         $stage = new Stage();
@@ -231,6 +217,10 @@ class StageController extends AbstractController
         ->getRepository(Stage::class)
         ->find($semaine->getStage()->getId());
 
+        $etudiant = $this->getDoctrine()
+        ->getRepository(Etudiant::class)
+        ->find($stage->getEtudiant()->getId());
+
         $semaines = $this->getDoctrine()
         ->getRepository(SemaineStage::class)
         ->findByStage($stage->getId());
@@ -267,7 +257,7 @@ class StageController extends AbstractController
         }
         else
         {
-            return $this->render('stage/semaine.html.twig', array('formSemaine' => $formSemaine->createView(), 'formTache' => $formTache->createView(), 'pStage' => $stage, 'pSemaine' => $semaine, 'pSemaines' => $semaines, 'pTaches' => $allTaches));   
+            return $this->render('stage/semaine.html.twig', array('formSemaine' => $formSemaine->createView(),'pEtudiant' => $etudiant, 'formTache' => $formTache->createView(), 'pStage' => $stage, 'pSemaine' => $semaine, 'pSemaines' => $semaines, 'pTaches' => $allTaches));   
         }
     }
 
@@ -318,6 +308,10 @@ class StageController extends AbstractController
         ->getRepository(Stage::class)
         ->find($stage_id);
 
+        $etudiant = $this->getDoctrine()
+        ->getRepository(Etudiant::class)
+        ->find($stage->getEtudiant()->getId());
+
         $semaines = $this->getDoctrine()
         ->getRepository(SemaineStage::class)
         ->findByStage($stage->getId());
@@ -344,7 +338,7 @@ class StageController extends AbstractController
             return $this->redirectToRoute('PointageStage', array('stage_id' => $stage->getId()));
         }
         else{  
-            return $this->render('stage/pointage.html.twig', array('form' => $form->createView(), 'pStage' => $stage, 'pSemaines' => $semaines, 'pPointages' => $pointages, 'pIp' => $ip));
+            return $this->render('stage/pointage.html.twig', array('form' => $form->createView(),'pEtudiant' => $etudiant, 'pStage' => $stage, 'pSemaines' => $semaines, 'pPointages' => $pointages, 'pIp' => $ip));
         }
     }
 
@@ -360,7 +354,7 @@ class StageController extends AbstractController
 
         $echanges = $this->getDoctrine()
         ->getRepository(Echange::class)
-        ->findByStage($stage->getId(), array('dateMessage' => "DESC"));
+        ->findByStage($stage->getId());
 
         $user = $this->getUser();
 
@@ -380,9 +374,22 @@ class StageController extends AbstractController
             return $this->redirectToRoute('EchangeStage', array('stage_id' => $stage->getId()));
         }
         else{  
-            return $this->render('stage/echange.html.twig', array('form' => $form->createView(), 'pStage' => $stage, 'pSemaines' => $semaines, 'pEchange' => $echange, 'pEchanges' => $echanges));
+            return $this->render('stage/echange.html.twig', array('form' => $form->createView(), 'pStage' => $stage, 'pSemaines' => $semaines, 'pEchange' => $echange, 'pEchanges' => $echanges, 'pUser' => $user ));
         }
+    }
 
-        #return $this->render('stage/echange.html.twig', array('pStage' => $stage, 'pSemaines' => $semaines, 'pEchange' => $echange));
+    public function AffecterStage(){
+
+        $stages = $this->getDoctrine()
+        ->getRepository(Stage::class)
+        ->findAll();
+
+
+        $enseignant = new Enseignant();
+        $form = $this->createForm(AffecterType::class, $stages);
+        $form->handleRequest($request);
+
+        return $this->render('stage/affecterStage.html.twig', array('form' => $form->createView(), 'pStages' => $stages));
+
     }
 }

@@ -14,7 +14,7 @@ class EchangeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('message')
+            ->add('message', )
             ->add('envoyer', SubmitType::class, array('label' => 'Envoyer'))
         ;
     }
