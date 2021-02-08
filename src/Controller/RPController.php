@@ -636,9 +636,9 @@ class RPController extends AbstractController
         ->getRepository(RP::class)
         ->findOneById($rp_id);
 
-        $rpActivite = $this->getDoctrine()
-        ->getRepository(RPActivite::class)
-        ->findByRp($rp);
+        $repository = $this->getDoctrine()->getRepository(RPActivite::class);
+        $rpActivite = $repository->findBy(
+            ['rp' => $rp->getId()],array('activite'=>'asc'));
         
 
         // Configure Dompdf according to your needs
