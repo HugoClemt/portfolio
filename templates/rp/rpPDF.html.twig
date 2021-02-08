@@ -1,0 +1,64 @@
+{% if app.user.etudiant.id == pRP.etudiant.id %}
+  <html>
+      <head>
+          <meta charset="UTF-8">
+          <title>Réalisation_{{pRP.id}}_{{pRP.etudiant.nom}}_{{pRP.etudiant.prenom}}</title>
+      </head>
+      <style>
+
+  table {
+      border-width:1px; 
+      border-style:solid; 
+      border-color:#ccc;
+      border-collapse:collapse;
+      table-layout: fixed;
+      width: 100%;
+  }
+  th { 
+      border-width:1px;
+      border-style:solid; 
+      border-color:#ccc;
+      
+  }
+  td { 
+      border-width:1px;
+      border-style:solid; 
+      border-color:#ccc;
+  }
+</style>
+      <body>
+        <center>
+        <p>REALISATION: <b>{{pRP.libcourt}}</b></p>
+        <p>faite par <b>{{pRP.etudiant.nom}} {{pRP.etudiant.prenom}}</b></p>
+        <p>du <b>{{pRP.dateDebut|date('d/m/Y')}}</b> au <b>{{pRP.dateFin|date('d/m/Y')}}</b></p>
+        </center>
+        <br>
+        <p><b>Besoin:</b> {{pRP.besoin}}</p>
+        <p><b>Environnement:</b> {{pRP.environnement}}</p>
+        <p><b>Moyens:</b> {{pRP.moyen}}</p>
+      <br>
+      <table>
+		<thead>
+		    <tr>
+			<th>Code</th>
+		    <th>Libellé</th>
+            <th>Commentaire</th>
+		    </tr>
+		</thead>
+		<tbody>
+            {% for RPactivite in pRPActivite %}				
+			<tr>
+		    	<td>{{ RPactivite.activite.code }}</td>
+				<td>{{ RPactivite.activite.libelle }}</td> 
+			    <td>{{ RPactivite.commentaire }}</td>
+			</tr>
+            {% endfor %}
+		</tbody>
+	   </table>
+    </body>
+  </html>
+{% else %}
+<center><p>Encore un échec jeune hackeur en herbe ! <br><a href="{{ path('etudiantListerLesRP', { 'etudiant_id': app.user.etudiant.id }) }}">Abandonne maintenant.</p><br>
+
+</center>
+	{% endif %}

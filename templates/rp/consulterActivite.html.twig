@@ -21,6 +21,9 @@
 	  <li class="nav-item">
         <a class="nav-link" href="{{ path('rpConsulterCommentaire', { 'rp_id': pRP.id }) }}"> Commentaire</a>
       </li>
+	  <li class="nav-item">
+			<a class="nav-link" href="{{ path('rpPDF', { 'rp_id': pRP.id }) }}"> Générer PDF</a>
+		</li>
 	</ul>
 	  {% if is_granted('ROLE_ENSEIGNANT') %}
         <a class="nav-link text-right text-info" data-toggle="modal" data-target="#ModalVisee">Viser la réalisation </a>

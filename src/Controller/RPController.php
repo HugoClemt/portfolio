@@ -612,7 +612,7 @@ class RPController extends AbstractController
         
         // Retrieve the HTML generated in our twig file
         $html = $this->renderView('rp/pdfB1.html.twig', [
-            'title' => "Welcome to our PDF Test", 'pEtudiant' => $etudiant, 'pActivites' => $activites, "pRPs" => $rps, "pStages" => $stages
+            'pEtudiant' => $etudiant, 'pActivites' => $activites, "pRPs" => $rps, "pStages" => $stages
         ]);
         
         // Load HTML to Dompdf
@@ -630,7 +630,43 @@ class RPController extends AbstractController
         ]);
     }
 
+    public function rpPDF($rp_id)
+    {
+        $rp = $this->getDoctrine()
+        ->getRepository(RP::class)
+        ->findOneById($rp_id);
 
+        $rpActivite = $this->getDoctrine()
+        ->getRepository(RPActivite::class)
+        ->findByRp($rp);
+        
+
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+        
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('rp/rpPDF.html.twig', [
+            'pRP' => $rp, 'pRPActivite' => $rpActivite
+        ]);
+        
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+        
+        // (Optional) Setup the paper size and orientation 'portrait' or 'landscape'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (inline view)
+        $dompdf->stream("mypdf.pdf", [
+            "Attachment" => false
+        ]);
+    }
     
 
 }

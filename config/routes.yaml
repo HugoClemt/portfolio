@@ -57,6 +57,11 @@ admin:
 
         # Route concernant RP ( etudiant )
 
+#RPPDF
+rpPDF:
+    path: etudiant/rp/pdf/{rp_id}
+    controller: App\Controller\RPController::rpPDF        
+
 #Ajouter une RP
 rpAjouter:
     path: etudiant/rp/ajouter/{etudiant_id}
