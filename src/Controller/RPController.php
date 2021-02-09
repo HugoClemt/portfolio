@@ -589,9 +589,9 @@ class RPController extends AbstractController
         ->getRepository(Etudiant::class)
         ->findOneById($etudiant_id);
 
-        $rps = $this->getDoctrine()
-        ->getRepository(RP::class)
-        ->findByEtudiant($etudiant_id);
+        $repository = $this->getDoctrine()->getRepository(RP::class);
+        $rps = $repository->findBy(
+            ['etudiant' => $etudiant->getId(), 'archivage' => 0]);
 
         $activites = $this->getDoctrine()
         ->getRepository(Activite::class)

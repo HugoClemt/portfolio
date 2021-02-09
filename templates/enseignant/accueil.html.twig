@@ -48,14 +48,12 @@
           <tbody>
                 {% for stage in pStages %}
             <tr>
-            <td><a class="text" href="{{ path('StageConsulter', { 'stage_id': stage.id }) }}">{{stage.etudiant.nom}} {{stage.etudiant.prenom}}</a></td>
+            <td><a>{{stage.etudiant.nom}} {{stage.etudiant.prenom}}</a></td>
 			<td>{{stage.etudiant.promotion.nom}}
             <td>{{stage.sujet}}</td>
             <td>{{stage.nomentreprise}}</td>
             <td>{{stage.nomtut}}</td>
-            <td><a href="../../etudiant/stage/consulter/{{stage.id}}">Détail</a></td>
-            <td><a href="../../etudiant/activite/consulterSemaine/{{stage.id}}">Activités</a></td>
-
+            <td><a href="{{ path('StageConsulter', { 'stage_id': stage.id }) }}">Détail</a></td>
   {% else %}
     <tr>
     <td>Aucun stage n'a été trouvé.</td>

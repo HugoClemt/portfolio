@@ -27,6 +27,9 @@
 		<li class="nav-item">
 			<a class="nav-link" href="{{ path('rpConsulterCommentaire', { 'rp_id': pRP.id }) }}"> Commentaire</a>
 		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="{{ path('rpPDF', { 'rp_id': pRP.id }) }}"> Générer PDF</a>
+		</li>
 		</ul>
 		{% if is_granted('ROLE_ENSEIGNANT') %}
 			<a class="nav-link text-right text-info" data-toggle="modal" data-target="#ModalVisee">Viser la réalisation </a>
@@ -64,7 +67,7 @@
 						<span title="Intitulé court décrivant l'action menée (Installation, Developpement) et l'objet sur lequel elle porte (Service, Application)">
 							<label><b>Libellé</b></label><img src={{ asset("images/info-8x.png") }} height=12>
 						</span>
-						{{ form_widget(form.libcourt, {'attr': {'class': 'form-control'}})}}
+						{{ form_widget(form.libcourt, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}
 					</div><br>
 
 					<div class="form-row">
