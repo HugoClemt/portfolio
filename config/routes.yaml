@@ -224,7 +224,17 @@ PointageStage:
 #consulter les echanges d'un stage
 EchangeStage:
     path: /etudiant/stage/echange/{stage_id}
-    controller: App\Controller\StageController::echangeStage    
+    controller: App\Controller\StageController::echangeStage  
+
+#PDF du semaine de stage
+PdfSemaine:
+    path: /etudiant/stage/pdfSemaine/{semaine_id}
+    controller: App\Controller\StageController::pdfSemaine  
+
+#PDF attesation de stage
+PdfAttestation:
+    path: /etudiant/stage/pdfAttestation/{stage_id}
+    controller: App\Controller\StageController::pdfAttestation  
 
         # Route concernant les stages ( prof )
 

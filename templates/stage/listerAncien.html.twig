@@ -12,7 +12,8 @@
         <thead>
           <tr>
             <th scope="col">Entreprise</th>
-            <th scope="col">Tuteur</th>
+            <th scope="col">Année</th>
+            <th scope="col">Spécialité</th>
             <th></th>
           </tr>
         </thead>
@@ -20,8 +21,8 @@
           {% for stage in pStages %}
             <tr>
               <td>{{stage.nomentreprise}}</td>
-              <td>{{stage.nomtut}}</td>
-              <td><a href="{{ path('StageConsulter', { 'stage_id': stage.id }) }}">Carnet de bord</a></td>
+              <td>{{stage.dateFin|date('Y')}}
+              <td>{{stage.etudiant.promotion.specialite.sigle}}
             <tr>
           {% endfor %}
         <tbody>

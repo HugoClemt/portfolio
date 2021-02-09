@@ -382,7 +382,7 @@ class RPController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($rp);
         $entityManager->flush();
- 
+        $this->addFlash('success', 'RP archivée avec succès !');
         #return $this->render('rp/archive.html.twig', ['pRP' => $rp]);
         return $this->redirectToRoute('etudiantListerLesRP', array( 'etudiant_id' => $rp->getEtudiant()->getId()));
     }
@@ -394,7 +394,7 @@ class RPController extends AbstractController
         $manager = $this->getDoctrine()->getManager();
         $manager->remove($rp);
         $manager->flush();
-
+        
         #return $this->render('rp/archive.html.twig', ['pRP' => $rp]);
         return $this->redirectToRoute('rpListerArchiver', array( 'etudiant_id' => $rp->getEtudiant()->getId()));
     }
@@ -410,7 +410,7 @@ class RPController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($rp);
         $entityManager->flush();
- 
+        $this->addFlash('success', 'RP restorée avec succès !');
         #return $this->render('rp/listerEtudiant.html.twig', ['pRP' => $rp]);
         return $this->redirectToRoute('rpListerArchiver', array( 'etudiant_id' => $rp->getEtudiant()->getId()));
     }

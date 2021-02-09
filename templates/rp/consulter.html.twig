@@ -74,28 +74,28 @@
 					<span title="Dire ce que l'entreprise veut changer à son activité et comment repondre à ses besoins">
 						<label><b>Besoin</b></label><img src={{ asset("images/info-8x.png") }} height=12>
 					</span>
-						{{ form_widget(form.besoin, {'attr': {'class': 'form-control'}})}}
+						{{ form_widget(form.besoin, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}
 					</div><br>
 
 						<div class="alert alert-light" role="alert">
 							<div class="form-row">
 								<div class="form-group col-md-3">
 									<label>Localisation</label>
-									{{ form_widget(form.localisation, {'attr': {'class': 'form-control'}})}}
+									{{ form_widget(form.localisation, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}
 								</div>
 								<div class="form-group col-md-3">
 									<label>Source</label>
-									{{ form_widget(form.source, {'attr': {'class': 'form-control'}})}}
+									{{ form_widget(form.source, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}
 								</div><br>
 							
 								<div class="form-group col-md-3">
 									<label>Cadre</label>
-									{{ form_widget(form.cadre, {'attr': {'class': 'form-control'}})}}
+									{{ form_widget(form.cadre, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}
 								</div>
 
 								<div class="form-group col-md-3">
 									<label>Niveau</label>
-									{{ form_widget(form.niveau, {'attr': {'class': 'form-control'}})}}
+									{{ form_widget(form.niveau, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}
 								</div>
 							</div><br>
 								
@@ -103,12 +103,12 @@
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<label>Date de début</label>
-									{{ form_widget(form.dateDebut, {'attr': {'class': 'form-control'}})}}
+									{{ form_widget(form.dateDebut, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}
 								</div><br>
 
 								<div class="form-group col-md-6">
 									<label>Date de fin</label>
-									{{ form_widget(form.dateFin, {'attr': {'class': 'form-control'}})}}
+									{{ form_widget(form.dateFin, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}
 								</div>
 							</div>
 						</div>
@@ -118,13 +118,13 @@
 						<span title="Logiciels et outils utilisés pour réaliser votre travail">
 							<label>Environnement technologique</label><img src={{ asset("images/info-8x.png") }} height=12>
 						</span>
-						{{ form_widget(form.environnement, {'attr': {'class': 'form-control'}})}}
+						{{ form_widget(form.environnement, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}
 						</div>
 						<div class="form-group col-md-6">
 						<span title="Ressources et documentations mis à votre disposition">
 							<label>Moyens</label><img src={{ asset("images/info-8x.png") }} height=12>
 						</span>
-						{{ form_widget(form.moyen, {'attr': {'class': 'form-control'}})}}
+						{{ form_widget(form.moyen, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}
 						</div>
 					</div><br>
 					{% if is_granted('ROLE_ENSEIGNANT') %}

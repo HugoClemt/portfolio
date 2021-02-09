@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        {% for rp in pRp %}
+        <title>Attestation_{{ rp.source.libelle }}_{{ pEtudiant.nom }}_{{ pEtudiant.prenom}}</title>
+        {% endfor %}
+    </head>
+    <style>
+    div{
+        border: 1px solid;
+        border-radius: 5px;
+    }
+
+    h4{
+        line-height: 0.5;
+    }
+
+    p.entreprise{
+        font-size: 12px;
+    }
+    p.loi{
+        font-size: 10px;
+    }
+
+    p{
+        font-size: 15px;
+        margin-left: 10px;
+    }
+
+    div.page{
+        border-color: white;
+        position: relative;
+        top: 153px;
+        left: 650px;
+        text-align:  left;
+        width: 30px;
+    }
+
+    div.page2{
+        border-color: white;
+        position: relative;
+        top: 632px;
+        left: 650px;
+        text-align:  left;
+        width: 30px;
+    }
+
+    div.signer{
+        border-color: white;
+        position: relative;
+        left: 450px;
+        text-align:  left;
+        width: 250px;
+    }
+    br{
+        line-height: 1.5;
+    }
+    </style>
+    <body>
+        <center><h2>Attestation de stage</h2></center>
+        <p class='entreprise'>logo ou tampon de l'entreprise</p>
+        <div>
+            <center><h4>Organisme d'accueil</h4></center>
+            <p><b>Nom ou dénomination sociale :</b> {{ pStage.nomentreprise}}</p>
+            <p><b>Adresse :</b> {{ pStage.adrentreprise}}, {{pStage.copos}} à {{pStage.ville}}</p>
+            <p><b>Téléphone :</b> {{pStage.telentreprise}}</p>
+        </div>
+        <center><p class='entete'><b>Certifie que la personne stagiaire</b></p></center>
+        <div>
+            <center><h4>La personne stagiaire</h4></center>
+            <p>Nom : <b>{{pEtudiant.nom}}</b> | Prénom : <b>{{pEtudiant.prenom}}</b> | Né le : <b>{{pEtudiant.datenaiss|date('d/m/Y')}}</b></p>
+            <p>Adresse : <b>{{pEtudiant.adrperso}}</b></p>
+            <p>Etudiant en <b>BTS Services informatiques aux organisations</b> option <b>{{pEtudiant.promotion.specialite.sigle}}</b>.</p>
+            <p>Au  sein du lycée <b>Jean Rostand</b> à  <b>Caen</b>.</p>
+        </div>
+        <center><p><b>a effectué un stage prévu dans le cadre de ses études</b></p></center>
+        <div>
+            <center><h4>Durée du stage</h4></center>
+            <p>Date de début : <b>{{pStage.dateDebut|date('d/m/Y')}}</b> | Date de fin : <b>{{pStage.dateFin|date('d/m/Y')}}</b></p>
+            <p>Représentant une durée totale de {{pStage.nbsemaine}} semaines.</p>
+            <p class="loi">La durée totale du stage est appréciée en tenant compte de la présence effective de la ou du stagiaire dans l’organisme, sous réserve des droits à congés et autorisations d’absence prévus à l’article L.124-13 du code de
+            l’éducation (art. L.124-18 du code de l’éducation). Chaque période au moins égale à 7 heures de présence consécutives ou non est considérée comme équivalente à un jour de stage et chaque période au moins égale à
+            22 jours de présence consécutifs ou non est considérée comme équivalente à un mois.</p>
+        </div>
+        <br>
+        <div>
+            <center><h4>Montant de la gratification versée</h4></center>
+            <p>La personne stagiaire a perçu une gratification de stage pour le montant total de  ................€</p>
+        </div>
+    </body>
+    <body>
+        <div>
+            <center><h4>Réalisation Professionnelle</h4></center>
+            {% for rp in pRp %}
+            <p> [{{rp.source.libelle}}] {{rp.libcourt}}
+            {% endfor %}
+        </div>
+        <p class='loi'>L’attestation de stage est indispensable pour pouvoir, sous réserve du versement d’une cotisation, faire prendre en compte le stage dans les droits à
+            retraite. La législation sur les retraites (loi n°2014-40 du 20 janvier 2014) ouvre aux étudiants dont le stage a été gratifié la possibilité de faire valider
+            celui-ci dans la limite de deux trimestres, sous réserve du versement d’une cotisation. La demande est à faire par l’étudiant(e) dans les deux années
+            suivant la fin du stage et sur présentation obligatoire de l’attestation de stage mentionnant la durée totale du stage et le montant total de la gratification
+            perçue. Les informations précises sur la cotisation à verser et sur la procédure à suivre sont à demander auprès de la Sécurité sociale (code de la Sécurité
+            sociale art. L.351-17 – code de l’éducation art..D.124-9).</p>
+        <div class='signer'>
+            <p>Fait à .......................................</p>
+            <p>Le ...........................................</p>
+            <p class'entreprise'>Nom, fonction et signature du
+                représentant de l’organisme d’accueil</p>
+        </div>
+    </body>
