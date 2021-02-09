@@ -1,6 +1,17 @@
 {% extends "entete.html.twig" %}
 {% block content %}
+{% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+{% endfor %}
 {% if app.user.etudiant.id == pEtudiant.id %}
+<style>
+	p.warning{
+		font-size: 12px;
+		color: red;
+	}
+</style>
 <body>
 <div class="container"><br>
 	<p></p><center><h1>Réalisation professionnelle</h1></center><p></p>
@@ -32,7 +43,7 @@
 				  </tbody>
 				</table>
 				<br>
-		<br><br>
+				<center><p class='warning'> Attention tout suppression est définitive !</p></center>
 </body>
 {% else %}
 <br>

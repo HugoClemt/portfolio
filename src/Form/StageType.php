@@ -40,18 +40,15 @@ class StageType extends AbstractType
                                                           'label' =>'date de naissance',
                                                           'placeholder' => 'jj/mm/aaaa'))
             ->add('sujet')
-            ->add('horLun', TextType::class, array('data' => '8h - 12h / 14h - 17h'))
-            ->add('horMar', TextType::class, array('data' => '8h - 12h / 14h - 17h'))
-            ->add('horMer', TextType::class, array('data' => '8h - 12h / 14h - 17h'))
-            ->add('horJeu', TextType::class, array('data' => '8h - 12h / 14h - 17h'))
-            ->add('horVen', TextType::class, array('data' => '8h - 12h / 14h - 17h'))
-            ->add('horSam', TextType::class, array('data' => '8h - 12h / 14h - 17h'))
+            ->add('horLun', TextType::class, array('attr' => array('placeholder' => '8h - 12h / 14h - 17h' ),'empty_data' => '8h - 12h / 14h - 17h', 'required' => false))
+            ->add('horMar', TextType::class, array('attr' => array('placeholder' => '8h - 12h / 14h - 17h' ),'empty_data' => '8h - 12h / 14h - 17h', 'required' => false))
+            ->add('horMer', TextType::class, array('attr' => array('placeholder' => '8h - 12h / 14h - 17h' ),'empty_data' => '8h - 12h / 14h - 17h', 'required' => false))
+            ->add('horJeu', TextType::class, array('attr' => array('placeholder' => '8h - 12h / 14h - 17h' ),'empty_data' => '8h - 12h / 14h - 17h', 'required' => false))
+            ->add('horVen', TextType::class, array('attr' => array('placeholder' => '8h - 12h / 14h - 17h' ),'empty_data' => '8h - 12h / 14h - 17h', 'required' => false))
+            ->add('horSam', TextType::class, array('attr' => array('placeholder' => '8h - 12h / 14h - 17h' ),'empty_data' => '8h - 12h / 14h - 17h', 'required' => false))
             ->add('ville')
              ->add('copos')
              ->add('enregistrer', SubmitType::class, array('label' => 'Valider'));
-
-            
-
         }
     
 

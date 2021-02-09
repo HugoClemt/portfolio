@@ -16,6 +16,7 @@ use App\Entity\Stage;
 use App\Entity\TacheSemaine;
 use App\Entity\SemaineStage;
 use App\Entity\RPActivite;
+use App\Entity\RP;
 use App\Entity\Enseignant;
 use App\Entity\Promotion;
 use App\Entity\Matiere;
@@ -27,7 +28,8 @@ use App\Form\EchangeType;
 use App\Form\SemaineType;
 use App\Form\TacheSemaineType;
 use App\Form\PointageType;
-
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 
 class StageController extends AbstractController
@@ -354,7 +356,7 @@ class StageController extends AbstractController
 
         $echanges = $this->getDoctrine()
         ->getRepository(Echange::class)
-        ->findByStage($stage->getId());
+        ->findByStage($stage->getId(), array('dateMessage' => 'DESC' ));
 
         $user = $this->getUser();
 
@@ -391,5 +393,104 @@ class StageController extends AbstractController
 
         return $this->render('stage/affecterStage.html.twig', array('form' => $form->createView(), 'pStages' => $stages));
 
+    }
+
+    public function pdfSemaine($semaine_id)
+    {
+        $semaine = $this->getDoctrine()
+        ->getRepository(SemaineStage::class)
+        ->findOneById($semaine_id);
+
+        $stage = $this->getDoctrine()
+        ->getRepository(Stage::class)
+        ->find($semaine->getStage()->getId());
+
+        $etudiant = $this->getDoctrine()
+        ->getRepository(Etudiant::class)
+        ->find($stage->getEtudiant()->getId());
+
+        $allTaches = $this->getDoctrine()
+        ->getRepository(TacheSemaine::class)
+        ->findBySemaineStage($semaine_id, array('jour' => "ASC"));
+
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+        
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('stage/pdfSemaine.html.twig', [
+            'pEtudiant' => $etudiant, 'pTache' => $allTaches, "pStage" => $stage, "pSemaine" => $semaine
+        ]);
+        
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+        
+        // (Optional) Setup the paper size and orientation 'portrait' or 'landscape'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (inline view)
+        $dompdf->stream("mypdf.pdf", [
+            "Attachment" => false
+        ]);
+    }
+
+    public function pdfAttestation($stage_id)
+    {
+
+        $stage = $this->getDoctrine()
+        ->getRepository(Stage::class)
+        ->find($stage_id);
+
+        $etudiant = $this->getDoctrine()
+        ->getRepository(Etudiant::class)
+        ->find($stage->getEtudiant()->getId());
+
+        if ( $stage->getDateDebut()->format('m') == '12' ||  $stage->getDateDebut()->format('m') == '01' || $stage->getDateDebut()->format('m') == '02' ){
+
+            
+        $repository = $this->getDoctrine()->getRepository(RP::class);
+        $rps = $repository->findBy(
+            ['etudiant' => $etudiant->getId(), 'source' => 7],array('libcourt'=>'asc'));
+    
+        }
+        else{
+            
+        $repository = $this->getDoctrine()->getRepository(RP::class);
+        $rps = $repository->findBy(
+            ['etudiant' => $etudiant->getId(), 'source' => 6],array('libcourt'=>'asc'));
+        
+        }
+
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+        
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('stage/attestation.html.twig', [
+            'pEtudiant' => $etudiant, "pStage" => $stage, 'pRp' => $rps
+        ]);
+        
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+        
+        // (Optional) Setup the paper size and orientation 'portrait' or 'landscape'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (inline view)
+        $dompdf->stream("mypdf.pdf", [
+            "Attachment" => false
+        ]);
     }
 }

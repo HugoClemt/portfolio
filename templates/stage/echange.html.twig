@@ -22,7 +22,8 @@
 </style>
 <body>
 <div class="container">
-	<p></p><center><h1>Consultation du stage</h1></center><p></p>       
+	<p></p><center><h1>Consultation du stage</h1></center><center>
+  <p>Stage de <b>{{pStage.etudiant.nom}} {{pStage.etudiant.prenom}}</b> suivi par <b>{{pStage.enseignant.nom}}</b></p></center>       
 	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #DDDDDD;">
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 		  <span class="navbar-toggler-icon"></span>
@@ -35,12 +36,15 @@
       {% for i in 1..pStage.nbsemaine %}
       <li class="nav-item"><a class="nav-link" href="{{ path('ConsulterSemaineStage', { 'semaine_id': (pSemaines[i-1]).id }) }}">Semaine {{ i }}</a></li>
       {% endfor %}
-      <li class="nav-item">
-        <a class="nav-link" href="{{ path('PointageStage', {'stage_id': pStage.id }) }}">Pointage</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" href="{{ path('EchangeStage', {'stage_id': pStage.id }) }}">Echange</a>
-      </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('EchangeStage', {'stage_id': pStage.id }) }}">Echange</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('PointageStage', {'stage_id': pStage.id }) }}">Pointage</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('PdfAttestation', {'stage_id': pStage.id }) }}">Attestation</a>
+        </li>
     </ul>
 	</div></center>
 	</nav></div>
@@ -48,11 +52,11 @@
 <div class="container">
     {{ form_start(form) }}
     <div class="form-row">
-      <div class="col-md-8 mb-3">
+      <div class="col-md-11 mb-3">
         {{ form_widget(form.message, {'attr': {'class': 'form-control'}}) }}
       </div>
-      <div class="col-md-4 mb-3">
-        {{ form_widget(form.envoyer, {'attr': {'class': 'form-control'}}) }}
+      <div class="col-md-1 mb-3">
+        {{ form_widget(form.envoyer, {'attr': {'class': 'btn btn-secondary'}}) }}
       </div>
     </div>  
     {{ form_end(form) }}

@@ -12,7 +12,7 @@
       <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
         <thead>
           <tr>
-            <th scope="col">Référent</th>
+            <th scope="col">Etudiant</th>
             <th scope="col">Entreprise</th>
             <th scope="col">Tuteur</th>
             <th></th>
@@ -21,7 +21,7 @@
         <tbody>
           {% for stage in pStages %}
             <tr>
-              <td>{{stage.enseignant.nom}}</td>
+              <td>{{stage.etudiant.nom}} {{stage.etudiant.prenom}}</td>
               <td>{{stage.nomentreprise}}</td>
               <td>{{stage.nomtut}}</td>
               <td><a href="{{ path('StageConsulter', { 'stage_id': stage.id }) }}">Carnet de bord</a></td>
@@ -44,7 +44,7 @@
         <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
           <thead>
             <tr>
-              <th scope="col">Référent</th>
+              <th scope="col">Etudiant</th>
               <th scope="col">Entreprise</th>
               <th scope="col">Tuteur</th>
               <th></th>

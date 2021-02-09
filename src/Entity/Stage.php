@@ -88,7 +88,7 @@ class Stage
     private $siret;
 
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $telentreprise;
 

@@ -1,5 +1,10 @@
 {% extends "entete.html.twig" %}
 {% block content %}
+{% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+{% endfor %}
 {% if app.user.etudiant.id == pEtudiant.id %}
 <body>
 <div class="container">

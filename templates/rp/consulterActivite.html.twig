@@ -1,5 +1,6 @@
 {% extends "entete.html.twig" %}
 {% block content %}
+{% if is_granted('ROLE_ENSEIGNANT') %}	
 <body>
 <div class="container">
   <p></p><center><h1>Réalisation professionnelle</h1></center><p></p>
@@ -80,7 +81,93 @@
 				  </tbody>
 				  {% endfor %}
 				</table>
-
-
 </body>
+{% else %}
+{% if app.user.etudiant.id == pEtudiant.id %}
+<body>
+<div class="container">
+  <p></p><center><h1>Réalisation professionnelle</h1></center><p></p>
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #DDDDDD;">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+	<ul class="navbar-nav">
+	  <li class="nav-item">
+		<a class="nav-link" href="{{ path('rpConsulter', { 'rp_id': pRP.id }) }}"> Description </a>
+	  </li>
+	  <li class="nav-item">
+		<a class="nav-link active" href="{{ path('rpConsulterActivite', { 'rp_id': pRP.id }) }}"> Activités </a>
+	  </li>
+	  <li class="nav-item">
+		<a class="nav-link" href="{{ path('rpConsulterProduction', { 'rp_id': pRP.id }) }}"> Production </a>
+	  </li>
+	  <li class="nav-item">
+        <a class="nav-link" href="{{ path('rpConsulterCommentaire', { 'rp_id': pRP.id }) }}"> Commentaire</a>
+      </li>
+	</ul>
+	  {% if is_granted('ROLE_ENSEIGNANT') %}
+        <a class="nav-link text-right text-info" data-toggle="modal" data-target="#ModalVisee">Viser la réalisation </a>
+	  {% endif %}
+  </div></center>
+</nav><br>
+
+<div class="modal fade" id="ModalVisee" tabindex="-1" role="dialog" aria-labelledby="ModalViseeLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="ModalViseeLabel">Confirmation</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<center>
+						<div class="modal-body">
+							Etes-vous sur de viser la RP ?
+						</div>
+						</center>
+						<div class="modal-footer">
+							<a type="button" class="btn btn-secondary" data-dismiss="modal">Non</a>
+							<a type="button" class="btn btn-success text-white" href="{{ path('viseRP', { 'rp_id': pRP.id })  }}">Oui</a>
+						</div>						
+						</div>
+					</div>
+					</div>
+{% if is_granted('ROLE_ENSEIGNANT') %}
+{% else %}
+<center><a href="{{ path('ajouterActiviteRP', { 'rp_id': pRP.id }) }}"><input type="button" value="Ajouter une nouvelle activité" class="btn btn-secondary btn-sl"></a></center>
+{% endif %}
+<br>
+
+<table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
+				  <thead>
+				    <tr>
+				      <th scope="col" data-sortable="true">Code d'activite</th>
+				      <th scope="col" data-sortable="true">Activite</th>
+				      <th scope="col" data-sortable="true">Reformulation</th>
+					  <th></th>
+					  <th></th>
+				    </tr>
+				  </thead>
+				  <tbody>
+					{% for RPactivite in pRPActivite %}				
+				    <tr>
+				    	<td>{{ RPactivite.activite.code }}</td>
+						<td>{{ RPactivite.activite.libelle }}</td> 
+				    	<td>{{ RPactivite.commentaire }}</td>
+						{% if is_granted('ROLE_ENSEIGNANT') %}
+						{% else %}
+						<td><a href="{{ path('rpModifierActivite', {'rpActivite_id': RPactivite.id}) }}"><span title="Cliquer pour modifier">📝</span></a>
+						<td><a href="{{ path('rpDeleteActivite', {'rpActivite_id': RPactivite.id}) }}"><span title="Cliquer pour supprimer">❌</span></a>
+				    	{% endif %}
+					</tr>
+				  </tbody>
+				  {% endfor %}
+				</table>
+</body>
+{% else %}
+	<br>
+	<center><p>Hop, tu ne peux pas voir les réalisation de tes collègues ! <a href="{{ path('etudiantListerLesRP', { 'etudiant_id': app.user.etudiant.id }) }}">Et voilà tes réalisation sont par ici !</p></center>
+	{% endif %}
+{% endif %}
 {% endblock %}

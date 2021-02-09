@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>CarnetBord_{{ pEtudiant.nom }}_{{ pEtudiant.prenom}}</title>
+    </head>
+    <style>
+        table {
+            border-width:1px; 
+            border-style:solid; 
+            border-color:#ccc;
+            border-collapse:collapse;
+            table-layout: fixed;
+            width: 100%;
+        }
+        th { 
+            border-width:1px;
+            border-style:solid; 
+            border-color:#ccc;
+            
+        }
+        td { 
+            border-width:1px;
+            border-style:solid; 
+            border-color:#ccc;
+        }
+    </style>
+{% if is_granted('ROLE_ENSEIGNANT') %}
+    <body>
+        <center>
+            <h2>Carnet de bord</h2>
+            <h4>semaine : {{ pSemaine.numSemaine}}</h4>
+        </center>
+        <div>
+            <p><b>{{ pEtudiant.nom}} {{pEtudiant.prenom}}</b>, en stage dans l'organisme <b>{{ pStage.nomentreprise }}</b>, au {{ pStage.adrentreprise}} {{ pStage.copos }} à {{ pStage.ville}}.</p>
+        </div>
+        <br>
+
+        <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
+          <thead>
+              <tr>
+                <th scope="col" data-sortable="true" style="width:10%">Jour</th>
+                <th scope="col" datat-sortable="true" style="width:25%">Domaine</th>
+                <th scope="col" data-sortable="true">Description</th>
+              </tr>
+          </thead>
+          <tbody>				
+              {% for tacheSemaine in pTache %}
+              <tr>
+                <td><center>{{ tacheSemaine.jour.libelle }}</center></td>
+                <td>{{ tacheSemaine.domaine.libelle }}</td>
+                <td>{{ tacheSemaine.description }}</td>
+              </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+    </body>
+    {% else %}
+    {% if app.user.etudiant.id == pEtudiant.id %}
+        <body>
+            <center>
+                <h2>Carnet de bord</h2>
+                <h4>semaine : {{ pSemaine.numSemaine}}</h4>
+            </center>
+            <div>
+                <p><b>{{ pEtudiant.nom}} {{pEtudiant.prenom}}</b>, en stage dans l'organisme <b>{{ pStage.nomentreprise }}</b>, au {{ pStage.adrentreprise}} {{ pStage.copos }} à {{ pStage.ville}}.</p>
+            </div>
+            <br>
+
+            <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
+            <thead>
+                <tr>
+                    <th scope="col" data-sortable="true" style="width:10%">Jour</th>
+                    <th scope="col" datat-sortable="true" style="width:25%">Domaine</th>
+                    <th scope="col" data-sortable="true">Description</th>
+                </tr>
+            </thead>
+            <tbody>				
+                {% for tacheSemaine in pTache %}
+                <tr>
+                    <td><center>{{ tacheSemaine.jour.libelle }}</center></td>
+                    <td>{{ tacheSemaine.domaine.libelle }}</td>
+                    <td>{{ tacheSemaine.description }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </body>
+    {% else %}
+    <br>
+    <center><p>Acces interdit ! <a href="{{ path('EtudiantListerStage', { 'etudiant_id': app.user.etudiant.id }) }}">C'est ici pour toi !</p></center>
+    {% endif %}
+{% endif %}
+</html>
