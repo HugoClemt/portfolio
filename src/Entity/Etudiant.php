@@ -35,32 +35,27 @@ class Etudiant
     private $mail;
 
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $mobile;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $datenaiss;
 
     /**
-     * @ORM\Column(type="string", length=2)
-     */
-    private $sexe;
-
-    /**
-     * @ORM\Column(type="string", length=80)
+     * @ORM\Column(type="string", length=80, nullable=true)
      */
     private $adrperso;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $ville;
 
     /**
-     * @ORM\Column(type="string", length=6)
+     * @ORM\Column(type="string", length=6, nullable=true)
      */
     private $copos;
 
@@ -162,18 +157,6 @@ class Etudiant
     public function setDatenaiss(\DateTimeInterface $datenaiss): self
     {
         $this->datenaiss = $datenaiss;
-
-        return $this;
-    }
-
-    public function getSexe(): ?string
-    {
-        return $this->sexe;
-    }
-
-    public function setSexe(string $sexe): self
-    {
-        $this->sexe = $sexe;
 
         return $this;
     }

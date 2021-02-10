@@ -168,6 +168,11 @@ class Stage
      */
     private $echanges;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $service;
+
     public function __construct()
     {
         $this->semaineStages = new ArrayCollection();
@@ -615,6 +620,18 @@ class Stage
                 $echange->setStage(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getService(): ?string
+    {
+        return $this->service;
+    }
+
+    public function setService(?string $service): self
+    {
+        $this->service = $service;
 
         return $this;
     }

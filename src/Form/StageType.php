@@ -46,6 +46,7 @@ class StageType extends AbstractType
             ->add('horJeu', TextType::class, array('attr' => array('placeholder' => '8h - 12h / 14h - 17h' ),'empty_data' => '8h - 12h / 14h - 17h', 'required' => false))
             ->add('horVen', TextType::class, array('attr' => array('placeholder' => '8h - 12h / 14h - 17h' ),'empty_data' => '8h - 12h / 14h - 17h', 'required' => false))
             ->add('horSam', TextType::class, array('attr' => array('placeholder' => '8h - 12h / 14h - 17h' ),'empty_data' => '8h - 12h / 14h - 17h', 'required' => false))
+            ->add('service', TextType::class, array('required' => false))
             ->add('ville')
              ->add('copos')
              ->add('enregistrer', SubmitType::class, array('label' => 'Valider'));

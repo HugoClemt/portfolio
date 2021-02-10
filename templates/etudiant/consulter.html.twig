@@ -8,6 +8,7 @@
 {% if app.user.etudiant.id == pEtudiant.id %}
 <div class="container">
 <br>
+<center> <h2>Coordonnées</h2></center>
 	{{ form_start(form) }}
 	<div class="form-row">
 				<div class="col-md-6 mb-3">
@@ -22,31 +23,21 @@
 
 	</div>
 				<div class="form-row">
-				<div class="col-md-6 mb-3">
-					<label>Sexe</label>
-						{{ form_widget(form.sexe, {'attr': {'class': 'form-control'}})}}
-	</div>
 	<div class="col-md-6 mb-3">
 					<label>Date de naissance </label>
 						{{ form_widget(form.datenaiss, {'attr': {'class': 'form-control'}})}}
-	</div>
+	</div><div class="col-md-6 mb-3">
+					<label>Adresse personnelle</label>
+						{{ form_widget(form.adrperso, {'attr': {'class': 'form-control'}})}}
+					</div>
 
 	</div>
 
-
-
-
-
-
-						<center> <h2>Coordonnées</h2></center>
 							<hr class="featurette-divider p-2">
 
 			
 				<div class="form-row">
-				<div class="col-md-6 mb-3">
-					<label>Adresse personnelle</label>
-						{{ form_widget(form.adrperso, {'attr': {'class': 'form-control'}})}}
-					</div>
+				
 					<div class="col-md-6 mb-3">
 					<label>Mobile</label>
 						{{ form_widget(form.mobile, {'attr': {'class': 'form-control'}})}}

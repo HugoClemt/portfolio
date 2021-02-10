@@ -113,15 +113,19 @@
       </div>
       
       <div class="form-row">
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
         <span title="Lieux où s'effectura le stage, cela peut etre différent de l'adresse de l'entreprise">
           <label for="disabledTextInput">Lieu du stage</label><img src={{ asset("images/info-8x.png") }} height=12>
         </span>
             {{ form_widget(form.lieu, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
         </div>
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
           <label for="validationCustom02">Sujet</label>
             {{ form_widget(form.sujet, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="validationCustom02">Service</label>
+            {{ form_widget(form.service, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
         </div>
       </div>
       
@@ -271,15 +275,19 @@
       </div>
       
       <div class="form-row">
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
         <span title="Lieux où s'effectura le stage, cela peut etre différent de l'adresse de l'entreprise">
           <label for="disabledTextInput">Lieu du stage</label><img src={{ asset("images/info-8x.png") }} height=12>
         </span>
             {{ form_widget(form.lieu, {'attr': {'class': 'form-control'}}) }}
         </div>
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
           <label for="validationCustom02">Sujet</label>
             {{ form_widget(form.sujet, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="validationCustom02">Service</label>
+            {{ form_widget(form.service, {'attr': {'class': 'form-control'}}) }}
         </div>
       </div>
       
