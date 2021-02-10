@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\RP;
 use App\Entity\Stage;
+use App\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
@@ -51,11 +52,17 @@ class EtudiantController extends AbstractController
         {
             $form = $this->createForm(EtudiantInfoType::class, $etudiant);
             $form->handleRequest($request);
+            
             //var_dump($etudiant) ;
             if($form->isSubmitted() ){
                 $etudiant = $form->getData();
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($etudiant);
+                $entityManager->flush();
+                $user = $etudiant->getUser();
+                $user->setUsername(strtolower($etudiant->getPrenom()).".".strtolower($etudiant->getNom()));
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
                 $entityManager->flush();
                 $this->addFlash('success', 'Profil modifié avec succès !');
                  return $this->render('etudiant/consulter.html.twig', array('form'=>$form->createView(), 'pEtudiant' => $etudiant));

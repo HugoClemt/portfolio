@@ -57,10 +57,20 @@ class RPController extends AbstractController
         $promotion = new Promotion();
         $form = $this->createForm(PromotionType::class, $promotion);
         $form->handleRequest($request);
-        $repository = $this->getDoctrine()->getRepository(Etudiant::class);
-        $etudiants = $repository->findBy(array(), array('nom' => 'ASC'));
+
+        $promotest = $this->getDoctrine()
+        ->getRepository(Promotion::class)
+        ->findById(2);
+
+        $etudiants = $this->getDoctrine()
+        ->getRepository(Etudiant::class)
+        ->findBy(array('promotion' => $promotest), array('nom' => 'ASC'));
+
+        $rps = $this->getDoctrine()
+        ->getRepository(RP::class)
+        ->findBy(array('etudiant' => $etudiants), array('etudiant' => 'ASC'));
         
-        return $this->render('rp/listerRP.html.twig', array('form' => $form->createView(),'pEtudiants' => $etudiants));
+        return $this->render('rp/listerRP.html.twig', array('form' => $form->createView(), 'pRPs' => $rps));
     }
 
     
@@ -551,7 +561,7 @@ class RPController extends AbstractController
 
         $rps = $this->getDoctrine()
         ->getRepository(RP::class)
-        ->findByEtudiant($etudiants);
+        ->findBy(array('etudiant' => $etudiants), array('etudiant' => 'ASC'));
 
         $output=array();
         if ($request->isXmlHttpRequest()) {

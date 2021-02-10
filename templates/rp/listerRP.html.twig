@@ -4,11 +4,10 @@
 <div class="container">
 	<p></p><center><h1>Réalisation professionnelle</h1></center><p></p>
 				{{ form_start(form) }}
-            <div class="">
                 <label id="promotion" name="promotion">
                 {{ form_widget(form.id)}}
                 </label> 
-            </div><br>
+            <br>
 
 
 {% block javascripts %}
@@ -43,7 +42,7 @@
 
 											if (etudentifiant == value.etu_id){
 												etudentifiant = value.etu_id;
-												$('#table').append('<tbody class="table" id="table" data-toggle="BootstrapTable" data-height="460"><tr><td>'+value.nom+' '+value.prenom+'</td><td>'+value.source+'</td><td><a class="text" href="{{ path("rpConsulter", { "rp_id": "value.id" }) }}">'+value.libcourt+'</a></td><td>'+value.activites+'</td><td>'+value.date+'</td></tr></tbody></table>');
+												$('#table').append('<tbody><tr><td>'+value.nom+' '+value.prenom+'</td><td>'+value.source+'</td><td><a class="text" href="{{ path("rpConsulter", { "rp_id": "value.id" }) }}">'+value.libcourt+'</a></td><td>'+value.activites+'</td><td>'+value.date+'</td></tr></tbody></table>');
 
 											}
 
@@ -51,7 +50,7 @@
 												etudentifiant = value.etu_id;
 												$('#table').append('<tbody><thead><tr><th scope="col" data-sortable="true">Etudiant</th><th scope="col" data-sortable="true">Source</th><th scope="col" data-sortable="true">Libellé</th><th scope="col" data-sortable="true">Nombre d\'activités</th><th scope="col" data-sortable="true">Date</th></tr></thead><tbody>');
 
-												$('#table').append('<tbody class="table" id="table" data-toggle="BootstrapTable" data-height="460"><tr><td>'+value.nom+' '+value.prenom+'</td><td>'+value.source+'</td><td><a class="text" href="{{ path("rpConsulter", { "rp_id": "value.id" }) }}">'+value.libcourt+'</a></td><td>'+value.activites+'</td><td>'+value.date+'</td></tr></tbody></table>');
+												$('#table').append('<tbody><tr><td>'+value.nom+' '+value.prenom+'</td><td>'+value.source+'</td><td><a class="text" href="{{ path("rpConsulter", { "rp_id": "value.id" }) }}">'+value.libcourt+'</a></td><td>'+value.activites+'</td><td>'+value.date+'</td></tr></tbody></table>');
 											}
 											
 																  

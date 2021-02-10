@@ -9,11 +9,19 @@
     .alnleft { 
       text-align: left; 
       }
+    
+    .alnjustify{
+      text-align: justify-all;
+    }
 
+    .bordure{
+  
+    }
 
     table {
       table-layout: fixed;
       border-collapse:collapse;
+      width: 100%;
   }
 
     td {
@@ -23,7 +31,7 @@
 <body>
 <div class="container">
 	<p></p><center><h1>Consultation du stage</h1></center><center>
-  <p>Stage de <b>{{pStage.etudiant.nom}} {{pStage.etudiant.prenom}}</b> suivi par <b>{{pStage.enseignant.nom}}</b></p></center>       
+  <p>Stage de <b>{{pStage.etudiant.prenom}} {{pStage.etudiant.nom}}</b> suivi par <b>{{pStage.enseignant.prenom}} {{pStage.enseignant.nom}}</b></p></center>       
 	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #DDDDDD;">
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 		  <span class="navbar-toggler-icon"></span>
@@ -62,50 +70,81 @@
     {{ form_end(form) }}
 <br>
 
-
 <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
         <thead>
-
+            <tr>
+            <th style="width:45%"></th>
+            <th style="width:10%"></th>
+            <th style="width:45%"></th>
+		    </tr>
         </thead>
         <tbody>
-{% set dateprecedente = null %}
 {% for echange in pEchanges %}
-
-{% if echange.dateMessage|date("d/m/Y") == dateprecedente %}
-    {% set dateprecedente = echange.dateMessage|date("d/m/Y") %}
+{% if echange.dateMessage|date("d/m/Y") == "now"|date("d/m/Y") %}
+    
     {% if echange.user.etudiant is null %}
     <tr>
-              <td>{{ echange.user.enseignant.prenom }} {{ echange.user.enseignant.nom }}
+              <td class="bordure">{{ echange.user.enseignant.prenom }} {{ echange.user.enseignant.nom }}
+              {% if echange.lu == 0%} 
+              
+              {% else %}
+              🗸
+              {% endif %}
               <br>
               {{ echange.dateMessage|date("h:i")}} (GMT)
               <br>
               {{ echange.message }}</td>
+              <td></td>
+              <td></td>
   </tr>          
     {% else %}      
   <tr>
-              <td>
-              <div class='alnright'>{{ echange.user.etudiant.prenom }} {{ echange.user.etudiant.nom }}</div>
+              <td></td>
+              <td></td>
+              <td class="bordure">
+              <div class='alnright'>
+              {% if echange.lu == 0%} 
+              
+              {% else %}
+              🗸
+              {% endif %}
+              {{ echange.user.etudiant.prenom }} {{ echange.user.etudiant.nom }}
+              </div> 
               <div class='alnright'>{{ echange.dateMessage|date("h:i")}} (GMT)</div>
-              <div class='alnleft'>{{ echange.message }}</div>
+              <div class='alnright'>{{ echange.message }}</div>
               </td>
   </tr>   
     {% endif %}
 {% else %}
-    {% set dateprecedente = echange.dateMessage|date("d/m/Y") %}
     {% if echange.user.etudiant is null %}
     <tr>
-              <td>{{ echange.user.enseignant.prenom }} {{ echange.user.enseignant.nom }}
+              <td class="bordure">{{ echange.user.enseignant.prenom }} {{ echange.user.enseignant.nom }}
+              {% if echange.lu == 0%} 
+              
+              {% else %}
+              🗸
+              {% endif %}
               <br>
               {{ echange.dateMessage|date("d/m/Y")}}
               <br>
               {{ echange.message }}</td>
+              <td></td>
+              <td></td>
   </tr>         
     {% else %}      
   <tr>
-              <td>
-              <div class='alnright'>{{ echange.user.etudiant.prenom }} {{ echange.user.etudiant.nom }}</div>
+              <td></td>
+              <td></td>
+              <td class="bordure">
+              <div class='alnright'>
+              {% if echange.lu == 0%} 
+              
+              {% else %}
+              🗸
+              {% endif %}
+              {{ echange.user.etudiant.prenom }} {{ echange.user.etudiant.nom }}</div>
               <div class='alnright'>{{ echange.dateMessage|date("d/m/Y")}}</div>
-              <div class='alnleft'>{{ echange.message }}</div>
+              <div class='alnright'>{{ echange.message }}</div>
               </td>
   </tr>   
   {% endif %}

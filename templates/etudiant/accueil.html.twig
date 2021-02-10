@@ -46,8 +46,7 @@
             
             <td>{{stage.lieu}}</td>
             <td>{{stage.nomtut}}</td>
-            <td><a href="../../etudiant/stage/consulter/{{stage.id}}">Détail</a></td>
-            <td><a href="../../etudiant/activite/consulterSemaine/{{stage.id}}">Activités</a></td>
+            <td><a href="{{ path('StageConsulter', { 'stage_id': stage.id }) }}">Détail</a></td>
 
   {% else %}
     <tr>

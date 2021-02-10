@@ -360,6 +360,30 @@ class StageController extends AbstractController
 
         $user = $this->getUser();
 
+            foreach ($echanges as $echange){
+
+                if (!$user->getEtudiant()){
+                    if (!$echange->getUser()->getEnseignant()){
+                        $echange->setLu(1);
+                        $entityManager = $this->getDoctrine()->getManager();
+                        $entityManager->persist($echange);
+                        $entityManager->flush();
+                    }
+                }
+                else{
+
+                    foreach ($echanges as $echange){
+                        if (!$echange->getUser()->getEtudiant()){
+                            $echange->setLu(1);
+                            $entityManager = $this->getDoctrine()->getManager();
+                            $entityManager->persist($echange);
+                            $entityManager->flush();
+                        }
+                        
+                    }
+                }
+        }
+
         $echange = new Echange();
         $form = $this->createForm(EchangeType::class, $echange);
         $form->handleRequest($request);
@@ -493,4 +517,6 @@ class StageController extends AbstractController
             "Attachment" => false
         ]);
     }
+
+     
 }

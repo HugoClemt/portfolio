@@ -5,6 +5,12 @@
                 {{ message }}
             </div>
         {% endfor %}
+<style>
+	p.warning{
+		font-size: 12px;
+		color: red;
+	}
+</style>
 <body>
 <div class="container">
  <p></p><center><h1>Réalisation professionnelle</h1></center><p></p>
@@ -61,6 +67,7 @@
 
 
 {% if is_granted('ROLE_ENSEIGNANT') %}
+<center><p class='warning'> Attention toute suppression est définitive !</p></center>
 <div class="container">
 {% if pRP.enseignant.id == app.user.enseignant.id %}
   <div class="form-group col-md-12">
