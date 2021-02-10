@@ -1,0 +1,37 @@
+{% extends "entete.html.twig" %}
+{% block content %}
+<body>
+    <div class="container">
+        <p></p>
+        <center><h1>Ajouter etudiant</h1></center>
+        <p></p>
+        <hr class="featurette-divider p-1">
+        {{ form_start(form) }}
+        <div class="form-row">
+            <div class="col-md-6 mb-3">
+				<label>Prenom</label>
+					{{ form_widget(form.prenom, {'attr': {'class': 'form-control'}})}}
+			</div>
+
+            <div class="col-md-6 mb-3">
+				<label>Nom</label>
+					{{ form_widget(form.nom, {'attr': {'class': 'form-control'}})}}
+			</div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-5 mb-3">
+            </div>
+            <center>
+            <div class="col-md-2 mb-3">
+                {{ form_widget(form.ajouter, {'attr': {'class': 'btn btn-secondary'}})}}
+            </div>
+            </center>
+            <div class="col-md-5 mb-3">
+            </div>
+        </div>
+        <center><p class="text-danger"> L'identifiant est 'prenom.nom' en minuscule ! <p></center>
+        <center><p class="text-danger"> Le mots de passe par défaut est 'abcd' ! <p></center>
+        <center><p class="text-danger"> Toutes les informations personnelles seront renseignées par l'étudiant en question ! <p></center>
+    </div>
+</body>
+{% endblock %}

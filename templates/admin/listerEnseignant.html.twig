@@ -1,0 +1,40 @@
+{% extends "entete.html.twig" %}
+{% block content %}
+<body>
+    <div class="container">
+        <p></p>
+        <center><h1>Liste enseignant</h1></center>
+        <p></p>
+        <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
+			<thead>
+				<tr>
+					<th scope="col" data-sortable="true">Enseignant</th>
+				    <th scope="col" data-sortable="true">Mail</th>
+				    <th scope="col" data-sortable="true">Matiere</th>
+				</tr>
+			</thead>
+			<tbody>
+            {% for enseignant in pEnseignant %}
+            {% if enseignant.id != 999 %}
+			    <tr>
+			        <td>{{ enseignant.nom }} {{ enseignant.prenom }}</td>
+			        <td>{{ enseignant.mail }}</td>
+                    {% if enseignant.matiere is not null %}
+				    <td>{{ enseignant.matiere.libelle }}</td> 
+                    {% else %}
+                    <td>Aucune matière assignée</td>
+                    {% endif %}
+                    {% if enseignant.user is not null %}
+                    <td><a href='{{ path('MDPDefault', { 'user_id': enseignant.user.id }) }}'>Réinitialiser MDP</a></td>
+                    {% else %}
+                    <td>Aucun compte associé</td>
+                    {% endif %}
+				</tr>
+            {% else %}
+            {% endif %}
+			{% endfor %}
+			</tbody>
+		</table>
+    </div>
+</body>
+{% endblock %}

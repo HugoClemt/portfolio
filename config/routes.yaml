@@ -2,28 +2,14 @@ index:
     path: /
     controller: App\Controller\AdminController::index
 
+#route de deconnexion
 app_logout:
     path: /logout
 
+#route de connexion
 app_login:
     path: /login
     controller: App\Controller\SecurityController::login
-
-etudiantAjouter:
-    path: /etudiant/ajouter
-    controller: App\Controller\EtudiantController::ajouterEtudiant
-
-enseignantAjouter:
-    path: /enseignant/ajouter
-    controller: App\Controller\EnseignantController::ajouterEnseignant
-
-route_accueil:
-    path: /accueil
-    controller: App\Controller\EtudiantController::index
-
-etudiantLister:
-    path: /etudiant/lister/{annee}
-    controller: App\Controller\EtudiantController::listerEtudiant
 
 #accueil des etudiants
 etudiantAccueil:
@@ -40,20 +26,42 @@ etudiantConsulter:
     path: /etudiant/etudiant/consulter/{etudiant_id}
     controller: App\Controller\EtudiantController::consultoModifierEtudiant
 
-#Ajouter les promotions par l'admin
-ajouterPromotion:
-    path: /admin/ajouterPromotion/
-    controller:  App\Controller\AdminController::ajouterPromotion
 
-ConsulterSemaine:
-    path: /etudiant/activite/consulterSemaine/{idStage}/{idSemaineStage}
-    controller: App\Controller\ActiviteController::ConsulterSemaine
-    defaults:
-        idSemaineStage: 0
+        # Route concernant admin
 
 admin:
     path: /admin
     controller: App\Controller\AdminController::admin
+
+#accueil admin
+adminAccueil:
+    path: /admin/accueil
+    controller: App\Controller\AdminController::accueil
+
+#ajouter un etudaint
+etudiantAjouter:
+    path: /admin/ajouterEtudiant
+    controller: App\Controller\AdminController::ajouterEtudiant
+
+#ajouter un enseignant
+enseignantAjouter:
+    path: /admin/ajouterEnseignant
+    controller: App\Controller\AdminController::ajouterEnseignant
+
+#lister les etudiant
+listerEtudiant:
+    path: /admin/listerEtudiant
+    controller: App\Controller\AdminController::listerEtudiant
+
+#lister les enseignant
+listerEnseignant:
+    path: /admin/listerEnseignant
+    controller: App\Controller\AdminController::listerEnseignant
+
+#Reinitailisation du mdp
+MDPDefault:
+    path: /admin/REmpd/{user_id}
+    controller: App\Controller\AdminController::REmpd
 
         # Route concernant RP ( etudiant )
 
