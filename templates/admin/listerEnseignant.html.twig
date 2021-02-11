@@ -1,5 +1,10 @@
 {% extends "entete.html.twig" %}
 {% block content %}
+{% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+{% endfor %}
 <body>
     <div class="container">
         <p></p>
@@ -25,7 +30,7 @@
                     <td>Aucune matière assignée</td>
                     {% endif %}
                     {% if enseignant.user is not null %}
-                    <td><a href='{{ path('MDPDefault', { 'user_id': enseignant.user.id }) }}'>Réinitialiser MDP</a></td>
+                    <td><a href='{{ path('MDPDefaultEnseignant', { 'user_id': enseignant.user.id }) }}'>Réinitialiser MDP</a></td>
                     {% else %}
                     <td>Aucun compte associé</td>
                     {% endif %}

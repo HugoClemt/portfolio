@@ -1,60 +1,54 @@
 {% extends "entete.html.twig" %}
 {% block content %}
 <body>
-<br>
-<div class="container">
-    {{ form_start(form) }}
-    <label id="promotion" name="promotion">
-        {{ form_widget(form.id, {'attr': {'class': 'form-control'}})}}
-    </label>
-	{{ form_end(form)}}
-    <br>
-	
-    
-	{% block javascripts %}
-	<script src="https://code.jquery.com/jquery-3.4.1.js" integrity= "sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
-	<script>
-		jQuery( document ).ready(function( $ ) {
-			$("#promotion").change(function () {
-				$( "select option:selected" ).each(function() {
-				});
-				var numeroption = $(this).find(':selected').attr('value');
-				$("#table tbody").empty();
-				$('#tablAjax').text("");
-				$('#Test').append("super");
-                $.ajax({
-					type: "post",
-					url: '{{ path('afficherEtudiantPromo') }}',
-					data: { numeroption : numeroption },
-					dataType: "json",
-					success: function (json) {
-                        $.each(json, function (index, value) {
-							$('#table').append('<tbody><tr><td>'+value.nom+" "+value.prenom+'</td><td>'+value.date+'</td></tr</tbody></table>');
-							}
-							});
-					},
-					error: function(jxh,textmsg,errorThrown){
-						console.log(textmsg);
-						console.log(errorThrown);
-					}
-				});
-			});
-		});
-	</script>
-    {% endblock %}
-	<div id='Test' name='Test'>
-		ra mere
+	<br>
+	<div class="container">
+		{{ form_start(form) }}
+		<label id="promotion" name="promotion">
+			{{ form_widget(form.id, {'attr': {'class': 'form-control'}})}}
+		</label>
+		{{ form_end(form)}}
+		<br>
+		{% block javascripts %}
+			<script src="https://code.jquery.com/jquery-3.4.1.js" integrity= "sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
+			<script>
+				jQuery( document ).ready(function( $ ) {
+					$("#promotion").change(function () {
+						$( "select option:selected" ).each(function() {
+						});
+					var numeroption = $(this).find(':selected').attr('value');
+					$("#table tbody").empty();
+					$('#tablAjax').text("");
+					$.ajax({
+						type: "post",
+						url: '{{ path('afficherEtudiantPromo') }}',
+						data: { numeroption : numeroption },
+						dataType: "json",
+							success: function (json) {
+								$.each(json, function (index, value) {
+									{% set obj = value.user_id | json_decode %}
+									$('#table').append('<tbody class="table" id="table" data-toggle="BootstrapTable" data-height="460"><tr><td>'+value.nom+' '+value.prenom+'</td><td>'+value.date+'</td><td><a href="{{ path("MDPDefaultEtudiant", { "user_id": {{obj}} }) }}">Réinitialisé MDP</td></tr></tbody></table>');
+									});
+								},
+								error: function(jxh,textmsg,errorThrown){
+									console.log(textmsg);
+									console.log(errorThrown);
+								}
+						});
+						});
+					});
+			</script>
+		{% endblock %}
+		<table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
+			<thead>
+				<tr>
+					<th scope="col" data-sortable="true">Etudiant</th>
+					<th scope="col" data-sortable="true">Date</th>
+					<th></th>
+				</tr>
+			</thead>
+		</table>
 	</div>
-    <div id="tablAjax" name="tablAjax">
-        <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
-            <thead>
-                <tr>
-                    <th scope="col" data-sortable="true">Etudiant</th>
-                    <th scope="col" data-sortable="true">Date</th>
-                </tr>
-            </thead>
-	</div>
-</div>
 </body>
 {% endblock %}

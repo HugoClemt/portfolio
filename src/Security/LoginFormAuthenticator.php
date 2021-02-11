@@ -99,7 +99,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         }
         #var_dump($user);
         #return new RedirectResponse($this->urlGenerator->generate('etudiantAccueil', array('etudiant_id' => 100)));
-        if(!$user->getEtudiant() or !$user->getEnseignant()){
+        if(!$user->getEtudiant() and !$user->getEnseignant()){
             return new RedirectResponse($this->urlGenerator->generate('adminAccueil'));
         }
         elseif (!$user->getEtudiant()){
