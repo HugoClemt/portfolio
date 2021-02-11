@@ -15,6 +15,7 @@ use App\Entity\Etudiant;
 use App\Entity\Enseignant;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 
 class AdminController extends AbstractController
@@ -169,8 +170,8 @@ class AdminController extends AbstractController
         return $this->render('admin/listerEnseignant.html.twig', array('pEnseignant' => $enseignant));
     }
 
-    public function REmpd($user_id, Request $request, UserPasswordEncoderInterface $passwordEncoder){
-
+    public function REmpdEnseignant($user_id, Request $request, UserPasswordEncoderInterface $passwordEncoder){
+        
         $user = $this->getDoctrine()
         ->getRepository(User::class)
         ->findOneById($user_id);
@@ -185,8 +186,11 @@ class AdminController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($user);
         $entityManager->flush();
+        $this->addFlash('success', 'MDP réinitialisé');
 
-        return $this->render('admin/accueil.html.twig', array('pUser' => $user));
+        #return $this->render('admin/listerEtudiant.html.twig', array('pUser' => $user));   
+        return $this->redirectToRoute('listerEnseignant');
+        
     } 
 
     public function listerEtudiant(Request $request){
@@ -223,16 +227,50 @@ class AdminController extends AbstractController
         if ($request->isXmlHttpRequest()) {
         foreach ($etudiants as $etudiant){
 
+
+        if (!$etudiant->getUser()){
             $output[]=array(
                 'id'=>$etudiant->getId(),
                 'nom'=>$etudiant->getNom(),
                 'prenom'=>$etudiant->getPrenom(),
+                'date'=>$etudiant->getDateNaiss()->format('d/m/Y')
+            );}
+        else{
+            $output[]=array(
+                'id'=>$etudiant->getId(),
+                'user_id'=>$etudiant->getUser()->getId(),
+                'nom'=>$etudiant->getNom(),
+                'prenom'=>$etudiant->getPrenom(),
                 'username'=>$etudiant->getUser()->getUsername(),
                 'date'=>$etudiant->getDateNaiss()->format('d/m/Y')
-        );}
+            );}
+        }
         return new JsonResponse($output);
 
     }
     return new JsonResponse('no results found', Response::HTTP_NOT_FOUND);
+    }
+
+    public function REmpdEtudiant($user_id, Request $request, UserPasswordEncoderInterface $passwordEncoder){
+        
+        $user = $this->getDoctrine()
+        ->getRepository(User::class)
+        ->findOneById($user_id);
+
+        $user->setPassword(
+            $passwordEncoder->encodePassword(
+                $user,
+                '1234'
+            )
+        );
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+        $this->addFlash('success', 'MDP réinitialisé');
+
+        #return $this->render('admin/listerEtudiant.html.twig', array('pUser' => $user));   
+        return $this->redirectToRoute('listerEtudiant');
+        
     }
 }
