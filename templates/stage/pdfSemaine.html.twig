@@ -24,6 +24,11 @@
             border-style:solid; 
             border-color:#ccc;
         }
+        .border { 
+            border-width:1px;
+            border-style:solid; 
+            border-color:#ccc;
+        }
     </style>
 {% if is_granted('ROLE_ENSEIGNANT') %}
     <body>
@@ -85,6 +90,15 @@
                 {% endfor %}
             </tbody>
             </table>
+            <br>
+            <div class="border">
+                <h4>Apprentissage</h4>
+                <p>{{ pSemaine.apprentissage}}</p>
+            </div>
+            <div class="border">
+                <h4>Bilan</h4>
+                <p>{{ pSemaine.bilan}}</p>
+            </div>
         </body>
     {% else %}
     <br>
