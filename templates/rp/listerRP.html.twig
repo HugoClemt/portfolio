@@ -24,9 +24,6 @@
 										var numeroption = $(this).find(':selected').attr('value');
 										var etudentifiant = null;
 										$("#table tr").remove();
-										$('#tablAjax').text("");
-
-
 									$.ajax({
 										type: "post",
 										url: '{{ path('afficherRPPromo') }}',
@@ -69,15 +66,6 @@
 						</script>
 
 						{% endblock %}
-
-
-
-<div id="tablAjax" name="tablAjax">
-
-        
-
-        </div>
-
                 <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
 
 					

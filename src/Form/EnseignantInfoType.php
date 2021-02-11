@@ -2,7 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\Etudiant;
+use App\Entity\Enseignant;
+use App\Entity\Matiere;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -12,8 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-class EtudiantInfoType extends AbstractType
+class EnseignantInfoType extends AbstractType
 {
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -22,18 +22,15 @@ class EtudiantInfoType extends AbstractType
             ->add('nom', TextType::class)
             ->add('prenom', TextType::class)
             ->add('mail', TextType::class)
-            ->add('mobile', TextType::class)
-            ->add('datenaiss', DateType::class, array('input' => 'datetime',
-                                                          'widget' => 'single_text',
-                                                          'required' => true,
-                                                          'label' =>'date de naissance',
-                                                          'placeholder' => 'jj/mm/aaaa'))
-            ->add('adrperso', TextType::class)
-            
+            ->add('matiere', EntityType::class, array(
+                'placeholder' => 'Choisissez votre matière',
+                'class' => 'App\Entity\Matiere',
+                'choice_label' => function (Matiere $matiere) {
+                    return $matiere->getLibelle();
+                },
+            ))
+ 
             ->add('enregistrer', SubmitType::class, array('label' => 'Appliquer les modifications'))
-
-
-
 
         ;
     }
@@ -41,7 +38,7 @@ class EtudiantInfoType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Etudiant::class,
+            'data_class' => Enseignant::class,
         ]);
     }
 }

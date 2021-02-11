@@ -122,6 +122,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">Sauvegarde</a>
           {% if is_granted('ROLE_ENSEIGNANT') %}
+          <a class="dropdown-item" href="{{ path('enseignantConsulter', { 'enseignant_id': app.user.enseignant.id }) }}">Profil</a>
           {% else %}
           <a class="dropdown-item" href="{{ path('etudiantConsulter', { 'etudiant_id': app.user.etudiant.id }) }}">Profil</a>
           {% endif %}

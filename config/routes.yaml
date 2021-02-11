@@ -6,6 +6,11 @@ index:
 app_logout:
     path: /logout
 
+#route de deconnexion
+app_register:
+    path: /register
+    controller: App\Controller\RegistrationController::register
+
 #route de connexion
 app_login:
     path: /login
@@ -25,6 +30,11 @@ enseignantAccueil:
 etudiantConsulter:
     path: /etudiant/etudiant/consulter/{etudiant_id}
     controller: App\Controller\EtudiantController::consultoModifierEtudiant
+
+#Consulter les informations d'un enseignant
+enseignantConsulter:
+    path: /enseignant/consulter/{enseignant_id}
+    controller: App\Controller\EnseignantController::consultoModifierEnseignant
 
 
         # Route concernant admin
