@@ -2,10 +2,10 @@
 {% block content %}
 <body>
 <div class="container">
-	<p></p><center><h1>Réalisation professionnelle</h1></center><p></p>
+	<p></p><center><h1>Réalisations professionnelles</h1></center><p></p>
 				{{ form_start(form) }}
                 <label id="promotion" name="promotion">
-                {{ form_widget(form.id)}}
+                {{ form_widget(form.id, {'attr': {'class': 'form-control'}})}}
                 </label> 
             <br>
 

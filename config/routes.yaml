@@ -184,7 +184,7 @@ enseignantLesRPaCommenter:
 
 #lister les RP (prof)
 listerRPPromo:
-    path: /enseignant/rp/listerLesRPPromo
+    path: /enseignant/rp/listerLesRP
     controller: App\Controller\RPController::listerLesRPPromo
 
 #lister toutes les RP d'une promo
