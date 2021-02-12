@@ -30,15 +30,65 @@ use Dompdf\Options;
 class RPController extends AbstractController
 {
 
-    public function listerLesRPaCommenter($enseignant_id)
+    public function listerLesRPaCommenter(Request $request)
     {
 
-        $repository = $this->getDoctrine()->getRepository(RP::class);
-        $RPaCommenter = $repository->findBy(
-            ['enseignant' => $enseignant_id, 'statut' => 2], array('dateModif'=>'desc'));
+        $promotion = new Promotion();
+        $form = $this->createForm(PromotionType::class, $promotion);
+        $form->handleRequest($request);
         
-        return $this->render('rp/listerEnseignant.html.twig', ['pRP' => $RPaCommenter]);
+        return $this->render('rp/listerEnseignant.html.twig', array('form' => $form->createView()));
     }
+
+
+    /**
+     * @Route(name="afficherRPPromoACommenter",path="/afficherRPPromoACommenter")
+     * @param Request $request
+     * @return Response
+     */
+    public function afficherRPPromoACommenter(Request $request)
+    {
+        $numeroption=$_POST["numeroption"];
+
+        $promotion = $this->getDoctrine()
+        ->getRepository(Promotion::class)
+        ->findOneById($numeroption);
+
+        $etudiants = $this->getDoctrine()
+        ->getRepository(Etudiant::class)
+        ->findBy(array('promotion' => $promotion), array('nom' => 'ASC'));
+
+        $rps = $this->getDoctrine()
+        ->getRepository(RP::class)
+        ->findBy(array('etudiant' => $etudiants, 'statut' => 2), array('etudiant' => 'ASC'));
+
+        $output=array();
+        if ($request->isXmlHttpRequest()) {
+        foreach ($rps as $rp){
+
+            $output[]=array(
+                'etu_id'=>$rp->getEtudiant()->getId(),
+                'id'=>$rp->getId(),
+                'nom'=>$rp->getEtudiant()->getNom(),
+                'prenom'=>$rp->getEtudiant()->getPrenom(),
+                'source'=>$rp->getSource()->getLibelle(),
+                'libcourt'=>$rp->getLibcourt(),
+                'activites'=>count($rp->getActivites()),
+                'date'=>$rp->getDateDebut()->format('d/m/Y')
+        );
+            
+        }
+     /*   var_dump($themes);
+        $json = json_encode($themes);
+
+        $response = new Response();*/
+        //            return $response->setContent($json);
+        return new JsonResponse($output);
+
+    }
+    return new JsonResponse('no results found', Response::HTTP_NOT_FOUND);
+    }
+
 
     public function listerLesRPaModifier($etudiant_id)
     {
@@ -58,19 +108,9 @@ class RPController extends AbstractController
         $form = $this->createForm(PromotionType::class, $promotion);
         $form->handleRequest($request);
 
-        $promotest = $this->getDoctrine()
-        ->getRepository(Promotion::class)
-        ->findById(2);
 
-        $etudiants = $this->getDoctrine()
-        ->getRepository(Etudiant::class)
-        ->findBy(array('promotion' => $promotest), array('nom' => 'ASC'));
-
-        $rps = $this->getDoctrine()
-        ->getRepository(RP::class)
-        ->findBy(array('etudiant' => $etudiants), array('etudiant' => 'ASC'));
         
-        return $this->render('rp/listerRP.html.twig', array('form' => $form->createView(), 'pRPs' => $rps));
+        return $this->render('rp/listerRP.html.twig', array('form' => $form->createView()));
     }
 
     
