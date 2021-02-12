@@ -27,8 +27,8 @@
 						dataType: "json",
 							success: function (json) {
 								$.each(json, function (index, value) {
-									{% set obj = value.user_id | json_decode %}
-									$('#table').append('<tbody class="table" id="table" data-toggle="BootstrapTable" data-height="460"><tr><td>'+value.nom+' '+value.prenom+'</td><td>'+value.date+'</td><td><a href="{{ path("MDPDefaultEtudiant", { "user_id": {{obj}} }) }}">Réinitialisé MDP</td></tr></tbody></table>');
+									var monlien = document.getElementById("id")
+									$('#table').append('<tbody class="table" id="table" data-toggle="BootstrapTable" data-height="460"><tr><td>'+value.nom+' '+value.prenom+'</td><td>'+value.date+'</td><td><a href="{{ path("MDPDefaultEtudiant", { "user_id": '+=value.user_id+='}) }}">Réinitialisé MDP</td></tr></tbody></table>');
 									});
 								},
 								error: function(jxh,textmsg,errorThrown){
