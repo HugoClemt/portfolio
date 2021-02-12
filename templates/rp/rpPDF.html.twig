@@ -34,9 +34,17 @@
         </center>
         <br>
         <p><b>Besoin:</b> {{pRP.besoin}}</p>
+        <p><b>Localisation:</b> {{pRP.localisation.libelle}}</p>
+        <p><b>Source:</b> {{pRP.source.libelle}}</p>
+        <p><b>Cadre:</b> {{pRP.cadre.libelle}}</p>
+        <p><b>niveau:</b> {{pRP.niveau.libelle}}</p>
         <p><b>Environnement:</b> {{pRP.environnement}}</p>
         <p><b>Moyens:</b> {{pRP.moyen}}</p>
-      <br>
+
+      
+      <center>
+        <h3>Activité(s)</h3>
+      </center>
       <table>
 		<thead>
 		    <tr>
@@ -51,6 +59,26 @@
 		    	<td>{{ RPactivite.activite.code }}</td>
 				<td>{{ RPactivite.activite.libelle }}</td> 
 			    <td>{{ RPactivite.commentaire }}</td>
+			</tr>
+            {% endfor %}
+		</tbody>
+	   </table>
+
+       <center>
+        <h3>Production(s)</h3>
+      </center>
+      <table>
+		<thead>
+		    <tr>
+		    <th>Designation</th>
+            <th>URL</th>
+		    </tr>
+		</thead>
+		<tbody>
+            {% for production in pProductions %}				
+			<tr>
+		    	<td>{{ production.designation }}</td>
+				<td>{{ production.adresse }}</td> 
 			</tr>
             {% endfor %}
 		</tbody>

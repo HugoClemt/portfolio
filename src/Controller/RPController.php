@@ -649,6 +649,10 @@ class RPController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(RPActivite::class);
         $rpActivite = $repository->findBy(
             ['rp' => $rp->getId()],array('activite'=>'asc'));
+
+        $repository = $this->getDoctrine()->getRepository(Production::class);
+        $productions = $repository->findBy(
+            ['rp' => $rp->getId()],array('designation'=>'asc'));
         
 
         // Configure Dompdf according to your needs
@@ -660,7 +664,7 @@ class RPController extends AbstractController
         
         // Retrieve the HTML generated in our twig file
         $html = $this->renderView('rp/rpPDF.html.twig', [
-            'pRP' => $rp, 'pRPActivite' => $rpActivite
+            'pRP' => $rp, 'pRPActivite' => $rpActivite, 'pProductions' => $productions 
         ]);
         
         // Load HTML to Dompdf
