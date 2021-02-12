@@ -18,6 +18,7 @@
 						$( "select option:selected" ).each(function() {
 						});
 					var numeroption = $(this).find(':selected').attr('value');
+					var str = "Réinitialiser MDP";
 					$("#table tbody").empty();
 					$('#tablAjax').text("");
 					$.ajax({
@@ -27,8 +28,8 @@
 						dataType: "json",
 							success: function (json) {
 								$.each(json, function (index, value) {
-									{% set obj = value.user_id | json_decode %}
-									$('#table').append('<tbody class="table" id="table" data-toggle="BootstrapTable" data-height="460"><tr><td>'+value.nom+' '+value.prenom+'</td><td>'+value.date+'</td><td><a href="{{ path("MDPDefaultEtudiant", { "user_id": {{obj}} }) }}">Réinitialisé MDP</td></tr></tbody></table>');
+									var result = str.link("REmdpEtudiant/"+value.user_id+"");
+									$('#table').append('<tbody class="table" id="table" data-toggle="BootstrapTable" data-height="460"><tr><td>'+value.nom+' '+value.prenom+'</td><td>'+value.date+'</td><td>'+result+'</td></tr></tbody></table>');
 									});
 								},
 								error: function(jxh,textmsg,errorThrown){

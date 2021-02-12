@@ -70,12 +70,12 @@ listerEnseignant:
 
 #Reinitailisation du mdp enseignant
 MDPDefaultEnseignant:
-    path: /admin/REmpdEnseignant/{user_id}
+    path: /admin/REmdpEnseignant/{user_id}
     controller: App\Controller\AdminController::REmpdEnseignant
 
 #Reinitailisation du mdp enseignant   
 MDPDefaultEtudiant:
-    path: /admin/REmpdEtudiant/{user_id}
+    path: /admin/REmdpEtudiant/{user_id}
     controller: App\Controller\AdminController::REmpdEtudiant
 
         # Route concernant RP ( etudiant )
