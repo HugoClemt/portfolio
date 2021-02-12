@@ -187,10 +187,6 @@ listerRPPromo:
     path: /enseignant/rp/listerLesRP
     controller: App\Controller\RPController::listerLesRPPromo
 
-#lister toutes les RP d'une promo
-rpListerPromo:
-    path: /enseignant/rp/listerParPromo/{annee}
-    controller: App\Controller\RPController::listerParPromo
 
 #valider une rp (prof)
 viseRP:
