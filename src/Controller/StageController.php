@@ -191,20 +191,31 @@ class StageController extends AbstractController
         }
         else
         {
-            $form = $this->createForm(StageType::class, $stage);
-            $form->handleRequest($request);
+            $formStage = $this->createForm(StageType::class, $stage);
+            $formStage->handleRequest($request);
+
+            $formAffecte = $this->createForm(AffecterType::class, $stage);
+            $formAffecte->handleRequest($request);
 
             //var_dump($stage) ;
-            if($form->isSubmitted()){
-                $stage = $form->getData();
+            if($formStage->isSubmitted()){
+                $stage = $formStage->getData();
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($stage);
                 $entityManager->flush();
                 $this->addFlash('success', 'Stage modifié avec succès !');
-                return $this->render('stage/consulter.html.twig', array('form' => $form->createView(), 'pSemaines' => $semaines,'pStage' => $stage, 'pEtudiant' => $etudiant, 'pEnseignant' => $enseignant));
+                return $this->render('stage/consulter.html.twig', array('formStage' => $formStage->createView(), 'formAffecte' => $formAffecte->createView(), 'pSemaines' => $semaines,'pStage' => $stage, 'pEtudiant' => $etudiant, 'pEnseignant' => $enseignant));
+            }
+            elseif($formAffecte->isSubmitted()){
+                $stage = $formAffecte->getData();
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($stage);
+                $entityManager->flush();
+                $this->addFlash('success', 'Stage affecté avec succès !');
+                return $this->render('stage/consulter.html.twig', array('formStage' => $formStage->createView(), 'formAffecte' => $formAffecte->createView(), 'pSemaines' => $semaines,'pStage' => $stage, 'pEtudiant' => $etudiant, 'pEnseignant' => $enseignant));
             }
             else{  
-                return $this->render('stage/consulter.html.twig', array('form' => $form->createView(), 'pSemaines' => $semaines,'pStage' => $stage, 'pEtudiant' => $etudiant, 'pEnseignant' => $enseignant));
+                return $this->render('stage/consulter.html.twig', array('formStage' => $formStage->createView(), 'formAffecte' => $formAffecte->createView(), 'pSemaines' => $semaines,'pStage' => $stage, 'pEtudiant' => $etudiant, 'pEnseignant' => $enseignant));
             }
         }
     }
@@ -404,18 +415,13 @@ class StageController extends AbstractController
         }
     }
 
-    public function AffecterStage(){
+    public function ListerStages(){
 
         $stages = $this->getDoctrine()
         ->getRepository(Stage::class)
-        ->findAll();
+        ->findBy(array(),array('enseignant' => "DESC"));
 
-
-        $enseignant = new Enseignant();
-        $form = $this->createForm(AffecterType::class, $stages);
-        $form->handleRequest($request);
-
-        return $this->render('stage/affecterStage.html.twig', array('form' => $form->createView(), 'pStages' => $stages));
+        return $this->render('stage/listerStages.html.twig', array('pStages' => $stages));
 
     }
 

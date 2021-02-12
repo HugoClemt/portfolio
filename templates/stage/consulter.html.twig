@@ -15,7 +15,15 @@
   <div class="container">
     <p></p>
     <center><h1>Consultation du stage</h1></center>
-    <center><p class='info'>Stage de <b>{{pStage.etudiant.prenom}} {{pStage.etudiant.nom}}</b> suivi par <b>{{pStage.enseignant.prenom}} {{pStage.enseignant.nom}}</b></p></center>       
+    <div class="form-row">
+    <div class='col-md-3 md-3'></div>
+    <div class='col-md-3 md-3'>de <b>{{pStage.etudiant.prenom}} {{pStage.etudiant.nom}}</b> suivi par </div>
+    <div class="col-md-3 md-3">{{ form_start(formAffecte) }}
+        {{ form_widget(formAffecte.enseignant, {'attr': {'class': 'form-control'}})}}</div> 
+    <div class="col-md-3 md-3">{{ form_widget(formAffecte.affecter, {'attr': {'class': 'form-control'}})}}
+        {{ form_end(formAffecte) }}
+    </div> 
+    </div>      
       <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #DDDDDD;">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -46,53 +54,53 @@
 
   <div class="container">
     <div class="alert " role="alert">
-    {{ form_start(form) }}
+    {{ form_start(formStage) }}
       <div class="form-row">
         <div class="col-md-6 mb-3">
           <label for="disabledTextInput">Nom de l'entreprise</label>
-            {{ form_widget(form.nomentreprise, {'attr': {'class': 'form-control', 'disabled':'disabled'}})  }} 
+            {{ form_widget(formStage.nomentreprise, {'attr': {'class': 'form-control', 'disabled':'disabled'}})  }} 
         </div>
         <div class="col-md-4 mb-3">
         <span title="Ce code est une suite de 14 chiffre propre à l'entreprise">
           <label for="validationCustom02">SIRET</label><img src={{ asset("images/info-8x.png") }} height=12>
         </span>
-            {{ form_widget(form.siret, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
+            {{ form_widget(formStage.siret, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
         </div>
         <div class="col-md-2 mb-3">
         <span title="Ce code est une suite de chiffre et de lettre décrivant l'activté principal de l'entreprise">
           <label for="validationCustom02">Code NAF</label><img src={{ asset("images/info-8x.png") }} height=12>
         </span>
-            {{ form_widget(form.codenaf, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
+            {{ form_widget(formStage.codenaf, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
         </div> 
       </div>
 
       <div class="form-row">
         <div class="col-md-6 mb-3">
           <label for="validationCustom02">Adresse</label>
-            {{ form_widget(form.adrentreprise, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
+            {{ form_widget(formStage.adrentreprise, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
         </div>
         <div class="col-md-4 mb-3">
           <label for="disabledTextInput">Ville</label>
-            {{ form_widget(form.ville, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
+            {{ form_widget(formStage.ville, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
         </div>
         <div class="col-md-2 mb-3">
           <label for="disabledTextInput">Code Postal</label>
-            {{ form_widget(form.copos, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
+            {{ form_widget(formStage.copos, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
         </div>
       </div>
       
       <div class="form-row">
         <div class="col-md-4 mb-3">
           <label for="disabledTextInput">Nom du tuteur</label>
-            {{ form_widget(form.nomtut, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
+            {{ form_widget(formStage.nomtut, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
         </div>
         <div class="col-md-3 mb-3">
           <label for="validationCustom02">Téléphone du tuteur</label>
-            {{ form_widget(form.teltut, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
+            {{ form_widget(formStage.teltut, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
         </div>
         <div class="col-md-5 mb-3">
           <label for="validationCustom02" >Mail du tuteur</label>
-            {{ form_widget(form.mailtut, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
+            {{ form_widget(formStage.mailtut, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
         </div>
       </div>
 
@@ -100,15 +108,15 @@
       <div class="form-row">
         <div class="col-md-6 mb-3">
           <label for="disabledTextInput">Directeur</label>
-            {{ form_widget(form.directeur, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
+            {{ form_widget(formStage.directeur, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
         </div>
         <div class="col-md-3 mb-3">
           <label for="validationCustom02" >Mail</label>
-            {{ form_widget(form.mailentreprise, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
+            {{ form_widget(formStage.mailentreprise, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
         </div>
         <div class="col-md-3 mb-3">
           <label for="exampleInputEmail">Téléphone</label>
-            {{ form_widget(form.telentreprise, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
+            {{ form_widget(formStage.telentreprise, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
         </div>
       </div>
       
@@ -117,15 +125,15 @@
         <span title="Lieux où s'effectura le stage, cela peut etre différent de l'adresse de l'entreprise">
           <label for="disabledTextInput">Lieu du stage</label><img src={{ asset("images/info-8x.png") }} height=12>
         </span>
-            {{ form_widget(form.lieu, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
+            {{ form_widget(formStage.lieu, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
         </div>
         <div class="col-md-4 mb-3">
           <label for="validationCustom02">Sujet</label>
-            {{ form_widget(form.sujet, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
+            {{ form_widget(formStage.sujet, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
         </div>
         <div class="col-md-4 mb-3">
           <label for="validationCustom02">Service</label>
-            {{ form_widget(form.service, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
+            {{ form_widget(formStage.service, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
         </div>
       </div>
       
@@ -133,42 +141,42 @@
       <div class="form-row">
         <div class="col-md-3 mb-3">
           <label for="disabledTextInput">Date de debut du stage</label>
-            {{ form_widget(form.dateDebut, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
+            {{ form_widget(formStage.dateDebut, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
         </div>
         <div class="col-md-3 mb-3">
           <label for="validationCustom02">Date de fin du stage</label>
-            {{ form_widget(form.dateFin, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
+            {{ form_widget(formStage.dateFin, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
         </div>
         <div class="col-md-6 mb-3">
           <label for="disabledTextInput">Durée (en semaines)</label>
-            {{ form_widget(form.nbsemaine, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
+            {{ form_widget(formStage.nbsemaine, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
         </div>
       </div>
       
       <div class="form-row">
         <div class="col-md-2 mb-3">
           <label for="validationCustom02" >Horaire Lundi</label>
-            {{ form_widget(form.horLun, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
+            {{ form_widget(formStage.horLun, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
         </div>
         <div class="col-md-2 mb-3">
         <label for="validationCustom02" >Horaire Mardi</label>
-            {{ form_widget(form.horMar, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
+            {{ form_widget(formStage.horMar, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
         </div>
         <div class="col-md-2">
           <label for="validationCustom02" >Horaire Mercredi</label>
-            {{ form_widget(form.horMer, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
+            {{ form_widget(formStage.horMer, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
         </div>
         <div class="col-md-2">
           <label for="validationCustom02" >Horaire Jeudi</label>
-            {{ form_widget(form.horJeu, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
+            {{ form_widget(formStage.horJeu, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
         </div>
         <div class="col-md-2">
           <label for="validationCustom02" >Horaire Vendredi</label>
-            {{ form_widget(form.horVen, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
+            {{ form_widget(formStage.horVen, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
         </div>
         <div class="col-md-2 mb-3">
           <label for="validationCustom02" >Horaire Samedi</label>
-            {{ form_widget(form.horSam, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
+            {{ form_widget(formStage.horSam, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}
         </div>
       </div>
       <br>
@@ -208,53 +216,53 @@
 
   <div class="container">
     <div class="alert " role="alert">
-    {{ form_start(form) }}
+    {{ form_start(formStage) }}
       <div class="form-row">
         <div class="col-md-6 mb-3">
           <label for="disabledTextInput">Nom de l'entreprise</label>
-            {{ form_widget(form.nomentreprise, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(formStage.nomentreprise, {'attr': {'class': 'form-control'}}) }}
         </div>
         <div class="col-md-4 mb-3">
         <span title="Ce code est une suite de 14 chiffre propre à l'entreprise">
           <label for="validationCustom02">SIRET</label><img src={{ asset("images/info-8x.png") }} height=12>
         </span>
-            {{ form_widget(form.siret, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(formStage.siret, {'attr': {'class': 'form-control'}}) }}
         </div>
         <div class="col-md-2 mb-3">
         <span title="Ce code est une suite de chiffre et de lettre décrivant l'activté principal de l'entreprise">
           <label for="validationCustom02">Code NAF</label><img src={{ asset("images/info-8x.png") }} height=12>
         </span>
-            {{ form_widget(form.codenaf, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(formStage.codenaf, {'attr': {'class': 'form-control'}}) }}
         </div> 
       </div>
 
       <div class="form-row">
         <div class="col-md-6 mb-3">
           <label for="validationCustom02">Adresse</label>
-            {{ form_widget(form.adrentreprise, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(formStage.adrentreprise, {'attr': {'class': 'form-control'}}) }}
         </div>
         <div class="col-md-4 mb-3">
           <label for="disabledTextInput">Ville</label>
-            {{ form_widget(form.ville, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(formStage.ville, {'attr': {'class': 'form-control'}}) }}
         </div>
         <div class="col-md-2 mb-3">
           <label for="disabledTextInput">Code Postal</label>
-            {{ form_widget(form.copos, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(formStage.copos, {'attr': {'class': 'form-control'}}) }}
         </div>
       </div>
       
       <div class="form-row">
         <div class="col-md-4 mb-3">
           <label for="disabledTextInput">Nom du tuteur</label>
-            {{ form_widget(form.nomtut, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(formStage.nomtut, {'attr': {'class': 'form-control'}}) }}
         </div>
         <div class="col-md-3 mb-3">
           <label for="validationCustom02">Téléphone du tuteur</label>
-            {{ form_widget(form.teltut, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(formStage.teltut, {'attr': {'class': 'form-control'}}) }}
         </div>
         <div class="col-md-5 mb-3">
           <label for="validationCustom02" >Mail du tuteur</label>
-            {{ form_widget(form.mailtut, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(formStage.mailtut, {'attr': {'class': 'form-control'}}) }}
         </div>
       </div>
 
@@ -262,15 +270,15 @@
       <div class="form-row">
         <div class="col-md-6 mb-3">
           <label for="disabledTextInput">Directeur</label>
-            {{ form_widget(form.directeur, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(formStage.directeur, {'attr': {'class': 'form-control'}}) }}
         </div>
         <div class="col-md-3 mb-3">
           <label for="validationCustom02" >Mail</label>
-            {{ form_widget(form.mailentreprise, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(formStage.mailentreprise, {'attr': {'class': 'form-control'}}) }}
         </div>
         <div class="col-md-3 mb-3">
           <label for="exampleInputEmail">Téléphone</label>
-            {{ form_widget(form.telentreprise, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(formStage.telentreprise, {'attr': {'class': 'form-control'}}) }}
         </div>
       </div>
       
@@ -279,15 +287,15 @@
         <span title="Lieux où s'effectura le stage, cela peut etre différent de l'adresse de l'entreprise">
           <label for="disabledTextInput">Lieu du stage</label><img src={{ asset("images/info-8x.png") }} height=12>
         </span>
-            {{ form_widget(form.lieu, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(formStage.lieu, {'attr': {'class': 'form-control'}}) }}
         </div>
         <div class="col-md-4 mb-3">
           <label for="validationCustom02">Sujet</label>
-            {{ form_widget(form.sujet, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(formStage.sujet, {'attr': {'class': 'form-control'}}) }}
         </div>
         <div class="col-md-4 mb-3">
           <label for="validationCustom02">Service</label>
-            {{ form_widget(form.service, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(formStage.service, {'attr': {'class': 'form-control'}}) }}
         </div>
       </div>
       
@@ -295,51 +303,51 @@
       <div class="form-row">
         <div class="col-md-3 mb-3">
           <label for="disabledTextInput">Date de debut du stage</label>
-            {{ form_widget(form.dateDebut, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(formStage.dateDebut, {'attr': {'class': 'form-control'}}) }}
         </div>
         <div class="col-md-3 mb-3">
           <label for="validationCustom02">Date de fin du stage</label>
-            {{ form_widget(form.dateFin, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(formStage.dateFin, {'attr': {'class': 'form-control'}}) }}
         </div>
         <div class="col-md-6 mb-3">
           <label for="disabledTextInput">Durée (en semaines)</label>
-            {{ form_widget(form.nbsemaine, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(formStage.nbsemaine, {'attr': {'class': 'form-control'}}) }}
         </div>
       </div>
       
       <div class="form-row">
         <div class="col-md-2 mb-3">
           <label for="validationCustom02" >Horaire Lundi</label>
-            {{ form_widget(form.horLun, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(formStage.horLun, {'attr': {'class': 'form-control'}}) }}
         </div>
         <div class="col-md-2 mb-3">
         <label for="validationCustom02" >Horaire Mardi</label>
-            {{ form_widget(form.horMar, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(formStage.horMar, {'attr': {'class': 'form-control'}}) }}
         </div>
         <div class="col-md-2">
           <label for="validationCustom02" >Horaire Mercredi</label>
-            {{ form_widget(form.horMer, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(formStage.horMer, {'attr': {'class': 'form-control'}}) }}
         </div>
         <div class="col-md-2">
           <label for="validationCustom02" >Horaire Jeudi</label>
-            {{ form_widget(form.horJeu, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(formStage.horJeu, {'attr': {'class': 'form-control'}}) }}
         </div>
         <div class="col-md-2">
           <label for="validationCustom02" >Horaire Vendredi</label>
-            {{ form_widget(form.horVen, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(formStage.horVen, {'attr': {'class': 'form-control'}}) }}
         </div>
         <div class="col-md-2 mb-3">
           <label for="validationCustom02" >Horaire Samedi</label>
-            {{ form_widget(form.horSam, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(formStage.horSam, {'attr': {'class': 'form-control'}}) }}
         </div>
       </div>
       <br>
       <center>
         <div class="col-12">
-          {{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
+          {{ form_widget(formStage.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
         </div>
       </center>
-    {{ form_end(form) }}
+    {{ form_end(formStage) }}
   </body>
   {% else %}
   <br>

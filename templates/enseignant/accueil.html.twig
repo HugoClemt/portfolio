@@ -41,12 +41,16 @@
           <tbody>
                 {% for stage in pStages %}
             <tr>
-            <td>{{stage.etudiant.nom}} {{stage.etudiant.prenom}}</a></td>
-			<td>{{stage.etudiant.promotion.specialite.sigle}}
-            <td>{{stage.sujet}}</td>
-            <td>{{stage.nomentreprise}}</td>
-            <td>{{stage.nomtut}}</td>
-            <td><a href="{{ path('StageConsulter', { 'stage_id': stage.id }) }}">Détail</a></td>
+				<td>{{stage.etudiant.nom}} {{stage.etudiant.prenom}}</a></td>
+				<td>{{stage.etudiant.promotion.nom}}
+				<td>{{stage.sujet}}</td>
+				<td>{{stage.nomentreprise}}</td>
+				<td>{{stage.nomtut}}</td>
+				{% if stage.semaineStages|length > 0 %}
+				<td><a href="{{ path('StageConsulter', { 'stage_id': stage.id }) }}">Carnet de bord</a></td>
+				{% else %}
+				<td>Stage non valide</td>
+				{% endif %}
 
 
   {% else %}
