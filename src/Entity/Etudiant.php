@@ -86,10 +86,6 @@ class Etudiant
      */
     private $user;
 
-
-
-    
-
     public function __construct()
     {
         $this->RPs = new ArrayCollection();

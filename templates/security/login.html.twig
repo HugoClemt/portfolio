@@ -7,7 +7,7 @@
 {% block body %}
 
 <center>
-<img src= {{ asset('images/logo.png') }} height=200>
+<img src= {{ asset('images/logo_carre.png') }} height=200>
 </center>
 <div class='container'>
     <form method="post">
@@ -22,7 +22,7 @@
         {% endif %}
 
         <h1 class="h3 mb-3 font-weight-normal">Connectez-vous !</h1>
-        <label for="inputUsername">Identtifiant</label>
+        <label for="inputUsername">Identifiant</label>
         <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" required autofocus>
         <label for="inputPassword">Mot de passe</label>
         <input type="password" name="password" id="inputPassword" class="form-control" required>
