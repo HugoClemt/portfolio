@@ -273,9 +273,9 @@ ListerAncienStages:
     controller: App\Controller\StageController::ListerAncienStages
 
 #Affecter les stages non affecter
-ListerStages:
-    path: /enseignant/stage/ListerStages
-    controller: App\Controller\StageController::ListerStages
+AffecterStage:
+    path: /enseignant/stage/AffecterStage
+    controller: App\Controller\StageController::AffecterStage
 
 
 
