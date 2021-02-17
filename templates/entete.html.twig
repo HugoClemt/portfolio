@@ -109,7 +109,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">  
           {% if is_granted('ROLE_ENSEIGNANT') %}
             <a class="dropdown-item" href="{{ path('ListerStagesAffect', { 'enseignant_id': app.user.enseignant.id }) }}">Lister Stage affectés</a>
-            <a class="dropdown-item" href="{{ path('ListerStages') }}">Lister stages</a>
+            <a class="dropdown-item" href="{{ path('AffecterStage') }}">Lister stages</a>
           {% else %}
             <a class="dropdown-item" href="{{ path('EtudiantListerStage', { 'etudiant_id': app.user.etudiant.id }) }}">Carnet de bord</a>
           {% endif %}

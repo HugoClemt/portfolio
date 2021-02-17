@@ -13,12 +13,12 @@
 	<div class="form-row">
 				<div class="col-md-6 mb-3">
 					<label>Nom</label>
-						{{ form_widget(formEtudiant.nom, {'attr': {'class': 'form-control'}})}}
+						{{ form_widget(formEtudiant.nom, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}
 				</div>
 
 				<div class="col-md-6 mb-3">
-					<label>Prenom</label>
-						{{ form_widget(formEtudiant.prenom, {'attr': {'class': 'form-control'}})}}
+					<label>Prénom</label>
+						{{ form_widget(formEtudiant.prenom, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}
 				</div>
 
 	</div>
@@ -55,17 +55,144 @@
 					</div></center>
 	{{ form_end(formEtudiant) }}
 	     {{ form_start(formMDP) }}
-	                <div class="form-row">
-				        <div class="col-md-6 mb-3">
-					    <label>Changer le mot de passe</label>
-						    {{ form_widget(formMDP.password, {'attr': {'class': 'form-control'}})}}
-				        <br>
-                    <center><div class="col-12">
+		 <br>
+	            <div class="form-row">
+					<div class="col-md-4 mb-3">
+						<label>Ancien mot de passe</label>
+  						<input type="password" class="form-control" name="old_password" id="old_password">
+					</div>
+				    <div class="col-md-4 mb-3">
+					    <label>Nouveau mot de passe</label>
+						{{ form_widget(formMDP.password, {'attr': {'class': 'form-control'}})}}
+						</div>
+					<div class="col-md-4 mb-3">
+						<label>Confirmer mot de passe</label>
+  						<input type="password" class="form-control" name="new_password" id="new_password">
+					</div>
+				</div>
+					<center><div>
 						{{ form_widget(formMDP.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
 					</div></center>
-                    {{ form_end(formMDP) }}	
-	
+                    {{ form_end(formMDP) }}
+				<div id="message">
+				</div>
+				<input type="button" id="verif">		
+				
 </div>
+
+
+{% block javascripts %}
+						<script src="https://code.jquery.com/jquery-3.4.1.js"
+									integrity= "sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" 
+									crossorigin="anonymous"> 
+						</script>
+						<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
+						<script>
+							jQuery( document ).ready(function( $ ) {
+								$("#verif").click(function () {
+									var mdp_modif_password = $("#mdp_modif_password").val();
+									var new_password = $("#new_password").val();
+									var old_password = $("#old_password").val();
+									var user_id = "{{ app.user.id }}";
+									
+									
+									$.ajax({
+										type: "post",
+										url: '{{ path('MDPModifEtu') }}',
+										data: { old_password : old_password, new_password : new_password, mdp_modif_password : mdp_modif_password, user_id : user_id },
+										dataType: "json",
+										
+										success: function (json) {
+
+										$.each(json, function (index, value) {
+											if (value.statut == 1){
+												$('#message').text('Ancien mot de passe incorrect');
+											}
+											else if (value.statut == 2){
+												$('#message').text('Nouveau mot de passe non identique ou vide');
+											}
+											else{
+												$('#message').text('Tout est correct, tu peux y aller');
+											}
+
+											
+																  
+
+										});
+										},
+										error: function(jxh,textmsg,errorThrown){
+											console.log(textmsg);
+											console.log(errorThrown);
+										}
+									});
+									
+								});
+							});
+						</script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{# {% block javascripts %}
+						<script src="https://code.jquery.com/jquery-3.4.1.js"
+									integrity= "sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" 
+									crossorigin="anonymous"> 
+						</script>
+						<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
+						<script>
+							jQuery( document ).ready(function( $ ) {
+								$("#verif").click(function () {
+									var mdp_modif_password = $("#mdp_modif_password").val();
+									var new_password = $("#new_password").val();
+									var old_password = $("#old_password").val();
+									
+									$.ajax({
+										type: "post",
+										url: '{{ path('MDPModifEtu') }}',
+										data: { old_password : old_password, new_password : new_password, mdp_modif_password : mdp_modif_password },
+										dataType: "json",
+										
+										success: function (json) {
+
+										$.each(json, function (index, value) {
+											if (value.statut == 1){
+												$('#message').text('Ancien mot de passe incorrect');
+											}
+											else if (value.statut == 2){
+												$('#message').text('Nouveau mot de passe non identique');
+											}
+											else{
+												$('#message').text('Tout est correct, tu peux y aller');
+											}
+
+											
+																  
+
+										});
+										},
+										error: function(jxh,textmsg,errorThrown){
+											console.log(textmsg);
+											console.log(errorThrown);
+										}
+									});
+									
+								});
+							});
+						</script>
+{% endblock %} #}
+
 {% else %}
 <br>
 <center><p>Eh bin non tu n'auras pas les informations d'une autre personne ! <a href="{{ path('etudiantConsulter', { 'etudiant_id': app.user.etudiant.id }) }}">Clique ici</p></center>

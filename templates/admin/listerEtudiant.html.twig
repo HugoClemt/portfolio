@@ -4,6 +4,9 @@
 input[type=checkbox]{
 	transform: scale(1.5);
 }
+p.nowrap{
+	white-space: nowrap;
+}
 </style>
 <body>
 	<br>
@@ -28,20 +31,23 @@ input[type=checkbox]{
 						}
 						$(this).toggleClass('allChecked');
 					})
+<<<<<<< HEAD
 					var selected = [];
 					$('#checkboxes input:checked').each(function){
 						selected.push($(this).attr('name'));
 					}
 
 
+=======
+					
+>>>>>>> 4ec2ac74c50cc4f2982d201cfd0b4d9acde0f395
 					$("#promotion").change(function () {
 						$( "select option:selected" ).each(function() {
 						});
 					var numeroption = $(this).find(':selected').attr('value');
-					var str = "Acceder au compte";
+					var str = "Accéder au compte";
 					var str1 = "Aucun compte associé";
 					$("#table tbody").empty();
-					$('#tablAjax').text("");
 					$.ajax({
 						type: "post",
 						url: '{{ path('afficherEtudiantPromo') }}',
@@ -55,7 +61,7 @@ input[type=checkbox]{
 									else{
 										var result = str.link("ConsulterEtudiantAdmin/"+value.user_id+"");
 									}
-									$('#table').append('<tbody class="table" id="table" data-toggle="BootstrapTable" data-height="460"><tr><td><input type="checkbox" id="selectPromo"></input></td><td>'+value.nom+' '+value.prenom+'</td><td>'+value.username+'</td><td>'+result+'</td></tr></tbody></table>');
+									$('#table').append('<tbody class="table" id="table" data-toggle="BootstrapTable" data-height="460"><tr><td><input type="checkbox" id="selectPromo" name='+value.id+'></input></td><td>'+value.nom+' '+value.prenom+'</td><td>'+value.username+'</td><td>'+result+'</td></tr></tbody></table>');
 									});
 								},
 								error: function(jxh,textmsg,errorThrown){
@@ -63,26 +69,60 @@ input[type=checkbox]{
 									console.log(errorThrown);
 								}
 						});
-						});
 					});
+
+					$("#Affecter").click(function () {
+						var selected = [];
+							$('#checkboxes input:checked').each(function() {
+								selected.push($(this).attr('name'));
+							});
+						var numeroPromo = $("#promo").find(':selected').attr('value');
+						var selectedString = JSON.stringify(selected);
+
+						$.ajax({
+						type: "post",
+						url: '{{ path('DeplacerPromo') }}',
+						data: { numeroPromo : numeroPromo, selectedString : selectedString },
+						dataType: "json",
+						success: function (json) {
+									$.each(json, function (index, value) {
+									
+									});
+									location.reload();
+						},
+								
+						error: function(jxh,textmsg,errorThrown){
+									console.log(textmsg);
+									console.log(errorThrown);
+								}
+						});
+					})
+
+				});
 			</script>
 		{% endblock %}
+	<div id="checkboxes">
 		<table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
 			<thead>
 				<tr>
-					<th><input type="checkbox" id="selectAll" class="main"/></th>
+					<th><input type="checkbox" id="selectAll" class="main" name="0"/></th>
 					<th scope="col" data-sortable="true">Etudiant</th>
 					<th scope="col" data-sortable="true">Username</th>
 					<th></th>
 				</tr>
 			</thead>
 		</table>
+		<div id="test">
+	</div>
 		{{ form_start(formPromo) }}
-		<p>
+		<p class="nowrap">
 		<label id="promo">
 			{{ form_widget(formPromo.id, {'attr': {'class': 'form-control'}})}}
-		</label> <button type="submit" class="btn btn-secondary">Affecter</button></p>
+		</label> 
 		{{ form_end(formPromo)}}
+		<button type="submit" class="btn btn-secondary" id="Affecter">Affecter</button></p>
 	</div>
+	</div>
+	
 </body>
 {% endblock %}
