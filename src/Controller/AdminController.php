@@ -14,6 +14,7 @@ use App\Form\EnseignantType;
 use App\Entity\User;
 use App\Entity\Etudiant;
 use App\Entity\Enseignant;
+use App\Controller\OutilChangePromo;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -262,7 +263,7 @@ class AdminController extends AbstractController
 
         #return $this->render('admin/listerEtudiant.html.twig', array('pUser' => $user));   
         return $this->redirectToRoute('listerEtudiant');
-        
+
     }
 
     public function ConsulterEtudiantAdmin($user_id, Request $request, UserPasswordEncoderInterface $passwordEncoder){
@@ -302,33 +303,50 @@ class AdminController extends AbstractController
         }
     }
 
-    public function DeplacerPromo($user_id){
 
-        $user = $this->getDoctrine()
-        ->getRepository(User::class)
-        ->findOneById($user_id);
+    public function OutilChangePromo($numeroPromo, $selectedString){
 
-        $etudiant = $this->getDoctrine()
-        ->getRepository(Etudiant::class)
-        ->find($user->getEtudiant()->getId());
-
-        $promotion = $this->getDorctrine()
+        $promotion = $this->getDoctrine()
         ->getRepository(Promotion::class)
-        ->find();
-    
-        $form = $this->createForm(EtudiantType::class, $etudiant);
-        $form->handleRequest($request);
+        ->findOneById($numeroPromo);
 
-        if($form->isSubmitted()){
-            $etudiant = $form->getData();
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($etudiant);
-            $entityManager->flush();
-            return $this->redirectToRoute('listerEtudiant');
+        $selectedString = str_replace("\"", "", $selectedString);
+
+        $selectedString = str_replace("[", "", $selectedString);
+
+        $selectedString = str_replace("]", "", $selectedString);
+
+        $selected = explode(",", $selectedString);
+
+        foreach ($selected as $etu_id){
+            if(!$etu_id){
+            }
+            else{
+                $etudiant = $this->getDoctrine()
+                ->getRepository(Etudiant::class)
+                ->findById($etu_id);
+                $etudiant->setPromotion($promotion);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($etudiant);
+                $entityManager->flush();
+            }
+           
         }
-        else{  
-            return $this->render('admin/listerEtudiant.html.twig', array('form' => $form->createView(),'pUser' => $user, 'pEtudiant' => $etudiant));
-        }
+
+    }
+
+
+    /**
+     * @Route(name="DeplacerPromo",path="/DeplacerPromo")
+     * @param Request $request
+     */
+    public function DeplacerPromo(Request $request){
+
+        $numeroPromo=$_POST["numeroPromo"];
+        $selectedString=$_POST["selectedString"];
+        self::OutilChangePromo($numeroPromo, $selectedString);
+        $output=array();
+        return new JsonResponse($output);
     }
 }
         
