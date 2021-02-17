@@ -19,6 +19,7 @@ input[type=checkbox]{
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
 			<script>
 				jQuery( document ).ready(function( $ ) {
+					
 					$('body').on('click', '#selectAll', function () {
 						if ($(this).hasClass('allChecked')) {
 							$('input[type="checkbox"]', '#table').prop('checked', false);
@@ -27,6 +28,12 @@ input[type=checkbox]{
 						}
 						$(this).toggleClass('allChecked');
 					})
+					var selected = [];
+					$('#checkboxes input:checked').each(function){
+						selected.push($(this).attr('name'));
+					}
+
+
 					$("#promotion").change(function () {
 						$( "select option:selected" ).each(function() {
 						});
