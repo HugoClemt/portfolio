@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Promotion;
 use App\Form\PromotionType;
 use App\Form\EtudiantType;
+use App\Form\EtudiantInfoType;
 use App\Form\EnseignantType;
 use App\Entity\User;
 use App\Entity\Etudiant;
@@ -57,13 +58,6 @@ class AdminController extends AbstractController
         }
     }
 
-    public function admin(){
-        $users = $this->getDoctrine()->getRepository(User::class)->findAll();
-
-        return $this->render('admin/index.html.twig', ['users' => $users]);
-
-    }
-
     public function accueil(){
         
         return $this->render('admin/accueil.html.twig');
@@ -78,16 +72,12 @@ class AdminController extends AbstractController
         $etudiant = new Etudiant();
         $form = $this->createForm(EtudiantType::class, $etudiant);
         $form->handleRequest($request);
-        $etudiant->setMail('example@example.com');
         $etudiant->setMobile('XXXXXXXXXX');
         $etudiant->setDatenaiss(new \DateTime('01/01'));
         $etudiant->setAdrperso('AdrPerso');
         $etudiant->setVille('Caen');
         $etudiant->setCopos('14000');
         $etudiant->setStatut('active');
-        $etudiant->setPromotion($promotion);
-        
-        
 
         if ($form->isSubmitted()) {
      
@@ -202,8 +192,10 @@ class AdminController extends AbstractController
         $promotion = new Promotion();
         $form = $this->createForm(PromotionType::class, $promotion);
         $form->handleRequest($request);
+        $formPromo = $this->createForm(PromotionType::class, $promotion);
+        $formPromo->handleRequest($request);
 
-        return $this->render('admin/listerEtudiant.html.twig', array('pEtudiants' => $etudiants, 'form' => $form->createView()));
+        return $this->render('admin/listerEtudiant.html.twig', array('pEtudiants' => $etudiants, 'form' => $form->createView(), 'formPromo' => $formPromo->createView()));
     }
 
     /**
@@ -233,7 +225,6 @@ class AdminController extends AbstractController
                 'id'=>$etudiant->getId(),
                 'nom'=>$etudiant->getNom(),
                 'prenom'=>$etudiant->getPrenom(),
-                'date'=>$etudiant->getDateNaiss()->format('d/m/Y')
             );}
         else{
             $output[]=array(
@@ -273,4 +264,71 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('listerEtudiant');
         
     }
+
+    public function ConsulterEtudiantAdmin($user_id, Request $request, UserPasswordEncoderInterface $passwordEncoder){
+
+        $user = $this->getDoctrine()
+        ->getRepository(User::class)
+        ->findOneById($user_id);
+
+        $etudiant = $this->getDoctrine()
+        ->getRepository(Etudiant::class)
+        ->find($user->getEtudiant()->getId());
+
+        $promotion = $this->getDoctrine()
+        ->getRepository(Promotion::class)
+        ->find($user->getEtudiant()->getPromotion()->getId());
+
+        $form = $this->createForm(EtudiantType::class, $etudiant);
+        $form->handleRequest($request);
+        $etudiant->setPromotion($promotion);
+
+        if($form->isSubmitted()){
+
+            $etudiant = $form->getData();
+            $user->setUsername(strtolower($etudiant->getPrenom()).".".strtolower($etudiant->getNom()));
+            
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($etudiant);
+            $entityManager->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+            return $this->render('admin/consulterEtudiant.html.twig', array('form'=>$form->createView(), 'pEtudiant' => $etudiant, 'pUser' => $user));
+        }
+        else
+        {
+            return $this->render('admin/consulterEtudiant.html.twig', array('form'=>$form->createView(), 'pEtudiant' => $etudiant, 'pUser' => $user));
+        }
+    }
+
+    public function DeplacerPromo($user_id){
+
+        $user = $this->getDoctrine()
+        ->getRepository(User::class)
+        ->findOneById($user_id);
+
+        $etudiant = $this->getDoctrine()
+        ->getRepository(Etudiant::class)
+        ->find($user->getEtudiant()->getId());
+
+        $promotion = $this->getDorctrine()
+        ->getRepository(Promotion::class)
+        ->find();
+    
+        $form = $this->createForm(EtudiantType::class, $etudiant);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()){
+            $etudiant = $form->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($etudiant);
+            $entityManager->flush();
+            return $this->redirectToRoute('listerEtudiant');
+        }
+        else{  
+            return $this->render('admin/listerEtudiant.html.twig', array('form' => $form->createView(),'pUser' => $user, 'pEtudiant' => $etudiant));
+        }
+    }
 }
+        

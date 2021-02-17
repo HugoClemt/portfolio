@@ -1,5 +1,10 @@
 {% extends "entete.html.twig" %}
 {% block content %}
+<style>
+input[type=checkbox]{
+	transform: scale(1.5);
+}
+</style>
 <body>
 	<br>
 	<div class="container">
@@ -14,12 +19,20 @@
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
 			<script>
 				jQuery( document ).ready(function( $ ) {
+					$('body').on('click', '#selectAll', function () {
+						if ($(this).hasClass('allChecked')) {
+							$('input[type="checkbox"]', '#table').prop('checked', false);
+						} else {
+							$('input[type="checkbox"]', '#table').prop('checked', true);
+						}
+						$(this).toggleClass('allChecked');
+					})
 					$("#promotion").change(function () {
 						$( "select option:selected" ).each(function() {
 						});
 					var numeroption = $(this).find(':selected').attr('value');
-					var str = "Réinitialiser MDP";;
-					var str1 = "Aucun compte associé" 
+					var str = "Acceder au compte";
+					var str1 = "Aucun compte associé";
 					$("#table tbody").empty();
 					$('#tablAjax').text("");
 					$.ajax({
@@ -33,9 +46,9 @@
 										var result = str1;
 									}
 									else{
-										var result = str.link("REmdpEtudiant/"+value.user_id+"");
+										var result = str.link("ConsulterEtudiantAdmin/"+value.user_id+"");
 									}
-									$('#table').append('<tbody class="table" id="table" data-toggle="BootstrapTable" data-height="460"><tr><td>'+value.nom+' '+value.prenom+'</td><td>'+value.date+'</td><td>'+result+'</td></tr></tbody></table>');
+									$('#table').append('<tbody class="table" id="table" data-toggle="BootstrapTable" data-height="460"><tr><td><input type="checkbox" id="selectPromo"></input></td><td>'+value.nom+' '+value.prenom+'</td><td>'+value.username+'</td><td>'+result+'</td></tr></tbody></table>');
 									});
 								},
 								error: function(jxh,textmsg,errorThrown){
@@ -50,12 +63,19 @@
 		<table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
 			<thead>
 				<tr>
+					<th><input type="checkbox" id="selectAll" class="main"/></th>
 					<th scope="col" data-sortable="true">Etudiant</th>
-					<th scope="col" data-sortable="true">Date</th>
+					<th scope="col" data-sortable="true">Username</th>
 					<th></th>
 				</tr>
 			</thead>
 		</table>
+		{{ form_start(formPromo) }}
+		<p>
+		<label id="promo">
+			{{ form_widget(formPromo.id, {'attr': {'class': 'form-control'}})}}
+		</label> <button type="submit" class="btn btn-secondary">Affecter</button></p>
+		{{ form_end(formPromo)}}
 	</div>
 </body>
 {% endblock %}

@@ -78,6 +78,11 @@ MDPDefaultEtudiant:
     path: /admin/REmdpEtudiant/{user_id}
     controller: App\Controller\AdminController::REmpdEtudiant
 
+#Reinitailisation du mdp enseignant   
+ConsulterEtudiantAdmin:
+    path: /admin/ConsulterEtudiantAdmin/{user_id}
+    controller: App\Controller\AdminController::ConsulterEtudiantAdmin
+
         # Route concernant RP ( etudiant )
 
 #RPPDF
