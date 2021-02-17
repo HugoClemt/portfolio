@@ -304,8 +304,17 @@ class AdminController extends AbstractController
     }
 
 
-    public function OutilChangePromo($numeroPromo, $selectedString){
 
+
+
+    /**
+     * @Route(name="DeplacerPromo",path="/DeplacerPromo")
+     * @param Request $request
+     */
+    public function DeplacerPromo(Request $request){
+
+        $numeroPromo=$_POST["numeroPromo"];
+        $selectedString=$_POST["selectedString"];
         $promotion = $this->getDoctrine()
         ->getRepository(Promotion::class)
         ->findOneById($numeroPromo);
@@ -324,7 +333,7 @@ class AdminController extends AbstractController
             else{
                 $etudiant = $this->getDoctrine()
                 ->getRepository(Etudiant::class)
-                ->findById($etu_id);
+                ->findOneById($etu_id);
                 $etudiant->setPromotion($promotion);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($etudiant);
@@ -332,19 +341,6 @@ class AdminController extends AbstractController
             }
            
         }
-
-    }
-
-
-    /**
-     * @Route(name="DeplacerPromo",path="/DeplacerPromo")
-     * @param Request $request
-     */
-    public function DeplacerPromo(Request $request){
-
-        $numeroPromo=$_POST["numeroPromo"];
-        $selectedString=$_POST["selectedString"];
-        self::OutilChangePromo($numeroPromo, $selectedString);
         $output=array();
         return new JsonResponse($output);
     }
