@@ -62,7 +62,6 @@ class EnseignantController extends AbstractController
                 $entityManager->persist($enseignant);
                 $entityManager->flush();
                 $userIdentifiant = $enseignant->getUser();
-                $userIdentifiant->setUsername(strtolower($enseignant->getPrenom()).".".strtolower($enseignant->getNom()));
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($userIdentifiant);
                 $entityManager->flush();
