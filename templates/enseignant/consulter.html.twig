@@ -43,16 +43,79 @@
 	{{ form_end(formEnseignant) }}			
 
                     {{ form_start(formMDP) }}
-	                <div class="form-row">
-				        <div class="col-md-6 mb-3">
-					    <label>Changer le mot de passe</label>
-						    {{ form_widget(formMDP.password, {'attr': {'class': 'form-control'}})}}
-				        <br>
-                    <center><div class="col-12">
-						{{ form_widget(formMDP.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
-					</div></center>
-                    {{ form_end(formMDP) }}	
-	
+		 <br>
+	            <div class="form-row">
+					<div class="col-md-4 mb-3">
+						<label>Ancien mot de passe</label>
+  						<input type="password" class="form-control" name="old_password" id="old_password">
+					</div>
+				    <div class="col-md-4 mb-3">
+					    <span title="Ce mot de passe de 8 caractères minimun doit contenir: une minuscule, une majuscule, un chiffre et un caractère spécial">
+							<label>Nouveau mot de passe</label><img src={{ asset("images/info-8x.png") }} height=12>
+						</span>
+						{{ form_widget(formMDP.password, {'attr': {'class': 'form-control'}})}}
+						</div>
+					<div class="col-md-4 mb-3">
+						<label>Confirmer mot de passe</label>
+  						<input type="password" class="form-control" name="new_password" id="new_password">
+					</div>
+				</div>
+				<center>
+				<div id="message" class="text-danger">
+				</div>
+				</center>	
+				
+</div>
+
+
+{% block javascripts %}
+						<script src="https://code.jquery.com/jquery-3.4.1.js"
+									integrity= "sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" 
+									crossorigin="anonymous"> 
+						</script>
+						<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
+						<script>
+							jQuery( document ).ready(function( $ ) {
+								$("#mdp_modif_password, #new_password, #old_password").keyup(function () {
+									var mdp_modif_password = $("#mdp_modif_password").val();
+									var new_password = $("#new_password").val();
+									var old_password = $("#old_password").val();
+									var user_id = "{{ app.user.id }}";
+									
+									
+									$.ajax({
+										type: "post",
+										url: '{{ path('MDPModifEtu') }}',
+										data: { old_password : old_password, new_password : new_password, mdp_modif_password : mdp_modif_password, user_id : user_id },
+										dataType: "json",
+										
+										success: function (json) {
+
+										$.each(json, function (index, value) {
+											if (value.statut == 1){
+												$('#message').text('Ancien mot de passe incorrect ou vide');
+											}
+											else if (value.statut == 2){
+												$('#message').text('Nouveau mot de passe non identique ou vide');
+											}
+											else if (value.statut == 3){
+												$('#message').text('mot de passe trop faible');
+											}
+											else{
+												$('#message').html('{{ form_widget(formMDP.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}');
+											}
+										});
+										},
+										error: function(jxh,textmsg,errorThrown){
+											console.log(textmsg);
+											console.log(errorThrown);
+										}
+									});
+									
+								});
+							});
+						</script>
+{% endblock %}
 </div>
 {% else %}
 <br>

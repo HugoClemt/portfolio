@@ -34,10 +34,11 @@ class EtudiantController extends AbstractController
         $etudiant = $this->getDoctrine()
         ->getRepository(Etudiant::class)
         ->findOneById($etudiant_id);
-
+                                                                    
         $stages = $this->getDoctrine()
         ->getRepository(Stage::class)
         ->findByEtudiant($etudiant);
+
         
         return $this->render('etudiant/accueil.html.twig', ['pRP' => $RPaModifier, 'pStages' => $stages, 'pEtudiant' => $etudiant]);
     }
@@ -142,20 +143,23 @@ class EtudiantController extends AbstractController
         $checkPass = $passwordEncoder->isPasswordValid($user, $old_password);
            if($checkPass === true) {
                 if($mdp_modif_password == $new_password && $mdp_modif_password != ""){
-                        //si output = 3 alors tout marche
+                    if(preg_match('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*\[\]"\';:_\-<>\., =\+\/\\µ~¤£§]).{8,}$^', $mdp_modif_password)){
                         $output[]=array(
-                            'statut'=>3);
+                            'statut'=>4);//si output = 4 alors c'est bon
+                    }
+                    else{
+                        $output[]=array(
+                            'statut'=>3);//si output = 3 alors mdp trop faible
+                    }    
                 }
                 else{
-                    //si output = 2 alors nouveau mdp différent de confirme nouveau mdp
                     $output[]=array(
-                        'statut'=>2);
+                        'statut'=>2);//si output = 2 alors nouveau mdp différent de confirme nouveau mdp
                 }   
            } 
            else {
-                //si output = 1 alors ancien mdp incorrect
                 $output[]=array(
-                    'statut'=>1);
+                    'statut'=>1);//si output = 1 alors ancien mdp incorrect
            }
     
      /*   var_dump($themes);
