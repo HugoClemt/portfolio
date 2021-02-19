@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Stage;
+use App\Entity\Enseignant;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -48,8 +49,14 @@ class StageType extends AbstractType
             ->add('horSam', TextType::class, array('attr' => array('placeholder' => '8h - 12h / 14h - 17h' ), 'required' => false))
             ->add('service', TextType::class, array('required' => false))
             ->add('ville')
-             ->add('copos')
-             ->add('enregistrer', SubmitType::class, array('label' => 'Valider'));
+            ->add('copos')
+            ->add('enregistrer', SubmitType::class, array('label' => 'Valider'))
+            ->add('enseignant', EntityType::class, array(
+                'class' => 'App\Entity\Enseignant',
+                'choice_label' => function (Enseignant $enseignant) {
+                    return $enseignant->getNom() . ' ' . $enseignant->getPrenom();
+                    },));
+            
         }
     
 

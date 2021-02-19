@@ -1,5 +1,6 @@
 {% extends "entete.html.twig" %}
 {% block content %}
+{% if app.user.enseignant.id == pEnseignant.id %}
 <body>
 <div class="container"><br>
 	<center><h1>Réalisations à commenter</h1></center><br>
@@ -61,4 +62,8 @@
           </tbody>
         </table>
 </body>
+{% else %}
+<br>
+<center><p>Ce n'est pas ton tableaux de bord ! <a href="{{ path('enseignantAccueil', { 'enseignant_id': app.user.enseignant.id }) }}">Clique ici</p></center>
+{% endif %}
 {% endblock %}

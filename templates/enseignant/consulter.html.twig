@@ -56,6 +56,6 @@
 </div>
 {% else %}
 <br>
-<center><p>Eh bin non tu n'auras pas les informations d'une autre personne ! <a href="{{ path('etudiantConsulter', { 'etudiant_id': app.user.etudiant.id }) }}">Clique ici</p></center>
+<center><p>Eh bin non tu n'auras pas les informations d'une autre personne ! <a href="{{ path('enseignantConsulter', { 'enseignant_id': app.user.enseignant.id }) }}">Clique ici</p></center>
 {% endif %}
 {% endblock %}

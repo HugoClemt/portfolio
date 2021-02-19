@@ -56,7 +56,11 @@
                 <td>{{stage.enseignant.nom}}</td>
                 <td>{{stage.nomentreprise}}</td>
                 <td>{{stage.nomtut}}</td>
+                {% if stage.semaineStages|length > 0 %}
                 <td><a href="{{ path('StageConsulter', { 'stage_id': stage.id }) }}">Carnet de bord</a></td>
+                {% else %}
+                <td>Stage non valide</td>
+                {% endif %}
               <tr>
             {% endfor %}
           <tbody>
