@@ -4,6 +4,9 @@
 input[type=checkbox]{
 	transform: scale(1.5);
 }
+p.nowrap{
+	white-space: nowrap;
+}
 </style>
 <body>
 	<br>
@@ -32,7 +35,7 @@ input[type=checkbox]{
 						$( "select option:selected" ).each(function() {
 						});
 					var numeroption = $(this).find(':selected').attr('value');
-					var str = "Acceder au compte";
+					var str = "Accéder au compte";
 					var str1 = "Aucun compte associé";
 					$("#table tbody").empty();
 					$.ajax({
@@ -58,7 +61,7 @@ input[type=checkbox]{
 						});
 					});
 
-					$("#testbutton").click(function () {
+					$("#Affecter").click(function () {
 						var selected = [];
 							$('#checkboxes input:checked').each(function() {
 								selected.push($(this).attr('name'));
@@ -73,14 +76,14 @@ input[type=checkbox]{
 						dataType: "json",
 						success: function (json) {
 									$.each(json, function (index, value) {
-									$('#test').append("cool");
+									
 									});
+									location.reload();
 						},
 								
 						error: function(jxh,textmsg,errorThrown){
 									console.log(textmsg);
 									console.log(errorThrown);
-									$('#test').append("pas cool");
 								}
 						});
 					})
@@ -102,12 +105,12 @@ input[type=checkbox]{
 		<div id="test">
 	</div>
 		{{ form_start(formPromo) }}
-		<p>
+		<p class="nowrap">
 		<label id="promo">
 			{{ form_widget(formPromo.id, {'attr': {'class': 'form-control'}})}}
-		</label> <button type="submit" class="btn btn-secondary" id="affecter">Affecter</button></p>
+		</label> 
 		{{ form_end(formPromo)}}
-		<button type="submit" class="btn btn-secondary" id="testbutton">test</button>
+		<button type="submit" class="btn btn-secondary" id="Affecter">Affecter</button></p>
 	</div>
 	</div>
 	
