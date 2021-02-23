@@ -23,6 +23,9 @@ class EnseignantController extends AbstractController
      */
     public function accueilEnseignant($enseignant_id)
     {
+        $enseignant = $this->getDoctrine()
+        ->getRepository(Enseignant::class)
+        ->findOneById($enseignant_id);
 
         $repository = $this->getDoctrine()->getRepository(RP::class);
         $RPaCommenter = $repository->findBy(
@@ -32,7 +35,7 @@ class EnseignantController extends AbstractController
         ->getRepository(Stage::class)
         ->findByEnseignant($enseignant_id);
         
-        return $this->render('enseignant/accueil.html.twig', ['pRP' => $RPaCommenter, 'pStages' => $stages]);
+        return $this->render('enseignant/accueil.html.twig', ['pRP' => $RPaCommenter, 'pStages' => $stages, 'pEnseignant' => $enseignant]);
     }
 
     public function consultoModifierEnseignant($enseignant_id, Request $request, UserPasswordEncoderInterface $passwordEncoder)
@@ -62,7 +65,6 @@ class EnseignantController extends AbstractController
                 $entityManager->persist($enseignant);
                 $entityManager->flush();
                 $userIdentifiant = $enseignant->getUser();
-                $userIdentifiant->setUsername(strtolower($enseignant->getPrenom()).".".strtolower($enseignant->getNom()));
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($userIdentifiant);
                 $entityManager->flush();

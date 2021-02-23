@@ -22,6 +22,7 @@ p.nowrap{
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
 			<script>
 				jQuery( document ).ready(function( $ ) {
+					
 					$('body').on('click', '#selectAll', function () {
 						if ($(this).hasClass('allChecked')) {
 							$('input[type="checkbox"]', '#table').prop('checked', false);

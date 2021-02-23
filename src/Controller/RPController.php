@@ -197,6 +197,7 @@ class RPController extends AbstractController
         $rpactivite = $this->getDoctrine()
         ->getRepository(RPActivite::class)
         ->findOneById($rpActivite_id);
+        
         $manager = $this->getDoctrine()->getManager();
         $manager->remove($rpactivite);
         $manager->flush();
@@ -605,8 +606,6 @@ class RPController extends AbstractController
         $etudiants = $this->getDoctrine()
         ->getRepository(Etudiant::class)
         ->findBy(['promotion' => $promotion], ['nom' => 'ASC']);
-
-        
 
         foreach ($etudiants as $etudiant){
 

@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Time;
 use Symfony\Component\HttpFoundation\Session\Storage\MetadataBag;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Controller\StageController;
 use App\Entity\Pointage;
 use App\Entity\Etudiant;
@@ -24,9 +25,12 @@ use App\Entity\User;
 use App\Entity\Echange;
 use App\Form\StageType;
 use App\Form\AffecterType;
+use App\Form\PromotionType;
 use App\Form\EchangeType;
 use App\Form\SemaineType;
 use App\Form\TacheSemaineType;
+use App\Form\EnseignantType;
+use App\Form\AffecterStageType;
 use App\Form\PointageType;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -415,15 +419,7 @@ class StageController extends AbstractController
         }
     }
 
-    public function ListerStages(){
-
-        $stages = $this->getDoctrine()
-        ->getRepository(Stage::class)
-        ->findBy(array(),array('enseignant' => "DESC"));
-
-        return $this->render('stage/listerStages.html.twig', array('pStages' => $stages));
-
-    }
+    
 
     public function pdfSemaine($semaine_id)
     {
@@ -523,6 +519,108 @@ class StageController extends AbstractController
             "Attachment" => false
         ]);
     }
+    
+    public function ListerStages(Request $request){
 
+        $stages = $this->getDoctrine()
+        ->getRepository(Stage::class)
+        ->findBy(array(),array('enseignant' => "DESC"));
+
+        $promotion = new Promotion();
+        $form = $this->createForm(PromotionType::class, $promotion);
+        $form->handleRequest($request);
+
+        foreach ($stages as $stage)
+        $enseignant = new Enseignant();
+        $formEns = $this->createForm(AffecterStageType::class, $stage);
+        $formEns->handleRequest($request);
+
+        return $this->render('stage/listerAffecter.html.twig', array('pStages' => $stages, 'form' => $form->createView(), 'formEns' => $formEns->createView()));
+
+    }
+
+    /**
+     * @Route(name="afficherStagePromo",path="/afficherStagePromo")
+     * @param Request $request
+     * @return Response
+     */
+    public function afficherStagePromo(Request $request)
+    {
+        $numeroPromo=$_POST["numeroPromo"];
+
+        $promotion = $this->getDoctrine()
+        ->getRepository(Promotion::class)
+        ->findOneById($numeroPromo);
+
+        $etudiants = $this->getDoctrine()
+        ->getRepository(Etudiant::class)
+        ->findBy(array('promotion' => $promotion), array('nom' => 'ASC'));
+
+        $output=array();
+
+        foreach ($etudiants as $etudiant){
+
+            $stages = $this->getDoctrine()
+            ->getRepository(Stage::class)
+            ->findByEtudiant(['etudiant' => $etudiant]);
+            
+            if ($request->isXmlHttpRequest()) {
+                foreach ($stages as $stage){
+                    $output[]=array(
+                        'etu_id'=>$stage->getEtudiant()->getId(),
+                        'id'=>$stage->getId(),
+                        'stage_id'=>$stage->getId(),
+                        'nom'=>$stage->getEtudiant()->getNom(),
+                        'prenom'=>$stage->getEtudiant()->getPrenom(),
+                        'entreprise'=>$stage->getNomentreprise(),
+                        'sujet'=>$stage->getSujet(),
+                        'EnsNom'=>$stage->getEnseignant()->getNom(),
+                        'EnsPrenom'=>$stage->getEnseignant()->getPrenom(),
+                        'tuteur'=>$stage->getNomtut(),
+                        );
+                }
+               
+            } 
+        }
+         return new JsonResponse($output);
+    }
+ 
+    /**
+     * @Route(name="AffecterStage",path="/AffecterStage")
+     * @param Request $request
+     */
+    public function AffecterStage(Request $request){
+
+        $numeroEnseignant=$_POST["numeroEnseignant"];
+        $selectedString=$_POST["selectedString"];
+        $enseignant = $this->getDoctrine()
+        ->getRepository(Enseignant::class)
+        ->findOneById($numeroEnseignant);
+
+        $selectedString = str_replace("\"", "", $selectedString);
+
+        $selectedString = str_replace("[", "", $selectedString);
+
+        $selectedString = str_replace("]", "", $selectedString);
+
+        $selected = explode(",", $selectedString);
+
+        foreach ($selected as $stage_id){
+            if(!$stage_id){
+            }
+            else{
+                $stage = $this->getDoctrine()
+                ->getRepository(Stage::class)
+                ->findOneById($stage_id);
+                $stage->setEnseignant($enseignant);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($stage);
+                $entityManager->flush();
+            }
+           
+        }
+        $output=array();
+        return new JsonResponse($output);
+    }
      
 }

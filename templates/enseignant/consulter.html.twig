@@ -13,12 +13,12 @@
 	<div class="form-row">
 				<div class="col-md-6 mb-3">
 					<label>Nom</label>
-						{{ form_widget(formEnseignant.nom, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}
+						{{ form_widget(formEnseignant.nom, {'attr': {'class': 'form-control', readonly:'readonly'}})}}
 				</div>
 
 				<div class="col-md-6 mb-3">
 					<label>Prénom</label>
-						{{ form_widget(formEnseignant.prenom, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}
+						{{ form_widget(formEnseignant.prenom, {'attr': {'class': 'form-control', readonly:'readonly'}})}}
 				</div>
 
 	</div>
@@ -119,6 +119,6 @@
 </div>
 {% else %}
 <br>
-<center><p>Eh bin non tu n'auras pas les informations d'une autre personne ! <a href="{{ path('etudiantConsulter', { 'etudiant_id': app.user.etudiant.id }) }}">Clique ici</p></center>
+<center><p>Eh bin non tu n'auras pas les informations d'une autre personne ! <a href="{{ path('enseignantConsulter', { 'enseignant_id': app.user.enseignant.id }) }}">Clique ici</p></center>
 {% endif %}
 {% endblock %}

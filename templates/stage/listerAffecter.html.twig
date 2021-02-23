@@ -1,0 +1,104 @@
+{% extends "entete.html.twig" %}
+{% block content %}
+<style>
+input[type=checkbox]{
+	transform: scale(1.5);
+}
+p.nowrap{
+	white-space: nowrap;
+}
+</style>
+<body>
+	<br>
+	<div class="container">
+		<p></p><center><h1>Tableaux des stages</h1></center><p></p>
+		{{ form_start(form) }}
+		<label id="promotion" name="promotion">
+			{{ form_widget(form.id, {'attr': {'class': 'form-control'}})}}
+		</label>
+		{{ form_end(form)}}
+		<br>
+		{% block javascripts %}
+			<script src="https://code.jquery.com/jquery-3.4.1.js" integrity= "sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
+			<script>
+				jQuery( document ).ready(function( $ ) {
+					$("#promotion").change(function () {
+						$( "select option:selected" ).each(function() {
+						});
+					var numeroPromo = $(this).find(':selected').attr('value');
+					var etudentifiant = null;
+					var str = "Carnet de bord";
+					$("#table tr").remove();
+					$.ajax({
+						type: "post",
+						url: '{{ path('afficherStagePromo') }}',
+						data: { numeroPromo : numeroPromo },
+						dataType: "json",
+							success: function (json) {
+								$.each(json, function (index, value) {
+									if (etudentifiant == value.etu_id){
+										etudentifiant = value.etu_id;
+				                    var result = str.link("../../etudiant/stage/consulter/"+value.stage_id+"");
+									$('#table').append('<tbody class="table" id="table" data-toggle="BootstrapTable" data-height="460"><tr><td><input type="checkbox" id="selectPromo" name='+value.stage_id+'></input></td><td>'+value.EnsNom+' '+value.EnsPrenom+'</td><td>'+value.nom+' '+value.prenom+'</td><td>'+value.entreprise+'</td><td>'+value.tuteur+'</td><td>'+result+'</td></tr></tbody></table>');
+									}
+									else{
+										etudentifiant = value.etu_id;
+										var result = str.link("../../etudiant/stage/consulter/"+value.stage_id+"");
+										$('#table').append('<tbody><thead><tr><th></th><th scope="col" data-sortable="true">Référent</th><th scope="col" data-sortable="true">Etudiant</th><th scope="col" data-sortable="true">Entreprise</th><th scope="col" data-sortable="true">Tuteur</th><th></th></tr></thead><tbody>');
+										$('#table').append('<tbody class="table" id="table" data-toggle="BootstrapTable" data-height="460"><tr><td><input type="checkbox" id="selectPromo" name='+value.stage_id+'></input></td><td>'+value.EnsNom+' '+value.EnsPrenom+'</td><td>'+value.nom+' '+value.prenom+'</td><td>'+value.entreprise+'</td><td>'+value.tuteur+'</td><td>'+result+'</td></tr></tbody></table>');
+									}	
+								});
+								},
+								error: function(jxh,textmsg,errorThrown){
+									console.log(textmsg);
+									console.log(errorThrown);
+								}
+						});
+					});
+
+					$("#Affecter").click(function () {
+						var selected = [];
+							$('#checkboxes input:checked').each(function() {
+								selected.push($(this).attr('name'));
+							});
+						var numeroEnseignant = $("#ens").find(':selected').attr('value');
+						var selectedString = JSON.stringify(selected);
+
+						$.ajax({
+						type: "post",
+						url: '{{ path('AffecterStage') }}',
+						data: { numeroEnseignant : numeroEnseignant, selectedString : selectedString },
+						dataType: "json",
+						success: function (json) {
+									$.each(json, function (index, value) {
+									
+									});
+									location.reload();
+						},
+								
+						error: function(jxh,textmsg,errorThrown){
+									console.log(textmsg);
+									console.log(errorThrown);
+								}
+						});
+					})
+
+				});
+			</script>
+		{% endblock %}
+	<div id="checkboxes">
+		<table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
+		</table>
+		<div id="test">
+	</div>
+		{{ form_start(formEns) }}
+		<p class="nowrap">
+		<label id="ens">
+			{{ form_widget(formEns.enseignant, {'attr': {'class': 'form-control'}})}}
+		</label> 
+		<button type="sumbit" class="btn btn-secondary" id="Affecter">Affecter</button></p>
+	</div>
+	</div>
+</body>
+{% endblock %}

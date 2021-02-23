@@ -303,10 +303,6 @@ class AdminController extends AbstractController
         }
     }
 
-
-
-
-
     /**
      * @Route(name="DeplacerPromo",path="/DeplacerPromo")
      * @param Request $request
