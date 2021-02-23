@@ -186,8 +186,7 @@
   {% if app.user.etudiant.id == pEtudiant.id %}
   <body>
   <div class="container">
-    <p></p><center><h1>Consultation du stage</h1></center>
-    <center><p>Stage de <b>{{pStage.etudiant.prenom}} {{pStage.etudiant.nom}}</b> suivi par <b>{{pStage.enseignant.prenom}} {{pStage.enseignant.nom}}</b></p></center>      
+    <p></p><center><h1>Consultation du stage</h1></center>     
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #DDDDDD;">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -212,7 +211,7 @@
       </ul>
     </div></center>
     </nav></div>
-
+    <center><p>Stage de <b>{{pStage.etudiant.prenom}} {{pStage.etudiant.nom}}</b> suivi par <b>{{pStage.enseignant.prenom}} {{pStage.enseignant.nom}}</b></p></center> 
 
   <div class="container">
     <div class="alert " role="alert">
@@ -347,7 +346,6 @@
           {{ form_widget(formStage.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
         </div>
       </center>
-    {{ form_end(formStage) }}
   </body>
   {% else %}
   <br>

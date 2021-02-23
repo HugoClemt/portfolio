@@ -15,6 +15,7 @@
             <th scope="col">Etudiant</th>
             <th scope="col">Entreprise</th>
             <th scope="col">Tuteur</th>
+            <th scope="col">Date début</th>
             <th></th>
           </tr>
         </thead>
@@ -24,6 +25,7 @@
               <td>{{stage.etudiant.nom}} {{stage.etudiant.prenom}}</td>
               <td>{{stage.nomentreprise}}</td>
               <td>{{stage.nomtut}}</td>
+              <td>{{stage.dateDebut|date('d/m/Y')}}</td>
               <td><a href="{{ path('StageConsulter', { 'stage_id': stage.id }) }}">Carnet de bord</a></td>
             <tr>
           {% endfor %}
@@ -47,6 +49,7 @@
               <th scope="col">Etudiant</th>
               <th scope="col">Entreprise</th>
               <th scope="col">Tuteur</th>
+              <th scope="col">Date début</th>
               <th></th>
             </tr>
           </thead>
@@ -56,6 +59,7 @@
                 <td>{{stage.enseignant.nom}}</td>
                 <td>{{stage.nomentreprise}}</td>
                 <td>{{stage.nomtut}}</td>
+                <td>{{stage.dateDebut|date('d/m/Y')}}</td>
                 <td><a href="{{ path('StageConsulter', { 'stage_id': stage.id }) }}">Carnet de bord</a></td>
               <tr>
             {% endfor %}

@@ -14,15 +14,16 @@
             <th scope="col">Entreprise</th>
             <th scope="col">Année</th>
             <th scope="col">Spécialité</th>
-            <th></th>
+          <th scope="col">Adresse</th>
           </tr>
         </thead>
         <tbody>
           {% for stage in pStages %}
             <tr>
               <td>{{stage.nomentreprise}}</td>
-              <td>{{stage.dateFin|date('Y')}}
-              <td>{{stage.etudiant.promotion.specialite.sigle}}
+              <td>{{stage.dateFin|date('Y')}}</td>
+              <td>{{stage.etudiant.promotion.specialite.sigle}}</td>
+              <td>{{stage.adrentreprise}}, {{stage.ville}} {{stage.copos}}</td>
             <tr>
           {% endfor %}
         <tbody>

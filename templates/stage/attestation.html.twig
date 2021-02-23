@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        {% for rp in pRp %}
-        <title>Attestation_{{ rp.source.libelle }}_{{ pEtudiant.nom }}_{{ pEtudiant.prenom}}</title>
-        {% endfor %}
+
+        <title>Attestation_Stage_{{ pStage.dateDebut|date('Y') }}_{{ pEtudiant.nom }}_{{ pEtudiant.prenom}}</title>
+
     </head>
     <style>
     div{
