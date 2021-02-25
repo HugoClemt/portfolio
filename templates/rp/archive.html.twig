@@ -1,11 +1,12 @@
-{% extends "entete.html.twig" %}
+{# liste les RP archivées de l'étudiant connecté #}
+{% extends "entete.html.twig" %}{# appelle l'entête (logo + menu déroulant) #}
 {% block content %}
-{% for message in app.flashes('success') %}
+{% for message in app.flashes('success') %}{# affichera un message de succès si l'action est réussie #}
             <div class="alert alert-success">
                 {{ message }}
             </div>
 {% endfor %}
-{% if app.user.etudiant.id == pEtudiant.id %}
+{% if app.user.etudiant.id == pEtudiant.id %}{# vérifie que la page appartient bien à l'étudiant connecté #}
 <style>
 	p.warning{
 		font-size: 12px;
@@ -15,7 +16,7 @@
 <body>
 <div class="container"><br>
 	<p></p><center><h1>Réalisation professionnelle</h1></center><p></p>
-				<table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
+				<table class="table" id="table" data-toggle="BootstrapTable" data-height="460">{# tableau listant les RP ayant le champ archive à 1 et appartenant à l'élève connecté #}
 				  <thead>
 				    <tr>
                       <th scope="col" data-sortable="true">Source</th>
@@ -47,7 +48,7 @@
 				<center><p class='warning'> Attention toute suppression est définitive !</p></center>
 				{% endif %}
 </body>
-{% else %}
+{% else %}{# si la page n'appartient pas à l'étudiant connecté, un message s'affiche et bloque l'affichage #}
 <br>
 <center><p>Hop, tu ne peux pas voir les archives de tes collègues ! <a href="{{ path('rpListerArchiver', { 'etudiant_id': app.user.etudiant.id }) }}">Et voilà tes archives sont ici !</p></center>
 {% endif %}

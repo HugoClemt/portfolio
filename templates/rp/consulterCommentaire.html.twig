@@ -1,6 +1,6 @@
-{% extends "entete.html.twig" %}
+{% extends "entete.html.twig" %}{# appelle l'entête (logo + menu déroulant) #}
 {% block content %}
-{% for message in app.flashes('success') %}
+{% for message in app.flashes('success') %}{# affichera un message de succès si l'action est réussie #}
             <div class="alert alert-success">
                 {{ message }}
             </div>
@@ -19,7 +19,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
+    <ul class="navbar-nav">{# barre de navigation propre au RP #}
       <li class="nav-item">
         <a class="nav-link" href="{{ path('rpConsulter', { 'rp_id': pRP.id }) }}"> Description </a>
       </li>
@@ -35,13 +35,13 @@
 			<a class="nav-link" href="{{ path('rpPDF', { 'rp_id': pRP.id }) }}"> Générer PDF</a>
 		</li>
 	</ul>
-	  {% if is_granted('ROLE_ENSEIGNANT') %}
-        <a class="nav-link text-right text-info" data-toggle="modal" data-target="#ModalVisee">Viser la réalisation </a>
+	  {% if is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}
+        <a class="nav-link text-right text-info" data-toggle="modal" data-target="#ModalVisee">Viser la réalisation </a>{# bouton pour valider une RP  #}
 	  {% endif %}
   </div></center>
 </nav>
 
-<div class="modal fade" id="ModalVisee" tabindex="-1" role="dialog" aria-labelledby="ModalViseeLabel" aria-hidden="true">
+<div class="modal fade" id="ModalVisee" tabindex="-1" role="dialog" aria-labelledby="ModalViseeLabel" aria-hidden="true">{# pop-up pour confirmer la validation  #}
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content">
 						<div class="modal-header">
@@ -66,7 +66,7 @@
 
 
 
-{% if is_granted('ROLE_ENSEIGNANT') %}
+{% if is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}
 <center><p class='warning'> Attention toute suppression est définitive !</p></center>
 <div class="container">
 {% if pRP.enseignant.id == app.user.enseignant.id %}
@@ -74,10 +74,10 @@
 			{{ form_start(formAjouter) }}
             <div>
                 <label>Commentaire</label> 
-                {{ form_widget(formAjouter.commentaire, {'attr': {'class': 'form-control'}})}}  
+                {{ form_widget(formAjouter.commentaire, {'attr': {'class': 'form-control'}})}}{# zone de saisie du commentaire de la RP  #}  
             </div><br>
             <center><div class="col-12">
-					{{ form_widget(formAjouter.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
+					{{ form_widget(formAjouter.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}{# bouton de validation #}
 				</div></center>
 			{{ form_end(formAjouter) }}
 			</div>    
@@ -86,7 +86,7 @@
 <div class="alert alert-dark" role="alert">
   
   <h4><span >{{ commentaire.dateCommentaire|date("d/m/Y") }}</span> | {{ commentaire.enseignant.prenom }}  {{ commentaire.enseignant.nom }} 
-  {% if is_granted('ROLE_ENSEIGNANT') %}
+  {% if is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}
   		<td><a href="{{ path('rpModifierCommentaire', {'commentaire_id': commentaire.id}) }}"><span title="Cliquer pour modifier">📝</span></a>
 		<td><a class="nav-link text-right text-info" href="{{ path('rpDeleteCommentaire', {'commentaire_id': commentaire.id}) }}"><span title="Cliquer pour supprimer">❌</span></a>
 {% endif %}
@@ -98,7 +98,7 @@
 </div>
 {% endfor %}
 <br>
-{% if is_granted('ROLE_ENSEIGNANT') %}
+{% if is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}
 {% else %}
 <center>
   <div class="alert " role="alert">
@@ -108,7 +108,7 @@
 					{{ form_widget(formSoumettre.enseignant, {'attr': {'class': 'form-control'}})}}
 				</div><br>
 				<center><div class="col-12">
-					{{ form_widget(formSoumettre.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
+					{{ form_widget(formSoumettre.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}{# bouton de validation #}
 				</div></center>
 					{{ form_end(formSoumettre) }}
 				<div class="col-12">

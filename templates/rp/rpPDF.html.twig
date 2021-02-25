@@ -1,10 +1,11 @@
-{% if is_granted('ROLE_ENSEIGNANT') %}
+{# met sous la forme d'un PDF la page consulter une RP #}
+{% if is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}
   <html>
       <head>
           <meta charset="UTF-8">
           <title>Réalisation_{{pRP.id}}_{{pRP.etudiant.nom}}_{{pRP.etudiant.prenom}}</title>
       </head>
-      <style>
+<style>
 
   table {
       border-width:1px; 

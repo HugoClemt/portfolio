@@ -1,44 +1,44 @@
-{% extends "entete.html.twig" %}
+{% extends "entete.html.twig" %}{# appelle l'entête (logo + menu déroulant) #}
 {% block content %}
-{% if app.user.etudiant.id == pEtudiant.id %}
+{% if app.user.etudiant.id == pEtudiant.id %}{# vérifie que la page appartient bien à l'étudiant connecté #}
 <body>
 <div class="container">
 	<p></p><center><h1>Nouvelle réalisation professionnelle</h1></center><p></p>
        <div class="alert " role="alert">
-			{{ form_start(form) }}
+			{{ form_start(form) }}{# appelle un formulaire servant à #}{# appelle le formulaire servant à ajouter une RP #}
 					<div class="form-row">
 					<span title="Intitulé court décrivant l'action menée (Installation, Developpement) et l'objet sur lequel elle porte (Service, Application)">
 						<label><b>Libellé</b></label><img src={{ asset("images/info-8x.png") }} height=12>
 					</span>
-					{{ form_widget(form.libcourt, {'attr': {'class': 'form-control'}})}}
+					{{ form_widget(form.libcourt, {'attr': {'class': 'form-control'}})}}{# zone de saisie du titre de la RP  #}
 				</div><br>
 
 				<div class="form-row">
 				<span title="Dire ce que l'entreprise veut changer à son activité et comment repondre à leurs attentes">
 					<label><b>Besoin</b></label><img src={{ asset("images/info-8x.png") }} height=12>
 				</span>
-				{{ form_widget(form.besoin, {'attr': {'class': 'form-control'}})}}
+				{{ form_widget(form.besoin, {'attr': {'class': 'form-control'}})}}{# zone de saisie du besoin de la RP  #}
 				</div><br>
 
 					<div class="alert alert-light" role="alert">
 						<div class="form-row">
 	    					<div class="form-group col-md-3">
 								<label>Localisation</label>
-								{{ form_widget(form.localisation, {'attr': {'class': 'form-control'}})}}
+								{{ form_widget(form.localisation, {'attr': {'class': 'form-control'}})}}{# zone de saisie de la localisation de la RP  #}
 							</div>
 							<div class="form-group col-md-3">
 								<label>Source</label>
-								{{ form_widget(form.source, {'attr': {'class': 'form-control'}})}}
+								{{ form_widget(form.source, {'attr': {'class': 'form-control'}})}}{# zone de saisie de la source de la RP  #}
 							</div><br>
 						
 							<div class="form-group col-md-3">
 								<label>Cadre</label>
-								{{ form_widget(form.cadre, {'attr': {'class': 'form-control'}})}}
+								{{ form_widget(form.cadre, {'attr': {'class': 'form-control'}})}}{# zone de saisie du cadre de la RP  #}
 							</div>
 
 							<div class="form-group col-md-3">
 								<label>Niveau</label>
-								{{ form_widget(form.niveau, {'attr': {'class': 'form-control'}})}}
+								{{ form_widget(form.niveau, {'attr': {'class': 'form-control'}})}}{# zone de saisie du niveau de la RP  #}
 							</div>
 						</div><br>
 							
@@ -46,12 +46,12 @@
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<label>Date de début</label>
-								{{ form_widget(form.dateDebut, {'attr': {'class': 'form-control'}})}}
+								{{ form_widget(form.dateDebut, {'attr': {'class': 'form-control'}})}}{# zone de saisie de la dateDebut de la RP  #}
 							</div><br>
 
 							<div class="form-group col-md-6">
 								<label>Date de fin</label>
-								{{ form_widget(form.dateFin, {'attr': {'class': 'form-control'}})}}
+								{{ form_widget(form.dateFin, {'attr': {'class': 'form-control'}})}}{# zone de saisie de la dateFin de la RP  #}
 							</div>
 						</div><br>
 					</div>
@@ -61,17 +61,17 @@
 					<span title="Logiciels et outils utilisés pour réaliser votre travail">
 						<label>Environnement technologique</label><img src={{ asset("images/info-8x.png") }} height=12>
 					</span>
-					{{ form_widget(form.environnement, {'attr': {'class': 'form-control'}})}}
+					{{ form_widget(form.environnement, {'attr': {'class': 'form-control'}})}}{# zone de saisie de l'environnement de la RP  #}
 					</div>
 					<div class="form-group col-md-6">
 					<span title="Ressources et documentations mis à votre disposition">
 						<label>Moyens</label><img src={{ asset("images/info-8x.png") }} height=12>
 					</span>
-					{{ form_widget(form.moyen, {'attr': {'class': 'form-control'}})}}
+					{{ form_widget(form.moyen, {'attr': {'class': 'form-control'}})}}{# zone de saisie du moyen de la RP  #}
 					</div>
 				</div><br>
 				<center><div class="col-12">
-					{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
+					{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}{# bouton de validation #}
 				</div></center>
 					{{ form_end(form) }}
 				<div class="col-12">
@@ -79,7 +79,7 @@
 			</div>
 		</div>
 	</body>
-{% else %}
+{% else %}{# si la page n'appartient pas à l'étudiant connecté, un message s'affiche et bloque l'affichage #}
 <br>
 <center><p>Attention, tu allais ajouter une réalisation professionnelle sur le compte d'une autre personne ! <a href="{{ path('rpAjouter', { 'etudiant_id': app.user.etudiant.id }) }}">C'est ici pour toi !</p></center>
 {% endif %}

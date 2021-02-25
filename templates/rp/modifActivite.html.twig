@@ -1,4 +1,4 @@
-{% extends "entete.html.twig" %}
+{% extends "entete.html.twig" %}{# appelle l'entête (logo + menu déroulant) #}
 {% block content %}
 <body>
 <div class="container">
@@ -6,7 +6,7 @@
     <center><h1>Modifier une activité</h1></center>
        <br> 
        <div class="form-group col-md-12">
-			{{ form_start(form) }}
+			{{ form_start(form) }}{# appelle un formulaire servant à #}
             <div class="">
                 <label>
                 {{ form_widget(form.activite)}}
@@ -15,11 +15,11 @@
 
             <div class="form-group col-md-12">
 								<label>Reformulation</label>
-								{{ form_widget(form.commentaire, {'attr': {'class': 'form-control'}})}}
+								{{ form_widget(form.commentaire, {'attr': {'class': 'form-control'}})}}{# zone de saisie du commentaire de la RP  #}
 							</div>
 
               <center><div class="col-12">
-					{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
+					{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}{# bouton de validation #}
 				</div></center>
 			</div>    
 </div>

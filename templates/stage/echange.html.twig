@@ -1,4 +1,4 @@
-{% extends "entete.html.twig" %}
+{% extends "entete.html.twig" %}{# appelle l'entête (logo + menu déroulant) #}
 {% block content %}
 
 <style>
@@ -58,7 +58,7 @@
 	</nav></div>
 <br>
 <div class="container">
-    {{ form_start(form) }}
+    {{ form_start(form) }}{# appelle un formulaire servant à #}
     <div class="form-row">
       <div class="col-md-11 mb-3">
         {{ form_widget(form.message, {'attr': {'class': 'form-control'}}) }}

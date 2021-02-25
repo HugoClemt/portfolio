@@ -1,10 +1,10 @@
-{% extends "entete.html.twig" %}
+{% extends "entete.html.twig" %}{# appelle l'entête (logo + menu déroulant) #}
 {% block content %}
-{% if app.user.enseignant.id == pEnseignant.id %}
+{% if app.user.enseignant.id == pEnseignant.id %}{# vérifie que l'enseignant est sur une page qui lui appartient #}
 <body>
 <div class="container"><br>
 	<center><h1>Réalisations à commenter</h1></center><br>
-	<table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
+	<table class="table" id="table" data-toggle="BootstrapTable" data-height="460">{# tableau affichant les RP ayant le statut 2 en BDD et appartenant au professeur connecté #}
 				<thead>
 					<tr>
 						<th scope="col" data-sortable="true">Etudiant</th>
@@ -29,7 +29,7 @@
 	</table>
 	<br><br>
 	<center><h1>Suivi de stage</h1></center><br><br>
-        <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
+        <table class="table" id="table" data-toggle="BootstrapTable" data-height="460"> {# tableau affichant les stages appartenant au professeur connecté #}
           <thead>
             <tr>
             <th scope="col">Etudiant</th>
@@ -62,7 +62,7 @@
           </tbody>
         </table>
 </body>
-{% else %}
+{% else %}{# si le professeur n'est pas sur une page lui appartenant il est bloqué #}
 <br>
 <center><p>Ce n'est pas ton tableaux de bord ! <a href="{{ path('enseignantAccueil', { 'enseignant_id': app.user.enseignant.id }) }}">Clique ici</p></center>
 {% endif %}

@@ -1,26 +1,26 @@
-{% extends "entete.html.twig" %}
+{% extends "entete.html.twig" %}{# appelle l'entête (logo + menu déroulant) #}
 {% block content %}
 <body>
     <div class="container">
     <br>
     <center> <h2>Coordonnées</h2></center>
-        {{ form_start(form) }}
+        {{ form_start(form) }}{# appelle un formulaire servant à afficher un étudiant #}
         <div class="form-row">
             <div class="col-md-6 mb-3">
                 <label>Nom</label>
-                    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}})}}
+                    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}})}}}{# zone de saisie gérant le nom #}
             </div>
             <div class="col-md-6 mb-3">
                 <label>Prenom</label>
-                    {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}})}}
+                    {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}})}}}{# zone de saisie gérant le prénom #}
             </div>
             <div class="col-md-6 mb-3">
-                    {{ form_widget(form.mail, {'attr': {'class': 'form-control', 'hidden':'hidden'}})}}
+                    {{ form_widget(form.mail, {'attr': {'class': 'form-control', 'hidden':'hidden'}})}}{#zone de saisie affichant le mail (champ caché) #}
             </div>
         </div>  
     </div>
     <center>
-        {{ form_widget(form.modifier, {'attr': {'class': 'btn btn-secondary'}})}}
+        {{ form_widget(form.modifier, {'attr': {'class': 'btn btn-secondary'}})}}{# bouton de validation #}
         <a class="btn btn-secondary" href='{{ path('MDPDefaultEtudiant', { 'user_id': pEtudiant.user.id }) }}'>Réinitialiser MDP</a> 
     </center>
     

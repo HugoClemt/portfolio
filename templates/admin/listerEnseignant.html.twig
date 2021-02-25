@@ -1,6 +1,7 @@
-{% extends "entete.html.twig" %}
+{# liste des enseignant avec possibilité de réinitialisation de mdp #}
+{% extends "entete.html.twig" %}{# appelle l'entête (logo + menu déroulant) #}
 {% block content %}
-{% for message in app.flashes('success') %}
+{% for message in app.flashes('success') %}{# affichera un message de succès si l'action est réussie #}
             <div class="alert alert-success">
                 {{ message }}
             </div>
@@ -25,14 +26,14 @@
 			        <td>{{ enseignant.nom }} {{ enseignant.prenom }}</td>
 			        <td>{{ enseignant.mail }}</td>
                     {% if enseignant.matiere is not null %}
-				    <td>{{ enseignant.matiere.libelle }}</td> 
+				        <td>{{ enseignant.matiere.libelle }}</td> 
                     {% else %}
-                    <td>Aucune matière assignée</td>
+                        <td>Aucune matière assignée</td>
                     {% endif %}
                     {% if enseignant.user is not null %}
-                    <td><a href='{{ path('MDPDefaultEnseignant', { 'user_id': enseignant.user.id }) }}'>Réinitialiser MDP</a></td>
+                        <td><a href='{{ path('MDPDefaultEnseignant', { 'user_id': enseignant.user.id }) }}'>Réinitialiser MDP</a></td>
                     {% else %}
-                    <td>Aucun compte associé</td>
+                        <td>Aucun compte associé</td>
                     {% endif %}
 				</tr>
             {% else %}

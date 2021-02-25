@@ -1,6 +1,6 @@
-{% extends "entete.html.twig" %}
+{% extends "entete.html.twig" %}{# appelle l'entête (logo + menu déroulant) #}
 {% block content %}
-{% if is_granted('ROLE_ENSEIGNANT') %}
+{% if is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}
   <body>
   <div class="container">
     <p></p><center><h1>Consultation du stage</h1></center>
@@ -69,7 +69,7 @@
 </div>
 </body>
 {% else %}
-  {% if app.user.etudiant.id == pEtudiant.id %}
+  {% if app.user.etudiant.id == pEtudiant.id %}{# vérifie que la page appartient bien à l'étudiant connecté #}
   <body>
   <div class="container">
     <p></p><center><h1>Consultation du stage</h1></center>
@@ -118,7 +118,7 @@
                   <td style="width:120px">{{ form_widget(formTache.jour, {'attr': {'class': 'form-control'}}) }}</td>
                   <td style="width:180px">{{ form_widget(formTache.domaine, {'attr': {'class': 'form-control'}}) }}</td>
                   <td>{{ form_widget(formTache.description, {'attr': {'class': 'form-control'}}) }}</td>
-                  <td>{{ form_widget(formTache.ajouter, {'attr': {'class': 'btn btn-secondary'}})}}</td>
+                  <td>{{ form_widget(formTache.ajouter, {'attr': {'class': 'btn btn-secondary'}})}}{# bouton de validation #}</td>
                 </tr>
             {{ form_end(formTache) }}
             </tbody>
@@ -128,7 +128,7 @@
                 <td>{{ tacheSemaine.jour.libelle }}</td>
                 <td>{{ tacheSemaine.domaine.libelle }}</td>
                 <td>{{ tacheSemaine.description }}</td>
-                {% if is_granted('ROLE_ENSEIGNANT') %}
+                {% if is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}
             {% else %}
                 <td><a href="{{ path('ModifierTacheSemaine', {'tache_id': tacheSemaine.id}) }}"><span title="Cliquer pour modifier">📝</span></a>
                 <td><a href="{{ path('deleteTacheSemaine', {'tache_id': tacheSemaine.id}) }}"><span title="Cliquer pour supprimer">❌</span></a>
@@ -152,10 +152,10 @@
             {{ form_widget(formSemaine.bilan, {'attr': {'class': 'form-control'}}) }}
         </div>
         <br>
-        {% if is_granted('ROLE_ENSEIGNANT') %}
+        {% if is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}
           {% else %}
         <div class="col-md-12 md-3">
-        <center>{{ form_widget(formSemaine.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}</center>
+        <center>{{ form_widget(formSemaine.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}{# bouton de validation #}</center>
         </div>
       </div>
       {{ form_end(formSemaine) }}

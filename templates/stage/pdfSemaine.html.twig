@@ -30,7 +30,7 @@
             border-color:#ccc;
         }
     </style>
-{% if is_granted('ROLE_ENSEIGNANT') %}
+{% if is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}
     <body>
         <center>
             <h2>Carnet de bord</h2>
@@ -61,7 +61,7 @@
         </table>
     </body>
     {% else %}
-    {% if app.user.etudiant.id == pEtudiant.id %}
+    {% if app.user.etudiant.id == pEtudiant.id %}{# vérifie que la page appartient bien à l'étudiant connecté #}
         <body>
             <center>
                 <h2>Carnet de bord</h2>

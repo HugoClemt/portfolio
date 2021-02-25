@@ -1,11 +1,11 @@
-{% extends "entete.html.twig" %}
+{% extends "entete.html.twig" %}{# appelle l'entête (logo + menu déroulant) #}
 {% block content %}
-{% for message in app.flashes('success') %}
+{% for message in app.flashes('success') %}{# affichera un message de succès si l'action est réussie #}
             <div class="alert alert-success">
                 {{ message }}
             </div>
 {% endfor %}
-{% if app.user.etudiant.id == pEtudiant.id %}
+{% if app.user.etudiant.id == pEtudiant.id %}{# vérifie que la page appartient bien à l'étudiant connecté #}
 <div class="container">
 <br>
 <center> <h2>Coordonnées</h2></center>
@@ -13,22 +13,22 @@
 	<div class="form-row">
 				<div class="col-md-6 mb-3">
 					<label>Nom</label>
-						{{ form_widget(formEtudiant.nom, {'attr': {'class': 'form-control', readonly:'readonly'}})}}
+						{{ form_widget(formEtudiant.nom, {'attr': {'class': 'form-control', readonly:'readonly'}})}}{# zone de sasie gérant le nom, elle est en lecture seule #}
 				</div>
 
 				<div class="col-md-6 mb-3">
 					<label>Prénom</label>
-						{{ form_widget(formEtudiant.prenom, {'attr': {'class': 'form-control', readonly:'readonly'}})}}
+						{{ form_widget(formEtudiant.prenom, {'attr': {'class': 'form-control', readonly:'readonly'}})}}{# zone de sasie gérant le prénom, elle est en lecture seule #}
 				</div>
 
 	</div>
 				<div class="form-row">
 	<div class="col-md-6 mb-3">
 					<label>Date de naissance </label>
-						{{ form_widget(formEtudiant.datenaiss, {'attr': {'class': 'form-control'}})}}
+						{{ form_widget(formEtudiant.datenaiss, {'attr': {'class': 'form-control'}})}}{# zone de saisie de la date de naissance  #}
 	</div><div class="col-md-6 mb-3">
 					<label>Adresse personnelle</label>
-						{{ form_widget(formEtudiant.adrperso, {'attr': {'class': 'form-control'}})}}
+						{{ form_widget(formEtudiant.adrperso, {'attr': {'class': 'form-control'}})}}{# zone de saisie de l'adresse personnelle  #}
 					</div>
 
 	</div>
@@ -40,18 +40,18 @@
 				
 					<div class="col-md-6 mb-3">
 					<label>Mobile</label>
-						{{ form_widget(formEtudiant.mobile, {'attr': {'class': 'form-control'}})}}
+						{{ form_widget(formEtudiant.mobile, {'attr': {'class': 'form-control'}})}}{# zone de saisie du téléphone  #}
 					</div>
 					
 					<div class="col-md-6 mb-3">
 					<label>Mail</label>
-						{{ form_widget(formEtudiant.mail, {'attr': {'class': 'form-control'}})}}
+						{{ form_widget(formEtudiant.mail, {'attr': {'class': 'form-control'}})}}}{# zone de saisie gérant l'adresse mail #}
 					</div>
 	</div>
 			
 
 					<center><div class="col-12">
-						{{ form_widget(formEtudiant.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
+						{{ form_widget(formEtudiant.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}{# bouton de validation #}
 					</div></center>
 	{{ form_end(formEtudiant) }}
 	     {{ form_start(formMDP) }}
@@ -59,17 +59,17 @@
 	            <div class="form-row">
 					<div class="col-md-4 mb-3">
 						<label>Ancien mot de passe</label>
-  						<input type="password" class="form-control" name="old_password" id="old_password">
+  						<input type="password" class="form-control" name="old_password" id="old_password">{# zone de saisie de l'ancien mdp pour changement de mdp  #}
 					</div>
 				    <div class="col-md-4 mb-3">
 					    <span title="Ce mot de passe de 8 caractères minimun doit contenir: une minuscule, une majuscule, un chiffre et un caractère spécial">
 							<label>Nouveau mot de passe</label><img src={{ asset("images/info-8x.png") }} height=12>
 						</span>
-						{{ form_widget(formMDP.password, {'attr': {'class': 'form-control'}})}}
+						{{ form_widget(formMDP.password, {'attr': {'class': 'form-control'}})}}{# zone de saisie du nouveau mdp pour changement de mdp  #}
 						</div>
 					<div class="col-md-4 mb-3">
 						<label>Confirmer mot de passe</label>
-  						<input type="password" class="form-control" name="new_password" id="new_password">
+  						<input type="password" class="form-control" name="new_password" id="new_password">{# zone de saisie de confirmation du nouveau mdp pour changement de mdp  #}
 					</div>
 				</div>
 				<center>
@@ -80,7 +80,7 @@
 </div>
 
 
-{% block javascripts %}
+{% block javascripts %}{# fonction jquery/JAXA servant à la vérification des critères de changement de mdp #}
 						<script src="https://code.jquery.com/jquery-3.4.1.js"
 									integrity= "sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" 
 									crossorigin="anonymous"> 
@@ -114,7 +114,7 @@
 												$('#message').text('mot de passe trop faible');
 											}
 											else{
-												$('#message').html('{{ form_widget(formMDP.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}');
+												$('#message').html('{{ form_widget(formMDP.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}{# bouton de validation #}');
 											}
 										});
 										},

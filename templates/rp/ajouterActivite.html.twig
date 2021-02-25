@@ -1,11 +1,11 @@
-{% extends "entete.html.twig" %}
+{% extends "entete.html.twig" %}{# appelle l'entête (logo + menu déroulant) #}
 {% block content %}
 <body>
 <div class="container"><p></p>
     <center><h1>Ajouter une activité</h1></center>
        <p></p> 
        <div class="form-group col-md-12">
-			{{ form_start(form) }}
+			{{ form_start(form) }}{# appelle un formulaire servant à #}
             <div >
                 <label id="activites" name="activites">
                 {{ form_widget(form.activite)}}
@@ -26,7 +26,7 @@
 
 
 
-{% block javascripts %}
+{% block javascripts %}{# fonction jquery/AJAX affichant les compétences de l'activité sélectionnée #}
 <script src="https://code.jquery.com/jquery-3.4.1.js"
             integrity= "sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" 
             crossorigin="anonymous"> 
@@ -70,12 +70,12 @@
             <br>
               <div class="form-group col-md-12">
 								<label>Commentaire</label>
-								{{ form_widget(form.commentaire, {'attr': {'class': 'form-control'}})}}
+								{{ form_widget(form.commentaire, {'attr': {'class': 'form-control'}})}}{# zone de saisie du commentaire de la RP  #}
 							</div>
 
             <center>
             <div class="col-12">
-					    {{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
+					    {{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}{# bouton de validation #}
 			      </div>
             </center>
 			</div>    

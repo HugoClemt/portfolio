@@ -1,11 +1,11 @@
-{% extends "entete.html.twig" %}
+{% extends "entete.html.twig" %}{# appelle l'entête (logo + menu déroulant) #}
 {% block content %}
-{% for message in app.flashes('success') %}
+{% for message in app.flashes('success') %}{# affichera un message de succès si l'action est réussie #}
             <div class="alert alert-success">
                 {{ message }}
             </div>
 {% endfor %}
-{% if is_granted('ROLE_ENSEIGNANT') %}	
+{% if is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}	
 	<body>
 	<div class="container">
 	<p></p><center><h1>Réalisation professionnelle</h1></center><p></p>       
@@ -14,7 +14,7 @@
 		<span class="navbar-toggler-icon"></span>
 	</button>
 	<center><div class="navbar-collapse text-right" id="navbarNav">
-	<ul class="navbar-nav text-left">
+	<ul class="navbar-nav">{# barre de navigation propre au RP #}
 		<li class="nav-item">
 			<a class="nav-link active" href="#"> Description </a>
 		</li>
@@ -31,13 +31,13 @@
 			<a class="nav-link" href="{{ path('rpPDF', { 'rp_id': pRP.id }) }}"> Générer PDF</a>
 		</li>
 		</ul>
-		{% if is_granted('ROLE_ENSEIGNANT') %}
-			<a class="nav-link text-right text-info" data-toggle="modal" data-target="#ModalVisee">Viser la réalisation </a>
+		{% if is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}
+			<a class="nav-link text-right text-info" data-toggle="modal" data-target="#ModalVisee">Viser la réalisation </a>{# bouton pour valider une RP  #}
 		{% endif %}
 	</div></center>
 	</nav>
 
-	<div class="modal fade" id="ModalVisee" tabindex="-1" role="dialog" aria-labelledby="ModalViseeLabel" aria-hidden="true">
+	<div class="modal fade" id="ModalVisee" tabindex="-1" role="dialog" aria-labelledby="ModalViseeLabel" aria-hidden="true">{# pop-up pour confirmer la validation  #}
 						<div class="modal-dialog modal-dialog-centered" role="document">
 							<div class="modal-content">
 							<div class="modal-header">
@@ -62,40 +62,40 @@
 	<div class="container">
 		<br> 
 		<div class="alert " role="alert">
-				{{ form_start(form) }}
+				{{ form_start(form) }}{# appelle un formulaire servant à afficher une RP #}
 					<div class="form-row">
 						<span title="Intitulé court décrivant l'action menée (Installation, Developpement) et l'objet sur lequel elle porte (Service, Application)">
 							<label><b>Libellé</b></label><img src={{ asset("images/info-8x.png") }} height=12>
 						</span>
-						{{ form_widget(form.libcourt, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}
+						{{ form_widget(form.libcourt, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}{# zone de sasie du titre de la RP (vérouillée) #}
 					</div><br>
 
 					<div class="form-row">
 					<span title="Dire ce que l'entreprise veut changer à son activité et comment repondre à ses besoins">
 						<label><b>Besoin</b></label><img src={{ asset("images/info-8x.png") }} height=12>
 					</span>
-						{{ form_widget(form.besoin, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}
+						{{ form_widget(form.besoin, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}{# zone de sasie du besoin de la RP (vérouillée) #}
 					</div><br>
 
 						<div class="alert alert-light" role="alert">
 							<div class="form-row">
 								<div class="form-group col-md-3">
 									<label>Localisation</label>
-									{{ form_widget(form.localisation, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}
+									{{ form_widget(form.localisation, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}{# zone de sasie de la localisation de la RP (vérouillée) #}
 								</div>
 								<div class="form-group col-md-3">
 									<label>Source</label>
-									{{ form_widget(form.source, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}
+									{{ form_widget(form.source, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}{# zone de sasie de la source de la RP (vérouillée) #}
 								</div><br>
 							
 								<div class="form-group col-md-3">
 									<label>Cadre</label>
-									{{ form_widget(form.cadre, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}
+									{{ form_widget(form.cadre, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}{# zone de sasie du cadre de la RP (vérouillée) #}
 								</div>
 
 								<div class="form-group col-md-3">
 									<label>Niveau</label>
-									{{ form_widget(form.niveau, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}
+									{{ form_widget(form.niveau, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}{# zone de sasie du niveau de la RP (vérouillée) #}
 								</div>
 							</div><br>
 								
@@ -103,12 +103,12 @@
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<label>Date de début</label>
-									{{ form_widget(form.dateDebut, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}
+									{{ form_widget(form.dateDebut, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}{# zone de sasie de la dateDebut de la RP (vérouillée) #}
 								</div><br>
 
 								<div class="form-group col-md-6">
 									<label>Date de fin</label>
-									{{ form_widget(form.dateFin, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}
+									{{ form_widget(form.dateFin, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}{# zone de sasie de la dateFin de la RP (vérouillée) #}
 								</div>
 							</div>
 						</div>
@@ -118,19 +118,19 @@
 						<span title="Logiciels et outils utilisés pour réaliser votre travail">
 							<label>Environnement technologique</label><img src={{ asset("images/info-8x.png") }} height=12>
 						</span>
-						{{ form_widget(form.environnement, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}
+						{{ form_widget(form.environnement, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}{# zone de sasie de l'environnement de la RP (vérouillée) #}
 						</div>
 						<div class="form-group col-md-6">
 						<span title="Ressources et documentations mis à votre disposition">
 							<label>Moyens</label><img src={{ asset("images/info-8x.png") }} height=12>
 						</span>
-						{{ form_widget(form.moyen, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}
+						{{ form_widget(form.moyen, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}{# zone de sasie du moyen de la RP (vérouillée) #}
 						</div>
 					</div><br>
-					{% if is_granted('ROLE_ENSEIGNANT') %}
+					{% if is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}
 					{% else %}
 					<center><div class="col-12">
-						{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}				
+						{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}{# bouton de validation #}				
 					</div></center>
 						{{ form_end(form) }}
 					<div class="col-12">{% endif %}
@@ -141,7 +141,7 @@
 	</body>
 
 {% else %}
-	{% if app.user.etudiant.id == pEtudiant.id %}		
+	{% if app.user.etudiant.id == pEtudiant.id %}{# vérifie que la page appartient bien à l'étudiant connecté #}		
 	<body>
 	<div class="container">
 	<p></p><center><h1>Réalisation professionnelle</h1></center><p></p>       
@@ -150,7 +150,7 @@
 		<span class="navbar-toggler-icon"></span>
 	</button>
 	<center><div class="navbar-collapse text-right" id="navbarNav">
-	<ul class="navbar-nav text-left">
+	<ul class="navbar-nav">{# barre de navigation propre au RP #}
 		<li class="nav-item">
 			<a class="nav-link active" href="#"> Description </a>
 		</li>
@@ -167,71 +167,46 @@
 			<a class="nav-link" href="{{ path('rpPDF', { 'rp_id': pRP.id }) }}"> Générer PDF</a>
 		</li>
 		</ul>
-		{% if is_granted('ROLE_ENSEIGNANT') %}
-			<a class="nav-link text-right text-info" data-toggle="modal" data-target="#ModalVisee">Viser la réalisation </a>
-		{% endif %}
 	</div></center>
 	</nav>
-
-	<div class="modal fade" id="ModalVisee" tabindex="-1" role="dialog" aria-labelledby="ModalViseeLabel" aria-hidden="true">
-						<div class="modal-dialog modal-dialog-centered" role="document">
-							<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="ModalViseeLabel">Confirmation</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<center>
-							<div class="modal-body">
-								Etes-vous sur de viser la RP ?
-							</div>
-							</center>
-							<div class="modal-footer">
-								<a type="button" class="btn btn-secondary" data-dismiss="modal">Non</a>
-								<a type="button" class="btn btn-success text-white" href="{{ path('viseRP', { 'rp_id': pRP.id })  }}">Oui</a>
-							</div>						
-							</div>
-						</div>
-						</div>
 
 	<div class="container">
 		<br> 
 		<div class="alert " role="alert">
-				{{ form_start(form) }}
+				{{ form_start(form) }}{# appelle un formulaire servant à #}
 					<div class="form-row">
 						<span title="Intitulé court décrivant l'action menée (Installation, Developpement) et l'objet sur lequel elle porte (Service, Application)">
 							<label><b>Libellé</b></label><img src={{ asset("images/info-8x.png") }} height=12>
 						</span>
-						{{ form_widget(form.libcourt, {'attr': {'class': 'form-control'}})}}
+						{{ form_widget(form.libcourt, {'attr': {'class': 'form-control'}})}}{# zone de saisie du titre de la RP  #}
 					</div><br>
 
 					<div class="form-row">
 					<span title="Dire ce que l'entreprise veut changer à son activité et comment repondre à ses besoins">
 						<label><b>Besoin</b></label><img src={{ asset("images/info-8x.png") }} height=12>
 					</span>
-						{{ form_widget(form.besoin, {'attr': {'class': 'form-control'}})}}
+						{{ form_widget(form.besoin, {'attr': {'class': 'form-control'}})}}{# zone de saisie du besoin de la RP  #}
 					</div><br>
 
 						<div class="alert alert-light" role="alert">
 							<div class="form-row">
 								<div class="form-group col-md-3">
 									<label>Localisation</label>
-									{{ form_widget(form.localisation, {'attr': {'class': 'form-control'}})}}
+									{{ form_widget(form.localisation, {'attr': {'class': 'form-control'}})}}{# zone de saisie de la localisation de la RP  #}
 								</div>
 								<div class="form-group col-md-3">
 									<label>Source</label>
-									{{ form_widget(form.source, {'attr': {'class': 'form-control'}})}}
+									{{ form_widget(form.source, {'attr': {'class': 'form-control'}})}}{# zone de saisie de la source de la RP  #}
 								</div><br>
 							
 								<div class="form-group col-md-3">
 									<label>Cadre</label>
-									{{ form_widget(form.cadre, {'attr': {'class': 'form-control'}})}}
+									{{ form_widget(form.cadre, {'attr': {'class': 'form-control'}})}}{# zone de saisie du cadre de la RP  #}
 								</div>
 
 								<div class="form-group col-md-3">
 									<label>Niveau</label>
-									{{ form_widget(form.niveau, {'attr': {'class': 'form-control'}})}}
+									{{ form_widget(form.niveau, {'attr': {'class': 'form-control'}})}}{# zone de saisie du niveau de la RP  #}
 								</div>
 							</div><br>
 								
@@ -239,12 +214,12 @@
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<label>Date de début</label>
-									{{ form_widget(form.dateDebut, {'attr': {'class': 'form-control'}})}}
+									{{ form_widget(form.dateDebut, {'attr': {'class': 'form-control'}})}}{# zone de saisie de la dateDebut de la RP  #}
 								</div><br>
 
 								<div class="form-group col-md-6">
 									<label>Date de fin</label>
-									{{ form_widget(form.dateFin, {'attr': {'class': 'form-control'}})}}
+									{{ form_widget(form.dateFin, {'attr': {'class': 'form-control'}})}}{# zone de saisie de la dateFin de la RP  #}
 								</div>
 							</div>
 						</div>
@@ -254,19 +229,19 @@
 						<span title="Logiciels et outils utilisés pour réaliser votre travail">
 							<label>Environnement technologique</label><img src={{ asset("images/info-8x.png") }} height=12>
 						</span>
-						{{ form_widget(form.environnement, {'attr': {'class': 'form-control'}})}}
+						{{ form_widget(form.environnement, {'attr': {'class': 'form-control'}})}}{# zone de saisie de l'environnement de la RP  #}
 						</div>
 						<div class="form-group col-md-6">
 						<span title="Ressources et documentations mis à votre disposition">
 							<label>Moyens</label><img src={{ asset("images/info-8x.png") }} height=12>
 						</span>
-						{{ form_widget(form.moyen, {'attr': {'class': 'form-control'}})}}
+						{{ form_widget(form.moyen, {'attr': {'class': 'form-control'}})}}{# zone de saisie du moyen de la RP  #}
 						</div>
 					</div><br>
-					{% if is_granted('ROLE_ENSEIGNANT') %}
+					{% if is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}
 					{% else %}
 					<center><div class="col-12">
-						{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}				
+						{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}{# bouton de validation #}				
 					</div></center>
 						{{ form_end(form) }}
 					<div class="col-12">{% endif %}
@@ -275,7 +250,7 @@
 			</div>
 	</div>
 	</body>
-	{% else %}
+	{% else %}{# étudiant non autoriser, accès refusé #}
 	<br>
 	<center><p>Hop, tu ne peux pas voir les réalisation de tes collègues ! <a href="{{ path('etudiantListerLesRP', { 'etudiant_id': app.user.etudiant.id }) }}">Et voilà tes réalisation sont par ici !</p></center>
 	{% endif %}

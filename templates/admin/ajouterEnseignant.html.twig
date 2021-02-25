@@ -1,4 +1,4 @@
-{% extends "entete.html.twig" %}
+{% extends "entete.html.twig" %}{# appelle l'entête (logo + menu déroulant) #}
 {% block content %}
 <body>
     <div class="container">
@@ -6,16 +6,16 @@
         <center><h1>Ajouter enseignant</h1></center>
         <p></p>
         <hr class="featurette-divider p-1">
-        {{ form_start(form) }}
+        {{ form_start(form) }}{# appelle un formulaire servant à  ajouter un enseignant #}
         <div class="form-row">
             <div class="col-md-6 mb-3">
 				<label>Prenom</label>
-					{{ form_widget(form.prenom, {'attr': {'class': 'form-control'}})}}
+					{{ form_widget(form.prenom, {'attr': {'class': 'form-control'}})}}}{# zone de saisie gérant le prénom #}
 			</div>
 
             <div class="col-md-6 mb-3">
 				<label>Nom</label>
-					{{ form_widget(form.nom, {'attr': {'class': 'form-control'}})}}
+					{{ form_widget(form.nom, {'attr': {'class': 'form-control'}})}}}{# zone de saisie gérant le nom #}
 			</div>
         </div>
         <div class="form-row">
@@ -23,7 +23,7 @@
             </div>
             <center>
             <div class="col-md-2 mb-3">
-                {{ form_widget(form.ajouter, {'attr': {'class': 'btn btn-secondary'}})}}
+                {{ form_widget(form.ajouter, {'attr': {'class': 'btn btn-secondary'}})}}{# bouton de validation #}
             </div>
             </center>
             <div class="col-md-5 mb-3">
