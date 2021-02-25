@@ -17,6 +17,7 @@ class AffecterType extends AbstractType
     {
         $builder
             ->add('enseignant', EntityType::class, array('class' => 'App\Entity\Enseignant',
+            'placeholder' => 'Choisissez un enseignant',
             'choice_label' => function (Enseignant $enseignant) {
                 return $enseignant->getPrenom() . ' ' . $enseignant->getNom();
             },

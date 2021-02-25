@@ -195,6 +195,7 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
         $formPromo = $this->createForm(PromotionType::class, $promotion);
         $formPromo->handleRequest($request);
+        
 
         return $this->render('admin/listerEtudiant.html.twig', array('pEtudiants' => $etudiants, 'form' => $form->createView(), 'formPromo' => $formPromo->createView()));
     }

@@ -11,10 +11,10 @@ p.nowrap{
 <body>
 	<br>
 	<div class="container">
-		{{ form_start(form) }}
-		<label id="promotion" name="promotion">
+		{{ form_start(form) }}<p class="nowrap">Afficher les élèves appartenant à la promotion 
+		<label id="promotion" name="promotion" >
 			{{ form_widget(form.id, {'attr': {'class': 'form-control'}})}}
-		</label>
+		</label></p>
 		{{ form_end(form)}}
 		<br>
 		{% block javascripts %}
@@ -80,6 +80,7 @@ p.nowrap{
 									
 									});
 									location.reload();
+									
 						},
 								
 						error: function(jxh,textmsg,errorThrown){
@@ -106,10 +107,11 @@ p.nowrap{
 		<div id="test">
 	</div>
 		{{ form_start(formPromo) }}
-		<p class="nowrap">
+		<p class="nowrap">Les transférer vers la promotion 
 		<label id="promo">
 			{{ form_widget(formPromo.id, {'attr': {'class': 'form-control'}})}}
 		</label> 
+		</p>
 		{{ form_end(formPromo)}}
 		<button type="submit" class="btn btn-secondary" id="Affecter">Affecter</button></p>
 	</div>

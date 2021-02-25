@@ -532,7 +532,7 @@ class StageController extends AbstractController
 
         foreach ($stages as $stage)
         $enseignant = new Enseignant();
-        $formEns = $this->createForm(AffecterStageType::class, $stage);
+        $formEns = $this->createForm(AffecterType::class, $stage);
         $formEns->handleRequest($request);
 
         return $this->render('stage/listerAffecter.html.twig', array('pStages' => $stages, 'form' => $form->createView(), 'formEns' => $formEns->createView()));
