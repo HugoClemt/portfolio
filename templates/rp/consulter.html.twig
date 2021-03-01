@@ -77,24 +77,24 @@
 						{{ form_widget(form.besoin, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}{# zone de sasie du besoin de la RP (vérouillée) #}
 					</div><br>
 
-						<div class="alert alert-light" role="alert">
+						<div class="alert alert-light text-dark" role="alert">
 							<div class="form-row">
 								<div class="form-group col-md-3">
-									<label>Localisation</label>
+									<label><b>Localisation</b></label>
 									{{ form_widget(form.localisation, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}{# zone de sasie de la localisation de la RP (vérouillée) #}
 								</div>
 								<div class="form-group col-md-3">
-									<label>Source</label>
+									<label><b>Source</b></label>
 									{{ form_widget(form.source, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}{# zone de sasie de la source de la RP (vérouillée) #}
 								</div><br>
 							
 								<div class="form-group col-md-3">
-									<label>Cadre</label>
+									<label><b>Cadre</b></label>
 									{{ form_widget(form.cadre, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}{# zone de sasie du cadre de la RP (vérouillée) #}
 								</div>
 
 								<div class="form-group col-md-3">
-									<label>Niveau</label>
+									<label><b>Niveau</b></label>
 									{{ form_widget(form.niveau, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}{# zone de sasie du niveau de la RP (vérouillée) #}
 								</div>
 							</div><br>
@@ -102,12 +102,12 @@
 
 							<div class="form-row">
 								<div class="form-group col-md-6">
-									<label>Date de début</label>
+									<label><b>Date de début</b></label>
 									{{ form_widget(form.dateDebut, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}{# zone de sasie de la dateDebut de la RP (vérouillée) #}
 								</div><br>
 
 								<div class="form-group col-md-6">
-									<label>Date de fin</label>
+									<label><b>Date de fin</b></label>
 									{{ form_widget(form.dateFin, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}{# zone de sasie de la dateFin de la RP (vérouillée) #}
 								</div>
 							</div>
@@ -116,13 +116,13 @@
 					<div class="form-row">
 						<div class="form-group col-md-6">
 						<span title="Logiciels et outils utilisés pour réaliser votre travail">
-							<label>Environnement technologique</label><img src={{ asset("images/info-8x.png") }} height=12>
+							<label><b>Environnement technologique</b></label><img src={{ asset("images/info-8x.png") }} height=12>
 						</span>
 						{{ form_widget(form.environnement, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}{# zone de sasie de l'environnement de la RP (vérouillée) #}
 						</div>
 						<div class="form-group col-md-6">
 						<span title="Ressources et documentations mis à votre disposition">
-							<label>Moyens</label><img src={{ asset("images/info-8x.png") }} height=12>
+							<label><b>Moyens</b></label><img src={{ asset("images/info-8x.png") }} height=12>
 						</span>
 						{{ form_widget(form.moyen, {'attr': {'class': 'form-control', 'disabled':'disabled'}})}}{# zone de sasie du moyen de la RP (vérouillée) #}
 						</div>

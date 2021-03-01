@@ -13,6 +13,8 @@ use App\Repository\EnseignantRepository;
 
 class AffecterType extends AbstractType
 {
+
+    //Formulaire pour affecter un enseignant a un stage
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

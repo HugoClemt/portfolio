@@ -3,16 +3,16 @@
 <body>
     <div class="container">
     <br>
-    <center> <h2>Coordonnées</h2></center>
+    <center><h2>Coordonnées</h2></center><p></p>
         {{ form_start(form) }}{# appelle un formulaire servant à afficher un étudiant #}
         <div class="form-row">
             <div class="col-md-6 mb-3">
-                <label>Nom</label>
-                    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}})}}}{# zone de saisie gérant le nom #}
+                <label><b>Nom</b></label>
+                    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}})}}{# zone de saisie gérant le nom #}
             </div>
             <div class="col-md-6 mb-3">
-                <label>Prenom</label>
-                    {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}})}}}{# zone de saisie gérant le prénom #}
+                <label><b>Prenom</b></label>
+                    {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}})}}{# zone de saisie gérant le prénom #}
             </div>
             <div class="col-md-6 mb-3">
                     {{ form_widget(form.mail, {'attr': {'class': 'form-control', 'hidden':'hidden'}})}}{#zone de saisie affichant le mail (champ caché) #}

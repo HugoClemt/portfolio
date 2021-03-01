@@ -18,6 +18,7 @@ use App\Repository\EnseignantRepository;
 
 class SoumettreRPEnseignantType extends AbstractType
 {
+    //Formulaire pour soumettre une RP a un enseignant
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

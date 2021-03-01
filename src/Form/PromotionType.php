@@ -14,7 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class PromotionType extends AbstractType
 {
-
+    //Formulaire pour faire la selection de promotion 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

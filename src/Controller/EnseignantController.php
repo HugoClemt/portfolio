@@ -18,6 +18,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class EnseignantController extends AbstractController
 {
+
+    //Fonction d'accueil pour un enseignant
     /**
      * @Route("/enseignant", name="enseignant")
      */
@@ -38,6 +40,7 @@ class EnseignantController extends AbstractController
         return $this->render('enseignant/accueil.html.twig', ['pRP' => $RPaCommenter, 'pStages' => $stages, 'pEnseignant' => $enseignant]);
     }
 
+    //Fonction pour acceder au information du compte enseignant avec la possibilité de changer les données
     public function consultoModifierEnseignant($enseignant_id, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {   
         $enseignant = $this->getDoctrine()

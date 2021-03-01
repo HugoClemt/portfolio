@@ -12,6 +12,7 @@ class PointageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        //Formulaire permettant de pointer avec la récupération de l'IP
         $builder
             ->add('datepoint')
             ->add('heurepoint')

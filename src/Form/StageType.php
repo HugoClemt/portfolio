@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class StageType extends AbstractType
 {
+    //Formulaire pour enregistrer les informations d'un stage
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

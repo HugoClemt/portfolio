@@ -38,6 +38,7 @@ use Dompdf\Options;
 
 class StageController extends AbstractController
 {
+    //Fonction pour lister tout les ancien stages
      public function ListerAncienStages()
     {
 
@@ -48,6 +49,7 @@ class StageController extends AbstractController
             'pStages' => $stages]);   
     }
 
+    //Fonction pour lister tout les stages affecter à un enseignant
     public function ListerStagesAffect($enseignant_id){
 
         $stages = $this->getDoctrine()
@@ -59,6 +61,7 @@ class StageController extends AbstractController
 
     }
 
+    //Fonction pour lister les stage en compte étudiant
     public function ListerStagesEtudiant($etudiant_id){
 
         $etudiant = $this->getDoctrine()
@@ -69,14 +72,11 @@ class StageController extends AbstractController
         ->getRepository(Stage::class)
         ->findByEtudiant($etudiant);
 
-
-
         return $this->render('stage/lister.html.twig', [
             'pStages' => $stages, 'pEtudiant' => $etudiant]);
     }
 
-
-
+    //Fonction pour lister tout les stages selon la promotion selectionnée
     public function ListerStagesPromo($promotion_id){
 
         $promotion = $this->getDoctrine()
@@ -91,10 +91,8 @@ class StageController extends AbstractController
         ->getRepository(Stage::class)
         ->findByEtudiant($etudiants,array('etudiant'=>'asc'));
 
-
         $stage1annee = array();
         $stage2annee = array();
-
 
         foreach ($stages as $stage){
             foreach ($stages as $stage2){
@@ -124,18 +122,7 @@ class StageController extends AbstractController
             'pStages1' => $stage1annee,'pStages2' => $stage2annee, 'pEnseignants' => $enseignants]);
     }
 
-    public function newEnseignant($idStage,$idEnseignant){
-
-        $stage = $this->getDoctrine()
-        ->getRepository(Stage::class)
-        ->find($idStage);
-
-        echo "";
-
-        return $this->render('stage/listerPromo.html.twig', [
-            'pStages1' => $stage1annee,'pStages2' => $stage2annee, 'pEnseignants' => $enseignants]);
-    }
-
+    //Ajout d'un stage pour un étudiant
     public function ajouterStage($etudiant_id, Request $request){
 
         $stage = new Stage();
@@ -175,6 +162,7 @@ class StageController extends AbstractController
         }
     }
 
+    //Consultation et modification d'un stage pour un étudiant
     public function consultoModifierStage ($stage_id, Request $request)
     {
         $stage = $this->getDoctrine()
@@ -224,6 +212,7 @@ class StageController extends AbstractController
         }
     }
 
+    //Consultation des taches par semaine durant le stage
     public function consulterSemaineStage($semaine_id, Request $request){
 
         $semaine = $this->getDoctrine()
@@ -278,6 +267,7 @@ class StageController extends AbstractController
         }
     }
 
+    //Suppression d'un tache d'une semaine de stage
     public function deleteTache($tache_id){
         $tache = $this->getDoctrine()
         ->getRepository(TacheSemaine::class)
@@ -292,6 +282,7 @@ class StageController extends AbstractController
         return $this->redirectToRoute('ConsulterSemaineStage', array( 'semaine_id' => $semaine->getId()));
     }
 
+    //Modification d'une tache d'une semaine de stage
     public function modifierTache ($tache_id, Request $request)
     {
         $tache = $this->getDoctrine()
@@ -319,6 +310,7 @@ class StageController extends AbstractController
         }
     }
 
+    //Pointage avec la récuperation de l'adresse IP 
     public function pointageStage($stage_id, Request $request){
 
         $stage = $this->getDoctrine()
@@ -359,6 +351,7 @@ class StageController extends AbstractController
         }
     }
 
+    //Fonction pour échanger avec l'enseignant durant le stage
     public function echangeStage($stage_id, Request $request){
 
         $stage = $this->getDoctrine()
@@ -419,8 +412,7 @@ class StageController extends AbstractController
         }
     }
 
-    
-
+    //Creation du pdf pour une semaine de stage
     public function pdfSemaine($semaine_id)
     {
         $semaine = $this->getDoctrine()
@@ -466,6 +458,7 @@ class StageController extends AbstractController
         ]);
     }
 
+    //Creation de l'attestation de fin de stage
     public function pdfAttestation($stage_id)
     {
 
@@ -520,6 +513,7 @@ class StageController extends AbstractController
         ]);
     }
     
+    //Fonction pour lister les stages affecter
     public function ListerStages(Request $request){
 
         $stages = $this->getDoctrine()
@@ -539,6 +533,7 @@ class StageController extends AbstractController
 
     }
 
+    //Fonction pour afficher les stages d'une promotion
     /**
      * @Route(name="afficherStagePromo",path="/afficherStagePromo")
      * @param Request $request
@@ -585,6 +580,7 @@ class StageController extends AbstractController
          return new JsonResponse($output);
     }
  
+    //Fonction pour affecter un enseignant à un ou plusieurs stages
     /**
      * @Route(name="AffecterStage",path="/AffecterStage")
      * @param Request $request

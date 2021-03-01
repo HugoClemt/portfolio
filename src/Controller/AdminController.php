@@ -37,33 +37,13 @@ class AdminController extends AbstractController
 
     }
 
-    public function ajouterPromotion(Request $request)
-    {
-        $promotion = new Promotion();
-        $form = $this->createForm(PromotionType::class, $promotion);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $promotion = $form->getData();
- 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($promotion);
-            $entityManager->flush();
-
-            return $this->render('admin/listerPromotion.html.twig', ['promotion' => $promotion,]);
-        }
-        else
-        {
-
-            return $this->render('admin/ajouterPromotion.html.twig', array('form' => $form->createView(), ));
-        }
-    }
-
+    //Function pour accueil une fois connecter en admin
     public function accueil(){
         
         return $this->render('admin/accueil.html.twig');
     }
 
+    //Function pour ajouter un etudiant avec des valeurs par defaut pour le mobile, date de naissance, adresse.
     public function ajouterEtudiant(Request $request, UserPasswordEncoderInterface $passwordEncoder){
 
         $promotion = $this->getDoctrine()
@@ -111,6 +91,7 @@ class AdminController extends AbstractController
         }
     }
 
+    //Ajouter un enseignant avec des valeurs par defaut pour l'adresse mail et le mot de passe.
     public function ajouterEnseignant(Request $request, UserPasswordEncoderInterface $passwordEncoder){
 
         $enseignant = new Enseignant();
@@ -152,6 +133,7 @@ class AdminController extends AbstractController
         }
     }
     
+    //Fonction pour afficher la liste de tout les enseignants inscrit sur le portfolio
     public function listerEnseignant(Request $request){
 
         $enseignant = $this->getDoctrine()
@@ -161,6 +143,7 @@ class AdminController extends AbstractController
         return $this->render('admin/listerEnseignant.html.twig', array('pEnseignant' => $enseignant));
     }
 
+    //Function pour réinitialiser le mot de passe d'un compte enseignant
     public function REmpdEnseignant($user_id, Request $request, UserPasswordEncoderInterface $passwordEncoder){
         
         $user = $this->getDoctrine()
@@ -184,6 +167,7 @@ class AdminController extends AbstractController
         
     } 
 
+    //Fonction pour lister tout les etudiants inscrit sur le portfolio
     public function listerEtudiant(Request $request){
 
         $etudiants = $this->getDoctrine()
@@ -200,6 +184,7 @@ class AdminController extends AbstractController
         return $this->render('admin/listerEtudiant.html.twig', array('pEtudiants' => $etudiants, 'form' => $form->createView(), 'formPromo' => $formPromo->createView()));
     }
 
+    //Fontion pour afficher les étudiants selon leur promotion
     /**
      * @Route(name="afficherEtudiantPromo",path="/afficherEtudiantPromo")
      * @param Request $request
@@ -244,6 +229,7 @@ class AdminController extends AbstractController
     return new JsonResponse('no results found', Response::HTTP_NOT_FOUND);
     }
 
+    //Fonction pour réinitialiser le mot de passe d'un compte étudiant
     public function REmpdEtudiant($user_id, Request $request, UserPasswordEncoderInterface $passwordEncoder){
         
         $user = $this->getDoctrine()
@@ -267,6 +253,7 @@ class AdminController extends AbstractController
 
     }
 
+    //Fonction pour consulter les informations d'un compte étudiant avec la possibilté de modifier certaine données
     public function ConsulterEtudiantAdmin($user_id, Request $request, UserPasswordEncoderInterface $passwordEncoder){
 
         $user = $this->getDoctrine()
@@ -304,6 +291,7 @@ class AdminController extends AbstractController
         }
     }
 
+    //Fonction pour deplacer un etudiant d'un promotion à une autre promotion
     /**
      * @Route(name="DeplacerPromo",path="/DeplacerPromo")
      * @param Request $request
@@ -335,6 +323,7 @@ class AdminController extends AbstractController
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($etudiant);
                 $entityManager->flush();
+                $this->addFlash('success', 'Nouvelle affectation réalisée avec succès !');
             }
            
         }

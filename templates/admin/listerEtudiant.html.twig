@@ -1,5 +1,10 @@
 {% extends "entete.html.twig" %}{# appelle l'entête (logo + menu déroulant) #}
 {% block content %}
+{% for message in app.flashes('success') %}{# affichera un message de succès si l'action est réussie #}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+{% endfor %}
 <style>
 input[type=checkbox]{
 	transform: scale(1.5);

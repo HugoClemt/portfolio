@@ -9,13 +9,13 @@
         {{ form_start(form) }}{# appelle un formulaire servant à  ajouter un enseignant #}
         <div class="form-row">
             <div class="col-md-6 mb-3">
-				<label>Prenom</label>
-					{{ form_widget(form.prenom, {'attr': {'class': 'form-control'}})}}}{# zone de saisie gérant le prénom #}
+				<label><b>Prenom</b></label>
+					{{ form_widget(form.prenom, {'attr': {'class': 'form-control'}})}}{# zone de saisie gérant le prénom #}
 			</div>
 
             <div class="col-md-6 mb-3">
-				<label>Nom</label>
-					{{ form_widget(form.nom, {'attr': {'class': 'form-control'}})}}}{# zone de saisie gérant le nom #}
+				<label><b>Nom</b></label>
+					{{ form_widget(form.nom, {'attr': {'class': 'form-control'}})}}{# zone de saisie gérant le nom #}
 			</div>
         </div>
         <div class="form-row">

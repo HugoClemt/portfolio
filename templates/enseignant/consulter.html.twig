@@ -8,16 +8,16 @@
 {% if app.user.enseignant.id == pEnseignant.id %}{# vérifie que l'enseignant est sur une page qui lui appartient #}
 <div class="container">
 <br>
-<center> <h2>Coordonnées</h2></center>
+<center> <h2>Coordonnées</h2></center><p></p>
 	{{ form_start(formEnseignant) }}
 	<div class="form-row">
 				<div class="col-md-6 mb-3">
-					<label>Nom</label>
+					<label><b>Nom</b></label>
 						{{ form_widget(formEnseignant.nom, {'attr': {'class': 'form-control', readonly:'readonly'}})}}{# zone de sasie gérant le nom, elle est en lecture seule #}
 				</div>
 
 				<div class="col-md-6 mb-3">
-					<label>Prénom</label>
+					<label><b>Prénom</b></label>
 						{{ form_widget(formEnseignant.prenom, {'attr': {'class': 'form-control', readonly:'readonly'}})}}{# zone de sasie gérant le prénom, elle est en lecture seule #}
 				</div>
 
@@ -27,12 +27,12 @@
 	<div class="form-row">
 					
 					<div class="col-md-6 mb-3">
-					<label>Mail</label>
-						{{ form_widget(formEnseignant.mail, {'attr': {'class': 'form-control'}})}}}{# zone de saisie gérant l'adresse mail #}
+					<label><b>Mail</b></label>
+						{{ form_widget(formEnseignant.mail, {'attr': {'class': 'form-control'}})}}{# zone de saisie gérant l'adresse mail #}
 					</div>
 
                     <div class="col-md-6 mb-3">
-                        <label>Matière</label>
+                        <label><b>Matière</b></label>
                             {{ form_widget(formEnseignant.matiere, {'attr': {'class': 'form-control'}})}}{# zone de sasie gérant la matière #}
                     </div>
     </div>
@@ -46,17 +46,17 @@
 		 <br>
 	            <div class="form-row">
 					<div class="col-md-4 mb-3">
-						<label>Ancien mot de passe</label>
+						<label><b>Ancien mot de passe</b></label>
   						<input type="password" class="form-control" name="old_password" id="old_password">{# zone de saisie de l'ancien mdp pour changement de mdp  #}
 					</div>
 				    <div class="col-md-4 mb-3">
 					    <span title="Ce mot de passe de 8 caractères minimun doit contenir: une minuscule, une majuscule, un chiffre et un caractère spécial">
-							<label>Nouveau mot de passe</label><img src={{ asset("images/info-8x.png") }} height=12>
+							<label><b>Nouveau mot de passe</b></label><img src={{ asset("images/info-8x.png") }} height=12>
 						</span>
 						{{ form_widget(formMDP.password, {'attr': {'class': 'form-control'}})}}{# zone de saisie du nouveau mdp pour changement de mdp  #}
 						</div>
 					<div class="col-md-4 mb-3">
-						<label>Confirmer mot de passe</label>
+						<label><b>Confirmer mot de passe</b></label>
   						<input type="password" class="form-control" name="new_password" id="new_password">{# zone de saisie de confirmation du nouveau mdp pour changement de mdp  #}
 					</div>
 				</div>

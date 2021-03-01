@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class EchangeType extends AbstractType
 {
+    //Formulaire pour faire un echange avec l'enseignant et l'etudiant du stage
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

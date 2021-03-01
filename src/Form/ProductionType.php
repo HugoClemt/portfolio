@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class ProductionType extends AbstractType
 {
+    //Formulaire pour anregistrer une production
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

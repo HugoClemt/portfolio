@@ -19,6 +19,7 @@ use Symfony\Component\Form\FormEvents;
 
 class CommentaireType extends AbstractType
 {
+    //Fonction pour ajouter un commentaire sur une RP
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

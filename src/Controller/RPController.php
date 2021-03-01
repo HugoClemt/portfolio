@@ -30,6 +30,7 @@ use Dompdf\Options;
 class RPController extends AbstractController
 {
 
+    //Fonction pour lister seulement les RP à commenter pour un enseignant
     public function listerLesRPaCommenter(Request $request)
     {
 
@@ -41,6 +42,7 @@ class RPController extends AbstractController
     }
 
 
+    //Fonction pour afficher les RP à commenter selon la promotion selectionné
     /**
      * @Route(name="afficherRPPromoACommenter",path="/afficherRPPromoACommenter")
      * @param Request $request
@@ -89,7 +91,7 @@ class RPController extends AbstractController
     return new JsonResponse('no results found', Response::HTTP_NOT_FOUND);
     }
 
-
+    //Fonction pour lister seulement les RP qui ont été commenter par un enseignant
     public function listerLesRPaModifier($etudiant_id)
     {
         
@@ -102,6 +104,7 @@ class RPController extends AbstractController
         return $this->render('rp/listerEtudiant.html.twig', ['pRP' => $RPaModifier]);
     }
 
+    //Fonction pour lister les RP selon la promotion selectionner
     public function listerLesRPPromo(Request $request)
     {
         $promotion = new Promotion();
@@ -113,8 +116,7 @@ class RPController extends AbstractController
         return $this->render('rp/listerRP.html.twig', array('form' => $form->createView()));
     }
 
-    
-
+    //Fonction lister les RP concernant l'étudiant connecter
     public function listerLesRP($etudiant_id){
 
         $etudiant = $this->getDoctrine()
@@ -128,6 +130,7 @@ class RPController extends AbstractController
             return $this->render('rp/listerEtudiant.html.twig', [ 'pRP' => $MesRp, 'pEtudiant' => $etudiant]);
     }
 
+    //Fonction lister les RP qui sont archiver concernant l'étudiant connecter
     public function listerRPArchiver($etudiant_id){
 
         $etudiant = $this->getDoctrine()
@@ -141,6 +144,7 @@ class RPController extends AbstractController
             return $this->render('rp/archive.html.twig', [ 'pRP' => $MesRp, 'pEtudiant' => $etudiant]);
     }
 
+    //Fonction pour permet a un étudiant d'ajouter une RP
     public function ajouterRp($etudiant_id, Request $request){
         $rp = new RP();
         $form = $this->createForm(RPType::class, $rp);
@@ -176,6 +180,7 @@ class RPController extends AbstractController
 
     }
 
+    //Fonction permettant à l"etudiant de consulter ces activitée concernant sa RP
     public function consulterActiviteRPEtudiant($rp_id){
         
         $rp = $this->getDoctrine()
@@ -193,6 +198,7 @@ class RPController extends AbstractController
         return $this->render('rp/consulterActivite.html.twig', ['pRPActivite' => $rpActivite, 'pRP' => $rp, 'pEtudiant' => $etudiant]);
     }
 
+    //Fonction permettant de supprimer une activitée de sa RP
     public function deleteActivite($rpActivite_id){
         $rpactivite = $this->getDoctrine()
         ->getRepository(RPActivite::class)
@@ -208,6 +214,7 @@ class RPController extends AbstractController
         return $this->render('rp/consulterActivite.html.twig', ['pRPActivite' => $rpActivite, 'pRP' => $rp]);
     }
 
+    //Fonction permettant de ajouter une activitée de sa RP
     public function ajouterActiviteRP($rp_id, Request $request){
         $activite = $this->getDoctrine()
         ->getRepository(Activite::class)
@@ -222,8 +229,6 @@ class RPController extends AbstractController
         $competences = $this->getDoctrine()
         ->getRepository(Competence::class);
         
-        
- 
         if ($form->isSubmitted()) {
             $rpactivite = $form->getData();
  
@@ -238,12 +243,14 @@ class RPController extends AbstractController
         }
     }
 
+    //Fonction permettant de consulter les productions de sa RP
     public function consulterProductionRPEtudiant($rp_id){
         $rp = $this->getDoctrine()->getRepository(RP::class)->find($rp_id);
         $rpProduction = $this->getDoctrine()->getRepository(Production::class)->findByRp($rp);
         return $this->render('rp/consulterProduction.html.twig', ['pRPProduction' => $rpProduction, 'pRP' => $rp]);
     }
 
+    //Fonction permettant de ajouter une production de sa RP
     public function ajouterProductionRP($rp_id, Request $request){
         $production = new Production();
         $form = $this->createForm(ProductionType::class, $production);
@@ -266,6 +273,7 @@ class RPController extends AbstractController
         }
     }
 
+    //Fonction permettant de supprimer une production de sa RP
     public function deleteProduction($production_id){
         $production = $this->getDoctrine()
         ->getRepository(Production::class)
@@ -280,6 +288,7 @@ class RPController extends AbstractController
         return $this->redirectToRoute('rpConsulterProduction', array( 'rp_id' => $rp->getId()));
     }
 
+    //Fonction permettant de modifier une production de sa RP
     public function modifierProduction ($production_id, Request $request)
     {
         $production = $this->getDoctrine()
@@ -307,7 +316,7 @@ class RPController extends AbstractController
         }
     }
 
-
+    //Fonction permettant de ajouter une activitée de sa RP
     public function consultoModifierRP ($rp_id, Request $request)
     {
         $rp = $this->getDoctrine()
@@ -345,12 +354,10 @@ class RPController extends AbstractController
         }
     }
 
-
+    //Fonction permettant à l'etudiant de consulter et de modifier les informations de sa RP
     public function consulterCommentaireRPEtudiant ($rp_id, Request $request)
     {
         $commentaire = new Commentaire();
-
-        
 
         $formAjouter = $this->createForm(CommentaireType::class, $commentaire);
         $formAjouter->handleRequest($request);
@@ -387,16 +394,12 @@ class RPController extends AbstractController
         ->getRepository(Enseignant::class)
         ->findOneById($rp->getEnseignant()->getId());
 
-        
-
         $rp->setStatut($statut);
         if($this->isGranted('ROLE_ENSEIGNANT')) {  
             if ($formAjouter->isSubmitted()) {
                 $statut = $this->getDoctrine()
                 ->getRepository(Statut::class)
                 ->findOneById(3);
-
-                
 
                 $rp->setStatut($statut);
                 $commentaire = $formAjouter->getData();
@@ -427,6 +430,7 @@ class RPController extends AbstractController
         }
     }
 
+    //Fonction pour qu'un étudiant archive des RP
     public function archiveRP($rp_id, Request $request){
 
         $rp = $this->getDoctrine()
@@ -443,6 +447,7 @@ class RPController extends AbstractController
         return $this->redirectToRoute('etudiantListerLesRP', array( 'etudiant_id' => $rp->getEtudiant()->getId()));
     }
 
+    //Fonction pour qu'un étudiant supprime des RP apres l'avoir archiver
     public function deleteRp($rp_id){
         $rp = $this->getDoctrine()
         ->getRepository(RP::class)
@@ -455,6 +460,7 @@ class RPController extends AbstractController
         return $this->redirectToRoute('rpListerArchiver', array( 'etudiant_id' => $rp->getEtudiant()->getId()));
     }
 
+    //Fonction pour qu'un étudiant restaure des RP apres l'avoir archiver
     public function restoreRP($rp_id, Request $request){
 
         $rp = $this->getDoctrine()
@@ -471,6 +477,7 @@ class RPController extends AbstractController
         return $this->redirectToRoute('rpListerArchiver', array( 'etudiant_id' => $rp->getEtudiant()->getId()));
     }
 
+    //Fonction permettant à l'étudiant de modifier une activitée
     public function modifierRPActivite ($rpActivite_id, Request $request)
     {
         $rpActivite = $this->getDoctrine()
@@ -498,6 +505,7 @@ class RPController extends AbstractController
         }
     }
 
+    //Fonction pour qu'un enseignant puisse validé une RP
     public function ValiderRP($rp_id, Request $request){
         $rp = $this->getDoctrine()
         ->getRepository(RP::class)
@@ -513,7 +521,8 @@ class RPController extends AbstractController
         
     }
 
-/**
+    //Fonction pour afficher les compétence suivant l'activitée selectionnée
+    /**
      * @Route(name="afficherCompetences",path="/afficherCompetences")
      * @param Request $request
      * @return Response
@@ -547,7 +556,7 @@ class RPController extends AbstractController
     return new JsonResponse('no results found', Response::HTTP_NOT_FOUND);
     }
 
-
+    //Fonction pour qu'un enseignant supprime un commentaire
     public function deleteCommentaire($commentaire_id){
         $commentaire = $this->getDoctrine()
         ->getRepository(Commentaire::class)
@@ -561,6 +570,7 @@ class RPController extends AbstractController
         return $this->redirectToRoute('rpConsulterCommentaire', array( 'rp_id' => $rp->getId()));
     }
 
+    //Fonction pour qu'un enseignant modifie un commentaire
     public function modifierCommentaire ($commentaire_id, Request $request)
     {
         $commentaire = $this->getDoctrine()
@@ -588,6 +598,7 @@ class RPController extends AbstractController
         }
     }
 
+    //Fonction pour afficher toutes les RP selon la promotion selectionnée
     /**
      * @Route(name="afficherRPPromo",path="/afficherRPPromo")
      * @param Request $request
@@ -641,9 +652,7 @@ class RPController extends AbstractController
     return new JsonResponse('no results found', Response::HTTP_NOT_FOUND);
     }
 
-
-
-
+    //Creation du pdf affichant le niveaux pour les activité B1
     public function pdfB1($etudiant_id)
     {
         $etudiant = $this->getDoctrine()
@@ -661,7 +670,6 @@ class RPController extends AbstractController
         $stages = $this->getDoctrine()
         ->getRepository(Stage::class)
         ->findByEtudiant($etudiant);
-
 
 
         // Configure Dompdf according to your needs
@@ -691,6 +699,7 @@ class RPController extends AbstractController
         ]);
     }
 
+    //Creation du pdf affichant les informations de la RP
     public function rpPDF($rp_id)
     {
         $rp = $this->getDoctrine()

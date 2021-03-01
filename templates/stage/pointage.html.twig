@@ -21,7 +21,7 @@
           <a class="nav-link" href="{{ path('EchangeStage', {'stage_id': pStage.id }) }}">Echange</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ path('PointageStage', {'stage_id': pStage.id }) }}">Pointage</a>
+          <a class="nav-link active" href="{{ path('PointageStage', {'stage_id': pStage.id }) }}">Pointage</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ path('PdfAttestation', {'stage_id': pStage.id }) }}">Attestation</a>
@@ -81,7 +81,7 @@
     </nav></div>
 
   <div class="container">
-    {{ form_start(form) }}{# appelle un formulaire servant à #}
+    {{ form_start(form) }}{# appelle un formulaire servant à pointer #}
     <p></p><center>{{ form_widget(form.pointer, {'attr': {'class': 'btn btn-secondary'}})}}</center><p></p>
       <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
           <thead>
