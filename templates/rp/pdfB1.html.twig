@@ -1,10 +1,10 @@
-{% if app.user.etudiant.id == pEtudiant.id %}
+{% if app.user.etudiant.id == pEtudiant.id %}{# vérifie que la page appartient bien à l'étudiant connecté #}
   <html>
       <head>
           <meta charset="UTF-8">
           <title>tableauSynthese_{{pEtudiant.nom}}_{{pEtudiant.prenom}}</title>
       </head>
-      <style>
+<style>
   table {
       border-width:1px; 
       border-style:solid; 
@@ -75,7 +75,7 @@
   thead th:nth-child(4) {
     width: 20%;
   }
-  </style>
+</style>
       <body>
         <table >
   <thead>

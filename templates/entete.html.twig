@@ -14,7 +14,7 @@
         <div class="col-md-5">
         </div>
         <div class="col-md-6">
-          {% if is_granted('ROLE_ADMIN') %}
+          {% if is_granted('ROLE_ADMIN') %}{# si l'utilisateur connecté possède le rôle admin #}
             <a href="{{ path('adminAccueil') }}"><img src= {{ asset('images/logo_band.png') }} height=100 style="padding-top: 5px"></a>
           {% elseif is_granted('ROLE_ENSEIGNANT') %}
             <a href="{{ path('enseignantAccueil', { 'enseignant_id': app.user.enseignant.id }) }}"><img src= {{ asset('images/logo_band.png') }} height=100></a>      
@@ -23,12 +23,12 @@
           {% endif %}
         </div>
         <div class="col-md-1">
-          {% if is_granted('ROLE_ADMIN') %}
-            {{app.user.username}}
-          {% elseif is_granted('ROLE_ENSEIGNANT') %}
-            {{app.user.enseignant.prenom}} {{app.user.enseignant.nom}}
+          {% if is_granted('ROLE_ADMIN') %}{# si l'utilisateur connecté possède le rôle admin #}
+            {{app.user.username}}{# Affichage du username appartenant au compte admin connecter #}
+          {% elseif is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}
+            {{app.user.enseignant.prenom}} {{app.user.enseignant.nom}}{# Affichage du prenom et du nom appartenant au compte enseignant connecter #}
           {% else %}
-            {{app.user.etudiant.prenom}} {{app.user.etudiant.nom}}
+            {{app.user.etudiant.prenom}} {{app.user.etudiant.nom}}{# Affichage du prenom et du nom appartenant au compte etudiant connecter #}
           {% endif %}
         </div>    
       </div>
@@ -37,15 +37,15 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      {% if is_granted('ROLE_ADMIN') %}
+      {% if is_granted('ROLE_ADMIN') %}{# si l'utilisateur connecté possède le rôle admin #}{# lien vers l'accueil du compte admin #}
         <a class="navbar-brand" href="{{ path('adminAccueil') }}" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
           Accueil
         </a>
-      {% elseif is_granted('ROLE_ENSEIGNANT') %}
+      {% elseif is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}{# lien vers l'accueil du compte enseignant #}
         <a class="navbar-brand" href="{{ path('enseignantAccueil', { 'enseignant_id': app.user.enseignant.id }) }}" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
           Accueil
         </a>
-      {% else %}
+      {% else %}{# lien vers l'accueil du compte etudiant #}
       <a class="navbar-brand" href="{{ path('etudiantAccueil', { 'etudiant_id': app.user.etudiant.id }) }}" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
           Accueil
         </a>      
@@ -54,21 +54,21 @@
 
 
 <div class="collapse navbar-collapse" id="navbarNav">
-  {% if is_granted('ROLE_ADMIN') %}
+  {% if is_granted('ROLE_ADMIN') %}{# si l'utilisateur connecté possède le rôle admin #}
     <ul class="navbar-nav mr-auto">
       <li class="nav-item dropdown">
         <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Etudiant</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{{ path('etudiantAjouter') }}">Ajouter un etudiant</a>
+          <a class="dropdown-item" href="{{ path('etudiantAjouter') }}">Ajouter un etudiant</a>{# lien vers la page pour ajouter un etudiant #}
           <a class="dropdown-item" href="#">Ajouter une liste etudiant</a>
-          <a class="dropdown-item" href="{{ path('listerEtudiant') }}">Lister les etudiants</a>
+          <a class="dropdown-item" href="{{ path('listerEtudiant') }}">Lister les etudiants</a>{# lien vers la page lister les etudiants #}
         <div>
       </li>
       <li class="nav-item dropdown">
         <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Enseignant</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{{ path('enseignantAjouter') }}">Ajouter un enseignant</a>
-          <a class="dropdown-item" href="{{ path('listerEnseignant') }}">Lister les enseignants</a>
+          <a class="dropdown-item" href="{{ path('enseignantAjouter') }}">Ajouter un enseignant</a>{# lien vers la page pour ajouter un enseignant #}
+          <a class="dropdown-item" href="{{ path('listerEnseignant') }}">Lister les enseignants</a>{# lien vers la page pour lister les enseignant #}
         <div>
       </li>
     </ul>
@@ -80,13 +80,13 @@
           Réalisation professionnelle
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        {% if is_granted('ROLE_ENSEIGNANT') %}
-          <a class="dropdown-item" href="{{ path('enseignantLesRPaCommenter', { 'enseignant_id': app.user.enseignant.id }) }}">Lister les réalisations à commenter</a>
-          <a class="dropdown-item" href="{{ path('listerRPPromo') }}">Lister les réalisations</a>
+        {% if is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}
+          <a class="dropdown-item" href="{{ path('enseignantLesRPaCommenter', { 'enseignant_id': app.user.enseignant.id }) }}">Lister les réalisations à commenter</a>{# lien vers la page pour lister les RP à commenter #}
+          <a class="dropdown-item" href="{{ path('listerRPPromo') }}">Lister les réalisations</a>{# lien vers la page pour lister les RP par promo #}
         {% else %}
-          <a class="dropdown-item" href="{{ path('rpAjouter', { 'etudiant_id': app.user.etudiant.id }) }}">Nouvelle réalisation professionnelle</a>
-          <a class="dropdown-item" href="{{ path('etudiantListerLesRP', { 'etudiant_id': app.user.etudiant.id }) }}">Lister mes réalisations</a>
-          <a class="dropdown-item" href="{{ path('rpListerArchiver', { 'etudiant_id': app.user.etudiant.id }) }}">Lister mes réalisations archivées</a>
+          <a class="dropdown-item" href="{{ path('rpAjouter', { 'etudiant_id': app.user.etudiant.id }) }}">Nouvelle réalisation professionnelle</a>{# lien vers la page pour ajouter une RP#}
+          <a class="dropdown-item" href="{{ path('etudiantListerLesRP', { 'etudiant_id': app.user.etudiant.id }) }}">Lister mes réalisations</a>{# lien vers la page pour lister les RP de l'etudiant connecter #}
+          <a class="dropdown-item" href="{{ path('rpListerArchiver', { 'etudiant_id': app.user.etudiant.id }) }}">Lister mes réalisations archivées</a>{# lien vers la page pour lister les RP archivée de l'étudiant connecter#}
         {% endif %} 
         </div>
       </li>
@@ -96,9 +96,9 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">Bilan individuel</a>
-          {% if is_granted('ROLE_ENSEIGNANT') %}
+          {% if is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}
           {% else %}
-          <a class="dropdown-item" href="{{ path('rpPDFB1', { 'etudiant_id': app.user.etudiant.id }) }}">Tableau de synthèse</a>
+          <a class="dropdown-item" href="{{ path('rpPDFB1', { 'etudiant_id': app.user.etudiant.id }) }}">Tableau de synthèse</a>{# lien vers la page de synthèse #}
           {% endif %}
         </div>
       </li>
@@ -107,13 +107,13 @@
           Stages
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">  
-          {% if is_granted('ROLE_ENSEIGNANT') %}
-            <a class="dropdown-item" href="{{ path('ListerStagesAffect', { 'enseignant_id': app.user.enseignant.id }) }}">Lister Stage affectés</a>
-            <a class="dropdown-item" href="{{ path('ListerStages') }}">Lister Stages</a>
+          {% if is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}
+            <a class="dropdown-item" href="{{ path('ListerStagesAffect', { 'enseignant_id': app.user.enseignant.id }) }}">Lister Stage affectés</a>{# lien vers la page pour lister les stage affecter a l'enseignant connecter #}
+            <a class="dropdown-item" href="{{ path('ListerStages') }}">Lister Stages</a>{# lien vers la page pour lister toutes les stage selon la promotion #}
           {% else %}
             <a class="dropdown-item" href="{{ path('EtudiantListerStage', { 'etudiant_id': app.user.etudiant.id }) }}">Carnet de bord</a>
           {% endif %}
-          <a class="dropdown-item" href="{{ path('ListerAncienStages') }}">Infos anciens stages</a>
+          <a class="dropdown-item" href="{{ path('ListerAncienStages') }}">Infos anciens stages</a>{# lien vers la page pour lister les ancien stage #}
         </div>
       </li>
       <li class="nav-item dropdown">
@@ -122,25 +122,25 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">Sauvegarde</a>
-          {% if is_granted('ROLE_ENSEIGNANT') %}
-          <a class="dropdown-item" href="{{ path('enseignantConsulter', { 'enseignant_id': app.user.enseignant.id }) }}">Profil</a>
+          {% if is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}
+          <a class="dropdown-item" href="{{ path('enseignantConsulter', { 'enseignant_id': app.user.enseignant.id }) }}">Profil</a>{# lien vers la page du profil du compte enseignant connecter #}
           {% else %}
-          <a class="dropdown-item" href="{{ path('etudiantConsulter', { 'etudiant_id': app.user.etudiant.id }) }}">Profil</a>
+          <a class="dropdown-item" href="{{ path('etudiantConsulter', { 'etudiant_id': app.user.etudiant.id }) }}">Profil</a>{# lien vers la page du profil du compte etudiant connecter #}
           {% endif %}
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="mailto:btsinfo.rostand@laposte.net?subject=[portfolio]">Contact admin</a>
+          <a class="dropdown-item" href="mailto:btsinfo.rostand@laposte.net?subject=[portfolio]">Contact admin</a>{# lien pour contacter l'administrateur du site #}
         </div>
       </li>
     </ul>
     {% endif %}
     <form class="form-inline my-2 my-lg-0" >
-      {% if is_granted('ROLE_ADMIN') %}
-        <a class="navbar-brand" href="{{ path('app_logout', { 'admin_id': app.user.id }) }}" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">Deconnexion</a>
-      {% elseif is_granted('ROLE_ENSEIGNANT') %}
-        <a class="navbar-brand" href="{{ path('app_logout', { 'enseignant_id': app.user.enseignant.id }) }}" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">Deconnexion</a>
+      {% if is_granted('ROLE_ADMIN') %}{# si l'utilisateur connecté possède le rôle admin #}
+        <a class="navbar-brand" href="{{ path('app_logout', { 'admin_id': app.user.id }) }}" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">Deconnexion</a>{# lien de deconnexion #}
+      {% elseif is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}
+        <a class="navbar-brand" href="{{ path('app_logout', { 'enseignant_id': app.user.enseignant.id }) }}" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">Deconnexion</a>{# lien de deconnexion #}
       {% else %}
-      <a class="navbar-brand" href="{{ path('app_logout', { 'etudiant_id': app.user.etudiant.id }) }}" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">Deconnexion</a>      
-        {% endif %}
+      <a class="navbar-brand" href="{{ path('app_logout', { 'etudiant_id': app.user.etudiant.id }) }}" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">Deconnexion</a>{# lien de deconnexion #}  
+      {% endif %}
     </form>
   </div>
 </nav>

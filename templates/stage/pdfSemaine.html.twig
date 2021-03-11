@@ -1,8 +1,9 @@
+{# Structure du pdf pour une semaine de stage, un recapitulatif des taches pour une semaine de satge #}
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>CarnetBord_{{ pEtudiant.nom }}_{{ pEtudiant.prenom}}</title>
+        <title>CarnetBord_{{ pEtudiant.nom }}_{{ pEtudiant.prenom}}_semaine_{{ pSemaine.numSemaine}}</title>
     </head>
     <style>
         table {
@@ -30,7 +31,7 @@
             border-color:#ccc;
         }
     </style>
-{% if is_granted('ROLE_ENSEIGNANT') %}
+{% if is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}
     <body>
         <center>
             <h2>Carnet de bord</h2>
@@ -61,7 +62,7 @@
         </table>
     </body>
     {% else %}
-    {% if app.user.etudiant.id == pEtudiant.id %}
+    {% if app.user.etudiant.id == pEtudiant.id %}{# vérifie que la page appartient bien à l'étudiant connecté #}
         <body>
             <center>
                 <h2>Carnet de bord</h2>

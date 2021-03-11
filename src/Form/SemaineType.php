@@ -13,6 +13,7 @@ class SemaineType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        //Formulaire pour enregistrer le bilan pour une semaine de stage
         $builder
             ->add('apprentissage', TextareaType::class, array('required' => false))
             ->add('bilan', TextareaType::class, array('required' => false))

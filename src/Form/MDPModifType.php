@@ -22,6 +22,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class MDPModifType extends AbstractType
 {
+    //Formulaire pour modofier un mot de passe
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

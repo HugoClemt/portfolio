@@ -1,5 +1,10 @@
-{% extends "entete.html.twig" %}
+{% extends "entete.html.twig" %}{# appelle l'entête (logo + menu déroulant) #}
 {% block content %}
+{% for message in app.flashes('success') %}{# affichera un message de succès si l'action est réussie #}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+{% endfor %}
 <style>
 input[type=checkbox]{
 	transform: scale(1.5);
@@ -11,13 +16,14 @@ p.nowrap{
 <body>
 	<br>
 	<div class="container">
-		{{ form_start(form) }}
-		<label id="promotion" name="promotion">
+		{{ form_start(form) }}{# appelle un formulaire servant à choisir une promotion pour récupérer des élèves#}
+		<p class="nowrap">Afficher les élèves appartenant à la promotion 
+		<label id="promotion" name="promotion" >
 			{{ form_widget(form.id, {'attr': {'class': 'form-control'}})}}
-		</label>
+		</label></p>
 		{{ form_end(form)}}
 		<br>
-		{% block javascripts %}
+		{% block javascripts %}{# fonction jquery/AJAX récuperant les élèves associés à la promo sélectionnée #}
 			<script src="https://code.jquery.com/jquery-3.4.1.js" integrity= "sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
 			<script>
@@ -80,6 +86,7 @@ p.nowrap{
 									
 									});
 									location.reload();
+									
 						},
 								
 						error: function(jxh,textmsg,errorThrown){
@@ -93,7 +100,7 @@ p.nowrap{
 			</script>
 		{% endblock %}
 	<div id="checkboxes">
-		<table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
+		<table class="table" id="table" data-toggle="BootstrapTable" data-height="460">{# tableau affichant les données récupérées par AJAX #}
 			<thead>
 				<tr>
 					<th><input type="checkbox" id="selectAll" class="main" name="0"/></th>
@@ -105,11 +112,12 @@ p.nowrap{
 		</table>
 		<div id="test">
 	</div>
-		{{ form_start(formPromo) }}
-		<p class="nowrap">
+		{{ form_start(formPromo) }}{# appelle un formulaire servant à choisir une promotion dans laquelle les élèves seront déplacés #}
+		<p class="nowrap">Les transférer vers la promotion 
 		<label id="promo">
 			{{ form_widget(formPromo.id, {'attr': {'class': 'form-control'}})}}
 		</label> 
+		</p>
 		{{ form_end(formPromo)}}
 		<button type="submit" class="btn btn-secondary" id="Affecter">Affecter</button></p>
 	</div>

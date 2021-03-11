@@ -1,6 +1,6 @@
-{% extends "entete.html.twig" %}
+{% extends "entete.html.twig" %}{# appelle l'entête (logo + menu déroulant) #}
 {% block content %}
-{% if is_granted('ROLE_ENSEIGNANT') %}
+{% if is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}
   <body>
   <div class="container">
     <p></p><center><h1>Consultation du stage</h1></center>
@@ -21,7 +21,7 @@
           <a class="nav-link" href="{{ path('EchangeStage', {'stage_id': pStage.id }) }}">Echange</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ path('PointageStage', {'stage_id': pStage.id }) }}">Pointage</a>
+          <a class="nav-link active" href="{{ path('PointageStage', {'stage_id': pStage.id }) }}">Pointage</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ path('PdfAttestation', {'stage_id': pStage.id }) }}">Attestation</a>
@@ -50,7 +50,7 @@
           </tbody>
   </body>
 {% else %}
-  {% if app.user.etudiant.id == pEtudiant.id %}
+  {% if app.user.etudiant.id == pEtudiant.id %}{# vérifie que la page appartient bien à l'étudiant connecté #}
   <body>
   <div class="container">
     <p></p><center><h1>Consultation du stage</h1></center>
@@ -81,7 +81,7 @@
     </nav></div>
 
   <div class="container">
-    {{ form_start(form) }}
+    {{ form_start(form) }}{# appelle un formulaire servant à pointer #}
     <p></p><center>{{ form_widget(form.pointer, {'attr': {'class': 'btn btn-secondary'}})}}</center><p></p>
       <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
           <thead>

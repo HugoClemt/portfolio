@@ -20,10 +20,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class EtudiantController extends AbstractController
 {
 
+    //Fonction d'accueil pour un etudiant
     /*
      * @Route("/etudiant", name="etudiant")
      */
-
     public function accueilEtudiant($etudiant_id, Request $request)
     {
 
@@ -43,6 +43,7 @@ class EtudiantController extends AbstractController
         return $this->render('etudiant/accueil.html.twig', ['pRP' => $RPaModifier, 'pStages' => $stages, 'pEtudiant' => $etudiant]);
     }
 
+    //Fonction pour acceder au information du compte etudiant avec la possibilité de changer les données
     public function consultoModifierEtudiant($etudiant_id, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {   
         $etudiant = $this->getDoctrine()
@@ -101,28 +102,9 @@ class EtudiantController extends AbstractController
         }
     
     }
-        public function ajouterEtudiant(Request $request){
-                $etudiant = new etudiant();
-                $form = $this->createForm(AjoutEtudiantType::class, $etudiant);
-                $form->handleRequest($request);
-             
-                if ($form->isSubmitted() && $form->isValid()) {
-             
-                        $etudiant = $form->getData();
-             
-                        $entityManager = $this->getDoctrine()->getManager();
-                        $entityManager->persist($etudiant);
-                        $entityManager->flush();
-             
-                    return $this->render('etudiant/consulter.html.twig', ['pEtudiant' => $etudiant,]);
-                }
-                else
-                    {                       
-                        return $this->render('etudiant/ajouter.html.twig', array('form' => $form->createView(),));
-                }
-        }
-        
-        /**
+       
+    //Fonction permet a l'étudiant de changer son mot de passe
+    /**
      * @Route(name="MDPModifEtu",path="/MDPModifEtu")
      * @param Request $request
      * @return Response
@@ -173,22 +155,20 @@ class EtudiantController extends AbstractController
     return new JsonResponse('no results found', Response::HTTP_NOT_FOUND);
     }
 
-
-        
-    
-
-        public function change_user_password(Request $request, UserPasswordEncoderInterface $passwordEncoder) {
-            $old_pwd = $request->get('old_password'); 
-            $new_pwd = $request->get('new_password'); 
-            $new_pwd_confirm = $request->get('new_password_confirm');
-            $user = $this->getUser();
-            $checkPass = $passwordEncoder->isPasswordValid($user, $old_pwd);
-           if($checkPass === true) {
+    //Verification de l'ancien mot de passe et confirmation du nouveaux mot de passe avant de pouvoir changer
+    public function change_user_password(Request $request, UserPasswordEncoderInterface $passwordEncoder) {
+        $old_pwd = $request->get('old_password'); 
+        $new_pwd = $request->get('new_password'); 
+        $new_pwd_confirm = $request->get('new_password_confirm');
+        $user = $this->getUser();
+        $checkPass = $passwordEncoder->isPasswordValid($user, $old_pwd);
+        if($checkPass === true) {
                    
-           } else {
-             return new jsonresponse(array('error' => 'The current password is incorrect.'));
-           }
-         }
+        } 
+        else{
+            return new jsonresponse(array('error' => 'The current password is incorrect.'));
+        }
+    }
 
 }
 

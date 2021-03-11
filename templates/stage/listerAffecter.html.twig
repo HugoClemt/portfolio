@@ -1,4 +1,4 @@
-{% extends "entete.html.twig" %}
+{% extends "entete.html.twig" %}{# appelle l'entête (logo + menu déroulant) #}
 {% block content %}
 <style>
 input[type=checkbox]{
@@ -12,12 +12,13 @@ p.nowrap{
 	<br>
 	<div class="container">
 		<p></p><center><h1>Tableaux des stages</h1></center><p></p>
-		{{ form_start(form) }}
+		{{ form_start(form) }}{# appelle un formulaire servant à #}
 		<label id="promotion" name="promotion">
 			{{ form_widget(form.id, {'attr': {'class': 'form-control'}})}}
 		</label>
 		{{ form_end(form)}}
 		<br>
+		{# Script pour afficher les stages d'une promotion et affecter les stages à un enseignant #}
 		{% block javascripts %}
 			<script src="https://code.jquery.com/jquery-3.4.1.js" integrity= "sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    

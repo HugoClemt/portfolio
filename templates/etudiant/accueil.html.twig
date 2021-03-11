@@ -1,13 +1,13 @@
-{% extends "entete.html.twig" %}
+{% extends "entete.html.twig" %}{# appelle l'entête (logo + menu déroulant) #}
 {% block content %}
-{% if app.user.etudiant.id == pEtudiant.id %}
+{% if app.user.etudiant.id == pEtudiant.id %}{# vérifie que la page appartient bien à l'étudiant connecté #}
 	<body>
 		<div class="container">
 		
 		<br>
 		<br>
 			<center><h1>Réalisations commentées</h1></center><br>
-				<table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
+				<table class="table" id="table" data-toggle="BootstrapTable" data-height="460">{# tableau affichant les RP de l'élève connecté #}
 					<thead>
 						<tr>
 							<th scope="col" data-sortable="true">Source</th>
@@ -31,7 +31,7 @@
 			<br>
 			<br>
 	<center><h1>Suivi de stage</h1></center><br><br>
-        <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
+        <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">{# tableau affichant les stages de l'élève connecté #}
           <thead>
             <tr>
             <th scope="col">Réferent</th>
@@ -56,7 +56,7 @@
           </tbody>
         </table>
 	</body>
-{% else %}
+{% else %}{# si l'élève est sur une page ne lui appartenant pas, il est bloqué #}
 <br>
 <center><p>Ce n'est pas ton tableaux de bord ! <a href="{{ path('etudiantAccueil', { 'etudiant_id': app.user.etudiant.id }) }}">Clique ici</p></center>
 {% endif %}

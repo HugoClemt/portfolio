@@ -13,10 +13,13 @@ use App\Repository\EnseignantRepository;
 
 class AffecterType extends AbstractType
 {
+
+    //Formulaire pour affecter un enseignant a un stage
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('enseignant', EntityType::class, array('class' => 'App\Entity\Enseignant',
+            'placeholder' => 'Choisissez un enseignant',
             'choice_label' => function (Enseignant $enseignant) {
                 return $enseignant->getPrenom() . ' ' . $enseignant->getNom();
             },

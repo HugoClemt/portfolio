@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class TacheSemaineType extends AbstractType
 {
+    //Formulaire pour enregistrer les taches pour une semaine de stage
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

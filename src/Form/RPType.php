@@ -17,6 +17,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class RPType extends AbstractType
 {
+
+    //Formulaire pour enregistrer les informations concernant une RP
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

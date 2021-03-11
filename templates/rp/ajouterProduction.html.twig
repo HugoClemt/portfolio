@@ -1,22 +1,22 @@
-{% extends "entete.html.twig" %}
+{% extends "entete.html.twig" %}{# appelle l'entête (logo + menu déroulant) #}
 {% block content %}
 <body>
 <div class="container">
     <center><h1>Ajouter une production</h1></center>
        <br> 
        <div class="form-group col-md-12">
-			{{ form_start(form) }}
+			{{ form_start(form) }}{# appelle un formulaire servant à #}
             <div>
                 <label>Description</label> 
-                {{ form_widget(form.designation, {'attr': {'class': 'form-control'}})}}  
+                {{ form_widget(form.designation, {'attr': {'class': 'form-control'}})}}{# zone de saisie de la designation de la RP  #}  
             </div><br>
 
             <div class="form-group col-md-12">
 				<label>URL</label>
-				{{ form_widget(form.url, {'attr': {'class': 'form-control'}})}}
+				{{ form_widget(form.url, {'attr': {'class': 'form-control'}})}}{# zone de sasie  de l'URL  #}
 			</div>
               <center><div class="col-12">
-					{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}
+					{{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-secondary'}})}}{# bouton de validation #}
 				</div></center>
 			</div>           
 </div>

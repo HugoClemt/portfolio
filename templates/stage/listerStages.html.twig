@@ -1,10 +1,10 @@
-{% extends "entete.html.twig" %}
+{% extends "entete.html.twig" %}{# appelle l'entête (logo + menu déroulant) #}
 {% block content %}
 <body>
 <div class="container">
   <p></p>
     <center><h1>Tableau de suivi de stage</h1><p></p></center>
-    {% if is_granted('ROLE_ENSEIGNANT') %}
+    {% if is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}
 	  {% else %}
     <center><a href="{{ path('stageAjouter', { 'etudiant_id': 100 }) }}"><input type="button" value="Ajouter un nouveau stage" class="btn btn-secondary btn-sl"></a></center><br>
       {% endif %}

@@ -18,6 +18,7 @@ class EnseignantInfoType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        //Formulaire pour afficher les informations d'un enseignant
         $builder
             ->add('nom', TextType::class)
             ->add('prenom', TextType::class)

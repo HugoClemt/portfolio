@@ -24,6 +24,7 @@ class EtudiantType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        //Formulaire pour ajouter ou modifier les informations d'un étudiant
         $builder
             ->add('nom', TextType::class)
             ->add('prenom', TextType::class)

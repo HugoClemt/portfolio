@@ -1,4 +1,4 @@
-{% extends "entete.html.twig" %}
+{% extends "entete.html.twig" %}{# appelle l'entête (logo + menu déroulant) #}
 {% block content %}
 <body>
 <div class="container">
@@ -8,7 +8,7 @@
 	<span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
-	<ul class="navbar-nav">
+	<ul class="navbar-nav">{# barre de navigation propre au RP #}
 	  <li class="nav-item">
 		<a class="nav-link" href="{{ path('rpConsulter', { 'rp_id': pRP.id }) }}"> Description </a>
 	  </li>
@@ -25,13 +25,13 @@
 			<a class="nav-link" href="{{ path('rpPDF', { 'rp_id': pRP.id }) }}"> Générer PDF</a>
 		</li>
 	</ul>
-	  {% if is_granted('ROLE_ENSEIGNANT') %}
-        <a class="nav-link text-right text-info" data-toggle="modal" data-target="#ModalVisee">Viser la réalisation </a>
+	  {% if is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}
+        <a class="nav-link text-right text-info" data-toggle="modal" data-target="#ModalVisee">Viser la réalisation </a>{# bouton pour valider une RP  #}
 	  {% endif %}
   </div></center>
 </nav>
 
-<div class="modal fade" id="ModalVisee" tabindex="-1" role="dialog" aria-labelledby="ModalViseeLabel" aria-hidden="true">
+<div class="modal fade" id="ModalVisee" tabindex="-1" role="dialog" aria-labelledby="ModalViseeLabel" aria-hidden="true">{# pop-up pour confirmer la validation  #}
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content">
 						<div class="modal-header">
@@ -52,7 +52,7 @@
 						</div>
 					</div>
 					</div>
-					{% if is_granted('ROLE_ENSEIGNANT') %}
+					{% if is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}
 					{% else %}
 <center><br><a href="{{ path('ajouterProductionRP', { 'rp_id': pRP.id }) }}"><input type="button" value="Ajouter une nouvelle production" class="btn btn-secondary btn-sl"></a></center><br>
 {% endif %}
@@ -71,7 +71,7 @@
 				    <tr>
 				    	<td>{{ RPProduction.designation }}</td>
 						<td>{{ RPProduction.url }}</td> 
-						{% if is_granted('ROLE_ENSEIGNANT') %}
+						{% if is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}
 					{% else %}
 						<td><a href="{{ path('rpModifierProduction', {'production_id': RPProduction.id}) }}"><span title="Cliquer pour modifier">📝</span></a>
 						<td><a href="{{ path('rpDeleteProduction', {'production_id': RPProduction.id}) }}"><span title="Cliquer pour supprimer">❌</span></a>

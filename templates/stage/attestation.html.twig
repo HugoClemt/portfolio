@@ -1,10 +1,11 @@
+{# Structure de l'attestaion du stage avec les informations pré-remplie lors de la création du stage #}
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        {% for rp in pRp %}
-        <title>Attestation_{{ rp.source.libelle }}_{{ pEtudiant.nom }}_{{ pEtudiant.prenom}}</title>
-        {% endfor %}
+
+        <title>Attestation_Stage_{{ pStage.dateDebut|date('Y') }}_{{ pEtudiant.nom }}_{{ pEtudiant.prenom}}</title>
+
     </head>
     <style>
     div{
@@ -58,6 +59,7 @@
     }
     </style>
     <body>
+    
         <center><h2>Attestation de stage</h2></center>
         <p class='entreprise'>logo ou tampon de l'entreprise</p>
         <div>

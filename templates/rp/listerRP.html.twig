@@ -1,16 +1,16 @@
-{% extends "entete.html.twig" %}
+{% extends "entete.html.twig" %}{# appelle l'entête (logo + menu déroulant) #}
 {% block content %}
 <body>
 <div class="container">
 	<p></p><center><h1>Réalisations professionnelles</h1></center><p></p>
-				{{ form_start(form) }}
+				{{ form_start(form) }}{# appelle un formulaire servant à choisir une promotion #}
                 <label id="promotion" name="promotion">
                 {{ form_widget(form.id, {'attr': {'class': 'form-control'}})}}
                 </label> 
             <br>
 
 
-{% block javascripts %}
+{% block javascripts %}{# fonction jquery/AJAX affichant les RP appartenant à l'enseignant connecté et faisant partie de la promotion sélectionnée #}
 						<script src="https://code.jquery.com/jquery-3.4.1.js"
 									integrity= "sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" 
 									crossorigin="anonymous"> 

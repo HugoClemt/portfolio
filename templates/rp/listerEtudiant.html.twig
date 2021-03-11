@@ -1,15 +1,16 @@
-{% extends "entete.html.twig" %}
+{# liste les RP de l'étudiant connecté #}
+{% extends "entete.html.twig" %}{# appelle l'entête (logo + menu déroulant) #}
 {% block content %}
-{% for message in app.flashes('success') %}
+{% for message in app.flashes('success') %}{# affichera un message de succès si l'action est réussie #}
             <div class="alert alert-success">
                 {{ message }}
             </div>
 {% endfor %}
-{% if app.user.etudiant.id == pEtudiant.id %}
+{% if app.user.etudiant.id == pEtudiant.id %}{# vérifie que la page appartient bien à l'étudiant connecté #}
 <body>
 <div class="container">
 	<p></p><center><h1>Réalisation professionnelle</h1></center><p></p>
-	{% if is_granted('ROLE_ENSEIGNANT') %}
+	{% if is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}
 	{% else %}
 		<center><a href="{{ path('rpAjouter', { 'etudiant_id': app.user.etudiant.id }) }}"><input type="button" value="Ajouter une nouvelle réalisation professionnelle" class="btn btn-secondary btn-sl"></a></center><br>
 		{% endif %}
@@ -45,15 +46,9 @@
 				<br>
 
 
-
-				<!-- <div class="alert alert-warning" role="alert">
-	  			Vous n'avez pas encore inséré de <a href="..." class="alert-link">réalisation professionnelle</a> pour le moment.
-				</div>  -->
-
-
 		<br><br>
 </body>
-{% else %}
+{% else %}{# si la page n'appartient pas à l'étudiant connecté, un message s'affiche et bloque l'affichage #}
 <br>
 <center><p>Dommage c'est pas ta liste de réalisations professionnelles ! <a href="{{ path('etudiantListerLesRP', { 'etudiant_id': app.user.etudiant.id }) }}">Ta liste c'est par ici !</p></center>
 {% endif %}

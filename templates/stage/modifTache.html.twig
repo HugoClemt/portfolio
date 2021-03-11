@@ -1,4 +1,4 @@
-{% extends "entete.html.twig" %}
+{% extends "entete.html.twig" %}{# appelle l'entête (logo + menu déroulant) #}
 {% block content %}
 <body>
 <p></p>
@@ -13,12 +13,12 @@
             </tr>
         </thead>
         <tbody class="table" id="table" data-toggle="BootstrapTable" data-height="460">
-        {{ form_start(form) }}				
+        {{ form_start(form) }}{# appelle un formulaire servant à #}				
             <tr>
               <td style="width:120px">{{ form_widget(form.jour, {'attr': {'class': 'form-control'}}) }}</td>
               <td style="width:180px">{{ form_widget(form.domaine, {'attr': {'class': 'form-control'}}) }}</td>
               <td>{{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}</td>
-              <td>{{ form_widget(form.ajouter, {'attr': {'class': 'btn btn-secondary'}})}}</td>
+              <td>{{ form_widget(form.ajouter, {'attr': {'class': 'btn btn-secondary'}})}}{# bouton de validation #}</td>
             </tr>
         {{ form_end(form) }}
         </tbody>

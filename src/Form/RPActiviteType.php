@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 
 class RPActiviteType extends AbstractType
 {
+    //Formulaire enregistrer une activitée
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
