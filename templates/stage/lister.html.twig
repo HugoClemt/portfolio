@@ -46,7 +46,7 @@
         <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
           <thead>
             <tr>
-              <th scope="col">Etudiant</th>
+              <th scope="col">Professeur référent</th>
               <th scope="col">Entreprise</th>
               <th scope="col">Tuteur</th>
               <th scope="col">Date début</th>
@@ -56,7 +56,7 @@
           <tbody>
             {% for stage in pStages %}
               <tr>
-                <td>{{stage.enseignant.nom}}</td>
+                <td>{{stage.enseignant.prenom}} {{stage.enseignant.nom}}</td>
                 <td>{{stage.nomentreprise}}</td>
                 <td>{{stage.nomtut}}</td>
                 <td>{{stage.dateDebut|date('d/m/Y')}}</td>

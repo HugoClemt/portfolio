@@ -14,7 +14,7 @@
 <body>
   <div class="container">
     <p></p>
-    <center><h1>Consultation du stage</h1></center>
+    <center><h1>Carnet de Bord</h1></center>
       <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #DDDDDD;">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -62,9 +62,9 @@
         </div>
         <div class="col-md-2 mb-3">
         <span title="Ce code est une suite de chiffre et de lettre décrivant l'activté principal de l'entreprise">
-          <label for="validationCustom02"><b>Code NAF</b></label><img src={{ asset("images/info-8x.png") }} height=12>
+          <label for="validationCustom02"><b>Code NAF/APE</b></label><img src={{ asset("images/info-8x.png") }} height=12>
         </span>
-            {{ form_widget(formStage.codenaf, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}{# zone de information du code NAF de l'entreprise du stage  #}
+            {{ form_widget(formStage.codenaf, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}{# zone de information du Code NAF/APE de l'entreprise du stage  #}
         </div> 
       </div>
 
@@ -122,7 +122,9 @@
             {{ form_widget(formStage.lieu, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}{# zone de information du lieu du stage  #}
         </div>
         <div class="col-md-4 mb-3">
-          <label for="validationCustom02"><b>Sujet</b></label>
+          <span title="Le travail que vous allez réaliser pendant votre stage">
+          <label for="validationCustom02"><b>Sujet</b></label><img src={{ asset("images/info-8x.png") }} height=12>
+        </span>
             {{ form_widget(formStage.sujet, {'attr': {'class': 'form-control', 'disabled':'disabled'}}) }}{# zone de information du sujet du stage  #}
         </div>
         <div class="col-md-4 mb-3">
@@ -180,7 +182,7 @@
   {% if app.user.etudiant.id == pEtudiant.id %}{# vérifie que la page appartient bien à l'étudiant connecté #}
   <body>
   <div class="container">
-    <p></p><center><h1>Consultation du stage</h1></center>     
+    <p></p><center><h1>Carnet de Bord</h1></center>     
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #DDDDDD;">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -213,49 +215,49 @@
       <div class="form-row">
         <div class="col-md-6 mb-3">
           <label for="disabledTextInput"><b>Nom de l'entreprise</b></label>
-            {{ form_widget(form.nomentreprise, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du nom d'entreprise du stage  #}
+            {{ form_widget(formStage.nomentreprise, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du nom d'entreprise du stage  #}
         </div>
         <div class="col-md-4 mb-3">
         <span title="Ce code est une suite de 14 chiffre propre à l'entreprise">
           <label for="validationCustom02"><b>SIRET</b></label><img src={{ asset("images/info-8x.png") }} height=12>
         </span>
-            {{ form_widget(form.siret, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du siret de l'entreprise du stage  #}
+            {{ form_widget(formStage.siret, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du siret de l'entreprise du stage  #}
         </div>
         <div class="col-md-2 mb-3">
         <span title="Ce code est une suite de chiffre et de lettre décrivant l'activté principal de l'entreprise">
-          <label for="validationCustom02"><b>Code NAF</b></label><img src={{ asset("images/info-8x.png") }} height=12>
+          <label for="validationCustom02"><b>Code NAF/APE</b></label><img src={{ asset("images/info-8x.png") }} height=12>
         </span>
-            {{ form_widget(form.codenaf, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du code NAF de l'entreprise du stage  #}
+            {{ form_widget(formStage.codenaf, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du Code NAF/APE de l'entreprise du stage  #}
         </div> 
       </div>
 
       <div class="form-row">
         <div class="col-md-6 mb-3">
           <label for="validationCustom02"><b>Adresse</b></label>
-            {{ form_widget(form.adrentreprise, {'attr': {'class': 'form-control'}}) }}{# zone de saisie de l'adresse de l'entreprise du stage  #}
+            {{ form_widget(formStage.adrentreprise, {'attr': {'class': 'form-control'}}) }}{# zone de saisie de l'adresse de l'entreprise du stage  #}
         </div>
         <div class="col-md-4 mb-3">
           <label for="disabledTextInput"><b>Ville</b></label>
-            {{ form_widget(form.ville, {'attr': {'class': 'form-control'}}) }}{# zone de saisie de la ville de l'entreprise du stage  #}
+            {{ form_widget(formStage.ville, {'attr': {'class': 'form-control'}}) }}{# zone de saisie de la ville de l'entreprise du stage  #}
         </div>
         <div class="col-md-2 mb-3">
           <label for="disabledTextInput"><b>Code Postal</b></label>
-            {{ form_widget(form.copos, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du code postal de l'entreprise du stage #}
+            {{ form_widget(formStage.copos, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du code postal de l'entreprise du stage #}
         </div>
       </div>
       
       <div class="form-row">
         <div class="col-md-4 mb-3">
           <label for="disabledTextInput"><b>Nom du tuteur</b></label>
-            {{ form_widget(form.nomtut, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du nom du tuteur de stage #}
+            {{ form_widget(formStage.nomtut, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du nom du tuteur de stage #}
         </div>
         <div class="col-md-3 mb-3">
           <label for="validationCustom02"><b>Téléphone du tuteur</b></label>
-            {{ form_widget(form.teltut, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du numéro de téléphone du tuteur de stage #}
+            {{ form_widget(formStage.teltut, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du numéro de téléphone du tuteur de stage #}
         </div>
         <div class="col-md-5 mb-3">
           <label for="validationCustom02" ><b>Mail du tuteur</b></label>
-            {{ form_widget(form.mailtut, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du mail du tuteur de stage #}
+            {{ form_widget(formStage.mailtut, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du mail du tuteur de stage #}
         </div>
       </div>
 
@@ -263,15 +265,15 @@
       <div class="form-row">
         <div class="col-md-6 mb-3">
           <label for="disabledTextInput"><b>Directeur</b></label>
-            {{ form_widget(form.directeur, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du nom du directeur de l'entreprise du stage #}
+            {{ form_widget(formStage.directeur, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du nom du directeur de l'entreprise du stage #}
         </div>
         <div class="col-md-3 mb-3">
           <label for="validationCustom02" ><b>Mail</b></label>
-            {{ form_widget(form.mailentreprise, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du mail du directeur #}
+            {{ form_widget(formStage.mailentreprise, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du mail du directeur #}
         </div>
         <div class="col-md-3 mb-3">
           <label for="exampleInputEmail"><b>Téléphone</b></label>
-            {{ form_widget(form.telentreprise, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du numéro de téléphone du directeur du stage #}
+            {{ form_widget(formStage.telentreprise, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du numéro de téléphone du directeur du stage #}
         </div>
       </div>
       
@@ -280,15 +282,17 @@
         <span title="Lieux où s'effectura le stage, cela peut etre différent de l'adresse de l'entreprise">
           <label for="disabledTextInput"><b>Lieu du stage</b></label><img src={{ asset("images/info-8x.png") }} height=12>
         </span>
-            {{ form_widget(form.lieu, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du lieu du stage  #}
+            {{ form_widget(formStage.lieu, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du lieu du stage  #}
         </div>
         <div class="col-md-4 mb-3">
-          <label for="validationCustom02"><b>Sujet</b></label>
-            {{ form_widget(form.sujet, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du sujet du stage  #}
+          <span title="Le travail que vous allez réaliser pendant votre stage">
+          <label for="validationCustom02"><b>Sujet</b></label><img src={{ asset("images/info-8x.png") }} height=12>
+        </span>
+            {{ form_widget(formStage.sujet, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du sujet du stage  #}
         </div>
         <div class="col-md-4 mb-3">
             <label for="validationCustom02"><b>Service</b></label>
-              {{ form_widget(form.service, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du service  #}
+              {{ form_widget(formStage.service, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du service  #}
           </div>
       </div>
       
@@ -296,42 +300,42 @@
       <div class="form-row">
         <div class="col-md-3 mb-3">
           <label for="disabledTextInput"><b>Date de debut du stage</b></label>
-            {{ form_widget(form.dateDebut, {'attr': {'class': 'form-control'}}) }}{# zone de saisie des dates du stage  #}
+            {{ form_widget(formStage.dateDebut, {'attr': {'class': 'form-control'}}) }}{# zone de saisie des dates du stage  #}
         </div>
         <div class="col-md-3 mb-3">
           <label for="validationCustom02"><b>Date de fin du stage</b></label>
-            {{ form_widget(form.dateFin, {'attr': {'class': 'form-control'}}) }}{# zone de saisie des dates du stage  #}
+            {{ form_widget(formStage.dateFin, {'attr': {'class': 'form-control'}}) }}{# zone de saisie des dates du stage  #}
         </div>
         <div class="col-md-6 mb-3">
           <label for="disabledTextInput"><b>Durée (en semaines)</b></label>
-            {{ form_widget(form.nbsemaine, {'attr': {'class': 'form-control'}}) }}{# zone de saisie de la durée du stage  #}
+            {{ form_widget(formStage.nbsemaine, {'attr': {'class': 'form-control'}}) }}{# zone de saisie de la durée du stage  #}
         </div>
       </div>
     
       <div class="form-row">
         <div class="col-md-2 mb-3">
           <label for="validationCustom02" ><b>Horaire Lundi</b></label>
-            {{ form_widget(form.horLun, {'attr': {'class': 'form-control'}}) }}{# zone de saisie des horaires  #}
+            {{ form_widget(formStage.horLun, {'attr': {'class': 'form-control'}}) }}{# zone de saisie des horaires  #}
         </div>
         <div class="col-md-2 mb-3">
         <label for="validationCustom02" ><b>Horaire Mardi</b></label>
-            {{ form_widget(form.horMar, {'attr': {'class': 'form-control'}}) }}{# zone de saisie des horaires  #}
+            {{ form_widget(formStage.horMar, {'attr': {'class': 'form-control'}}) }}{# zone de saisie des horaires  #}
         </div>
         <div class="col-md-2">
           <label for="validationCustom02" ><b>Horaire Mercredi</b></label>
-            {{ form_widget(form.horMer, {'attr': {'class': 'form-control'}}) }}{# zone de saisie des horaires  #}
+            {{ form_widget(formStage.horMer, {'attr': {'class': 'form-control'}}) }}{# zone de saisie des horaires  #}
         </div>
         <div class="col-md-2">
           <label for="validationCustom02" ><b>Horaire Jeudi</b></label>
-            {{ form_widget(form.horJeu, {'attr': {'class': 'form-control'}}) }}{# zone de saisie des horaires  #}
+            {{ form_widget(formStage.horJeu, {'attr': {'class': 'form-control'}}) }}{# zone de saisie des horaires  #}
         </div>
         <div class="col-md-2">
           <label for="validationCustom02" ><b>Horaire Vendredi</b></label>
-            {{ form_widget(form.horVen, {'attr': {'class': 'form-control'}}) }}{# zone de saisie des horaires  #}
+            {{ form_widget(formStage.horVen, {'attr': {'class': 'form-control'}}) }}{# zone de saisie des horaires  #}
         </div>
         <div class="col-md-2 mb-3">
           <label for="validationCustom02" ><b>Horaire Samedi</b></label>
-            {{ form_widget(form.horSam, {'attr': {'class': 'form-control'}}) }}{# zone de saisie des horaires  #}
+            {{ form_widget(formStage.horSam, {'attr': {'class': 'form-control'}}) }}{# zone de saisie des horaires  #}
         </div>
       </div>
       <br>

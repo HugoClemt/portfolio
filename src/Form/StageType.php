@@ -52,11 +52,7 @@ class StageType extends AbstractType
             ->add('ville')
             ->add('copos')
             ->add('enregistrer', SubmitType::class, array('label' => 'Valider'))
-            ->add('enseignant', EntityType::class, array(
-                'class' => 'App\Entity\Enseignant',
-                'choice_label' => function (Enseignant $enseignant) {
-                    return $enseignant->getNom() . ' ' . $enseignant->getPrenom();
-                    },));
+            ;
             
         }
     

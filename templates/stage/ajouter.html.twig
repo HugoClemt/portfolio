@@ -19,9 +19,9 @@
       </div>
       <div class="col-md-2 mb-3">
       <span title="Ce code est une suite de chiffre et de lettre décrivant l'activté principal de l'entreprise">
-        <label for="validationCustom02"><b>Code NAF</b></label><img src={{ asset("images/info-8x.png") }} height=12>
+        <label for="validationCustom02"><b>Code NAF/APE</b></label><img src={{ asset("images/info-8x.png") }} height=12>
       </span>
-          {{ form_widget(form.codenaf, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du code NAF de l'entreprise du stage  #}
+          {{ form_widget(form.codenaf, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du Code NAF/APE de l'entreprise du stage  #}
       </div> 
     </div>
 
@@ -79,7 +79,9 @@
           {{ form_widget(form.lieu, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du lieu du stage  #}
       </div>
       <div class="col-md-4 mb-3">
-        <label for="validationCustom02"><b>Sujet</b></label>
+        <span title="Le travail que vous allez réaliser pendant votre stage">
+          <label for="validationCustom02"><b>Sujet</b></label><img src={{ asset("images/info-8x.png") }} height=12>
+        </span>
           {{ form_widget(form.sujet, {'attr': {'class': 'form-control'}}) }}{# zone de saisie du sujet du stage  #}
       </div>
       <div class="col-md-4 mb-3">
