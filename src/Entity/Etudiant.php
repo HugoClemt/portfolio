@@ -86,10 +86,21 @@ class Etudiant
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $projetProfessionnel;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Certification::class, mappedBy="etudiant")
+     */
+    private $certifications;
+
     public function __construct()
     {
         $this->RPs = new ArrayCollection();
         $this->stages = new ArrayCollection();
+        $this->certifications = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -285,6 +296,48 @@ class Etudiant
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getProjetProfessionnel(): ?string
+    {
+        return $this->projetProfessionnel;
+    }
+
+    public function setProjetProfessionnel(?string $projetProfessionnel): self
+    {
+        $this->projetProfessionnel = $projetProfessionnel;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Certification[]
+     */
+    public function getCertifications(): Collection
+    {
+        return $this->certifications;
+    }
+
+    public function addCertification(Certification $certification): self
+    {
+        if (!$this->certifications->contains($certification)) {
+            $this->certifications[] = $certification;
+            $certification->setEtudiant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCertification(Certification $certification): self
+    {
+        if ($this->certifications->removeElement($certification)) {
+            // set the owning side to null (unless already changed)
+            if ($certification->getEtudiant() === $this) {
+                $certification->setEtudiant(null);
+            }
+        }
 
         return $this;
     }

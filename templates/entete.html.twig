@@ -92,6 +92,19 @@
       </li>
       <li class="nav-item dropdown">
         <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Certification
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        {% if is_granted('ROLE_ENSEIGNANT') %}{# si l'utilisateur connecté possède le rôle enseignant #}
+          <a class="dropdown-item" href="#">Lister les certifications</a>{# lien vers la page pour lister les RP à commenter #}
+        {% else %}
+          {# <a class="dropdown-item" href="#">Nouvelle certification</a> #}
+          <a class="dropdown-item" href="{{ path('ListerCertification', { 'etudiant_id': app.user.etudiant.id }) }}">Lister mes certifications</a>
+        {% endif %} 
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Synthèse
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">

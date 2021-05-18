@@ -128,7 +128,7 @@ class RPController extends AbstractController
             ['etudiant' => $etudiant_id, 'archivage' => 0], array('dateModif'=>'desc'));
             
             return $this->render('rp/listerEtudiant.html.twig', [ 'pRP' => $MesRp, 'pEtudiant' => $etudiant]);
-    }
+    } 
 
     //Fonction lister les RP qui sont archiver concernant l'étudiant connecter
     public function listerRPArchiver($etudiant_id){

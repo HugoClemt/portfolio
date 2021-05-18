@@ -284,5 +284,7 @@ ListerStages:
 
 
 
-
+ListerCertification:
+    path: /etudiant/certification/ListerCertification/{etudiant_id}
+    controller: App\Controller\CertificationController::ListerCertification
 

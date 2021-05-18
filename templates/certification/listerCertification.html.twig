@@ -1,0 +1,40 @@
+{% extends "entete.html.twig" %}{# appelle l'entête (logo + menu déroulant) #}
+{% block content %}
+{% if app.user.etudiant.id == pEtudiant.id %}{# vérifie que la page appartient bien à l'étudiant connecté #}
+<body>
+<div class="container">
+	<p></p><center><h1>Certification</h1></center><p></p>
+    <p>Projet Professionnelle: {{ pEtudiant.projetProfessionnel }}</p>
+	<br>
+        <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
+		    <thead>
+				<tr>
+				    <th scope="col" data-sortable="true">Certification</th>
+                    <th scope="col" data-sortable="true">Lien URL</th>
+				    <th scope="col" data-sortable="true">Période suivi</th>
+				    <th scope="col" data-sortable="true">Objectif</th>
+					<th scope="col" data-sortable="true">Analyse Personnelle</th> 
+				    <th scope="col" data-sortable="true">Résultat</th>
+				</tr>
+			</thead>
+		    <tbody>
+			{% for certif in pCertif %}
+				<tr>
+					<td>{{ certif.libelle }}</td>
+				    <td>{{ certif.url }}</td>
+				    <td>{{ certif.periodeSuivi }}</td>
+					<td>{{ certif.objectif }}</td>
+				    <td>{{ certif.analyse }}</td>
+                    <td>{{ certif.resultal }}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+		<br>
+</div>
+</body>
+{% else %}{# si la page n'appartient pas à l'étudiant connecté, un message s'affiche et bloque l'affichage #}
+<br>
+<center><p>Dommage c'est pas ta liste de réalisations professionnelles ! <a href="{{ path('etudiantListerLesRP', { 'etudiant_id': app.user.etudiant.id }) }}">Ta liste c'est par ici !</p></center>
+{% endif %}
+{% endblock %}
