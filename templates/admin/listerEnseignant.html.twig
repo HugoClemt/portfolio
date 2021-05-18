@@ -34,7 +34,20 @@
                         <td><a href='{{ path('MDPDefaultEnseignant', { 'user_id': enseignant.user.id }) }}'>Réinitialiser MDP</a></td>
                     {% else %}
                         <td>Aucun compte associé</td>
+
                     {% endif %}
+                    {% if enseignant.user is not null %}
+                        <td><a href='{{ path('ConsulterEnseignantAdmin', { 'user_id': enseignant.user.id }) }}'>Modifier le profil</a></td>
+                    {% else %}
+                        <td>Aucun compte associé</td>
+                    {% endif %}
+
+                    {% if enseignant.user is not null %}
+                        <td><a href='{{ path('SupprimerEnseignantAdmin', { 'user_id': enseignant.user.id }) }}'>Supprimer</a></td>
+                    {% else %}
+                        <td>Aucun compte associé</td>
+                    {% endif %}
+                    
 				</tr>
             {% else %}
             {% endif %}

@@ -75,6 +75,8 @@ class Enseignant
      */
     private $promotion;
 
+
+
     
 
     public function __construct()
@@ -288,6 +290,8 @@ class Enseignant
 
         return $this;
     }
+
+
 
     
 

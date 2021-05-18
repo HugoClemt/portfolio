@@ -1,0 +1,90 @@
+{% extends "entete.html.twig" %}{# appelle l'entête (logo + menu déroulant) #}
+{% block content %}
+<body>
+    <div class="container">
+    <br>
+    <center><h2>Coordonnées</h2></center><p></p>
+        {{ form_start(form) }}{# appelle un formulaire servant à afficher un enseignant #}
+        <div class="form-row">
+            <div class="col-md-6 mb-3">
+                <label><b>Nom</b></label>
+                    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}})}}{# zone de saisie gérant le nom #}
+            </div>
+            <div class="col-md-6 mb-3">
+                <label><b>Prenom</b></label>
+                    {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}})}}{# zone de saisie gérant le prénom #}
+            </div>
+            
+        </div>  
+    </div>
+
+<div class="container">
+        <p></p>
+        <center><h1>Liste Promotion</h1></center>
+        <p></p>
+        <table class="table" id="table" data-toggle="BootstrapTable" data-height="460">
+			<thead>
+				<tr>
+					<th scope="col" data-sortable="true">Suivi</th>
+				    <th scope="col" data-sortable="true">Nom Promotion</th>
+				</tr>
+			</thead>
+			<tbody>
+            {% for promotion in pPromotions %}
+			    <tr>
+                    <td><input type="checkbox" id="selectPromo" name={{ promotion.id }}></input></td>
+			        <td>{{ promotion.nom }}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+    </div>
+
+    {% block javascripts %}
+			<script src="https://code.jquery.com/jquery-3.4.1.js" integrity= "sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
+			<script>
+				jQuery( document ).ready(function( $ ) {
+
+                    $("#Modifier").click(function () {
+						var selected = [];
+							$('#checkboxes input:checked').each(function() {
+								selected.push($(this).attr('name'));
+							});
+						var numeroEnseignant = $("#ens").attr('value');
+						var selectedString = JSON.stringify(selected);
+
+						$.ajax({
+						type: "post",
+						url: '{{ path('AffecterPromotion') }}',
+						data: { numeroEnseignant : numeroEnseignant, selectedString : selectedString },
+						dataType: "json",
+						success: function (json) {
+									$.each(json, function (index, value) {
+									
+									});
+									location.reload();
+						},
+								
+						error: function(jxh,textmsg,errorThrown){
+									console.log(textmsg);
+									console.log(errorThrown);
+								}
+						});
+					})
+
+				});
+			</script>
+		{% endblock %}
+
+        <label id="ens">
+			{{ pEnseignant.id }}
+		</label> 
+
+    <center>
+        <button type="sumbit" class="btn btn-secondary" id="Modifier">Appliquer les modifications</button>
+        <a class="btn btn-secondary" href='{{ path('MDPDefaultEnseignant', { 'user_id': pEnseignant.user.id }) }}'>Réinitialiser MDP</a> 
+    </center>
+    
+</body>
+{% endblock %}

@@ -39,6 +39,8 @@ class Promotion
      */
     private $enseignants;
 
+   
+
     public function __construct()
     {
         $this->etudiants = new ArrayCollection();
@@ -142,4 +144,6 @@ class Promotion
 
         return $this;
     }
+
+
 }

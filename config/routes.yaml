@@ -73,15 +73,25 @@ MDPDefaultEnseignant:
     path: /admin/REmdpEnseignant/{user_id}
     controller: App\Controller\AdminController::REmpdEnseignant
 
-#Reinitailisation du mdp enseignant   
+#Reinitailisation du mdp etudiant   
 MDPDefaultEtudiant:
     path: /admin/REmdpEtudiant/{user_id}
     controller: App\Controller\AdminController::REmpdEtudiant
 
-#Reinitailisation du mdp enseignant   
+#Consulto-Modifier Etudiant   
 ConsulterEtudiantAdmin:
     path: /admin/ConsulterEtudiantAdmin/{user_id}
     controller: App\Controller\AdminController::ConsulterEtudiantAdmin
+
+#Consulto-Modifier Enseignant  
+ConsulterEnseignantAdmin:
+    path: /admin/ConsulterEnseignantAdmin/{user_id}
+    controller: App\Controller\AdminController::ConsulterEnseignantAdmin
+
+#Supprimer Enseignant  
+SupprimerEnseignantAdmin:
+    path: /admin/SupprimerEnseignantAdmin/{user_id}
+    controller: App\Controller\AdminController::SupprimerEnseignantAdmin    
 
         # Route concernant RP ( etudiant )
 

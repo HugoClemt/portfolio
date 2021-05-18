@@ -11,6 +11,7 @@ use App\Form\PromotionType;
 use App\Form\EtudiantType;
 use App\Form\EtudiantInfoType;
 use App\Form\EnseignantType;
+use App\Form\EnseignantInfoType;
 use App\Entity\User;
 use App\Entity\Etudiant;
 use App\Entity\Enseignant;
@@ -289,6 +290,108 @@ class AdminController extends AbstractController
         {
             return $this->render('admin/consulterEtudiant.html.twig', array('form'=>$form->createView(), 'pEtudiant' => $etudiant, 'pUser' => $user));
         }
+    }
+
+    //Fonction pour consulter les informations d'un compte enseignant avec la possibilté de modifier certaine données
+    public function ConsulterEnseignantAdmin($user_id, Request $request, UserPasswordEncoderInterface $passwordEncoder){
+
+        $user = $this->getDoctrine()
+        ->getRepository(User::class)
+        ->findOneById($user_id);
+
+        $enseignant = $this->getDoctrine()
+        ->getRepository(Enseignant::class)
+        ->find($user->getEnseignant()->getId());
+
+        $promotions = $this->getDoctrine()
+        ->getRepository(Promotion::class)
+        ->findAll();
+
+        $form = $this->createForm(EnseignantInfoType::class, $enseignant);
+        $form->handleRequest($request);
+        //$etudiant->setPromotion($promotion);
+
+        if($form->isSubmitted()){
+
+            $enseignant = $form->getData();
+            $user->setUsername(strtolower($enseignant->getPrenom()).".".strtolower($enseignant->getNom()));
+            
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($enseignant);
+            $entityManager->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+            return $this->render('admin/consulterEnseignant.html.twig', array('form'=>$form->createView(), 'pEnseignant' => $enseignant, 'pUser' => $user, 'pPromotions' => $promotions));
+        }
+        else
+        {
+            return $this->render('admin/consulterEnseignant.html.twig', array('form'=>$form->createView(), 'pEnseignant' => $enseignant, 'pUser' => $user, 'pPromotions' => $promotions));
+        }
+    }
+
+    //Fonction pour affecter un enseignant à une ou plusieurs promotions
+    /**
+     * @Route(name="AffecterPromotion",path="/AffecterPromotion")
+     * @param Request $request
+     */
+    public function AffecterPromotion(Request $request){
+
+        $numeroEnseignant=$_POST["numeroEnseignant"];
+        $selectedString=$_POST["selectedString"];
+        $enseignant = $this->getDoctrine()
+        ->getRepository(Enseignant::class)
+        ->findOneById($numeroEnseignant);
+
+     
+
+        $selectedString = str_replace("\"", "", $selectedString);
+
+        $selectedString = str_replace("[", "", $selectedString);
+
+        $selectedString = str_replace("]", "", $selectedString);
+
+        $selected = explode(",", $selectedString);
+
+        foreach ($selected as $promotion_id){
+            if(!$promotion_id){
+            }
+            else{
+                $promotion = $this->getDoctrine()
+                ->getRepository(Promotion::class)
+                ->findOneById($promotion_id);
+                $enseignant->addPromotion($promotion);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($enseignant);
+                $entityManager->flush();
+            }
+           
+        }
+        $output=array();
+        return new JsonResponse($output);
+    }
+
+    //Fonction pour consulter les informations d'un compte enseignant avec la possibilté de modifier certaine données
+    public function SupprimerEnseignantAdmin($user_id){
+
+        $user = $this->getDoctrine()
+        ->getRepository(User::class)
+        ->findOneById($user_id);
+
+        $enseignant = $this->getDoctrine()
+        ->getRepository(Enseignant::class)
+        ->find($user->getEnseignant()->getId());
+        $enseignant->setStatut("archive");
+
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($user);
+        $manager->flush();
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($enseignant);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('listerEnseignant');    
     }
 
     //Fonction pour deplacer un etudiant d'un promotion à une autre promotion
